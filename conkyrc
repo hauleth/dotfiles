@@ -1,0 +1,42 @@
+background yes
+draw_borders no
+draw_shades no
+
+#default_color 636162
+default_color 000000
+
+own_window no
+own_window_type desktop
+own_window_transparent yes
+own_window_hints undecorated, sticky, below, skip_pager, skip_taskbar
+
+use_xft yes
+xftfont Inconcolata:size=11
+xftalpha 0.5
+
+update_interval 1
+double_buffer yes
+
+alignment top_right
+gap_x 20
+gap_y 10
+
+TEXT
+
+${font :size=25}$alignc${time %H:%M}$font
+$alignc${time %A, %d %B %Y}
+
+${color E0561B}${font :size=11}System$color $hr$font
+Uptime:$alignr$uptime
+
+${color E0561B}${font :size=11}Processor$color $hr$font
+CPU: ${cpu}% ${cpubar 7, }
+${top name 1} $alignr${top cpu 1}
+${top name 2} $alignr${top cpu 2}
+${top name 3} $alignr${top cpu 3}
+
+${color E0561B}${font :size=11}Memory$color $hr$font
+Memory:$alignr${mem} / ${memmax}
+${memperc}% ${membar 7, }
+Cached:$alignr${cached}
+Swap:$alignr${swap} / ${swapmax}
