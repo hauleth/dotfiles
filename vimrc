@@ -258,6 +258,7 @@ vmap <Leader>a,           :Tabularize /,\zs<CR>
 map <Leader>y "+y
 map <Leader>p "+p
 
+nnoremap <F2> :GitGutterToggle<CR>
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :IndentGuidesToggle<CR>
 
