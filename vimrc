@@ -197,6 +197,7 @@ map <silent> <F7>         :tabprev<CR>
 map <silent> <F8>         :tabnext<CR>
 map <silent> <leader>tn   :tabnew<CR>
 map <silent> <leader>tc   :tabclose<CR>
+map <silent> <S-Tab>      :tabnext<CR>
 
 " Buffers
 map <silent> <F5>         :bprev<CR>
