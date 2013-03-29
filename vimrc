@@ -107,10 +107,16 @@ syntax on
 
 set colorcolumn=100
 
+set background=dark
+colorscheme solarized
+
+" Powerline settings
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_theme = 'solarized256'
+let g:Powerline_colorscheme = 'solarized256'
+
 " Set extra options when running in GUI mode
 if has("gui_running")
-  set background=dark
-  colorscheme solarized
 
   set guifont=Inconsolata\ 12
 
@@ -121,11 +127,6 @@ if has("gui_running")
 
   "highlight OverLength guibg=#592929
   "match OverLength /\%>100v.\+/
-
-  " Powerline settings
-  let g:Powerline_symbols = 'fancy'
-  let g:Powerline_theme = 'solarized256'
-  let g:Powerline_colorscheme = 'solarized256'
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -335,8 +336,6 @@ end
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extras
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-au! BufWritePost .vimrc source % "Reload .vimrc on save
-
 let g:markdown_extensions=["md", "markdown"]
 let g:gist_clip_command = 'xclip -selection clipboard'
 
