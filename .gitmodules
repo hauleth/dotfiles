@@ -43,3 +43,9 @@
 [submodule "vim/bundle/puppet"]
 	path = vim/bundle/puppet
 	url = git://github.com/rodjek/vim-puppet.git
+[submodule "vim/bundle/fireplace"]
+	path = vim/bundle/fireplace
+	url = git://github.com/tpope/vim-fireplace.git
+[submodule "vim/bundle/clojure-static"]
+	path = vim/bundle/clojure-static
+	url = git://github.com/guns/vim-clojure-static.git
