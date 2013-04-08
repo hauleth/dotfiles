@@ -1,5 +1,6 @@
 " Infect Vim with pathogen
 call pathogen#infect()
+call pathogen#helptags()
 
 " Use ZSH as Vim shell to get rid of strange errors
 set shell=/bin/zsh
@@ -407,22 +408,22 @@ function! s:Kwbd(kwbdStage)
     if(!s:buflistedLeft)
       if(s:bufFinalJump)
         windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
-    else
-      enew
-      let l:newBuf = bufnr("%")
-      windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
-  endif
-  execute s:kwbdWinNum . 'wincmd w'
-endif
-if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
-  execute "bd! " . s:kwbdBufNum
-endif
-if(!s:buflistedLeft)
-  set buflisted
-  set bufhidden=delete
-  set buftype=
-  setlocal noswapfile
-endif
+      else
+        enew
+        let l:newBuf = bufnr("%")
+        windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
+      endif
+      execute s:kwbdWinNum . 'wincmd w'
+    endif
+    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
+      execute "bd! " . s:kwbdBufNum
+    endif
+    if(!s:buflistedLeft)
+      set buflisted
+      set bufhidden=delete
+      set buftype=
+      setlocal noswapfile
+    endif
   else
     if(bufnr("%") == s:kwbdBufNum)
       let prevbufvar = bufnr("#")
