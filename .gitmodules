@@ -1,6 +1,7 @@
 [submodule "vim/bundle/ag"]
 	path = vim/bundle/ag
 	url = https://github.com/vim-scripts/ag.vim.git
+	ignore = dirty
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
@@ -12,7 +13,8 @@
 	url = https://github.com/myusuf3/numbers.vim.git
 [submodule "vim/bundle/sparkup"]
 	path = vim/bundle/sparkup
-	url = https://github.com/tristen/vim-sparkup.git
+  url = https://github.com/tristen/vim-sparkup.git
+  ignore = dirty
 [submodule "vim/bundle/fish"]
 	path = vim/bundle/fish
 	url = https://github.com/Soares/fish.vim.git
@@ -43,6 +45,7 @@
 [submodule "vim/bundle/clojure-static"]
 	path = vim/bundle/clojure-static
 	url = git://github.com/guns/vim-clojure-static.git
+  ignore = dirty
 [submodule "vim/bundle/ruby-refactoring"]
 	path = vim/bundle/ruby-refactoring
 	url = https://github.com/rking/vim-ruby-refactoring.git
