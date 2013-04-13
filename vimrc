@@ -106,7 +106,7 @@ set foldlevel=1         "this is just what i use
 " Turn on syntax highlighting
 syntax on
 
-set colorcolumn=100
+set colorcolumn=80
 
 set background=dark
 colorscheme solarized
@@ -172,7 +172,7 @@ set expandtab
 au FileType Makefile set noexpandtab
 
 " Display tabs and trailing spaces visually
-set list listchars=tab:\ \ ,trail:·
+set list listchars=tab:→\ ,trail:·
 
 set nowrap       "Don't wrap lines
 set linebreak    "Wrap lines at convenient points
@@ -261,7 +261,7 @@ vmap <Leader>a,           :Tabularize /,\zs<CR>
 map <Leader>y "+y
 map <Leader>p "+p
 
-nnoremap <F2> :GitGutterToggle<CR>
+nnoremap <F2> :GundoToggle<CR>
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :IndentGuidesToggle<CR>
 
@@ -269,8 +269,6 @@ nnoremap <F4> :IndentGuidesToggle<CR>
 inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 " Check syntax or preview file
-au FileType markdown map <silent> <F9> :!markdown-preview % &<CR>
-au FileType ruby     map <silent> <F9> :!ruby -c %<CR>
 au FileType scss     map <silent> <F9> :!scss -c %<CR>
 au FileType sass     map <silent> <F9> :!sass -c %<CR>
 
@@ -290,7 +288,7 @@ autocmd FileType css            set omnifunc=csscomplete#CompleteCSS
 autocmd FileType c              set omnifunc=ccomplete#Complete
 autocmd FileType c              set tags+=~/.vim/tags/stdlib
 autocmd FileType java           set omnifunc=javacomplete#Complete
-autocmd FileType ruby,eruby     set omnifunc=rubycomplete#Complete
+autocmd FileType eruby     set omnifunc=rubycomplete#Complete
 autocmd Filetype *
       \ if &omnifunc == "" |
       \   setlocal omnifunc=syntaxcomplete#Complete |
@@ -299,9 +297,9 @@ autocmd Filetype *
 autocmd BufNewFile,BufRead *.scss   set ft=scss.css syntax=scss
 autocmd BufNewFile,BufRead *.sass   set ft=sass.css syntax=sass
 
-autocmd FileType ruby,eruby         let g:rubycomplete_buffer_loading = 0
-autocmd FileType ruby,eruby         let g:rubycomplete_rails = 1
-autocmd FileType ruby,eruby         let g:rubycomplete_classes_in_global = 1
+autocmd FileType eruby         let g:rubycomplete_buffer_loading = 0
+autocmd FileType eruby         let g:rubycomplete_rails = 1
+autocmd FileType eruby         let g:rubycomplete_classes_in_global = 1
 
 " Improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
@@ -309,7 +307,7 @@ highlight Pmenu ctermbg=238 gui=bold
 let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Let tab work in Markdown files
-au FileType markdown,html,eruby inoremap <Tab> <Tab>
+au FileType html,eruby inoremap <Tab> <Tab>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Taglist

@@ -3,7 +3,7 @@
 	url = https://github.com/vim-scripts/ag.vim.git
 [submodule "vim/bundle/powerline"]
 	path = vim/bundle/powerline
-	url = https://github.com/Lokaltog/vim-powerline.git
+	url = git://github.com/Lokaltog/powerline.git
 [submodule "vim/bundle/solarized"]
 	path = vim/bundle/solarized
 	url = https://github.com/altercation/vim-colors-solarized.git
@@ -37,9 +37,6 @@
 [submodule "vim/bundle/rails"]
 	path = vim/bundle/rails
 	url = https://github.com/tpope/vim-rails.git
-[submodule ".vim/bundle/puppet"]
-	path = .vim/bundle/puppet
-	url = git://github.com/rodjek/vim-puppet.git
 [submodule "vim/bundle/puppet"]
 	path = vim/bundle/puppet
 	url = git://github.com/rodjek/vim-puppet.git
