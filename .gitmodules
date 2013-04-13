@@ -49,3 +49,9 @@
 [submodule "vim/bundle/clojure-static"]
 	path = vim/bundle/clojure-static
 	url = git://github.com/guns/vim-clojure-static.git
+[submodule "vim/bundle/ruby-refactoring"]
+	path = vim/bundle/ruby-refactoring
+	url = https://github.com/rking/vim-ruby-refactoring.git
+[submodule "vim/bundle/gundo"]
+	path = vim/bundle/gundo
+	url = git://github.com/sjl/gundo.vim.git
