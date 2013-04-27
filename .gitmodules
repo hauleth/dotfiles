@@ -55,3 +55,9 @@
 [submodule "vim/bundle/ruby"]
 	path = vim/bundle/ruby
 	url = git://github.com/vim-ruby/vim-ruby.git
+[submodule "vim/bundle/typescript"]
+	path = vim/bundle/typescript
+	url = git://github.com/leafgarland/typescript-vim.git
+[submodule "vim/bundle/mru"]
+	path = vim/bundle/mru
+	url = git://github.com/vim-scripts/mru.vim.git
