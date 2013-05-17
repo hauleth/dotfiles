@@ -199,7 +199,6 @@ map <silent> <F7>         :tabprev<CR>
 map <silent> <F8>         :tabnext<CR>
 map <silent> <leader>tn   :tabnew<CR>
 map <silent> <leader>tc   :tabclose<CR>
-map <silent> <S-Tab>      :tabnext<CR>
 
 " Buffers
 map <silent> <F5>         :bprev<CR>
@@ -229,6 +228,9 @@ nmap <A-up>     :leftabove  new<CR>
 nmap <A-down>   :rightbelow new<CR>
 
 nmap <S-ESC>    :close<CR>
+
+nmap XX         :wqa<CR>
+nmap CC         :qa<CR>
 
 " Split line at cursor position
 nmap K i<CR><Esc>k$
@@ -264,9 +266,6 @@ map <Leader>p "+p
 nnoremap <F2> :GundoToggle<CR>
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :IndentGuidesToggle<CR>
-
-" Automatically tabelize pipe-delimited tables
-inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 " Check syntax or preview file
 au FileType scss     map <silent> <F9> :!scss -c %<CR>
@@ -304,7 +303,7 @@ autocmd FileType eruby         let g:rubycomplete_classes_in_global = 1
 " Improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Let tab work in Markdown files
 au FileType html,eruby inoremap <Tab> <Tab>
@@ -321,18 +320,6 @@ let Tlist_Use_SingleClick = 1
 let Tlist_Auto_Highlight_Tag = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => BufferExplorer
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:miniBufExplMapCTabSwitchBufs = 1
-let g:miniBufExplUseSingleClick = 1
-if &diff
-  let g:miniBufExplorerMoreThanOne=3
-else
-  let g:miniBufExplorerMoreThanOne=2
-end
-"let g:miniBufExplModSelTarget = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extras
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:markdown_extensions=["md", "markdown"]
@@ -344,6 +331,8 @@ let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
 
 let g:syntastic_style_warning_symbol = '≈≈'
+
+cmap w!! %!sudo tee > /dev/null %
 
 command! Todo noautocmd vimgrep /TODO\|FIXME/j **/*.{py,rb,css,js,coffee,c,cpp,c++,cxx,h,hpp,h++,hxx,scss,sass} | cw
 
@@ -364,17 +353,6 @@ endfunction
 if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
 endif
-
-function! s:align()
-  let p = '^\s*|\s.*\s|\s*$'
-  if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
-    let column = strlen(substitute(getline('.')[0:col('.')],'[^|]','','g'))
-    let position = strlen(matchstr(getline('.')[0:col('.')],'.*|\s*\zs.*'))
-    Tabularize/|/l1
-    normal! 0
-    call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
-  endif
-endfunction
 
 "delete the buffer; keep windows; create a scratch buffer if no buffers left
 function! s:Kwbd(kwbdStage)
