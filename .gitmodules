@@ -1,63 +1,72 @@
 [submodule "vim/bundle/ag"]
-	path = vim/bundle/ag
-	url = https://github.com/vim-scripts/ag.vim.git
-	ignore = dirty
+  path = vim/bundle/ag
+  url = https://github.com/vim-scripts/ag.vim.git
+  ignore = dirty
 [submodule "vim/bundle/solarized"]
-	path = vim/bundle/solarized
-	url = https://github.com/altercation/vim-colors-solarized.git
+  path = vim/bundle/solarized
+  url = https://github.com/altercation/vim-colors-solarized.git
 [submodule "vim/bundle/command-t"]
-	path = vim/bundle/command-t
-	url = git://git.wincent.com/command-t.git
+  path = vim/bundle/command-t
+  url = git://git.wincent.com/command-t.git
 [submodule "vim/bundle/numbers"]
-	path = vim/bundle/numbers
-	url = https://github.com/myusuf3/numbers.vim.git
+  path = vim/bundle/numbers
+  url = https://github.com/myusuf3/numbers.vim.git
 [submodule "vim/bundle/sparkup"]
-	path = vim/bundle/sparkup
+  path = vim/bundle/sparkup
   url = https://github.com/tristen/vim-sparkup.git
   ignore = dirty
 [submodule "vim/bundle/fish"]
-	path = vim/bundle/fish
-	url = https://github.com/Soares/fish.vim.git
+  path = vim/bundle/fish
+  url = https://github.com/Soares/fish.vim.git
 [submodule "vim/bundle/syntastic"]
-	path = vim/bundle/syntastic
-	url = https://github.com/scrooloose/syntastic.git
+  path = vim/bundle/syntastic
+  url = https://github.com/scrooloose/syntastic.git
 [submodule "vim/bundle/tabular"]
-	path = vim/bundle/tabular
-	url = https://github.com/godlygeek/tabular.git
+  path = vim/bundle/tabular
+  url = https://github.com/godlygeek/tabular.git
 [submodule "vim/bundle/indent-guides"]
-	path = vim/bundle/indent-guides
-	url = https://github.com/nathanaelkane/vim-indent-guides.git
+  path = vim/bundle/indent-guides
+  url = https://github.com/nathanaelkane/vim-indent-guides.git
 [submodule "vim/bundle/coffeescript"]
-	path = vim/bundle/coffeescript
-	url = https://github.com/kchmck/vim-coffee-script.git
+  path = vim/bundle/coffeescript
+  url = https://github.com/kchmck/vim-coffee-script.git
 [submodule "vim/bundle/fugitive"]
-	path = vim/bundle/fugitive
-	url = https://github.com/tpope/vim-fugitive.git
+  path = vim/bundle/fugitive
+  url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/rails"]
-	path = vim/bundle/rails
-	url = https://github.com/tpope/vim-rails.git
+  path = vim/bundle/rails
+  url = https://github.com/tpope/vim-rails.git
 [submodule "vim/bundle/puppet"]
-	path = vim/bundle/puppet
-	url = git://github.com/rodjek/vim-puppet.git
+  path = vim/bundle/puppet
+  url = git://github.com/rodjek/vim-puppet.git
 [submodule "vim/bundle/fireplace"]
-	path = vim/bundle/fireplace
-	url = git://github.com/tpope/vim-fireplace.git
+  path = vim/bundle/fireplace
+  url = git://github.com/tpope/vim-fireplace.git
 [submodule "vim/bundle/clojure-static"]
-	path = vim/bundle/clojure-static
-	url = git://github.com/guns/vim-clojure-static.git
+  path = vim/bundle/clojure-static
+  url = git://github.com/guns/vim-clojure-static.git
   ignore = dirty
 [submodule "vim/bundle/ruby-refactoring"]
-	path = vim/bundle/ruby-refactoring
-	url = https://github.com/rking/vim-ruby-refactoring.git
+  path = vim/bundle/ruby-refactoring
+  url = https://github.com/rking/vim-ruby-refactoring.git
 [submodule "vim/bundle/gundo"]
-	path = vim/bundle/gundo
-	url = git://github.com/sjl/gundo.vim.git
+  path = vim/bundle/gundo
+  url = git://github.com/sjl/gundo.vim.git
 [submodule "vim/bundle/ruby"]
-	path = vim/bundle/ruby
-	url = git://github.com/vim-ruby/vim-ruby.git
+  path = vim/bundle/ruby
+  url = git://github.com/vim-ruby/vim-ruby.git
 [submodule "vim/bundle/typescript"]
-	path = vim/bundle/typescript
-	url = git://github.com/leafgarland/typescript-vim.git
+  path = vim/bundle/typescript
+  url = git://github.com/leafgarland/typescript-vim.git
 [submodule "vim/bundle/mru"]
-	path = vim/bundle/mru
-	url = git://github.com/vim-scripts/mru.vim.git
+  path = vim/bundle/mru
+  url = git://github.com/vim-scripts/mru.vim.git
+[submodule "vim/bundle/surround"]
+  path = vim/bundle/surround
+  url = git://github.com/tpope/vim-surround.git
+[submodule "vim/bundle/latex-box"]
+  path = vim/bundle/latex-box
+  url = git://github.com/LaTeX-Box-Team/LaTeX-Box.git
+[submodule "powerline"]
+	path = powerline
+	url = git://github.com/Lokaltog/powerline.git
