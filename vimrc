@@ -86,7 +86,6 @@ set gcr=a:blinkon0
 set noerrorbells
 set novisualbell
 set t_vb=
-set tm=500
 
 " Use tabs instead of buffers
 " set switchbuf=usetab,newtab
@@ -119,7 +118,7 @@ let g:Powerline_colorscheme = 'solarized256'
 " Set extra options when running in GUI mode
 if has("gui_running")
 
-  set guifont=Inconsolata\ 12
+  set guifont=Inconsolata\ Medium\ 12
 
   set guioptions-=T
   set guioptions-=e
@@ -214,6 +213,9 @@ nmap <C-M>                     :nohlsearch<CR>
 " File tree and tag list
 map <leader>ok             :NERDTreeToggle<CR>
 map <leader>ol             :TlistToggle<CR>
+
+" Formatting
+map <leader>fa             mzgg=G`z<CR>
 
 " Split window
 nmap <S-A-left>  :topleft  vnew<CR>
@@ -384,22 +386,22 @@ function! s:Kwbd(kwbdStage)
     if(!s:buflistedLeft)
       if(s:bufFinalJump)
         windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
-      else
-        enew
-        let l:newBuf = bufnr("%")
-        windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
-      endif
-      execute s:kwbdWinNum . 'wincmd w'
-    endif
-    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
-      execute "bd! " . s:kwbdBufNum
-    endif
-    if(!s:buflistedLeft)
-      set buflisted
-      set bufhidden=delete
-      set buftype=
-      setlocal noswapfile
-    endif
+    else
+      enew
+      let l:newBuf = bufnr("%")
+      windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
+  endif
+  execute s:kwbdWinNum . 'wincmd w'
+endif
+if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
+  execute "bd! " . s:kwbdBufNum
+endif
+if(!s:buflistedLeft)
+  set buflisted
+  set bufhidden=delete
+  set buftype=
+  setlocal noswapfile
+endif
   else
     if(bufnr("%") == s:kwbdBufNum)
       let prevbufvar = bufnr("#")
