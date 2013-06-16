@@ -33,7 +33,7 @@ set so=7
 " Always show statusline
 set laststatus=2
 
-" Turn on the WiLd menu
+" Turn on the Wild menu
 set wildmenu
 
 " Ignore compiled files
@@ -231,8 +231,9 @@ nmap <A-down>   :rightbelow new<CR>
 
 nmap <S-ESC>    :close<CR>
 
-nmap XX         :wqa<CR>
-nmap CC         :qa<CR>
+nmap ZS         :wqa<CR>
+nmap ZA         :qa<CR>
+nmap ZX         :cq<CR>
 
 " Split line at cursor position
 nmap K i<CR><Esc>k$

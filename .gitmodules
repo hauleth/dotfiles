@@ -70,3 +70,9 @@
 [submodule "powerline"]
 	path = powerline
 	url = git://github.com/Lokaltog/powerline.git
+[submodule "vim/bundle/slim"]
+	path = vim/bundle/slim
+	url = git://github.com/slim-template/vim-slim.git
+[submodule "vim/bundle/loremipsum"]
+	path = vim/bundle/loremipsum
+	url = git://github.com/vim-scripts/loremipsum.git
