@@ -76,3 +76,6 @@
 [submodule "vim/bundle/zencoding"]
   path = vim/bundle/zencoding
   url = git://github.com/mattn/zencoding-vim.git
+[submodule "vim/bundle/tmux-navigator"]
+	path = vim/bundle/tmux-navigator
+	url = git://github.com/christoomey/vim-tmux-navigator.git
