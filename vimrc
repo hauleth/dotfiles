@@ -37,7 +37,7 @@ set laststatus=2
 set wildmenu
 
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc,.git,tmp,log,vendor
+set wildignore=*.o,*~,*.pyc,.git,tmp,log,vendor,node_modules
 
 " Always show current position
 set ruler
@@ -87,6 +87,9 @@ set noerrorbells
 set novisualbell
 set t_vb=
 
+" Use mouse
+set mouse=a
+
 " Use tabs instead of buffers
 " set switchbuf=usetab,newtab
 
@@ -114,20 +117,6 @@ colorscheme solarized
 let g:Powerline_symbols = 'fancy'
 let g:Powerline_theme = 'solarized256'
 let g:Powerline_colorscheme = 'solarized256'
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-
-  set guifont=Inconsolata\ Medium\ 12
-
-  set guioptions-=T
-  set guioptions-=e
-  set t_Co=256
-  set guitablabel=%M\ %t:w
-
-  "highlight OverLength guibg=#592929
-  "match OverLength /\%>100v.\+/
-endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -189,9 +178,9 @@ set nofoldenable        "dont fold by default
 let mapleader = ','
 
 " Basic
-noremap           <C-N>   :enew<CR>
-noremap           <C-S>   :write<CR>
-inoremap <silent> <C-S>   <C-O>:write<CR>
+noremap           <leader>fn   :enew<CR>
+noremap           <leader>fs   :write<CR>
+inoremap <silent> <leader>fs   <C-O>:write<CR>
 
 " Tabs
 map <silent> <F7>         :tabprev<CR>
@@ -203,7 +192,6 @@ map <silent> <leader>tc   :tabclose<CR>
 map <silent> <F5>         :bprev<CR>
 map <silent> <F6>         :bnext<CR>
 map <silent> <leader>bd   :Bclose<CR>
-noremap <silent> <C-D>    :Bclose<CR>
 map <silent> <leader>be   :BufExplorer<CR>
 
 " Search
@@ -215,21 +203,19 @@ map <leader>ok             :NERDTreeToggle<CR>
 map <leader>ol             :TlistToggle<CR>
 
 " Formatting
-map <leader>fa             mzgg=G`z<CR>
+map <leader>ffa             mzgg=G`z<CR>
 
 " Split window
-nmap <S-A-left>  :topleft  vnew<CR>
-nmap <S-A-right> :botright vnew<CR>
-nmap <S-A-up>    :topleft  new<CR>
-nmap <S-A-down>  :botright new<CR>
+nmap <leader>swh  :topleft  vnew<CR>
+nmap <leader>swl  :botright vnew<CR>
+nmap <leader>swk  :topleft  new<CR>
+nmap <leader>swj  :botright new<CR>
 
 " Split buffer
-nmap <A-left>   :leftabove  vnew<CR>
-nmap <A-right>  :rightbelow vnew<CR>
-nmap <A-up>     :leftabove  new<CR>
-nmap <A-down>   :rightbelow new<CR>
-
-nmap <S-ESC>    :close<CR>
+nmap <leader>sbh  :leftabove  vnew<CR>
+nmap <leader>sbl  :rightbelow vnew<CR>
+nmap <leader>sbk  :leftabove  new<CR>
+nmap <leader>sbj  :rightbelow new<CR>
 
 nmap ZS         :wqa<CR>
 nmap ZA         :qa<CR>
@@ -238,20 +224,18 @@ nmap ZX         :cq<CR>
 " Split line at cursor position
 nmap K i<CR><Esc>k$
 
-" Completion
-inoremap <C-Space>        <C-X><C-O>
-inoremap <S-Space>        <C-X><C-L>
-
 " text folding
 inoremap <C-F>            <C-O>za
 nnoremap <C-F>            za
 nnoremap <space>          za
 onoremap <C-F>            <C-C>za
 
-map <silent> <C-Up>       :wincmd k<CR>
-map <silent> <C-Left>     :wincmd h<CR>
-map <silent> <C-Right>    :wincmd l<CR>
-map <silent> <C-Down>     :wincmd j<CR>
+" Changing windows
+map <silent> <C-k>    :TmuxNavigateUp<CR>
+map <silent> <C-h>    :TmuxNavigateLeft<CR>
+map <silent> <C-l>    :TmuxNavigateRight<CR>
+map <silent> <C-j>    :TmuxNavigateDown<CR>
+map <silent> <C-\>    :TmuxNavigatePrevious<CR>
 
 " Ctrl-F12 to generate ctags for current file
 map <silent> <F12>        :!ctags -R --sort=yes --c++-kinds=+p --append=yes --fields=+iaS --exclude=.git --exclude=log --extra=+q -f .tags .<CR>
@@ -280,6 +264,7 @@ au FileType sass     map <silent> <F9> :!sass -c %<CR>
 set complete=.,b,u,]
 set wildmode=longest,list:longest
 set completeopt=menuone,menu
+set tags=.tags,./.tags,tags,./tags
 
 " Enable omni completion. (Ctrl-X Ctrl-O)
 autocmd FileType html           setlocal omnifunc=htmlcomplete#CompleteTags
@@ -287,26 +272,15 @@ autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python         setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType css            set omnifunc=csscomplete#CompleteCSS
-autocmd FileType c              set omnifunc=ccomplete#Complete
-autocmd FileType c              set tags+=~/.vim/tags/stdlib
 autocmd FileType java           set omnifunc=javacomplete#Complete
-autocmd FileType eruby     set omnifunc=rubycomplete#Complete
-autocmd Filetype *
-      \ if &omnifunc == "" |
-      \   setlocal omnifunc=syntaxcomplete#Complete |
-      \ endif
 
 autocmd BufNewFile,BufRead *.scss   set ft=scss.css syntax=scss
 autocmd BufNewFile,BufRead *.sass   set ft=sass.css syntax=sass
 
-autocmd FileType eruby         let g:rubycomplete_buffer_loading = 0
-autocmd FileType eruby         let g:rubycomplete_rails = 1
-autocmd FileType eruby         let g:rubycomplete_classes_in_global = 1
-
 " Improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
-"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Let tab work in Markdown files
 au FileType html,eruby inoremap <Tab> <Tab>
