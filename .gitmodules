@@ -35,13 +35,6 @@
 [submodule "vim/bundle/puppet"]
   path = vim/bundle/puppet
   url = git://github.com/rodjek/vim-puppet.git
-[submodule "vim/bundle/fireplace"]
-  path = vim/bundle/fireplace
-  url = git://github.com/tpope/vim-fireplace.git
-[submodule "vim/bundle/clojure-static"]
-  path = vim/bundle/clojure-static
-  url = git://github.com/guns/vim-clojure-static.git
-  ignore = dirty
 [submodule "vim/bundle/ruby-refactoring"]
   path = vim/bundle/ruby-refactoring
   url = https://github.com/rking/vim-ruby-refactoring.git
@@ -79,3 +72,6 @@
 [submodule "vim/bundle/tmux-navigator"]
 	path = vim/bundle/tmux-navigator
 	url = git://github.com/christoomey/vim-tmux-navigator.git
+[submodule "vim/bundle/supertab"]
+	path = vim/bundle/supertab
+	url = git://github.com/ervandew/supertab.git
