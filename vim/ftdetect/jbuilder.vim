@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.jbuilder set filetype=ruby syntax=ruby
+au BufRead,BufNewFile *.jbuilder set ft=ruby syn=ruby

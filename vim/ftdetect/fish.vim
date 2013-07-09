@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.fish set filetype=fish
+au BufRead,BufNewFile *.fish set ft=fish syn=fish

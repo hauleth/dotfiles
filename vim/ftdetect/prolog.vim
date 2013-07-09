@@ -1,2 +1,2 @@
-au BufRead,BufNewFile *.pro set filetype=prolog
+au BufRead,BufNewFile *.pro set ft=prolog syn=prolog
 
