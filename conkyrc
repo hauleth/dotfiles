@@ -3,7 +3,7 @@ draw_borders no
 draw_shades no
 
 #default_color 636162
-default_color 000000
+default_color ffffff
 
 own_window no
 own_window_type desktop
