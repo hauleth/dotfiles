@@ -72,6 +72,3 @@
 [submodule "vim/bundle/tmux-navigator"]
 	path = vim/bundle/tmux-navigator
 	url = git://github.com/christoomey/vim-tmux-navigator.git
-[submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
-	url = git://github.com/ervandew/supertab.git

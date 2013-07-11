@@ -280,10 +280,10 @@ autocmd BufNewFile,BufRead *.sass   set ft=sass.css syntax=sass
 " Improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
-let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
+"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
 
 " Let tab work in Markdown files
-au FileType html,eruby inoremap <Tab> <Tab>
+"au FileType html,eruby inoremap <Tab> <Tab>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Taglist
