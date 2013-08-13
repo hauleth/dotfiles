@@ -37,7 +37,7 @@ set laststatus=2
 set wildmenu
 
 " Ignore compiled files
-set wildignore=*.o,*~,*.pyc,.git,tmp,log,vendor,node_modules
+set wildignore=*.o,*~,*.pyc,.git,tmp,log,vendor,node_modules,coverage
 
 " Always show current position
 set ruler
@@ -217,7 +217,7 @@ nmap <leader>sbl  :rightbelow vnew<CR>
 nmap <leader>sbk  :leftabove  new<CR>
 nmap <leader>sbj  :rightbelow new<CR>
 
-nmap ZS         :wqa<CR>
+nmap ZS         :xa<CR>
 nmap ZA         :qa<CR>
 nmap ZX         :cq<CR>
 
