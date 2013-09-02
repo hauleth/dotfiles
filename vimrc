@@ -2,8 +2,8 @@
 call pathogen#infect()
 call pathogen#helptags()
 
-" Use ZSH as Vim shell to get rid of strange errors
-set shell=/bin/zsh
+" Reset Vim shell to get rid of strange errors
+set shell=/bin/sh
 
 " Use Vim settings, rather then Vi settings (much better!).
 " This must be first, because it changes other options as a side effect.
@@ -229,6 +229,9 @@ inoremap <C-F>            <C-O>za
 nnoremap <C-F>            za
 nnoremap <space>          za
 onoremap <C-F>            <C-C>za
+
+" Simplify switching to EX mode
+nnoremap ; :
 
 " Changing windows
 map <silent> <C-k>    :TmuxNavigateUp<CR>
