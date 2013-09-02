@@ -75,3 +75,6 @@
 [submodule "vim/bundle/snipmate"]
 	path = vim/bundle/snipmate
 	url = git://github.com/msanders/snipmate.vim.git
+[submodule "vim/bundle/rbenv"]
+	path = vim/bundle/rbenv
+	url = git://github.com/tpope/vim-rbenv.git
