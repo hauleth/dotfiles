@@ -241,7 +241,7 @@ map <silent> <C-j>    :TmuxNavigateDown<CR>
 map <silent> <C-\>    :TmuxNavigatePrevious<CR>
 
 " Ctrl-F12 to generate ctags for current file
-map <silent> <F12>        :!ctags -R --sort=yes --c++-kinds=+p --append=yes --fields=+iaS --exclude=.git --exclude=log --extra=+q -f .tags .<CR>
+map <silent> <F12>        :!ctags -R --sort=yes --c++-kinds=+p --append=yes --fields=+iaS --exclude=.git --exclude=log --exclude=tmp --extra=+q -f .tags .<CR>
 
 nmap <Leader>a=           :Tabularize /=<CR>
 vmap <Leader>a=           :Tabularize /=<CR>
