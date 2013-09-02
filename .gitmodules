@@ -69,3 +69,6 @@
 [submodule "vim/bundle/autoclose"]
 	path = vim/bundle/autoclose
 	url = git://github.com/Townk/vim-autoclose.git
+[submodule "vim/bundle/multiple-cursors"]
+	path = vim/bundle/multiple-cursors
+	url = git://github.com/terryma/vim-multiple-cursors.git
