@@ -257,10 +257,6 @@ nnoremap <F2> :GundoToggle<CR>
 nnoremap <F3> :NumbersToggle<CR>
 nnoremap <F4> :IndentGuidesToggle<CR>
 
-" Check syntax or preview file
-au FileType scss     map <silent> <F9> :!scss -c %<CR>
-au FileType sass     map <silent> <F9> :!sass -c %<CR>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Completition
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -270,23 +266,14 @@ set completeopt=menuone,menu
 set tags=.tags,./.tags,tags,./tags
 
 " Enable omni completion. (Ctrl-X Ctrl-O)
-autocmd FileType html           setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript     setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python         setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml            setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType css            set omnifunc=csscomplete#CompleteCSS
-autocmd FileType java           set omnifunc=javacomplete#Complete
-
-autocmd BufNewFile,BufRead *.scss   set ft=scss.css syntax=scss
-autocmd BufNewFile,BufRead *.sass   set ft=sass.css syntax=sass
+set omnifunc=syntaxcomplete#Complete
 
 " Improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
-"let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-
-" Let tab work in Markdown files
-"au FileType html,eruby inoremap <Tab> <Tab>
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabMappingForward = '<C-Space>'
+let g:SuperTabMappingBackward = '<S-C-Space>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Taglist
