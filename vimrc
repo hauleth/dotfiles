@@ -189,10 +189,9 @@ map <silent> <leader>tn   :tabnew<CR>
 map <silent> <leader>tc   :tabclose<CR>
 
 " Buffers
-map <silent> <F5>         :bprev<CR>
-map <silent> <F6>         :bnext<CR>
-map <silent> <leader>bd   :Bclose<CR>
-map <silent> <leader>be   :BufExplorer<CR>
+map <F5>         :bprev<CR>
+map <F6>         :bnext<CR>
+map <leader>bd   :Bclose<CR>
 
 " Search
 map <silent> <leader><space>   :nohlsearch<CR>
@@ -206,16 +205,16 @@ map <leader>ol             :TlistToggle<CR>
 map <leader>ffa             mzgg=G`z<CR>
 
 " Split window
-nmap <leader>swh  :topleft  vnew<CR>
-nmap <leader>swl  :botright vnew<CR>
-nmap <leader>swk  :topleft  new<CR>
-nmap <leader>swj  :botright new<CR>
+nmap <leader>wsh  :topleft  vnew<CR>
+nmap <leader>wsl  :botright vnew<CR>
+nmap <leader>wsk  :topleft  new<CR>
+nmap <leader>wsj  :botright new<CR>
 
 " Split buffer
-nmap <leader>sbh  :leftabove  vnew<CR>
-nmap <leader>sbl  :rightbelow vnew<CR>
-nmap <leader>sbk  :leftabove  new<CR>
-nmap <leader>sbj  :rightbelow new<CR>
+nmap <leader>bsh  :leftabove  vnew<CR>
+nmap <leader>bsl  :rightbelow vnew<CR>
+nmap <leader>bsk  :leftabove  new<CR>
+nmap <leader>bsj  :rightbelow new<CR>
 
 nmap ZS         :xa<CR>
 nmap ZA         :qa<CR>
