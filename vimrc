@@ -193,10 +193,6 @@ map <leader>bd :Bclose<CR>
 map <silent> <leader><space>   :nohlsearch<CR>
 nmap <C-M>                     :nohlsearch<CR>
 
-" File tree and tag list
-map <leader>ok :NERDTreeToggle<CR>
-map <leader>ol :TlistToggle<CR>
-
 " Formatting
 map <leader>ffa mzgg=G`z<CR>
 
