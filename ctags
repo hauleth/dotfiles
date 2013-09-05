@@ -1,0 +1,14 @@
+--sort=yes
+--append=yes
+--recurse=yes
+
+--c++-kinds=+p
+--fields=+iaS
+--extra=+q
+
+--exclude=.git
+--exclude=log
+--exclude=tmp
+
+-f .tags
+

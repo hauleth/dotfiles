@@ -36,7 +36,7 @@ set laststatus=2
 " Turn on the Wild menu
 set wildmenu
 
-" Ignore compiled files
+" Ignore all automatic files and folders
 set wildignore=*.o,*~,*.pyc,.git,tmp,log,vendor,node_modules,coverage
 
 " Always show current position
@@ -168,93 +168,91 @@ set linebreak    "Wrap lines at convenient points
 set foldnestmax=3       "deepest fold is 3 levels
 set nofoldenable        "dont fold by default
 
-"for f in split(glob('~/.vim/plugin/settings/*.vim'), '\n')
-"  exe 'source' f
-"endfor
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ','
 
 " Basic
-noremap           <leader>fn   :enew<CR>
-noremap           <leader>fs   :write<CR>
-inoremap <silent> <leader>fs   <C-O>:write<CR>
+noremap           <leader>fn :enew<CR>
+noremap           <leader>fs :write<CR>
+inoremap <silent> <leader>fs <C-O>:write<CR>
 
 " Tabs
-map <silent> <F7>         :tabprev<CR>
-map <silent> <F8>         :tabnext<CR>
-map <silent> <leader>tn   :tabnew<CR>
-map <silent> <leader>tc   :tabclose<CR>
+map <silent> <F7>       :tabprev<CR>
+map <silent> <F8>       :tabnext<CR>
+map <silent> <leader>tn :tabnew<CR>
+map <silent> <leader>tc :tabclose<CR>
 
 " Buffers
-map <F5>         :bprev<CR>
-map <F6>         :bnext<CR>
-map <leader>bd   :Bclose<CR>
+map <F5>       :bprev<CR>
+map <F6>       :bnext<CR>
+map <leader>bd :Bclose<CR>
 
 " Search
 map <silent> <leader><space>   :nohlsearch<CR>
 nmap <C-M>                     :nohlsearch<CR>
 
 " File tree and tag list
-map <leader>ok             :NERDTreeToggle<CR>
-map <leader>ol             :TlistToggle<CR>
+map <leader>ok :NERDTreeToggle<CR>
+map <leader>ol :TlistToggle<CR>
 
 " Formatting
-map <leader>ffa             mzgg=G`z<CR>
+map <leader>ffa mzgg=G`z<CR>
 
 " Split window
-nmap <leader>wsh  :topleft  vnew<CR>
-nmap <leader>wsl  :botright vnew<CR>
-nmap <leader>wsk  :topleft  new<CR>
-nmap <leader>wsj  :botright new<CR>
+nmap <leader>wsh :topleft  vnew<CR>
+nmap <leader>wsl :botright vnew<CR>
+nmap <leader>wsk :topleft  new<CR>
+nmap <leader>wsj :botright new<CR>
 
 " Split buffer
-nmap <leader>bsh  :leftabove  vnew<CR>
-nmap <leader>bsl  :rightbelow vnew<CR>
-nmap <leader>bsk  :leftabove  new<CR>
-nmap <leader>bsj  :rightbelow new<CR>
+nmap <leader>bsh :leftabove  vnew<CR>
+nmap <leader>bsl :rightbelow vnew<CR>
+nmap <leader>bsk :leftabove  new<CR>
+nmap <leader>bsj :rightbelow new<CR>
 
-nmap ZS         :xa<CR>
-nmap ZA         :qa<CR>
-nmap ZX         :cq<CR>
+nmap ZS :xa<CR>
+nmap ZA :qa<CR>
+nmap ZX :cq<CR>
 
 " Split line at cursor position
 nmap K i<CR><Esc>k$
 
-" text folding
-inoremap <C-F>            <C-O>za
-nnoremap <C-F>            za
-nnoremap <space>          za
-onoremap <C-F>            <C-C>za
+" Text folding
+inoremap <C-F>   <C-O>za
+nnoremap <C-F>   za
+nnoremap <space> za
+onoremap <C-F>   <C-C>za
 
 " Simplify switching to EX mode
 nnoremap ; :
 
 " Changing windows
-map <silent> <C-k>    :TmuxNavigateUp<CR>
-map <silent> <C-h>    :TmuxNavigateLeft<CR>
-map <silent> <C-l>    :TmuxNavigateRight<CR>
-map <silent> <C-j>    :TmuxNavigateDown<CR>
-map <silent> <C-\>    :TmuxNavigatePrevious<CR>
+map <silent> <C-k> :TmuxNavigateUp<CR>
+map <silent> <C-h> :TmuxNavigateLeft<CR>
+map <silent> <C-l> :TmuxNavigateRight<CR>
+map <silent> <C-j> :TmuxNavigateDown<CR>
+map <silent> <C-\> :TmuxNavigatePrevious<CR>
 
 " Ctrl-F12 to generate ctags for current file
-map <silent> <F12>        :!ctags -R --sort=yes --c++-kinds=+p --append=yes --fields=+iaS --exclude=.git --exclude=log --exclude=tmp --extra=+q -f .tags .<CR>
+map <silent> <F12> :!ctags .<CR>
 
-nmap <Leader>a=           :Tabularize /=<CR>
-vmap <Leader>a=           :Tabularize /=<CR>
-nmap <Leader>a:           :Tabularize /:\zs<CR>
-vmap <Leader>a:           :Tabularize /:\zs<CR>
-nmap <Leader>a,           :Tabularize /,\zs<CR>
-vmap <Leader>a,           :Tabularize /,\zs<CR>
+nmap <Leader>a= :Tabularize /=<CR>
+vmap <Leader>a= :Tabularize /=<CR>
+nmap <Leader>a: :Tabularize /:\zs<CR>
+vmap <Leader>a: :Tabularize /:\zs<CR>
+nmap <Leader>a, :Tabularize /,\zs<CR>
+vmap <Leader>a, :Tabularize /,\zs<CR>
 
 map <Leader>y "+y
 map <Leader>p "+p
 
-nnoremap <F2> :GundoToggle<CR>
-nnoremap <F3> :NumbersToggle<CR>
-nnoremap <F4> :IndentGuidesToggle<CR>
+noremap <F2> :GundoToggle<CR>
+noremap <F3> :NumbersToggle<CR>
+noremap <F4> :IndentGuidesToggle<CR>
+
+noremap <F9> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Completition
@@ -271,19 +269,15 @@ set omnifunc=syntaxcomplete#Complete
 highlight Pmenu ctermbg=238 gui=bold
 
 let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabMappingForward = '<C-Space>'
-let g:SuperTabMappingBackward = '<S-C-Space>'
+"let g:SuperTabMappingForward = '<C-Space>'
+"let g:SuperTabMappingBackward = '<S-C-Space>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Taglist
+" => Tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" let Tlist_Auto_Open = 1
-let Tlist_Use_Right_Window = 1
-let Tlist_Process_File_Always = 1
-let Tlist_Exit_OnlyWindow = 1
-let Tlist_Highlight_Tag_On_BufEnter = 1
-let Tlist_Use_SingleClick = 1
-let Tlist_Auto_Highlight_Tag = 1
+let g:tagbar_userarrows = 1
+
+nnoremap <leader>l :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extras
