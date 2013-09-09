@@ -93,3 +93,6 @@
 [submodule "vim/bundle/netrw"]
 	path = vim/bundle/netrw
 	url = git://github.com/vim-scripts/netrw.vim.git
+[submodule "vim/bundle/repeat"]
+	path = vim/bundle/repeat
+	url = git://github.com/tpope/vim-repeat.git
