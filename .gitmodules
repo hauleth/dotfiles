@@ -50,55 +50,52 @@
 [submodule "vim/bundle/latex-box"]
   path = vim/bundle/latex-box
   url = git://github.com/LaTeX-Box-Team/LaTeX-Box.git
-[submodule "powerline"]
-  path = powerline
-  url = git://github.com/Lokaltog/powerline.git
 [submodule "vim/bundle/loremipsum"]
   path = vim/bundle/loremipsum
   url = git://github.com/vim-scripts/loremipsum.git
   ignore = dirty
 [submodule "vim/bundle/tmux-navigator"]
-	path = vim/bundle/tmux-navigator
-	url = git://github.com/christoomey/vim-tmux-navigator.git
+  path = vim/bundle/tmux-navigator
+  url = git://github.com/christoomey/vim-tmux-navigator.git
 [submodule "vim/bundle/emmet"]
-	path = vim/bundle/emmet
-	url = git://github.com/mattn/emmet-vim.git
+  path = vim/bundle/emmet
+  url = git://github.com/mattn/emmet-vim.git
 [submodule "vim/bundle/autoclose"]
-	path = vim/bundle/autoclose
-	url = git://github.com/Townk/vim-autoclose.git
+  path = vim/bundle/autoclose
+  url = git://github.com/Townk/vim-autoclose.git
 [submodule "vim/bundle/multiple-cursors"]
-	path = vim/bundle/multiple-cursors
-	url = git://github.com/terryma/vim-multiple-cursors.git
+  path = vim/bundle/multiple-cursors
+  url = git://github.com/terryma/vim-multiple-cursors.git
 [submodule "vim/bundle/snipmate"]
-	path = vim/bundle/snipmate
-	url = git://github.com/msanders/snipmate.vim.git
+  path = vim/bundle/snipmate
+  url = git://github.com/msanders/snipmate.vim.git
 [submodule "vim/bundle/rbenv"]
-	path = vim/bundle/rbenv
-	url = git://github.com/tpope/vim-rbenv.git
+  path = vim/bundle/rbenv
+  url = git://github.com/tpope/vim-rbenv.git
 [submodule "vim/bundle/supertab"]
-	path = vim/bundle/supertab
-	url = git://github.com/ervandew/supertab.git
+  path = vim/bundle/supertab
+  url = git://github.com/ervandew/supertab.git
 [submodule "vim/bundle/ctrlp"]
-	path = vim/bundle/ctrlp
-	url = git://github.com/kien/ctrlp.vim.git
+  path = vim/bundle/ctrlp
+  url = git://github.com/kien/ctrlp.vim.git
 [submodule "vim/bundle/nerdcommenter"]
-	path = vim/bundle/nerdcommenter
-	url = git://github.com/scrooloose/nerdcommenter.git
+  path = vim/bundle/nerdcommenter
+  url = git://github.com/scrooloose/nerdcommenter.git
 [submodule "vim/bundle/tagbar"]
-	path = vim/bundle/tagbar
-	url = git://github.com/majutsushi/tagbar.git
+  path = vim/bundle/tagbar
+  url = git://github.com/majutsushi/tagbar.git
 [submodule "vim/bundle/bufexplorer"]
-	path = vim/bundle/bufexplorer
-	url = git://github.com/vim-scripts/bufexplorer.zip.git
+  path = vim/bundle/bufexplorer
+  url = git://github.com/vim-scripts/bufexplorer.zip.git
 [submodule "vim/bundle/netrw"]
-	path = vim/bundle/netrw
-	url = git://github.com/vim-scripts/netrw.vim.git
+  path = vim/bundle/netrw
+  url = git://github.com/vim-scripts/netrw.vim.git
 [submodule "vim/bundle/repeat"]
-	path = vim/bundle/repeat
-	url = git://github.com/tpope/vim-repeat.git
+  path = vim/bundle/repeat
+  url = git://github.com/tpope/vim-repeat.git
 [submodule "vim/bundle/airline"]
-	path = vim/bundle/airline
-	url = git://github.com/bling/vim-airline.git
+  path = vim/bundle/airline
+  url = git://github.com/bling/vim-airline.git
 [submodule "vim/bundle/bufferline"]
-	path = vim/bundle/bufferline
-	url = git://github.com/bling/vim-bufferline.git
+  path = vim/bundle/bufferline
+  url = git://github.com/bling/vim-bufferline.git
