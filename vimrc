@@ -37,7 +37,7 @@ set laststatus=2
 set wildmenu
 
 " Ignore all automatic files and folders
-set wildignore=*.o,*~,*.pyc,.git,tmp,log,vendor,node_modules,coverage
+set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 
 " Always show current position
 set ruler
@@ -68,6 +68,9 @@ set magic
 
 " Line numbers are good
 set number
+
+" Shorter timeout when exiting insert mode
+set ttimeoutlen=50
 
 " Allow backspace in insert mode
 set backspace=eol,start,indent
@@ -113,10 +116,17 @@ set colorcolumn=80
 set background=dark
 colorscheme solarized
 
-" Powerline settings
-let g:Powerline_symbols = 'fancy'
-let g:Powerline_theme = 'solarized256'
-let g:Powerline_colorscheme = 'solarized256'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_powerline_fonts = 1
+
+let g:airline#extensions#branch#enabled = 1
+let g:airline#extensions#branch#empty_message = ''
+
+let g:airline#extensions#syntastic#enabled = 1
+
+let g:airline#extensions#tagbar#enabled = 1
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -129,7 +139,9 @@ set ffs=unix,dos,mac
 " http://items.sjbach.com/319/configuring-vim-right
 set hidden
 
-" Indent Guides
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Indent Guides
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_start_level = 2
 let g:indent_guides_guide_size = 1
 
@@ -265,8 +277,8 @@ set omnifunc=syntaxcomplete#Complete
 highlight Pmenu ctermbg=238 gui=bold
 
 let g:SuperTabDefaultCompletionType = "context"
-"let g:SuperTabMappingForward = '<C-Space>'
-"let g:SuperTabMappingBackward = '<S-C-Space>'
+let g:SuperTabMappingForward = '<C-Tab>'
+let g:SuperTabMappingBackward = '<S-Tab>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tagbar
@@ -281,13 +293,26 @@ nnoremap <leader>l :TagbarToggle<CR>
 let g:markdown_extensions=["md", "markdown"]
 let g:gist_clip_command = 'xclip -selection clipboard'
 
-" Syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Syntastic
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
 
 let g:syntastic_style_warning_symbol = '≈≈'
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => CtrlP
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v(\.(git|hg|svn)|(bundle|node_modules|log))$',
+  \ 'file': '\v\.(log)$',
+  \ }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Extra commands
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cmap w!! %!sudo tee > /dev/null %
 
 command! Todo noautocmd vimgrep /TODO\|FIXME/j **/*.{py,rb,css,js,coffee,c,cpp,c++,cxx,h,hpp,h++,hxx,scss,sass} | cw

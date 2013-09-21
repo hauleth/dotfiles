@@ -1,4 +1,4 @@
-set guifont=Inconsolata\ Medium\ 12
+set guifont=Inconsolata-dz\ for\ Powerline\ Medium\ 10
 
 set guioptions-=T
 set guioptions-=e

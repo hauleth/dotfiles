@@ -99,3 +99,6 @@
 [submodule "vim/bundle/airline"]
 	path = vim/bundle/airline
 	url = git://github.com/bling/vim-airline.git
+[submodule "vim/bundle/bufferline"]
+	path = vim/bundle/bufferline
+	url = git://github.com/bling/vim-bufferline.git
