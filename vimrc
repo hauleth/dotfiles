@@ -205,8 +205,9 @@ map <leader>bd :Bclose<CR>
 map <silent> <leader><space>   :nohlsearch<CR>
 nmap <C-M>                     :nohlsearch<CR>
 
-" Formatting
-map <leader>ffa mzgg=G`z<CR>
+" Formatting and cleaning
+map <leader>ff mzgg=G`z<CR>
+map <leader>fc :Clean<CR>
 
 " Split window
 nmap <leader>wsh :topleft  vnew<CR>
@@ -277,6 +278,7 @@ set omnifunc=syntaxcomplete#Complete
 highlight Pmenu ctermbg=238 gui=bold
 
 let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabDefaultCompletionType = "<c-n>"
 let g:SuperTabMappingForward = '<C-Tab>'
 let g:SuperTabMappingBackward = '<S-Tab>'
 
@@ -315,82 +317,6 @@ let g:ctrlp_custom_ignore = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 cmap w!! %!sudo tee > /dev/null %
 
-command! Todo noautocmd vimgrep /TODO\|FIXME/j **/*.{py,rb,css,js,coffee,c,cpp,c++,cxx,h,hpp,h++,hxx,scss,sass} | cw
-
 command! Clean %s/\s\+$//e | nohlsearch
 
 command! W w !sudo tee % > /dev/null
-
-" Cheat!
-command! -complete=file -nargs=+ Cheat call s:cheat(<f-args>)
-function! s:cheat(command)
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  execute 'silent $read !cheat '.escape(a:command,'%#')
-  setlocal nomodifiable
-  1
-endfunction
-
-if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis | wincmd p | diffthis
-endif
-
-"delete the buffer; keep windows; create a scratch buffer if no buffers left
-function! s:Kwbd(kwbdStage)
-  if(a:kwbdStage == 1)
-    if(!buflisted(winbufnr(0)))
-      bd!
-      return
-    endif
-    let s:kwbdBufNum = bufnr("%")
-    let s:kwbdWinNum = winnr()
-    windo call s:Kwbd(2)
-    execute s:kwbdWinNum . 'wincmd w'
-    let s:buflistedLeft = 0
-    let s:bufFinalJump = 0
-    let l:nBufs = bufnr("$")
-    let l:i = 1
-    while(l:i <= l:nBufs)
-      if(l:i != s:kwbdBufNum)
-        if(buflisted(l:i))
-          let s:buflistedLeft = s:buflistedLeft + 1
-        else
-          if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
-            let s:bufFinalJump = l:i
-          endif
-        endif
-      endif
-      let l:i = l:i + 1
-    endwhile
-    if(!s:buflistedLeft)
-      if(s:bufFinalJump)
-        windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
-    else
-      enew
-      let l:newBuf = bufnr("%")
-      windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
-  endif
-  execute s:kwbdWinNum . 'wincmd w'
-endif
-if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
-  execute "bd! " . s:kwbdBufNum
-endif
-if(!s:buflistedLeft)
-  set buflisted
-  set bufhidden=delete
-  set buftype=
-  setlocal noswapfile
-endif
-  else
-    if(bufnr("%") == s:kwbdBufNum)
-      let prevbufvar = bufnr("#")
-      if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
-        b #
-      else
-        bn
-      endif
-    endif
-  endif
-endfunction
-
-command! Bclose call s:Kwbd(1)

@@ -29,4 +29,4 @@ map  <silent> <C-Down>   :wincmd j<CR>
 nmap <S-ESC>             :close<CR>
 
 " Buffers
-noremap <silent> <C-D>    :Bclose<CR>
+noremap <silent> <C-D>   :Bclose<CR>
