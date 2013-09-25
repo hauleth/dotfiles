@@ -279,8 +279,8 @@ highlight Pmenu ctermbg=238 gui=bold
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
-let g:SuperTabMappingForward = '<C-Tab>'
-let g:SuperTabMappingBackward = '<S-Tab>'
+"let g:SuperTabMappingForward = '<C-Tab>'
+"let g:SuperTabMappingBackward = '<S-Tab>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tagbar
