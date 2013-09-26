@@ -250,8 +250,8 @@ map <silent> <C-l> :TmuxNavigateRight<CR>
 map <silent> <C-j> :TmuxNavigateDown<CR>
 map <silent> <C-\> :TmuxNavigatePrevious<CR>
 
-" Ctrl-F12 to generate ctags for current file
-map <silent> <F12> :!ctags . -f .tags --append=yes --recurse=yes<CR>
+" Ctrl-F12 to generate ctags for current project
+map <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>
 
 " Align by given separator (available '=',':' and  ',')
 nmap <Leader>a= :Tabularize /=<CR>
