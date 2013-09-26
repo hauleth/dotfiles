@@ -1,6 +1,4 @@
 --sort=yes
---append=yes
---recurse=yes
 
 --c++-kinds=+p
 --fields=+iaS
@@ -9,5 +7,3 @@
 --exclude=.git
 --exclude=log
 --exclude=tmp
-
--f .tags

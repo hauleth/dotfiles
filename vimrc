@@ -111,21 +111,27 @@ set foldlevel=1         "this is just what i use
 " Turn on syntax highlighting
 syntax on
 
+" Show 80 column
 set colorcolumn=80
 
+" Use Dark Solarized theme
 set background=dark
 colorscheme solarized
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Powerline fonts
 let g:airline_powerline_fonts = 1
 
+" Show branch in Airline status bar
 let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#branch#empty_message = ''
+let g:airline#extensions#branch#empty_message = '×'
 
+" Show syntax errors
 let g:airline#extensions#syntastic#enabled = 1
 
+" Work with Tagbar
 let g:airline#extensions#tagbar#enabled = 1
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -143,7 +149,7 @@ set hidden
 " => Indent Guides
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_start_level = 2
-let g:indent_guides_guide_size = 1
+let g:indent_guides_guide_size = 2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -174,11 +180,11 @@ au FileType Makefile set noexpandtab
 " Display tabs and trailing spaces visually
 set list listchars=tab:→\ ,trail:·
 
-set nowrap       "Don't wrap lines
-set linebreak    "Wrap lines at convenient points
+set nowrap       " Don't wrap lines
+set linebreak    " Wrap lines at convenient points
 
-set foldnestmax=3       "deepest fold is 3 levels
-set nofoldenable        "dont fold by default
+set foldnestmax=3 " Deepest fold is 3 levels
+set nofoldenable  " Don't fold by default
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Key mappings
@@ -245,8 +251,9 @@ map <silent> <C-j> :TmuxNavigateDown<CR>
 map <silent> <C-\> :TmuxNavigatePrevious<CR>
 
 " Ctrl-F12 to generate ctags for current file
-map <silent> <F12> :!ctags .<CR>
+map <silent> <F12> :!ctags . -f .tags --append=yes --recurse=yes<CR>
 
+" Align by given separator (available '=',':' and  ',')
 nmap <Leader>a= :Tabularize /=<CR>
 vmap <Leader>a= :Tabularize /=<CR>
 nmap <Leader>a: :Tabularize /:\zs<CR>
@@ -254,14 +261,14 @@ vmap <Leader>a: :Tabularize /:\zs<CR>
 nmap <Leader>a, :Tabularize /,\zs<CR>
 vmap <Leader>a, :Tabularize /,\zs<CR>
 
+" Copy and paste to unnamed register (system register)
 map <Leader>y "+y
 map <Leader>p "+p
 
+" Some useful toggles for plugins
 noremap <F2> :GundoToggle<CR>
 noremap <F3> :NumbersToggle<CR>
 noremap <F4> :IndentGuidesToggle<CR>
-
-noremap <F9> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Completition
@@ -279,15 +286,13 @@ highlight Pmenu ctermbg=238 gui=bold
 
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabDefaultCompletionType = "<c-n>"
-"let g:SuperTabMappingForward = '<C-Tab>'
-"let g:SuperTabMappingBackward = '<S-Tab>'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:tagbar_userarrows = 1
 
-nnoremap <leader>l :TagbarToggle<CR>
+nnoremap <F9> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extras
@@ -301,7 +306,6 @@ let g:gist_clip_command = 'xclip -selection clipboard'
 let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
-
 let g:syntastic_style_warning_symbol = '≈≈'
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -315,8 +319,8 @@ let g:ctrlp_custom_ignore = {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extra commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-cmap w!! %!sudo tee > /dev/null %
-
+" Remove all trailing whitespaces
 command! Clean %s/\s\+$//e | nohlsearch
 
+" Save as root
 command! W w !sudo tee % > /dev/null
