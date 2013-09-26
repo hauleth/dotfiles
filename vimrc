@@ -292,7 +292,7 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:tagbar_userarrows = 1
 
-nnoremap <F9> :TagbarToggle<CR>
+nnoremap <F10> :TagbarToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extras
