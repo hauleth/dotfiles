@@ -1,4 +1,5 @@
 --sort=yes
+--recurse
 
 --c++-kinds=+p
 --fields=+iaS

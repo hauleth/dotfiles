@@ -284,9 +284,6 @@ set omnifunc=syntaxcomplete#Complete
 " Improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabDefaultCompletionType = "<c-n>"
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Tagbar
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
