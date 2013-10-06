@@ -105,3 +105,6 @@
 [submodule "vim/bundle/addon-mw-utils"]
 	path = vim/bundle/addon-mw-utils
 	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "vim/bundle/octave"]
+	path = vim/bundle/octave
+	url = git://github.com/vim-scripts/octave.vim--.git
