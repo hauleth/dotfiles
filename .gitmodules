@@ -97,14 +97,14 @@
   path = vim/bundle/bufferline
   url = git://github.com/bling/vim-bufferline.git
 [submodule "vim/bundle/snipmate"]
-	path = vim/bundle/snipmate
-	url = git://github.com/garbas/vim-snipmate.git
+  path = vim/bundle/snipmate
+  url = git://github.com/garbas/vim-snipmate.git
 [submodule "vim/bundle/tlib"]
-	path = vim/bundle/tlib
-	url = git://github.com/tomtom/tlib_vim.git
+  path = vim/bundle/tlib
+  url = git://github.com/tomtom/tlib_vim.git
 [submodule "vim/bundle/addon-mw-utils"]
-	path = vim/bundle/addon-mw-utils
-	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
+  path = vim/bundle/addon-mw-utils
+  url = git://github.com/MarcWeber/vim-addon-mw-utils.git
 [submodule "vim/bundle/octave"]
-	path = vim/bundle/octave
-	url = git://github.com/vim-scripts/octave.vim--.git
+  path = vim/bundle/octave
+  url = git://github.com/vim-scripts/octave.vim--.git

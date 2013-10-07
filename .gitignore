@@ -1,2 +1,4 @@
 vim/backups
 vim/.netrwhist
+vim/tags/*
+!vim/tags/.gitignore
