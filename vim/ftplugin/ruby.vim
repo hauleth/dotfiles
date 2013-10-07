@@ -1,4 +1,4 @@
-map <F9> :!ruby -cw %<CR>
+map <F9> :w !ruby -cw<CR>
 
 let g:rubycomplete_buffer_loading = 0
 let g:rubycomplete_rails = 1

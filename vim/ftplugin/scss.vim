@@ -1,1 +1,1 @@
-map <F9> :w !scss -c %<CR>
+map <F9> :w !scss -c<CR>

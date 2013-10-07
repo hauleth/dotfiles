@@ -226,6 +226,10 @@ nmap <leader>bsh :leftabove  vnew<CR>
 nmap <leader>bsl :rightbelow vnew<CR>
 nmap <leader>bsk :leftabove  new<CR>
 nmap <leader>bsj :rightbelow new<CR>
+nmap <leader><left>  :leftabove  vnew<CR>
+nmap <leader><right> :rightbelow vnew<CR>
+nmap <leader><up>    :leftabove  new<CR>
+nmap <leader><down>  :rightbelow new<CR>
 
 nmap ZS :xa<CR>
 nmap ZA :qa<CR>
