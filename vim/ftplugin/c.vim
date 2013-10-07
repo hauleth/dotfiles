@@ -1,2 +1,2 @@
-set omnifunc=ccomplete#Complete
-set tags+=~/.vim/tags/stdlib
+setlocal omnifunc=ccomplete#Complete
+setlocal tags+=~/.vim/tags/stdlib
