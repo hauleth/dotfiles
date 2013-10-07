@@ -131,3 +131,7 @@ Copyrights (c) 2013 [Łukasz Niemier][blog]
 [fish]: http://fishshell.com/
 [puppet]: http://puppetlabs.com/
 [ts]: http://www.typescriptlang.org/
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/hauleth/dotfiles/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
