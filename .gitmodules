@@ -108,3 +108,6 @@
 [submodule "vim/bundle/octave"]
   path = vim/bundle/octave
   url = git://github.com/vim-scripts/octave.vim--.git
+[submodule "vim/bundle/easymotion"]
+	path = vim/bundle/easymotion
+	url = git://github.com/Lokaltog/vim-easymotion.git
