@@ -118,6 +118,17 @@ set colorcolumn=80
 set background=dark
 colorscheme solarized
 
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" This makes vim act like all other editors, buffers can
+" exist in the background without being in a window.
+" http://items.sjbach.com/319/configuring-vim-right
+set hidden
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Airline
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -133,17 +144,6 @@ let g:airline#extensions#syntastic#enabled = 1
 
 " Work with Tagbar
 let g:airline#extensions#tagbar#enabled = 1
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-" This makes vim act like all other editors, buffers can
-" exist in the background without being in a window.
-" http://items.sjbach.com/319/configuring-vim-right
-set hidden
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Indent Guides
@@ -316,6 +316,11 @@ let g:ctrlp_custom_ignore = {
   \ 'dir': '\v(\.(git|hg|svn)|(bundle|node_modules|log))$',
   \ 'file': '\v\.(log)$',
   \ }
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Abbreviations
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+abbr Tabularize Tab
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extra commands
