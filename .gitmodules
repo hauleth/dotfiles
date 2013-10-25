@@ -109,8 +109,8 @@
   path = vim/bundle/octave
   url = git://github.com/vim-scripts/octave.vim--.git
 [submodule "vim/bundle/easymotion"]
-	path = vim/bundle/easymotion
-	url = git://github.com/Lokaltog/vim-easymotion.git
+  path = vim/bundle/easymotion
+  url = git://github.com/Lokaltog/vim-easymotion.git
 [submodule "vim/bundle/css-color"]
-	path = vim/bundle/css-color
-	url = git://github.com/skammer/vim-css-color.git
+  path = vim/bundle/css-color
+  url = git://github.com/ap/vim-css-color.git
