@@ -114,3 +114,6 @@
 [submodule "vim/bundle/css-color"]
   path = vim/bundle/css-color
   url = git://github.com/ap/vim-css-color.git
+[submodule "vim/bundle/ruby-minitest"]
+	path = vim/bundle/ruby-minitest
+	url = git://github.com/sunaku/vim-ruby-minitest.git
