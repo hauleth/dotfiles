@@ -283,6 +283,7 @@ set completeopt=menuone,menu
 set tags=.tags,./.tags,tags,./tags
 
 " Enable omni completion. (Ctrl-X Ctrl-O)
+set completefunc=syntaxcomplete#Complete
 set omnifunc=syntaxcomplete#Complete
 
 " Improve autocomplete menu color
