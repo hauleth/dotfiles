@@ -269,6 +269,9 @@ vmap <Leader>a, :Tabularize /,\zs<CR>
 map <Leader>y "+y
 map <Leader>p "+p
 
+" Fast paste from system clipboard
+inoremap <C-R><C-R> <C-R>*
+
 " Some useful toggles for plugins
 noremap <F2> :GundoToggle<CR>
 noremap <F3> :NumbersToggle<CR>
@@ -301,6 +304,7 @@ nnoremap <F10> :TagbarToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:markdown_extensions=["md", "markdown"]
 let g:gist_clip_command = 'xclip -selection clipboard'
+let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Syntastic
