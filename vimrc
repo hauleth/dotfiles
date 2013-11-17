@@ -148,7 +148,7 @@ let g:airline#extensions#tagbar#enabled = 1
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Indent Guides
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indent_guides_start_level = 2
+let g:indent_guides_start_level = 1
 let g:indent_guides_guide_size = 2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -313,6 +313,8 @@ let g:syntastic_error_symbol = '✗✗'
 let g:syntastic_style_error_symbol = '✠✠'
 let g:syntastic_warning_symbol = '∆∆'
 let g:syntastic_style_warning_symbol = '≈≈'
+
+let g:syntastic_ruby_checkers = ['rubocop']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => CtrlP
