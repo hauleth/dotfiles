@@ -117,3 +117,6 @@
 [submodule "vim/bundle/ruby-minitest"]
 	path = vim/bundle/ruby-minitest
 	url = git://github.com/sunaku/vim-ruby-minitest.git
+[submodule "vim/bundle/javascript"]
+	path = vim/bundle/javascript
+	url = git://github.com/pangloss/vim-javascript.git
