@@ -123,3 +123,6 @@
 [submodule "vim/bundle/slim"]
 	path = vim/bundle/slim
 	url = git://github.com/slim-template/vim-slim.git
+[submodule "vim/bundle/io"]
+	path = vim/bundle/io
+	url = git://github.com/xhr/vim-io.git
