@@ -126,3 +126,6 @@
 [submodule "vim/bundle/choosewin"]
 	path = vim/bundle/choosewin
 	url = git://github.com/t9md/vim-choosewin.git
+[submodule "vim/bundle/color_highlight"]
+	path = vim/bundle/color_highlight
+	url = git://github.com/chrisbra/color_highlight.git
