@@ -203,9 +203,11 @@ map <silent> <leader>tn :tabnew<CR>
 map <silent> <leader>tc :tabclose<CR>
 
 " Buffers
-map <F5>       :bprev<CR>
-map <F6>       :bnext<CR>
-map <leader>bd :Bclose<CR>
+map <F5>        :bprev<CR>
+map <F6>        :bnext<CR>
+map <leader>bd  :Bclose<CR>
+map <C-b>d      :Bclose<CR>
+map <C-b>e      :BufExplorer<CR>
 
 " Search
 map <silent> <leader><space>   :nohlsearch<CR>
@@ -214,12 +216,6 @@ nmap <C-M>                     :nohlsearch<CR>
 " Formatting and cleaning
 map <leader>ff mzgg=G`z<CR>
 map <leader>fc :Clean<CR>
-
-" Split window
-nmap <leader>wsh :topleft  vnew<CR>
-nmap <leader>wsl :botright vnew<CR>
-nmap <leader>wsk :topleft  new<CR>
-nmap <leader>wsj :botright new<CR>
 
 " Split buffer
 nmap <leader>bsh :leftabove  vnew<CR>
@@ -253,6 +249,13 @@ map <silent> <C-h> :TmuxNavigateLeft<CR>
 map <silent> <C-l> :TmuxNavigateRight<CR>
 map <silent> <C-j> :TmuxNavigateDown<CR>
 map <silent> <C-\> :TmuxNavigatePrevious<CR>
+
+" Save file with ^q
+noremap  <C-q> :w<CR>
+inoremap <C-q> <C-o>:w<CR>
+
+" Choose window
+nmap - <Plug>(choosewin)
 
 " Ctrl-F12 to generate ctags for current project
 map <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>

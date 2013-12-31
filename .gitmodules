@@ -113,7 +113,7 @@
   url = git://github.com/Lokaltog/vim-easymotion.git
 [submodule "vim/bundle/coloresque"]
   path = vim/bundle/coloresque
-  url = git://github.com/gorodinskiy/vim-coloresque.git
+  url = git://github.com/hauleth/vim-coloresque.git
 [submodule "vim/bundle/ruby-minitest"]
 	path = vim/bundle/ruby-minitest
 	url = git://github.com/sunaku/vim-ruby-minitest.git
@@ -126,3 +126,6 @@
 [submodule "vim/bundle/io"]
 	path = vim/bundle/io
 	url = git://github.com/xhr/vim-io.git
+[submodule "vim/bundle/choosewin"]
+	path = vim/bundle/choosewin
+	url = git://github.com/t9md/vim-choosewin.git
