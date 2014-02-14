@@ -1,1 +1,2 @@
 setlocal omnifunc=csscomplete#CompleteCSS
+ColorHighlight
