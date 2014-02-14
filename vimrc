@@ -280,6 +280,9 @@ noremap <F2> :GundoToggle<CR>
 noremap <F3> :NumbersToggle<CR>
 noremap <F4> :IndentGuidesToggle<CR>
 
+nmap <leader>o o<ESC>
+nmap <leader>O O<ESC>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Completition
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -321,7 +324,7 @@ let g:syntastic_style_warning_symbol = '≈≈'
 " => CtrlP
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v(\.(git|hg|svn)|(bundle|node_modules|log))$',
+  \ 'dir': '\v(^\.(git|hg|svn)|(bundle|node_modules))$',
   \ 'file': '\v\.(log)$',
   \ }
 
