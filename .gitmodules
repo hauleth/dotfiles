@@ -27,14 +27,11 @@
   path = vim/bundle/fugitive
   url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/rails"]
-  path = vim/bundle/rails
-  url = https://github.com/tpope/vim-rails.git
+	path = vim/bundle/rails
+	url = git://github.com/tpope/vim-rails.git
 [submodule "vim/bundle/puppet"]
   path = vim/bundle/puppet
   url = git://github.com/rodjek/vim-puppet.git
-[submodule "vim/bundle/ruby-refactoring"]
-  path = vim/bundle/ruby-refactoring
-  url = https://github.com/rking/vim-ruby-refactoring.git
 [submodule "vim/bundle/gundo"]
   path = vim/bundle/gundo
   url = git://github.com/sjl/gundo.vim.git
@@ -50,10 +47,6 @@
 [submodule "vim/bundle/latex-box"]
   path = vim/bundle/latex-box
   url = git://github.com/LaTeX-Box-Team/LaTeX-Box.git
-[submodule "vim/bundle/loremipsum"]
-  path = vim/bundle/loremipsum
-  url = git://github.com/vim-scripts/loremipsum.git
-  ignore = dirty
 [submodule "vim/bundle/tmux-navigator"]
   path = vim/bundle/tmux-navigator
   url = git://github.com/christoomey/vim-tmux-navigator.git
@@ -111,9 +104,6 @@
 [submodule "vim/bundle/easymotion"]
   path = vim/bundle/easymotion
   url = git://github.com/Lokaltog/vim-easymotion.git
-[submodule "vim/bundle/ruby-minitest"]
-	path = vim/bundle/ruby-minitest
-	url = git://github.com/sunaku/vim-ruby-minitest.git
 [submodule "vim/bundle/javascript"]
 	path = vim/bundle/javascript
 	url = git://github.com/pangloss/vim-javascript.git
@@ -129,3 +119,12 @@
 [submodule "vim/bundle/color_highlight"]
 	path = vim/bundle/color_highlight
 	url = git://github.com/chrisbra/color_highlight.git
+[submodule "vim/bundle/golang"]
+	path = vim/bundle/golang
+	url = git://github.com/jnwhiteh/vim-golang.git
+[submodule "vim/bundle/dockerfile"]
+	path = vim/bundle/dockerfile
+	url = git://github.com/ekalinin/Dockerfile.vim.git
+[submodule "vim/bundle/nginx"]
+	path = vim/bundle/nginx
+	url = git://github.com/vim-scripts/nginx.vim.git

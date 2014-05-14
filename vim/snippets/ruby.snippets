@@ -18,7 +18,7 @@ snippet beg
 	end
 
 snippet req
-	require "${1}"${2}
+	require '${1}'${2}
 snippet #
 	# =>
 snippet end
@@ -200,13 +200,13 @@ snippet array
 snippet hash
 	Hash.new { |${1:hash}, ${2:key}| $1[$2] = ${3} }
 snippet file File.foreach() { |line| .. }
-	File.foreach(${1:"path/to/file"}) { |${2:line}| ${3} }
+	File.foreach(${1:'path/to/file'}) { |${2:line}| ${3} }
 snippet file File.read()
-	File.read(${1:"path/to/file"})${2}
+	File.read(${1:'path/to/file'})${2}
 snippet Dir Dir.global() { |file| .. }
-	Dir.glob(${1:"dir/glob/*"}) { |${2:file}| ${3} }
-snippet Dir Dir[".."]
-	Dir[${1:"glob/**/*.rb"}]${2}
+	Dir.glob(${1:'dir/glob/*'}) { |${2:file}| ${3} }
+snippet Dir Dir['..']
+	Dir[${1:'glob/**/*.rb'}]${2}
 snippet dir
 	Filename.dirname(__FILE__)
 snippet deli

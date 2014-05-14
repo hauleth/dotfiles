@@ -7,3 +7,5 @@ let g:rubycomplete_classes_in_global = 1
 imap ,, =>
 
 setlocal omnifunc=rubycomplete#Complete
+
+let g:syntastic_ruby_checkers = ['rubocop', 'jruby', 'mri']
