@@ -92,6 +92,7 @@
 [submodule "vim/bundle/snipmate"]
   path = vim/bundle/snipmate
   url = git://github.com/garbas/vim-snipmate.git
+  ignore = dirty
 [submodule "vim/bundle/tlib"]
   path = vim/bundle/tlib
   url = git://github.com/tomtom/tlib_vim.git
@@ -104,6 +105,7 @@
 [submodule "vim/bundle/easymotion"]
   path = vim/bundle/easymotion
   url = git://github.com/Lokaltog/vim-easymotion.git
+  ignore = dirty
 [submodule "vim/bundle/javascript"]
 	path = vim/bundle/javascript
 	url = git://github.com/pangloss/vim-javascript.git

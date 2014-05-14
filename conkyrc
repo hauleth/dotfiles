@@ -1,42 +1,47 @@
+# Conky Metro Clock - http://fav.me/d424h9d
+
+total_run_times 0
+
+# Conky settings
 background yes
-draw_borders no
-draw_shades no
-
-#default_color 636162
-default_color ffffff
-
-own_window no
-own_window_type desktop
-own_window_transparent yes
-own_window_hints undecorated, sticky, below, skip_pager, skip_taskbar
-
-use_xft yes
-xftfont Inconcolata:size=11
-xftalpha 0.5
-
 update_interval 1
-double_buffer yes
 
-alignment top_right
-gap_x 20
-gap_y 10
+override_utf8_locale yes
+
+double_buffer yes
+no_buffers yes
+
+text_buffer_size 2048
+
+# Window specifications
+own_window yes
+own_window_type dock
+own_window_transparent yes
+own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+
+border_inner_margin 0
+border_outer_margin 0
+
+alignment bl
+gap_x 100
+gap_y 100
+
+# Graphics settings
+draw_shades no
+draw_outline no
+draw_borders no
+draw_graph_borders no
+
+# Text settings
+use_xft yes
+xftalpha 0.1
+text_buffer_size 2048
+
+uppercase no
+
+default_color FFFFFF
 
 TEXT
-
-${font :size=25}$alignc${time %H:%M}$font
-$alignc${time %A, %d %B %Y}
-
-${color E0561B}${font :size=11}System$color $hr$font
-Uptime:$alignr$uptime
-
-${color E0561B}${font :size=11}Processor$color $hr$font
-CPU: ${cpu}% ${cpubar 7, }
-${top name 1} $alignr${top cpu 1}
-${top name 2} $alignr${top cpu 2}
-${top name 3} $alignr${top cpu 3}
-
-${color E0561B}${font :size=11}Memory$color $hr$font
-Memory:$alignr${mem} / ${memmax}
-${memperc}% ${membar 7, }
-Cached:$alignr${cached}
-Swap:$alignr${swap} / ${swapmax}
+${voffset 10}${font Roboto Thin:size=30}${time %A}${font}${voffset -10}
+${voffset 10}${font Roboto Thin:size=30}${time %B} ${time %e}${font}${voffset -10}
+${voffset 10}${font Roboto Thin:size=100}${time %H:%M}${font}${voffset -10}
