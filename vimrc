@@ -280,9 +280,6 @@ noremap <F2> :GundoToggle<CR>
 noremap <F3> :NumbersToggle<CR>
 noremap <F4> :IndentGuidesToggle<CR>
 
-nmap <leader>o o<ESC>
-nmap <leader>O O<ESC>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Completition
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

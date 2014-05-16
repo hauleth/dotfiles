@@ -130,3 +130,6 @@
 [submodule "vim/bundle/nginx"]
 	path = vim/bundle/nginx
 	url = git://github.com/vim-scripts/nginx.vim.git
+[submodule "vim/bundle/unimpaired"]
+	path = vim/bundle/unimpaired
+	url = git://github.com/tpope/vim-unimpaired.git
