@@ -68,9 +68,6 @@
 [submodule "vim/bundle/ctrlp"]
   path = vim/bundle/ctrlp
   url = git://github.com/kien/ctrlp.vim.git
-[submodule "vim/bundle/nerdcommenter"]
-  path = vim/bundle/nerdcommenter
-  url = git://github.com/scrooloose/nerdcommenter.git
 [submodule "vim/bundle/tagbar"]
   path = vim/bundle/tagbar
   url = git://github.com/majutsushi/tagbar.git
@@ -133,3 +130,6 @@
 [submodule "vim/bundle/unimpaired"]
 	path = vim/bundle/unimpaired
 	url = git://github.com/tpope/vim-unimpaired.git
+[submodule "vim/bundle/commentary"]
+	path = vim/bundle/commentary
+	url = git://github.com/tpope/vim-commentary.git

@@ -242,6 +242,7 @@ onoremap <C-F>   <C-C>za
 
 " Simplify switching to EX mode
 nnoremap ; :
+nnoremap : ;
 
 " Changing windows
 map <silent> <C-k> :TmuxNavigateUp<CR>
