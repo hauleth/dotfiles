@@ -149,7 +149,7 @@ let g:airline#extensions#tagbar#enabled = 1
 " => Indent Guides
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:indent_guides_start_level = 1
-let g:indent_guides_guide_size = 2
+let g:indent_guides_guide_size = 1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -191,48 +191,34 @@ set nofoldenable  " Don't fold by default
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ','
 
-" Basic
-noremap           <leader>fn :enew<CR>
-noremap           <leader>fs :write<CR>
-inoremap <silent> <leader>fs <C-O>:write<CR>
-
 " Tabs
-map <silent> <F7>       :tabprev<CR>
-map <silent> <F8>       :tabnext<CR>
-map <silent> <leader>tn :tabnew<CR>
-map <silent> <leader>tc :tabclose<CR>
+noremap <silent> <F7>       :tabprev<CR>
+noremap <silent> <F8>       :tabnext<CR>
+noremap <silent> <leader>tn :tabnew<CR>
+noremap <silent> <leader>tc :tabclose<CR>
 
 " Buffers
-map <F5>        :bprev<CR>
-map <F6>        :bnext<CR>
-map <leader>bd  :Bclose<CR>
-map <C-b>d      :Bclose<CR>
-map <C-b>e      :BufExplorer<CR>
+noremap <F5>        :bprev<CR>
+noremap <F6>        :bnext<CR>
+noremap <leader>bd  :Bclose<CR>
+noremap <leader>be  :BufExplorer<CR>
+noremap <C-b>d      :Bclose<CR>
+noremap <C-b>e      :BufExplorer<CR>
 
 " Search
-map <silent> <leader><space>   :nohlsearch<CR>
-nmap <C-M>                     :nohlsearch<CR>
+noremap <silent> <leader><space>   :nohlsearch<CR>
+nnoremap <C-M>                     :nohlsearch<CR>
 
 " Formatting and cleaning
-map <leader>ff mzgg=G`z<CR>
-map <leader>fc :Clean<CR>
+noremap <leader>ff mzgg=G`z<CR>
+noremap <leader>fc :Clean<CR>
 
-" Split buffer
-nmap <leader>bsh :leftabove  vnew<CR>
-nmap <leader>bsl :rightbelow vnew<CR>
-nmap <leader>bsk :leftabove  new<CR>
-nmap <leader>bsj :rightbelow new<CR>
-nmap <leader><left>  :leftabove  vnew<CR>
-nmap <leader><right> :rightbelow vnew<CR>
-nmap <leader><up>    :leftabove  new<CR>
-nmap <leader><down>  :rightbelow new<CR>
-
-nmap ZS :xa<CR>
-nmap ZA :qa<CR>
-nmap ZX :cq<CR>
+nnoremap ZS :xa<CR>
+nnoremap ZA :qa<CR>
+nnoremap ZX :cq<CR>
 
 " Split line at cursor position
-nmap K i<CR><Esc>k$
+nnoremap K i<CR><Esc>k$
 
 " Text folding
 inoremap <C-F>   <C-O>za
@@ -245,11 +231,11 @@ nnoremap ; :
 nnoremap : ;
 
 " Changing windows
-map <silent> <C-k> :TmuxNavigateUp<CR>
-map <silent> <C-h> :TmuxNavigateLeft<CR>
-map <silent> <C-l> :TmuxNavigateRight<CR>
-map <silent> <C-j> :TmuxNavigateDown<CR>
-map <silent> <C-\> :TmuxNavigatePrevious<CR>
+noremap <silent> <C-k> :TmuxNavigateUp<CR>
+noremap <silent> <C-h> :TmuxNavigateLeft<CR>
+noremap <silent> <C-l> :TmuxNavigateRight<CR>
+noremap <silent> <C-j> :TmuxNavigateDown<CR>
+noremap <silent> <C-\> :TmuxNavigatePrevious<CR>
 
 " Save file with ^q
 noremap  <C-q> :w<CR>
@@ -259,19 +245,19 @@ inoremap <C-q> <C-o>:w<CR>
 nmap - <Plug>(choosewin)
 
 " Ctrl-F12 to generate ctags for current project
-map <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>
+noremap <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>
 
 " Align by given separator (available '=',':' and  ',')
-nmap <Leader>a= :Tabularize /=<CR>
-vmap <Leader>a= :Tabularize /=<CR>
-nmap <Leader>a: :Tabularize /:\zs<CR>
-vmap <Leader>a: :Tabularize /:\zs<CR>
-nmap <Leader>a, :Tabularize /,\zs<CR>
-vmap <Leader>a, :Tabularize /,\zs<CR>
+nnoremap <Leader>a= :Tabularize /=<CR>
+vnoremap <Leader>a= :Tabularize /=<CR>
+nnoremap <Leader>a: :Tabularize /:\zs<CR>
+vnoremap <Leader>a: :Tabularize /:\zs<CR>
+nnoremap <Leader>a, :Tabularize /,\zs<CR>
+vnoremap <Leader>a, :Tabularize /,\zs<CR>
 
 " Copy and paste to unnamed register (system register)
-map <Leader>y "+y
-map <Leader>p "+p
+noremap <Leader>y "+y
+noremap <Leader>p "+p
 
 " Fast paste from system clipboard
 inoremap <C-R><C-R> <C-R>*
@@ -289,10 +275,6 @@ set wildmode=longest,list:longest
 set completeopt=menuone,menu
 set tags=.tags,./.tags,tags,./tags
 
-" Enable omni completion. (Ctrl-X Ctrl-O)
-set completefunc=syntaxcomplete#Complete
-set omnifunc=syntaxcomplete#Complete
-
 " Improve autocomplete menu color
 highlight Pmenu ctermbg=238 gui=bold
 
@@ -307,7 +289,7 @@ nnoremap <F10> :TagbarToggle<CR>
 " => Extras
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:markdown_extensions=["md", "markdown"]
-let g:gist_clip_command = 'xclip -selection clipboard'
+let g:gist_clip_command = 'xsel -bi'
 let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -327,10 +309,9 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => NERDCommenter
+" => netrw
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:NERDSpaceDelims = 1
+let g:netrw_liststyle = 3
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Abbreviations
