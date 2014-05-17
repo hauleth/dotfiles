@@ -74,9 +74,6 @@
 [submodule "vim/bundle/bufexplorer"]
   path = vim/bundle/bufexplorer
   url = git://github.com/vim-scripts/bufexplorer.zip.git
-[submodule "vim/bundle/netrw"]
-  path = vim/bundle/netrw
-  url = git://github.com/vim-scripts/netrw.vim.git
 [submodule "vim/bundle/repeat"]
   path = vim/bundle/repeat
   url = git://github.com/tpope/vim-repeat.git
@@ -133,3 +130,6 @@
 [submodule "vim/bundle/commentary"]
 	path = vim/bundle/commentary
 	url = git://github.com/tpope/vim-commentary.git
+[submodule "vim/bundle/gist"]
+	path = vim/bundle/gist
+	url = git://github.com/mattn/gist-vim.git
