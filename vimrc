@@ -130,28 +130,6 @@ set ffs=unix,dos,mac
 set hidden
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Airline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use Powerline fonts
-let g:airline_powerline_fonts = 1
-
-" Show branch in Airline status bar
-let g:airline#extensions#branch#enabled = 1
-let g:airline#extensions#branch#empty_message = '×'
-
-" Show syntax errors
-let g:airline#extensions#syntastic#enabled = 1
-
-" Work with Tagbar
-let g:airline#extensions#tagbar#enabled = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Indent Guides
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:indent_guides_start_level = 1
-let g:indent_guides_guide_size = 1
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
@@ -176,6 +154,7 @@ set softtabstop=2
 set tabstop=2
 set expandtab
 au FileType Makefile set noexpandtab
+au FileType snippet  set noexpandtab
 
 " Display tabs and trailing spaces visually
 set list listchars=tab:→\ ,trail:·
@@ -228,14 +207,6 @@ onoremap <C-F>   <C-C>za
 
 " Simplify switching to EX mode
 nnoremap ; :
-nnoremap : ;
-
-" Changing windows
-noremap <silent> <C-k> :TmuxNavigateUp<CR>
-noremap <silent> <C-h> :TmuxNavigateLeft<CR>
-noremap <silent> <C-l> :TmuxNavigateRight<CR>
-noremap <silent> <C-j> :TmuxNavigateDown<CR>
-noremap <silent> <C-\> :TmuxNavigatePrevious<CR>
 
 " Save file with ^q
 noremap  <C-q> :w<CR>
@@ -246,14 +217,6 @@ nmap - <Plug>(choosewin)
 
 " Ctrl-F12 to generate ctags for current project
 noremap <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>
-
-" Align by given separator (available '=',':' and  ',')
-nnoremap <Leader>a= :Tabularize /=<CR>
-vnoremap <Leader>a= :Tabularize /=<CR>
-nnoremap <Leader>a: :Tabularize /:\zs<CR>
-vnoremap <Leader>a: :Tabularize /:\zs<CR>
-nnoremap <Leader>a, :Tabularize /,\zs<CR>
-vnoremap <Leader>a, :Tabularize /,\zs<CR>
 
 " Copy and paste to unnamed register (system register)
 noremap <Leader>y "+y
@@ -268,55 +231,11 @@ noremap <F3> :NumbersToggle<CR>
 noremap <F4> :IndentGuidesToggle<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Completition
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set complete=.,b,u,]
-set wildmode=longest,list:longest
-set completeopt=menuone,menu
-set tags=.tags,./.tags,tags,./tags
-
-" Improve autocomplete menu color
-highlight Pmenu ctermbg=238 gui=bold
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Tagbar
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:tagbar_userarrows = 1
-
-nnoremap <F10> :TagbarToggle<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extras
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:markdown_extensions=["md", "markdown"]
 let g:gist_clip_command = 'xsel -bi'
 let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Syntastic
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:syntastic_error_symbol = '✗✗'
-let g:syntastic_style_error_symbol = '✠✠'
-let g:syntastic_warning_symbol = '∆∆'
-let g:syntastic_style_warning_symbol = '≈≈'
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => CtrlP
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:ctrlp_custom_ignore = {
-  \ 'dir': '\v(^\.(git|hg|svn)|(bundle|node_modules))$',
-  \ 'file': '\v\.(log)$',
-  \ }
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => netrw
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let g:netrw_liststyle = 3
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Abbreviations
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-abbr Tabularize Tab
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extra commands

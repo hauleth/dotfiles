@@ -1,11 +1,13 @@
 #!/bin/bash
 
-DIR="$(dirname "$0")"
+old="$(pwd)"
 
-echo "Update files in: $DIR"
+dir="$(dirname "$0")"
 
-export GIT_DIR="$DIR/.git"
-export GIT_WORK_TREE="$DIR"
+echo "Update files in: $dir"
+
+cd $dir
 git submodule foreach git pull
-git add -A "$DIR/vim/bundle"
+git add -A "$dir/vim/bundle"
 git commit -m "Update plugins $(date +%F)"
+cd $old
