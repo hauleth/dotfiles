@@ -145,3 +145,6 @@
 [submodule "vim/bundle/bundler"]
 	path = vim/bundle/bundler
 	url = git://github.com/tpope/vim-bundler.git
+[submodule "vim/bundle/swapit"]
+	path = vim/bundle/swapit
+	url = git://github.com/mjbrownie/swapit.git
