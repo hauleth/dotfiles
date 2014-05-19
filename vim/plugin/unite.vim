@@ -1,7 +1,6 @@
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 
-let g:unite_enable_start_insert = 1
 let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
 let g:unite_winheight = 10
@@ -12,7 +11,7 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ '\vendor/',
       \ ], '\|'))
 
-nnoremap <silent> <C-P> :<C-u>Unite -buffer-name=files -start-insert buffer file_rec/async:!<cr>
+nnoremap <silent> <C-P> :<C-u>Unite -buffer-name=files buffer file_rec/async:!<cr>
 
 autocmd FileType unite call s:unite_settings()
 

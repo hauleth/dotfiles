@@ -97,13 +97,16 @@ set mouse=a
 " set switchbuf=usetab,newtab
 
 " Use system clipboard as default
-"set clipboard+=unnamedplus
+" set clipboard+=unnamedplus
 
 " Set fold method
 set foldmethod=syntax   "fold based on indent
 set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
+
+" Automatically exit insert mode after stoping typing
+au CursorHoldI * stopinsert
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
@@ -170,6 +173,9 @@ set nofoldenable  " Don't fold by default
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ','
 
+" Fast save
+map <leader>s :update<CR>
+
 " Tabs
 noremap <silent> <F7>       :tabprev<CR>
 noremap <silent> <F8>       :tabnext<CR>
@@ -200,17 +206,10 @@ nnoremap ZX :cq<CR>
 nnoremap K i<CR><Esc>k$
 
 " Text folding
-inoremap <C-F>   <C-O>za
-nnoremap <C-F>   za
 nnoremap <space> za
-onoremap <C-F>   <C-C>za
 
 " Simplify switching to EX mode
 nnoremap ; :
-
-" Save file with ^q
-noremap  <C-q> :w<CR>
-inoremap <C-q> <C-o>:w<CR>
 
 " Choose window
 nmap - <Plug>(choosewin)
