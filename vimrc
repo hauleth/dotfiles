@@ -105,9 +105,6 @@ set foldnestmax=10      "deepest fold is 10 levels
 set nofoldenable        "dont fold by default
 set foldlevel=1         "this is just what i use
 
-" Automatically exit insert mode after stoping typing
-au CursorHoldI * stopinsert
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -244,3 +241,5 @@ command! Clean %s/\s\+$//e | nohlsearch
 
 " Save as root
 command! W w !sudo tee % > /dev/null
+let g:solarized_visibility = "high"
+let g:solarized_contrast = "high"
