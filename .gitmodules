@@ -80,10 +80,6 @@
 [submodule "vim/bundle/bufferline"]
   path = vim/bundle/bufferline
   url = git://github.com/bling/vim-bufferline.git
-[submodule "vim/bundle/snipmate"]
-  path = vim/bundle/snipmate
-  url = git://github.com/garbas/vim-snipmate.git
-  ignore = dirty
 [submodule "vim/bundle/tlib"]
   path = vim/bundle/tlib
   url = git://github.com/tomtom/tlib_vim.git
@@ -148,3 +144,6 @@
 [submodule "vim/bundle/vinegar"]
 	path = vim/bundle/vinegar
 	url = git://github.com/tpope/vim-vinegar.git
+[submodule "vim/bundle/snipmate"]
+	path = vim/bundle/snipmate
+	url = git://github.com/garbas/vim-snipmate.git

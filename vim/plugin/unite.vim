@@ -12,10 +12,13 @@ let g:unite_enable_short_source_names = 1
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ 'ignore_pattern', join([
       \ '\.git/',
-      \ '\vendor/',
+      \ 'vendor/',
+      \ 'tmp/',
+      \ 'public/',
+      \ 'node_modules/',
       \ ], '\|'))
 
-nnoremap <silent> <C-P> :<C-u>Unite -start-insert -buffer-name=files buffer file_rec/async:!<cr>
+nnoremap <silent> <C-P> :<C-u>Unite -start-insert -buffer-name=files buffer file_rec:!<cr>
 nnoremap <leader>ur <Plug>(unite_redraw)
 
 autocmd FileType unite call s:unite_settings()

@@ -2,12 +2,10 @@
 call pathogen#infect()
 call pathogen#helptags()
 
+set nocompatible
+
 " Reset Vim shell to get rid of strange errors
 set shell=/bin/sh
-
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
-set nocompatible
 
 " Enable per-directory .vimrc files
 set exrc
@@ -116,6 +114,7 @@ set colorcolumn=80
 
 " Use Dark Solarized theme
 set background=dark
+let g:solarized_termtrans=1
 colorscheme solarized
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -200,16 +199,17 @@ nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
 
 " Split line at cursor position
-nnoremap K i<CR><Esc>k$
+" nnoremap K     i<CR><Esc>k$
 
 " Text folding
 nnoremap <space> za
 
 " Simplify switching to EX mode
 nnoremap ; :
+nnoremap : ;
 
 " Choose window
-nmap - <Plug>(choosewin)
+nmap wc <Plug>(choosewin)
 
 " Ctrl-F12 to generate ctags for current project
 noremap <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>
@@ -241,5 +241,3 @@ command! Clean %s/\s\+$//e | nohlsearch
 
 " Save as root
 command! W w !sudo tee % > /dev/null
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
