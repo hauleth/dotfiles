@@ -43,5 +43,5 @@ default_color FFFFFF
 
 TEXT
 ${voffset 10}${font Roboto Thin:size=30}${time %A}${font}${voffset -10}
-${voffset 10}${font Roboto Thin:size=30}${time %B} ${time %e}${font}${voffset -10}
+${voffset 10}${font Roboto Thin:size=30}${time %e} ${time %B}${font}${voffset -10}
 ${voffset 10}${font Roboto Thin:size=100}${time %H:%M}${font}${voffset -10}

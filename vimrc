@@ -199,13 +199,15 @@ nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
 
 " Split line at cursor position
-" nnoremap K     i<CR><Esc>k$
+nnoremap K     i<CR><Esc>k$
+nnoremap Q     K
 
 " Text folding
 nnoremap <space> za
 
 " Simplify switching to EX mode
 nnoremap ; :
+vnoremap ; :
 nnoremap : ;
 
 " Choose window
@@ -225,6 +227,11 @@ inoremap <C-R><C-R> <C-R>*
 noremap <F2> :GundoToggle<CR>
 noremap <F3> :NumbersToggle<CR>
 noremap <F4> :IndentGuidesToggle<CR>
+
+" Git Fugitive commands
+noremap <leader>gst :Gstatus<CR>
+noremap <leader>gci :Gcommit<CR>
+noremap <leader>gd  :Gdiff<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extras
