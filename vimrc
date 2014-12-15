@@ -219,6 +219,7 @@ noremap <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>
 " Copy and paste to unnamed register (system register)
 noremap <Leader>y "+y
 noremap <Leader>p "+p
+noremap <Leader>P "+P
 
 " Fast paste from system clipboard
 inoremap <C-R><C-R> <C-R>*

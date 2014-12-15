@@ -1,5 +1,7 @@
 vim/backups
 vim/.netrwhist
 vim/tags/*
+vim/bundle/*
+/.peru
 !vim/tags/.gitignore
 *.spl

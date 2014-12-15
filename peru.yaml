@@ -1,0 +1,143 @@
+imports:
+  pathogen: vim/autoload
+  vim-ag: vim/bundle/ag
+  vim-airline: vim/bundle/airline
+  vim-bufexplorer: vim/bundle/bufexplorer
+  vim-bufferline: vim/bundle/bufferline
+  vim-bundler: vim/bundle/bundler
+  vim-commentary: vim/bundle/commentary
+  vim-fugitive: vim/bundle/fugitive
+  vim-gitgutter: vim/bundle/gitgutter
+  vim-go: vim/bundle/go
+  vim-gundo: vim/bundle/gundo
+  vim-indent-guides: vim/bundle/indent-guides
+  vim-latex: vim/bundle/latex
+  vim-multiple-cursors: vim/bundle/multiple-cursors
+  vim-numbers: vim/bundle/numbers
+  vim-rails: vim/bundle/rails
+  vim-rbenv: vim/bundle/rbenv
+  vim-repeat: vim/bundle/repeat
+  vim-solarized: vim/bundle/solarized
+  vim-surround: vim/bundle/surround
+  vim-swapit: vim/bundle/swapit
+  vim-syntastic: vim/bundle/syntastic
+  vim-tabular: vim/bundle/tabular
+  vim-tagbar: vim/bundle/tagbar
+  vim-unimpaired: vim/bundle/unimpaired
+  vim-unite: vim/bundle/unite
+  vim-vimproc: vim/bundle/vimproc
+  vim-ycm: vim/bundle/ycm
+
+curl module pathogen:
+  url: https://tpo.pe/pathogen.vim
+  sha1: 3e45332b7c588270b4188d3f073612f189bb1eea
+
+git module vim-solarized:
+  url: https://github.com/altercation/vim-colors-solarized
+  rev: 528a59f26d12278698bb946f8fb82a63711eec21
+
+git module vim-rails:
+  url: https://github.com/tpope/vim-rails.git
+  rev: f7d264fc27b3dfcbc54f8b16f3ae6aea4f92ee4c
+
+git module vim-unite:
+  url: https://github.com/Shougo/unite.vim.git
+  rev: ed765879071263968914d436e1f887e67abc89b1
+
+git module vim-airline:
+  url: https://github.com/bling/vim-airline.git
+  rev: 401ce611c6f9b9e8be0857cf6094604033e1b717
+
+git module vim-gundo:
+  url: https://github.com/sjl/gundo.vim.git
+  rev: 3975ac871565115e3769dc69c06bc88ddc1369af
+
+git module vim-surround:
+  url: https://github.com/tpope/vim-surround.git
+  rev: fa433e0b7330753688f715f3be5d10dc480f20e5
+
+git module vim-repeat:
+  url: https://github.com/tpope/vim-repeat.git
+  rev: 5eba0f19c87402643eb8a7e7d20d9d5338fd6d71
+
+git module vim-vimproc:
+  url: https://github.com/Shougo/vimproc.vim.git
+  build: make
+  rev: 9baa1ca5deeab9687b987b336507a9c531faa5f6
+
+git module vim-tabular:
+  url: https://github.com/godlygeek/tabular.git
+  rev: 60f25648814f0695eeb6c1040d97adca93c4e0bb
+
+git module vim-multiple-cursors:
+  url: https://github.com/terryma/vim-multiple-cursors.git
+  rev: a95edcdffd98c5961f067796fbc2a1a82e0f6a83
+
+git module vim-unimpaired:
+  url: https://github.com/tpope/vim-unimpaired.git
+  rev: 3548479cc154154cbdbb6737ca08a47937cc7113
+
+git module vim-ycm:
+  url: https://github.com/Valloric/YouCompleteMe.git
+  build: ./install.sh
+  rev: c8d203d3f2a44b9f150d9586a600d09a275e3c6c
+
+git module vim-swapit:
+  url: https://github.com/mjbrownie/swapit.git
+  rev: d7d9f6d5c01885e05fb9390b3f9ce051327f1973
+
+git module vim-commentary:
+  url: https://github.com/tpope/vim-commentary.git
+  rev: 9c685131a5facfa0d643feca3a61b41c007d8170
+
+git module vim-numbers:
+  url: https://github.com/myusuf3/numbers.vim.git
+  rev: c7e04485568687ff1c6f4ff842ee80ec9c68d58a
+
+git module vim-syntastic:
+  url: https://github.com/scrooloose/syntastic.git
+  rev: 03f43ec55fa093a72df5a6b6d27293cd60286cb0
+
+git module vim-rbenv:
+  url: https://github.com/tpope/vim-rbenv.git
+  rev: 79a33164cade37f922cc1e2a16eaca3533aa0274
+
+git module vim-fugitive:
+  url: https://github.com/tpope/vim-fugitive.git
+  rev: 2c8461db084d205903a792a23163faa546f143c9
+
+git module vim-bufferline:
+  url: https://github.com/bling/vim-bufferline.git
+  rev: 706e059acc3de5c829ba2d2685759c077a52ebbc
+
+git module vim-go:
+  url: https://github.com/fatih/vim-go.git
+  rev: 81fa39ffd357ad7b9578d3d9b349050fe9cd9b59
+
+git module vim-tagbar:
+  url: https://github.com/majutsushi/tagbar.git
+  rev: bfc121dc38271ab3f050609bb2ca377de07d8bd6
+
+git module vim-indent-guides:
+  url: https://github.com/nathanaelkane/vim-indent-guides.git
+  rev: eec1b629dc4cfa3986d20f21d4b4489732cd3f5a
+
+git module vim-ag:
+  url: https://github.com/rking/ag.vim.git
+  rev: d3a00f8affb091e7a14eb34f1beb9db9bb57a4bf
+
+git module vim-bufexplorer:
+  url: https://github.com/jlanzarotta/bufexplorer.git
+  rev: f3bbe12664b08038912faac586f6c0b5104325c3
+
+git module vim-bundler:
+  url: https://github.com/tpope/vim-bundler.git
+  rev: 48abb774c72732a75f8ab05ee7493b1041dd8ae8
+
+git module vim-gitgutter:
+  url: https://github.com/airblade/vim-gitgutter.git
+  rev: 1a68abedf1115482beb02834ebc42bc3f6a07672
+
+git module vim-latex:
+  url: https://github.com/lervag/vim-latex.git
+  rev: 725aae51eba0144c1a541fea74644ff589f70f42
