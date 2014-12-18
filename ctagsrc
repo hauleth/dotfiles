@@ -1,5 +1,6 @@
 --sort=yes
---recurse
+--recurse=yes
+--append=yes
 
 --c++-kinds=+p
 --fields=+iaS
@@ -8,4 +9,5 @@
 --exclude=.git
 --exclude=log
 --exclude=tmp
+--exclude=target
 --exclude=vendor/bundle

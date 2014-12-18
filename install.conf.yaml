@@ -1,0 +1,16 @@
+- clean: ['~']
+- link:
+    ~/.conkyrc: conkyrc
+    ~/.ctagsrc: ctagsrc
+    ~/.dir_colors: dir_colors
+    ~/.gdbinit: gdbinit
+    ~/.pryrc: pryrc
+    ~/.tmux.conf: tmux.conf
+    ~/.tmux: tmux/
+    ~/.vim: vim/
+    ~/.vimrc: vimrc
+    ~/.config/fish/config.fish: fish/config.fish
+    ~/.config/fish/functions: fish/functions/
+    ~/.config/fish/themes: fish/themes/
+- shell:
+  - [peru sync, Fetch dependencies]

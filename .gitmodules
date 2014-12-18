@@ -153,3 +153,6 @@
 [submodule "vim/bundle/go"]
 	path = vim/bundle/go
 	url = git://github.com/fatih/vim-go.git
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot

@@ -169,8 +169,9 @@ set nofoldenable  " Don't fold by default
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader = ','
 
-" Fast save
-map <leader>s :update<CR>
+" FuzzySearch
+nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files buffer file_rec/async<CR>
+nnoremap <silent> <space>/ :Ag<CR>
 
 " Tabs
 noremap <silent> <F7>       :tabprev<CR>
@@ -181,10 +182,7 @@ noremap <silent> <leader>tc :tabclose<CR>
 " Buffers
 noremap <F5>        :bprev<CR>
 noremap <F6>        :bnext<CR>
-noremap <leader>bd  :Bclose<CR>
-noremap <leader>be  :BufExplorer<CR>
-noremap <C-b>d      :Bclose<CR>
-noremap <C-b>e      :BufExplorer<CR>
+noremap <leader>b  :Unite -no-split buffer<CR>
 
 " Search
 noremap <silent> <leader><space>   :nohlsearch<CR>
@@ -194,6 +192,7 @@ nnoremap <C-M>                     :nohlsearch<CR>
 noremap <leader>ff mzgg=G`z<CR>
 noremap <leader>fc :Clean<CR>
 
+" Closing
 nnoremap ZS :xa<CR>
 nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
@@ -214,12 +213,12 @@ nnoremap : ;
 nmap wc <Plug>(choosewin)
 
 " Ctrl-F12 to generate ctags for current project
-noremap <silent> <F12> :!ctags -f .tags . --append=yes --recurse=yes<CR>
+noremap <silent> <F12> :!ctags -f .tags .<CR>
 
-" Copy and paste to unnamed register (system register)
-noremap <Leader>y "+y
+" Yanks
 noremap <Leader>p "+p
 noremap <Leader>P "+P
+noremap <silent> <Leader>y :Unite -buffer-name=yanks register history/yank<CR>
 
 " Fast paste from system clipboard
 inoremap <C-R><C-R> <C-R>*
@@ -244,6 +243,9 @@ let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Extra commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+command! Ag Unite grep:.
+
 " Remove all trailing whitespaces
 command! Clean %s/\s\+$//e | nohlsearch
 
