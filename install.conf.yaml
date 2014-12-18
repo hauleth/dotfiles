@@ -1,4 +1,6 @@
 - clean: ['~']
+- shell:
+  - [peru sync, Fetch dependencies]
 - link:
     ~/.conkyrc: conkyrc
     ~/.ctagsrc: ctagsrc
@@ -12,5 +14,3 @@
     ~/.config/fish/config.fish: fish/config.fish
     ~/.config/fish/functions: fish/functions/
     ~/.config/fish/themes: fish/themes/
-- shell:
-  - [peru sync, Fetch dependencies]
