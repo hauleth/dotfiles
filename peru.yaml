@@ -1,5 +1,9 @@
 imports:
+  leiningen: bin/
+  spark: bin/
+
   pathogen: vim/autoload
+
   vim-airline: vim/bundle/airline
   vim-bufferline: vim/bundle/bufferline
   vim-bundler: vim/bundle/bundler
@@ -34,6 +38,15 @@ imports:
 curl module pathogen:
   url: https://tpo.pe/pathogen.vim
   sha1: 3e45332b7c588270b4188d3f073612f189bb1eea
+
+curl module leiningen:
+  url: https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
+  build: chmod +x lein
+  sha1: 119b4c8bacfa7f7809bce3cd0233b186ffdbc6d5
+
+git module spark:
+  url: https://github.com/holman/spark.git
+  files: spark
 
 git module vim-solarized:
   url: https://github.com/altercation/vim-colors-solarized
