@@ -5,10 +5,10 @@ imports:
   pathogen: vim/autoload
 
   vim-airline: vim/bundle/airline
+  vim-autoclose: vim/bundle/autoclose
   vim-bufferline: vim/bundle/bufferline
   vim-bundler: vim/bundle/bundler
   vim-commentary: vim/bundle/commentary
-  vim-delimmate: vim/bundle/delimmate
   vim-editorconfig: vim/bundle/editorconfig
   vim-fish: vim/bundle/fish
   vim-fugitive: vim/bundle/fugitive
@@ -47,6 +47,7 @@ curl module leiningen:
 git module spark:
   url: https://github.com/holman/spark.git
   files: spark
+  rev: 983244741db48965905e4fe9bcef94b4e2595783
 
 git module vim-solarized:
   url: https://github.com/altercation/vim-colors-solarized
@@ -158,9 +159,9 @@ git module vim-rust:
   url: https://github.com/wting/rust.vim.git
   rev: 3ed6c6afb4a1f5d1f7edc3ba0eb61fc723d49bbe
 
-git module vim-delimmate:
-  url: https://github.com/Raimondi/delimitMate.git
-  rev: fe1983cfa1cf0924ac9b2b8576255daffd36afbf
+git module vim-autoclose:
+  url: https://github.com/Townk/vim-autoclose.git
+  rev: a9a3b7384657bc1f60a963fd6c08c63fc48d61c3
 
 git module vim-editorconfig:
   url: https://github.com/editorconfig/editorconfig-vim.git

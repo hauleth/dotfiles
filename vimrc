@@ -182,7 +182,7 @@ noremap <silent> <leader>tc :tabclose<CR>
 " Buffers
 noremap <F5>        :bprev<CR>
 noremap <F6>        :bnext<CR>
-noremap <leader>b  :Unite -no-split buffer<CR>
+noremap <leader>b   :Unite -buffer-name=buffers -immediately -no-split buffer<CR>
 
 " Search
 noremap <silent> <leader><space>   :nohlsearch<CR>
@@ -244,7 +244,7 @@ let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
 " => Extra commands
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-command! Ag Unite grep:.
+command! Ag Unite -auto-preview -no-split -buffer-name=Ag grep:.
 
 " Remove all trailing whitespaces
 command! Clean %s/\s\+$//e | nohlsearch
