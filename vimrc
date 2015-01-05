@@ -4,23 +4,10 @@ call pathogen#helptags()
 
 set nocompatible
 
-" Reset Vim shell to get rid of strange errors
-set shell=/bin/sh
-
 " Enable per-directory .vimrc files
 set exrc
 " Disable unsafe commands in local .vimrc
 set secure
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Sets how many lines of history VIM has to remember
-set history=700
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -28,23 +15,11 @@ filetype indent on
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
-" Always show statusline
-set laststatus=2
-
-" Turn on the Wild menu
-set wildmenu
-
 " Ignore all automatic files and folders
 set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 
-" Always show current position
-set ruler
-
 " Height of the command bar
 set cmdheight=1
-
-" Set to auto read when a file is changed from the outside
-set autoread
 
 " Ignore case when searching
 set ignorecase
@@ -55,9 +30,6 @@ set smartcase
 " Highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
-set incsearch
-
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
@@ -67,15 +39,8 @@ set magic
 " Line numbers are good
 set number
 
-" Shorter timeout when exiting insert mode
-set ttimeoutlen=50
-
 " Allow backspace in insert mode
-set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
-
-" Show incomplete cmds down the bottom
-set showcmd
 
 " Show current mode down the bottom
 set showmode
@@ -120,9 +85,6 @@ colorscheme solarized
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 " http://items.sjbach.com/319/configuring-vim-right
@@ -145,9 +107,7 @@ set undofile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Identation
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set autoindent
 set smartindent
-set smarttab
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
@@ -170,7 +130,7 @@ set nofoldenable  " Don't fold by default
 let mapleader = ','
 
 " FuzzySearch
-nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files buffer file_rec/async<CR>
+nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/async<CR>
 nnoremap <silent> <space>/ :Ag<CR>
 
 " Tabs
@@ -183,10 +143,6 @@ noremap <silent> <leader>tc :tabclose<CR>
 noremap <F5>        :bprev<CR>
 noremap <F6>        :bnext<CR>
 noremap <leader>b   :Unite -buffer-name=buffers -immediately -no-split buffer<CR>
-
-" Search
-noremap <silent> <leader><space>   :nohlsearch<CR>
-nnoremap <C-M>                     :nohlsearch<CR>
 
 " Formatting and cleaning
 noremap <leader>ff mzgg=G`z<CR>
@@ -224,7 +180,7 @@ noremap <silent> <Leader>y :Unite -buffer-name=yanks register history/yank<CR>
 inoremap <C-R><C-R> <C-R>*
 
 " Some useful toggles for plugins
-noremap <F2> :GundoToggle<CR>
+noremap <F2> :UndotreeToggle<CR>
 noremap <F3> :NumbersToggle<CR>
 noremap <F4> :IndentGuidesToggle<CR>
 

@@ -3,7 +3,7 @@
   - [peru sync, Fetch dependencies]
 - link:
     ~/.conkyrc: conkyrc
-    ~/.ctagsrc: ctagsrc
+    ~/.ctags: ctags
     ~/.dir_colors: dir_colors
     ~/.gdbinit: gdbinit
     ~/.pryrc: pryrc

@@ -14,6 +14,7 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ 'tmp/',
       \ 'public/',
       \ 'node_modules/',
+      \ 'bower_components/',
       \ 'target/',
       \ ], '\|'))
 

@@ -1,6 +1,5 @@
 " Changing windows
-noremap <C-k> :TmuxNavigateUp<CR>
-noremap <C-h> :TmuxNavigateLeft<CR>
-noremap <C-l> :TmuxNavigateRight<CR>
-noremap <C-j> :TmuxNavigateDown<CR>
-noremap <C-\> :TmuxNavigatePrevious<CR>
+noremap <C-k> <C-w>k
+noremap <C-h> <C-w>h
+noremap <C-l> <C-w>l
+noremap <C-j> <C-w>j
