@@ -1,8 +1,6 @@
 set -l configdir $HOME/.config/fish
 set fish_greeting (fortune zen chuck-norris)
 
-set DEFAULT_USER hauleth
-
 set theme agnoster
 
 # Add local binaries to PATH
@@ -19,13 +17,6 @@ set -gx PATH \
 set -gx SSH_ENV $HOME/.ssh/environment
 
 ssh_agent
-
-# Configure default programs
-set -gx BROWSER xdg-open
-set -gx EDITOR vim
-set -gx LESS '-SRFX'
-
-set -gx NVM_DIR $HOME/.nvm-fish
 
 if [ -e "$TMUX" ]
   set -gx TERM xterm-256color
