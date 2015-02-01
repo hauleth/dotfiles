@@ -72,11 +72,11 @@ git module vim-unite:
 
 git module vim-airline:
   url: https://github.com/bling/vim-airline.git
-  rev: 13ee9f456ac1a7d9e427874c7a6981c2461a6c4d
+  rev: 446397e006d8cba9e1ac38d8c656ba39218c139b
 
 git module vim-undotree:
   url: https://github.com/mbbill/undotree.git
-  rev: 6acc0aebb78aef5c3d97743c3556b73491c21446
+  rev: 42000e2a7140843030f517de9d4923dd5fa40458
 
 git module vim-surround:
   url: https://github.com/tpope/vim-surround.git
@@ -84,7 +84,7 @@ git module vim-surround:
 
 git module vim-repeat:
   url: https://github.com/tpope/vim-repeat.git
-  rev: bd3b51723559ceefe36484fbd35524a98062ba8e
+  rev: b06684a19549a45c91f36dc47dc55525e4c9c994
 
 git module vim-vimproc:
   url: https://github.com/Shougo/vimproc.vim.git
@@ -97,7 +97,7 @@ git module vim-tabular:
 
 git module vim-multiple-cursors:
   url: https://github.com/terryma/vim-multiple-cursors.git
-  rev: 83c07b1bcc738bad7ac04d8042ae6b0a0cd7229d
+  rev: ad2706851d727d75f523694aa81c0ccb31fc9f18
 
 git module vim-unimpaired:
   url: https://github.com/tpope/vim-unimpaired.git
@@ -121,7 +121,7 @@ git module vim-numbers:
 
 git module vim-syntastic:
   url: https://github.com/scrooloose/syntastic.git
-  rev: 2d27fd93d047b1cf4db8f7a032a762eb101d489b
+  rev: 6b76c26cbaa2565387b62c7a7af9a56402dcf297
 
 git module vim-rbenv:
   url: https://github.com/tpope/vim-rbenv.git
@@ -137,7 +137,7 @@ git module vim-bufferline:
 
 git module vim-go:
   url: https://github.com/fatih/vim-go.git
-  rev: 07f95f06f7e6e735a0f4657a30ee1a8e1dd9e84e
+  rev: 9873348f1d28fb20ed0c7cd7bb5ebaf549ad63f2
 
 git module vim-tagbar:
   url: https://github.com/majutsushi/tagbar.git
@@ -157,7 +157,7 @@ git module vim-gitgutter:
 
 git module vim-latex:
   url: https://github.com/lervag/vim-latex.git
-  rev: a22cb708986fdf44fce532247f5f7017f5280b97
+  rev: 241ea891178b3f14dae5b82b505fd9b55453258a
 
 git module vim-toml:
   url: https://github.com/cespare/vim-toml.git
@@ -165,7 +165,7 @@ git module vim-toml:
 
 git module vim-rust:
   url: https://github.com/wting/rust.vim.git
-  rev: 08bb56fbdb61380621db6fe36a24d0a3d176f7a0
+  rev: 2450ecf3091cc7c2711ca9f00eae8e3bedd04376
 
 git module vim-editorconfig:
   url: https://github.com/editorconfig/editorconfig-vim.git
@@ -201,7 +201,7 @@ git module vim-snipmate:
 
 git module vim-snippets:
   url: https://github.com/honza/vim-snippets.git
-  rev: 368973b9d54ef0760a6c4d2f71b31b8759454e83
+  rev: d2d02b7209064701b480068d56589d9778e01375
 
 git module vim-supertab:
   url: https://github.com/ervandew/supertab.git
