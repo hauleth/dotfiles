@@ -12,5 +12,6 @@
 !/vim/tags/.gitignore
 
 /.peru
+/.tmp
 
 *.spl

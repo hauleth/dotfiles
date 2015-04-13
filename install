@@ -1,14 +1,52 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-set -e
+TMP="$(pwd)/.tmp"
 
-CONFIG="install.conf.yaml"
-DOTBOT_DIR="dotbot"
+if [ ! -d "$TMP" ]; then
+  mkdir "$TMP"
+fi
 
-DOTBOT_BIN="bin/dotbot"
-BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+fetch() {
+  config="$1"
+  out="$2"
 
-cd "${BASEDIR}"
-git submodule update --init --recursive "${DOTBOT_DIR}"
+  typ=$($JQ -r ".type" <<< "$config")
+  url=$($JQ -r ".url" <<< "$config")
+  build=$($JQ -r ".build // \"\"" <<< "$config")
+  echo -e "\t$out\t\t$typ"
+  "${typ}-fetch" "$out" "$url" > /dev/null
+  if [ -n "$build" ]; then
+    pushd "$out"
+    $build
+    popd
+  fi
+}
 
-"${BASEDIR}/${DOTBOT_DIR}/${DOTBOT_BIN}" -d "${BASEDIR}" -c "${CONFIG}" "${@}"
+curl-fetch() {
+  curl -Lo "$1" "$2"
+}
+
+git-fetch() {
+  out="$1"
+  tmp_path="$TMP/git/$out"
+  mkdir -p "$(dirname "$tmp_path")"
+  if [ -d "$out" ]; then
+    pushd "$out"
+    git pull
+    popd
+  else
+    git clone --separate-git-dir="$tmp_path" "$2" "$out"
+  fi
+}
+
+JQ="$(which jq)"
+PACKAGES="$(cat packages.json)"
+
+for path in $($JQ -r '. | keys[]' <<< "$PACKAGES")
+do
+  current=$($JQ ".[\"$path\"]" <<< "$PACKAGES")
+  for repo in $($JQ -r ". | keys[]" <<< "$current")
+  do
+    fetch "$($JQ ".[\"$repo\"]" <<< "$current")" "$path/$repo"
+  done
+done

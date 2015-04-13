@@ -1,0 +1,41 @@
+{
+  "vim/autoload": {
+    "pathogen.vim": { "type": "curl", "url": "https://tpo.pe/pathogen.vim" }
+  },
+  "vim/bundle": {
+    "airline":           { "type":  "git",  "url":  "https://github.com/bling/vim-airline.git" },
+    "bufferline":        { "type":  "git",  "url":  "https://github.com/bling/vim-bufferline.git" },
+    "bundler":           { "type":  "git",  "url":  "https://github.com/tpope/vim-bundler.git" },
+    "commentary":        { "type":  "git",  "url":  "https://github.com/tpope/vim-commentary.git" },
+    "delimmate":         { "type":  "git",  "url":  "https://github.com/Raimondi/delimitMate.git" },
+    "docker":            { "type":  "git",  "url":  "https://github.com/ekalinin/Dockerfile.vim.git" },
+    "editorconfig":      { "type":  "git",  "url":  "https://github.com/editorconfig/editorconfig-vim.git" },
+    "emmet":             { "type":  "git",  "url":  "https://github.com/mattn/emmet-vim.git" },
+    "fish":              { "type":  "git",  "url":  "https://github.com/dag/vim-fish.git" },
+    "fugitive":          { "type":  "git",  "url":  "https://github.com/tpope/vim-fugitive.git" },
+    "gitgutter":         { "type":  "git",  "url":  "https://github.com/airblade/vim-gitgutter.git" },
+    "latex":             { "type":  "git",  "url":  "https://github.com/lervag/vim-latex.git" },
+    "multiple-cursors":  { "type":  "git",  "url":  "https://github.com/terryma/vim-multiple-cursors.git" },
+    "numbers":           { "type":  "git",  "url":  "https://github.com/myusuf3/numbers.vim.git" },
+    "rails":             { "type":  "git",  "url":  "https://github.com/tpope/vim-rails.git" },
+    "racer":             { "type":  "git",  "url":  "https://github.com/phildawes/racer.git", "build": "cargo build --release" },
+    "rbenv":             { "type":  "git",  "url":  "https://github.com/tpope/vim-rbenv.git" },
+    "repeat":            { "type":  "git",  "url":  "https://github.com/tpope/vim-repeat.git" },
+    "rhubarb":           { "type":  "git",  "url":  "https://github.com/tpope/vim-rhubarb.git" },
+    "rust":              { "type":  "git",  "url":  "https://github.com/rust-lang/rust.vim.git" },
+    "sensible":          { "type":  "git",  "url":  "https://github.com/tpope/vim-sensible.git" },
+    "surround":          { "type":  "git",  "url":  "https://github.com/tpope/vim-surround.git" },
+    "supertab":          { "type":  "git",  "url":  "https://github.com/ervandew/supertab.git" },
+    "swapit":            { "type":  "git",  "url":  "https://github.com/mjbrownie/swapit.git" },
+    "syntastic":         { "type":  "git",  "url":  "https://github.com/scrooloose/syntastic.git" },
+    "undotree":          { "type":  "git",  "url":  "https://github.com/mbbill/undotree.git" },
+    "unimpaired":        { "type":  "git",  "url":  "https://github.com/tpope/vim-unimpaired.git" },
+    "unite":             { "type":  "git",  "url":  "https://github.com/Shougo/unite.vim.git" },
+    "solarized":         { "type":  "git",  "url":  "https://github.com/altercation/vim-colors-solarized.git" },
+    "tabular":           { "type":  "git",  "url":  "https://github.com/godlygeek/tabular.git" },
+    "tagbar":            { "type":  "git",  "url":  "https://github.com/majutsushi/tagbar.git" },
+    "toml":              { "type":  "git",  "url":  "https://github.com/cespare/vim-toml.git" },
+    "vimproc":           { "type":  "git",  "url":  "https://github.com/Shougo/vimproc.vim.git", "build": "make" },
+    "vinegar":           { "type":  "git",  "url":  "https://github.com/tpope/vim-vinegar.git" }
+  }
+}

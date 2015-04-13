@@ -1,5 +1,5 @@
 set -l configdir $HOME/.config/fish
-set fish_greeting (fortune zen chuck-norris)
+set fish_greeting (fortune zen)
 
 set theme agnoster
 
