@@ -35,55 +35,8 @@ Installation easy (but easier way will come in future):
 
         $ git clone https://github.com/hauleth/dotfiles.git && cd dotfiles
 
-2. Pull all submodules
+2. Run `./install`
 
-        $ git submodule init && git submodule update
-
-3. Symlink needed files (call this inside repo)
-
-        $ for conf in *; do ln -s $(pwd)/$conf ~/.$conf || echo "Cannot symling '$conf'. Propably already exist."; done
-
-4. That's all. Be happy with your brand new confs brought to you by [@Hauleth][t]
-
-Vim plug-ins
-------------
-
-- [Ag][vim-ag] - based on Ack.vim, use [`ag`][ag] command
-- [Airline][airline] - nicer status bar, Powerline replacement
-- [Autoclose][autoclose] - automatically close brackets and quotes
-- [BufExplorer][bufexplorer] - list and manage your buffers
-- [BufferLine][bufferline] - list your buffers on status bar
-- [CtrlP][ctrlp] - fuzzy file finder chooser
-- [Emmet][emmet] - CSS selectors to HTML tags expander
-- [Fugitive][fugitive] - the best Git tool ever!
-- [Gundo][gundo] - show Vim change tree
-- [Indent Guides][indent-guides] - show indentation level visually, sometimes
-  useful (when dealing with tragic code)
-- [LaTeX Box][latex-box] - helpers for LaTeX docs
-- [Loremipsum][ipsum] - *Lorem ipsum* generator
-- [Multiple Cursors][multiple-cursors] - Sublime Text style multiple selections
-- [NERDCommenter][commenter] - fast comment lines or block of code
-- [Netrw][netrw] - network oriented file browsing and editing
-- [Numbers][numbers] - relative line numbering switcher
-- [Rails][vim-rails] - some Rails specific commands
-- [Ruby][vim-ruby] - as above, but for Ruby
-- [SnipMate][snipmate] - TextMate-like snippets
-- [Solarized][solarized] - awesome and beautiful color theme
-- [SuperTab][supertab] - intelligent `<Tab>` key (indentation, completion and
-  snippets)
-- [Surround][surround] - quoting/parenthesizing made simple
-- [Sytnastic][syntastic] - check syntax on save
-- [Tabular][tabular] - fast and simple aligning/tableizeing text
-- [Tagbar][tagbar] - list tags in file and allow fast jumping to them
-- [TMux navigator][tmux-nav] - allow jumping between Vim windows and TMux panes
-  using the same key combos
-
-Support for additional languages:
-
-- [CoffeeScript][coffee]
-- [Fish][fish]
-- [Puppet][puppet]
-- [TypeScript][ts]
 
 Copyrights
 ----------
