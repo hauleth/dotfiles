@@ -42,7 +42,7 @@ git-fetch() {
 JQ="$(which jq)"
 PACKAGES="$(cat packages.json)"
 
-if [ -e "$JQ" ]; then
+if [ ! -x "$JQ" ]; then
   echo 'Install jq before running'
   echo 'http://stedolan.github.io/jq/'
   echo ''

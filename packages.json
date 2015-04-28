@@ -1,4 +1,7 @@
 {
+  "bin": {
+    "lein": { "type": "curl", "url": "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein", "build": "chmod +x bin/lein" }
+  },
   "vim/autoload": {
     "pathogen.vim": { "type": "curl", "url": "https://tpo.pe/pathogen.vim" }
   },

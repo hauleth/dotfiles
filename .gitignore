@@ -1,5 +1,4 @@
-/bin/
-!/bin/.keep
+/bin
 !/bin/tmux-airline
 
 /vim/backups
@@ -11,7 +10,6 @@
 /vim/tags
 !/vim/tags/.gitignore
 
-/.peru
 /.tmp
 
 *.spl
