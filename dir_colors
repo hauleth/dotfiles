@@ -255,5 +255,6 @@ EXEC 01;38;5;180
 
 # Templates
 .erb      01;38;5;6
+.curly    01;38;5;6
 .haml     01;38;5;6
-.jbuilder 01;38;5;6
+.builder  01;38;5;6
