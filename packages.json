@@ -1,6 +1,6 @@
 {
   "bin": {
-    "lein": { "type": "curl", "url": "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein", "build": "chmod +x bin/lein" }
+    "lein": { "type": "curl", "url": "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein", "build": "chmod +x $1" }
   },
   "vim/autoload": {
     "pathogen.vim": { "type": "curl", "url": "https://tpo.pe/pathogen.vim" }
@@ -13,6 +13,7 @@
     "delimmate":         { "type":  "git",  "url":  "https://github.com/Raimondi/delimitMate.git" },
     "docker":            { "type":  "git",  "url":  "https://github.com/ekalinin/Dockerfile.vim.git" },
     "editorconfig":      { "type":  "git",  "url":  "https://github.com/editorconfig/editorconfig-vim.git" },
+    "elixir":            { "type":  "git",  "url":  "https://github.com/elixir-lang/vim-elixir.git" },
     "emmet":             { "type":  "git",  "url":  "https://github.com/mattn/emmet-vim.git" },
     "fish":              { "type":  "git",  "url":  "https://github.com/dag/vim-fish.git" },
     "fugitive":          { "type":  "git",  "url":  "https://github.com/tpope/vim-fugitive.git" },

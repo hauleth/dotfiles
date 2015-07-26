@@ -16,9 +16,13 @@ fetch() {
   echo -e "\t$out\t\t$typ"
   "${typ}-fetch" "$out" "$url" > /dev/null
   if [ -n "$build" ]; then
-    pushd "$out"
-    $build
-    popd
+    if [ -d "$out" ]; then
+      pushd "$out"
+      sh -c "$build"
+      popd
+    else
+      sh -c "$build" -- "$out"
+    fi
   fi
 }
 
@@ -55,6 +59,11 @@ do
   current=$($JQ ".[\"$path\"]" <<< "$PACKAGES")
   for repo in $($JQ -r ". | keys[]" <<< "$current")
   do
-    fetch "$($JQ ".[\"$repo\"]" <<< "$current")" "$path/$repo"
+    fetch "$($JQ ".[\"$repo\"]" <<< "$current")" "$path/$repo" &
   done
+done
+
+for job in $(jobs -p)
+do
+  wait $job
 done
