@@ -2,6 +2,7 @@
 !/bin/tmux-airline
 
 /vim/backups
+/vim/spell
 /vim/.netrwhist
 
 /vim/bundle

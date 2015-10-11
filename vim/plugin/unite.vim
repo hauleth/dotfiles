@@ -2,8 +2,6 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#custom#source('buffer,file,file_rec', 'sorters', 'sorter_selecta')
 
 let g:unite_split_rule = "botright"
-let g:unite_force_overwrite_statusline = 1
-" let g:unite_winheight = 10
 
 let g:unite_prompt = '» '
 
