@@ -1,13 +1,13 @@
-/bin
+/bin/*
 !/bin/tmux-airline
 
 /nvim/spell
 /nvim/.netrwhist
 
-/nvim/bundle/*
+/nvim/bundle/*/
 !/nvim/bundle/.keep
 
-/nvim/tags/*
+/nvim/tags/*/
 !/nvim/tags/.keep
 
 /.tmp
