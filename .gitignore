@@ -1,15 +1,14 @@
 /bin
 !/bin/tmux-airline
 
-/vim/backups
-/vim/spell
-/vim/.netrwhist
+/nvim/spell
+/nvim/.netrwhist
 
-/vim/bundle
-!/vim/bundle/.keep
+/nvim/bundle/*
+!/nvim/bundle/.keep
 
-/vim/tags
-!/vim/tags/.gitignore
+/nvim/tags/*
+!/nvim/tags/.keep
 
 /.tmp
 

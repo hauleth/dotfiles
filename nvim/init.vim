@@ -26,14 +26,6 @@ set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 " Display tabs and trailing spaces visually
 set list listchars=tab:→\ ,trail:·
 
-" Smart case searches
-set ignorecase
-set smartcase
-
-" Better search
-set hlsearch
-set magic
-
 " Line numbers are good
 set number
 
@@ -49,37 +41,9 @@ set shortmess=atI
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 set hidden
-" }}}
-" Files, backups and undo {{{
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
 
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-silent !mkdir -p ~/.backups > /dev/null 2>&1
-set undodir=~/.backups
-set undofile
-" }}}
-" Identation and folding {{{
-set smartindent
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set expandtab
-au FileType Makefile set noexpandtab
-au FileType snippet  set noexpandtab
-
-set textwidth=80
-set nowrap       " Don't wrap lines
-set linebreak    " Break lines at convenient points
-set formatoptions+=t
-
-" Set fold method
-set foldmethod=syntax
-set foldlevel=3
-set foldnestmax=5
+" Wrap line on movements
+set whichwrap+=<,>,h,l,[,]
 " }}}
 " Key mappings {{{
 let mapleader = ','
@@ -88,18 +52,10 @@ let mapleader = ','
 nnoremap ' `
 nnoremap ` '
 
-" FuzzySearch
-nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/async<CR>
-nnoremap <silent> <leader>/ :Ag<CR>
-
 " Buffers
 noremap <F5>        :bprev<CR>
 noremap <F6>        :bnext<CR>
 noremap <leader>b   :Unite -buffer-name=buffers -immediately -no-split buffer<CR>
-
-" Formatting and cleaning
-noremap <leader>ff mzgg=G`z<CR>
-noremap <leader>fc :Clean<CR>
 
 nnoremap gV `[v`]
 
@@ -111,9 +67,6 @@ nnoremap ZX :cq<CR>
 " Split line at cursor position
 nnoremap K     i<CR><Esc>k$
 nnoremap Q     K
-
-" Text folding
-nnoremap <space> za
 
 " Simplify switching to EX mode
 nnoremap ; :
@@ -143,6 +96,59 @@ noremap <F4> :IndentGuidesToggle<CR>
 noremap <leader>gst :Gstatus<CR>
 noremap <leader>gci :Gcommit<CR>
 noremap <leader>gd  :Gdiff<CR>
+" }}}
+" Search {{{
+" Smart case searches
+set ignorecase
+set smartcase
+
+" Better search
+set magic
+
+" Clear search highlights
+noremap <leader>l :nohlsearch<CR>
+
+" FuzzySearch
+nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
+nnoremap <silent> <leader>/ :Ag<CR>
+" }}}
+" Files, backups and undo {{{
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
+set undodir=~/.cache/backups
+set undofile
+" }}}
+" Identation and folding {{{
+set smartindent
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+au FileType Makefile set noexpandtab
+au FileType snippet  set noexpandtab
+
+set textwidth=80
+set nowrap       " Don't wrap lines
+set linebreak    " Break lines at convenient points
+set formatoptions+=t
+
+" Formatting and cleaning
+noremap <leader>ff mzgg=G`z<CR>
+noremap <leader>fc :Clean<CR>
+
+" Set fold method
+set foldmethod=syntax
+set foldlevel=3
+set foldnestmax=5
+
+" Text folding
+nnoremap <space> za
 " }}}
 " Extras {{{
 let g:markdown_extensions=["md", "markdown"]

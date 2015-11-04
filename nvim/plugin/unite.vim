@@ -5,7 +5,7 @@ let g:unite_split_rule = "botright"
 
 let g:unite_prompt = '» '
 
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+call unite#custom_source('file_rec/neovim,file_mru,file,buffer,grep',
       \ 'ignore_pattern', join([
       \ '\.git/',
       \ 'vendor/',

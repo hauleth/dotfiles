@@ -2,10 +2,10 @@
   "bin": {
     "lein": { "type": "curl", "url": "https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein", "build": "chmod +x $1" }
   },
-  "vim/autoload": {
+  "nvim/autoload": {
     "pathogen.vim": { "type": "curl", "url": "https://tpo.pe/pathogen.vim" }
   },
-  "vim/bundle": {
+  "nvim/bundle": {
     "bufferline":        { "type":  "git",  "url":  "https://github.com/bling/vim-bufferline.git" },
     "commentary":        { "type":  "git",  "url":  "https://github.com/tpope/vim-commentary.git" },
     "delimmate":         { "type":  "git",  "url":  "https://github.com/Raimondi/delimitMate.git" },
@@ -19,7 +19,6 @@
     "indent-guides":     { "type":  "git",  "url":  "https://github.com/nathanaelkane/vim-indent-guides.git" },
     "lightline":         { "type":  "git",  "url":  "https://github.com/itchyny/lightline.vim.git" },
     "multiple-cursors":  { "type":  "git",  "url":  "https://github.com/terryma/vim-multiple-cursors.git" },
-    "numbers":           { "type":  "git",  "url":  "https://github.com/myusuf3/numbers.vim.git" },
     "projectionist":     { "type":  "git",  "url":  "https://github.com/tpope/vim-projectionist.git" },
     "racer":             { "type":  "git",  "url":  "https://github.com/racer-rust/vim-racer.git" },
     "repeat":            { "type":  "git",  "url":  "https://github.com/tpope/vim-repeat.git" },
@@ -37,7 +36,6 @@
     "undotree":          { "type":  "git",  "url":  "https://github.com/mbbill/undotree.git" },
     "unimpaired":        { "type":  "git",  "url":  "https://github.com/tpope/vim-unimpaired.git" },
     "unite":             { "type":  "git",  "url":  "https://github.com/Shougo/unite.vim.git" },
-    "vimproc":           { "type":  "git",  "url":  "https://github.com/Shougo/vimproc.vim.git", "build": "make" },
     "vimux":             { "type":  "git",  "url":  "https://github.com/benmills/vimux.git" },
     "vinegar":           { "type":  "git",  "url":  "https://github.com/tpope/vim-vinegar.git" }
   }
