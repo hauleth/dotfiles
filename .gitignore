@@ -4,8 +4,7 @@
 /nvim/spell
 /nvim/.netrwhist
 
-/nvim/bundle/*/
-!/nvim/bundle/.keep
+/nvim/plugged
 
 /nvim/tags/*/
 !/nvim/tags/.keep

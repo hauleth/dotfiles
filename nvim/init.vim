@@ -1,8 +1,58 @@
 " vim:foldmethod=marker:foldlevel=0:foldenable
 
-" Pathogen {{{
-call pathogen#infect()
-call pathogen#helptags()
+" Plugins {{{
+call plug#begin()
+
+Plug 'tpope/vim-sensible'
+
+" Visual
+Plug 'altercation/vim-colors-solarized'
+Plug 'bling/vim-bufferline'
+Plug 'itchyny/lightline.vim'
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Languages
+Plug 'cespare/vim-toml'
+Plug 'dag/vim-fish'
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'elixir-lang/vim-elixir'
+Plug 'rust-lang/rust.vim'
+
+" Git
+Plug 'airblade/vim-gitgutter'
+Plug 'gregsexton/gitv'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
+
+" Project management
+Plug 'Shougo/unite.vim'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-vinegar'
+
+" TMux Integration
+Plug 'benmills/vimux'
+Plug 'christoomey/vim-tmux-navigator'
+
+" Completion
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+Plug 'mattn/emmet-vim'
+Plug 'ervandew/supertab'
+
+" Code manipulation
+Plug 'tpope/vim-commentary'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-surround'
+
+" Utils
+Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'mjbrownie/swapit'
+Plug 'scrooloose/syntastic'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-unimpaired'
+
+call plug#end()
 " }}}
 " Colors {{{
 " Show 80 column
