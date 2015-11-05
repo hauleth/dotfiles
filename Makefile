@@ -9,7 +9,7 @@ all: neovim lein tmux
 
 neovim:
 	$(LN) nvim $(XDG_CONFIG_HOME)/nvim
-	nvim +PlugUpgrade +PlugInstall +qall
+	nvim +PlugUpdate +qall
 
 lein:
 	$(WGET) -Obin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein

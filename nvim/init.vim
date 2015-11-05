@@ -42,9 +42,10 @@ Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
+Plug 'Chiel92/vim-autoformat'
 
 " Utils
-Plug 'godlygeek/tabular', { 'on': 'Tabularize' }
+Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'scrooloose/syntastic'
@@ -189,7 +190,7 @@ set linebreak    " Break lines at convenient points
 set formatoptions+=t
 
 " Formatting and cleaning
-noremap <leader>ff mzgg=G`z<CR>
+noremap <leader>ff :Autoformat<CR>
 noremap <leader>fc :Clean<CR>
 
 " Set fold method
