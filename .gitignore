@@ -1,5 +1,8 @@
 /bin/*
 !/bin/tmux-airline
+!/bin/cargo-cov
+!/bin/cargon
+!/bin/git-cleanup
 
 /nvim/spell
 /nvim/.netrwhist

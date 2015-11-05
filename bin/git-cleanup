@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git branch --merged | grep -v '^*' | xargs -n1 git branch -d
