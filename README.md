@@ -20,7 +20,7 @@ Installation easy (but easier way will come in future):
 
 2. Run
 
-        $ make
+        $ make -s
 
 Copyrights
 ----------
@@ -29,11 +29,3 @@ Copyrights (c) 2013 [Łukasz Niemier][blog]
 
 [t]: http://twitter.com/hauleth "Just follow me"
 [blog]: http://lukasz.niemier.pl "Awesome Fantasy Rubist"
-
-[nvim]: https://neovim.io/ "NeoVim"
-[pow-fonts]: https://github.com/Lokaltog/powerline-fonts "Some fonts with extras"
-[ctags]: http://ctags.sourceforge.net/ "Exuberant Ctags"
-[rbenv]: http://rbenv.org/ "Manage Ruby versions"
-[conky]: http://conky.sourceforge.net/ "Conky - Linux system monitor"
-[pry]: http://pryrepl.org/ "Great Ruby REPL"
-[ag]: https://github.com/ggreer/the_silver_searcher "The Silver Searcher"
