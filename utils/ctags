@@ -1,3 +1,5 @@
+-f .tags
+
 --sort=yes
 --recurse=yes
 --append=yes
