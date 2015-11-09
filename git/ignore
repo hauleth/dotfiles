@@ -54,6 +54,7 @@ Session.vim
 .rake_tasks
 .meteor/
 .tags
+.gdb_history
 # }}}
 
 # vim: foldmethod=marker foldlevel=0 foldenable

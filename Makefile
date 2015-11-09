@@ -1,8 +1,10 @@
 LNFLAGS = -rsiT
 export LN = ln $(LNFLAGS)
+
+export WGET = wget -Nq --show-progress
+
 export PWD = $(shell pwd)
-WGET = wget -Nq --show-progress
-TARGETS = nvim tmux git conky
+TARGETS = nvim tmux git conky gdb
 
 all: $(TARGETS) lein
 
