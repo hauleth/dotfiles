@@ -1,23 +1,16 @@
 LNFLAGS = -rsiT
 export LN = ln $(LNFLAGS)
+export PWD = $(shell pwd)
+WGET = wget -Nq --show-progress
+TARGETS = nvim tmux git conky
 
-export WGET = wget -Nq --show-progress
+all: $(TARGETS) lein
 
-export XDG_CONFIG_HOME ?= ${HOME}/.config
-
-all: nvim lein tmux
-
-git:
-	git config --global include.path '~/.dotfiles/git/config'
-
-nvim:
+$(TARGETS):
 	$(MAKE) -C $@ install
 
 lein:
 	$(WGET) -Obin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	chmod +x bin/lein
 
-tmux:
-	$(MAKE) -C $@ install
-
-.PHONY: tmux lein nvim all git
+.PHONY: $(TARGETS) lein all

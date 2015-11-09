@@ -1,7 +1,5 @@
 # Conky Metro Clock - http://fav.me/d424h9d
 
-total_run_times 0
-
 # Conky settings
 background yes
 update_interval 1
@@ -39,9 +37,9 @@ text_buffer_size 2048
 
 uppercase no
 
-default_color ed0501
+default_color b569c0
 
 TEXT
-${voffset 10}${font Roboto:style=Thin:size=30}${time %A}${font}${voffset -10}
-${voffset 10}${font Roboto:style=Thin:size=30}${time %d} ${time %B}${font}${voffset -10}
-${voffset 10}${font Roboto:style=Thin:size=100}${time %H:%M}${font}${voffset -10}
+${voffset 10}${font Squarish Sans CT:size=30}${time %A}${font}${voffset -10}
+${voffset 10}${font Squarish Sans CT:size=30}${time %d} ${time %B}${font}${voffset -10}
+${voffset 10}${font Squarish Sans CT:size=100}${time %H:%M}${font}${voffset -10}
