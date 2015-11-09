@@ -1,12 +1,11 @@
-dir-colors:
-	$(LN) dir_colors ${HOME}/.dir_colors
+UTILS = dir_colors ctags
 
-ctags:
-	$(LN) ctags ${HOME}/.ctags
+$(UTILS):
+	$(LN) $@ ${HOME}/.$@
 
-install: dir-colors ctags
+install: dir_colors ctags
 
 clear:
-	rm ${HOME}/.dir_colors ${HOME}/.ctags
+	for util in $(UTILS); do rm $$util; done
 
-.PHONY: install clear ctags dir-colors
+.PHONY: install clear ctags dir_colors
