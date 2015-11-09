@@ -1,4 +1,4 @@
-" vim:foldmethod=marker:foldlevel=0:foldenable
+" vim: foldmethod=marker foldlevel=0 foldenable
 
 " Plugins {{{
 call plug#begin()
@@ -17,6 +17,7 @@ Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'rust-lang/rust.vim'
+Plug 'Blackrush/vim-gocode'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -43,6 +44,7 @@ Plug 'tpope/vim-commentary'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-surround'
 Plug 'Chiel92/vim-autoformat'
+Plug 'tommcdo/vim-exchange'
 
 " Utils
 Plug 'junegunn/vim-easy-align'
@@ -52,6 +54,7 @@ Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 
 call plug#end()
 " }}}
@@ -160,7 +163,7 @@ set magic
 noremap <leader>l :nohlsearch<CR>
 
 " FuzzySearch
-nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/neovim<CR>
+nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/async<CR>
 nnoremap <silent> <leader>/ :Ag<CR>
 " }}}
 " Files, backups and undo {{{

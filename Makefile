@@ -1,20 +1,23 @@
-LNFLAGS=-rsiT
-LN=ln $(LNFLAGS)
+LNFLAGS = -rsiT
+export LN = ln $(LNFLAGS)
 
-WGET=wget
+export WGET = wget -Nq --show-progress
 
-XDG_CONFIG_HOME ?= ${HOME}/.config
+export XDG_CONFIG_HOME ?= ${HOME}/.config
 
-all: neovim lein tmux
+all: nvim lein tmux
 
-neovim:
-	$(LN) nvim $(XDG_CONFIG_HOME)/nvim
-	nvim +PlugUpdate +qall
+git:
+	git config --global include.path '~/.dotfiles/git/config'
+
+nvim:
+	$(MAKE) -C $@ install
 
 lein:
 	$(WGET) -Obin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	chmod +x bin/lein
 
 tmux:
-	$(LN) tmux.conf ${HOME}/.tmux.conf
-	$(LN) tmux ${HOME}/.tmux
+	$(MAKE) -C $@ install
+
+.PHONY: tmux lein nvim all git

@@ -1,0 +1,34 @@
+[user]
+	email = lukasz@niemier.pl
+	name = Łukasz Jan Niemier
+[core]
+	excludesfile = ~/.dotfiles/git/ignore
+	editor = nvim
+
+[alias]
+	ca = commit --amend
+	b = branch
+	ci = commit
+	co = checkout
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	rci = commit --amend --reuse-message HEAD
+	root = !git checkout master && git up
+	squash = rebase -i @{u}
+	st = status -sb
+
+[mergetool "fugitive"]
+	cmd = nvim -f -c Gdiff \"$MERGED\"
+[merge]
+	tool = fugitive
+
+[push]
+	default = simple
+[credential]
+	helper = cache --timeout=3600
+
+[filter "lfs"]
+	clean = git-lfs clean %f
+	smudge = git-lfs smudge %f
+	required = true
+
+# vim: ft=gitconfig noexpandtab

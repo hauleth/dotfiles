@@ -1,11 +1,12 @@
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#custom#source('buffer,file,file_rec', 'sorters', 'sorter_selecta')
+call unite#custom_source('buffer,file_rec/neovim,file_rec/async',
+      \ 'sorters', 'sorter_selecta')
 
 let g:unite_split_rule = "botright"
 
 let g:unite_prompt = '» '
 
-call unite#custom_source('file_rec/neovim,file_mru,file,buffer,grep',
+call unite#custom_source('file_rec/neovim,file_rec/async,file_mru,grep',
       \ 'ignore_pattern', join([
       \ '\.git/',
       \ 'vendor/',
@@ -16,6 +17,9 @@ call unite#custom_source('file_rec/neovim,file_mru,file,buffer,grep',
       \ 'target/',
       \ ], '\|'))
 
+let g:unite_source_rec_async_command =
+      \ ['ag', '--follow', '--nocolor', '--nogroup',
+      \  '--hidden', '-g', '']
 
 " Use ag for search
 if executable('ag')
