@@ -4,7 +4,7 @@ export LN = ln $(LNFLAGS)
 export WGET = wget -Nq --show-progress
 
 export PWD = $(shell pwd)
-TARGETS = nvim tmux git conky gdb ruby
+TARGETS = nvim tmux git conky gdb ruby utils
 
 all: $(TARGETS) lein
 
