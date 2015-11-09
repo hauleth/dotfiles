@@ -12,12 +12,13 @@ Plug 'itchyny/lightline.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 
 " Languages
+Plug 'Blackrush/vim-gocode'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elixir-lang/vim-elixir'
 Plug 'rust-lang/rust.vim'
-Plug 'Blackrush/vim-gocode'
+Plug 'tmux-plugins/vim-tmux'
 
 " Git
 Plug 'airblade/vim-gitgutter'

@@ -1,5 +1,5 @@
 install:
-	$(LN) tmux/conf ${HOME}/.tmux.conf
+	$(LN) tmux/config ${HOME}/.tmux.conf
 	$(LN) tmux ${HOME}/.tmux
 
 clean:

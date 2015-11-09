@@ -11,6 +11,9 @@ all: $(TARGETS) lein
 $(TARGETS):
 	$(MAKE) -C $@ install
 
+update:
+	@git submodule foreach git pull
+
 lein:
 	$(WGET) -Obin/lein https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	chmod +x bin/lein

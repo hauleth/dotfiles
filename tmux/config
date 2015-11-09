@@ -1,19 +1,13 @@
 unbind C-b
 set -g prefix C-q
 
-set -g status on
-set -g status-utf8 on
-set -g status-interval 1
-set -sg escape-time 0
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+
+set -g @plugin 'tmux-plugins/tmux-yank'
 
 source "$HOME/.tmux/themes/agnoster.tmux"
-
-setw -g mode-keys vi
-
-set-window-option -g utf8 on
-set-option -g status-utf8 on
-
-# set -g default-terminal screen-256color
 
 set -g mouse-resize-pane on
 set -g mouse-select-pane on
@@ -30,14 +24,11 @@ bind -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
 bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
-# Bring back clear screen under tmux prefix
-bind C-l send-keys 'C-l'
-
 # Allow sending prefix to child
-bind-key C-q  send-prefix
 bind-key j    command-prompt -p "Join pane from:" "join-pane -s '%%'"
 bind-key s    command-prompt -p "Send pane to:"   "join-pane -t '%%'"
 
-set -g base-index 1
+# Initialize TMUX plugin manager
+run '~/.tmux/plugins/tpm/tpm'
 
 # vim: ft=tmux
