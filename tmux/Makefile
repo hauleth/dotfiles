@@ -1,6 +1,6 @@
 install:
-	$(LN) tmux/config ${HOME}/.tmux.conf
-	$(LN) tmux ${HOME}/.tmux
+	$(LN) init.tmux ${HOME}/.tmux.conf
+	$(LN) . ${HOME}/.tmux
 
 clean:
 	rm ${HOME}/.tmux.conf ${HOME}/.tmux
