@@ -1,5 +1,5 @@
-" Changing windows
-noremap <C-k> <C-w>k
-noremap <C-h> <C-w>h
-noremap <C-l> <C-w>l
-noremap <C-j> <C-w>j
+map <M-Left> <C-T>
+map <M-Right> <C-]>
+
+set tags=.tags
+noremap <F12> :silent !ctags -R .<CR>

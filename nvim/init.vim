@@ -132,10 +132,6 @@ nnoremap : ;
 " Choose window
 nmap wc <Plug>(choosewin)
 
-" Ctrl-F12 to generate ctags for current project
-noremap <silent> <F12> :!ctags -R .<CR>
-set tags=.tags
-
 " Yanks
 noremap <Leader>p "+p
 noremap <Leader>P "+P

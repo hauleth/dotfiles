@@ -1,4 +1,3 @@
-noremap <F9> :w !ruby -cw<CR>
 noremap <F12> :!ripper-tags -f .tags -R . --exclude vendor<CR>
 
 imap ,, =>
