@@ -3,6 +3,7 @@
 !/bin/cargo-cov
 !/bin/cargon
 !/bin/git-cleanup
+!/bin/Makefile
 
 /nvim/spell
 /nvim/.netrwhist
