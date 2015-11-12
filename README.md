@@ -22,6 +22,42 @@ Installation easy (but easier way will come in future):
 
         $ make -s
 
+3. To install only some of the files use:
+
+        $ make -s <targets>
+
+Available targets
+-----------------
+
+* `bin`
+  - Leiningen
+  - `cargo cov` (requires `kcov` installed)
+  - `cargon` (Cargo nightly, requires `multirust`)
+  - `git cleanup`
+  - `git imerge`
+  - `tmux-airline`
+* `conky`
+* `fish`
+  - Wahoo
+  - some plugins
+* `gdb`
+  - GDB dashboard
+* `git`
+  - global `.gitignore`
+  - NeoVim + Fugitive as mergetool
+* `nvim`
+  - vim-plug
+  - bunch of plugins (check [`init.vim`](nvim/init.vim))
+* `ruby`
+  - `.gemrc` (skip doc installation)
+  - `.pryrc`
+* `tmux`
+  - `tpm`
+  - TMux Powerline-like theme
+* `utils`
+  - `ctags` with Rust config
+  - `.dir_colors` for Solarized theme
+
 Copyrights
 ----------
 
