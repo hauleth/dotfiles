@@ -14,6 +14,7 @@ Plug 'nathanaelkane/vim-indent-guides'
 
 " Languages
 Plug 'Blackrush/vim-gocode'
+Plug 'Shirk/vim-gas'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
@@ -29,6 +30,8 @@ Plug 'tpope/vim-rhubarb'
 
 " Project management
 Plug 'Shougo/unite.vim'
+Plug 'Shougo/unite-outline'
+Plug 'farseer90718/unite-workflow'
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
 
@@ -50,7 +53,9 @@ Plug 'tpope/vim-surround'
 
 " Utils
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'jaxbot/github-issues.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'mattn/webapi-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'scrooloose/syntastic'
@@ -88,7 +93,7 @@ set number
 " Show current mode down the bottom
 set noshowmode
 
-" Set utf8 as standard encoding and en_US as the standard language
+" Set utf8 as standard encoding
 set encoding=utf8
 
 " Shorten interruptive command output
@@ -161,15 +166,16 @@ set magic
 " Clear search highlights
 noremap <leader>l :nohlsearch<CR>
 
-" FuzzySearch
-nnoremap <silent> <C-p> :Unite -start-insert -buffer-name=files file_rec/async<CR>
-nnoremap <silent> <leader>/ :Ag<CR>
 " }}}
 " Files, backups and undo {{{
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowb
 set noswapfile
+
+" Save on buffer change
+set autowriteall
+au FocusLost * silent! w
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
@@ -209,8 +215,6 @@ let g:gist_clip_command = 'xsel -bi'
 let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
 " }}}
 " Extra commands {{{
-command! Ag Unite -auto-preview -no-split -buffer-name=Ag grep:.
-
 " Remove all trailing whitespaces
 command! Clean %s/\s\+$//e | nohlsearch
 

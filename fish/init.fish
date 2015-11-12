@@ -1,7 +1,7 @@
 set fish_greeting (fortune zen)
 # set fish_key_bindings fish_vi_key_bindings
 
-set -gx PATH $HOME/.dotfiles/bin $GOPATH/bin $HOME/.cabal/bin $PATH
+set -gx PATH $HOME/.local/bin $GOPATH/bin $HOME/.cabal/bin $PATH
 
 if [ -z "$TMUX" ]
   set -gx TERM xterm-256color
