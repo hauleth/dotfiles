@@ -4,9 +4,10 @@ export LN = ln $(LNFLAGS)
 export WGET = wget -Nq --show-progress
 
 export PWD = $(shell pwd)
-TARGETS = nvim tmux git conky gdb ruby utils bin
 
-all: $(TARGETS) lein
+TARGETS ?= nvim tmux git conky gdb ruby utils bin fish
+
+all: $(TARGETS)
 
 $(TARGETS):
 	$(MAKE) -C $@ install
