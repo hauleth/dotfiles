@@ -1,45 +1,41 @@
-# Conky Metro Clock - http://fav.me/d424h9d
+-- vi: ft=lua
+conky.config = {
+  -- Conky settings
+  update_interval = 1,
 
-# Conky settings
-background yes
-update_interval 1
+  override_utf8_locale = true,
 
-override_utf8_locale yes
+  double_buffer = true,
+  no_buffers = true,
 
-double_buffer yes
-no_buffers yes
+  -- Window specifications
+  own_window = true,
+  own_window_type = 'dock',
+  own_window_transparent = true,
+  own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
 
-text_buffer_size 2048
+  border_inner_margin = 0,
+  border_outer_margin = 0,
 
-# Window specifications
-own_window yes
-own_window_type dock
-own_window_transparent yes
-own_window_hints undecorated,below,sticky,skip_taskbar,skip_pager
+  alignment = 'bottom_left',
+  gap_x = 100,
+  gap_y = 100,
 
-border_inner_margin 0
-border_outer_margin 0
+  -- Graphics settings
+  draw_shades = false,
+  draw_outline = false,
+  draw_borders = false,
+  draw_graph_borders = false,
 
-alignment bl
-gap_x 100
-gap_y 100
+  -- Text settings
+  use_xft = true,
+  font = 'Squarish Sans CT:size=30',
 
-# Graphics settings
-draw_shades no
-draw_outline no
-draw_borders no
-draw_graph_borders no
+  default_color = '#16A6EE',
+};
 
-# Text settings
-use_xft yes
-xftalpha 0.1
-text_buffer_size 2048
-
-uppercase no
-
-default_color b569c0
-
-TEXT
-${voffset 10}${font Squarish Sans CT:size=30}${time %A}${font}${voffset -10}
-${voffset 10}${font Squarish Sans CT:size=30}${time %d} ${time %B}${font}${voffset -10}
+conky.text = [[
+${voffset 10}${time %A}${font}${voffset -10}
+${voffset 10}${time %d} ${time %B}${font}${voffset -10}
 ${voffset 10}${font Squarish Sans CT:size=100}${time %H:%M}${font}${voffset -10}
+]];

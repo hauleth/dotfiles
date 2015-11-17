@@ -50,6 +50,10 @@ Session.vim
 # Atom
 .tern-project
 # }}}
+# Temporary files {{{
+tmp/
+*.tmp
+# }}}
 # Other {{{
 .rake_tasks
 .meteor/

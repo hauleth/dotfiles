@@ -19,6 +19,7 @@ Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elixir-lang/vim-elixir'
+Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
 
@@ -62,6 +63,7 @@ Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'dahu/EditorConfig'
 
 call plug#end()
 " }}}
@@ -77,7 +79,7 @@ colorscheme solarized
 " }}}
 " Per directory .nvimrc {{{
 set exrc
-" Disable unsafe commands in local .vimrc
+" Disable unsafe commands in local .nvimrc
 set secure
 " }}}
 " User interface {{{
@@ -109,13 +111,11 @@ set whichwrap+=<,>,h,l,[,]
 " Key mappings {{{
 let mapleader = ','
 
-" Swap 'go to marger' mappings
+" Swap 'go to marker' mappings
 nnoremap ' `
 nnoremap ` '
 
 " Buffers
-noremap <F5>        :bprev<CR>
-noremap <F6>        :bnext<CR>
 noremap <leader>b   :Unite -buffer-name=buffers -immediately -no-split buffer<CR>
 
 nnoremap gV `[v`]
@@ -134,16 +134,13 @@ nnoremap ; :
 vnoremap ; :
 nnoremap : ;
 
-" Choose window
-nmap wc <Plug>(choosewin)
-
 " Yanks
 noremap <Leader>p "+p
 noremap <Leader>P "+P
 noremap <silent> <Leader>y :Unite -buffer-name=yanks register history/yank<CR>
 
 " Fast paste from system clipboard
-inoremap <C-R><C-R> <C-R>*
+inoremap <C-R><C-R> <C-R>+
 
 " Some useful toggles for plugins
 noremap <F2> :UndotreeToggle<CR>
@@ -165,7 +162,6 @@ set magic
 
 " Clear search highlights
 noremap <leader>l :nohlsearch<CR>
-
 " }}}
 " Files, backups and undo {{{
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
@@ -189,8 +185,6 @@ set shiftwidth=2
 set softtabstop=2
 set tabstop=2
 set expandtab
-au FileType Makefile set noexpandtab
-au FileType snippet  set noexpandtab
 
 set textwidth=80
 set nowrap       " Don't wrap lines
@@ -208,11 +202,6 @@ set foldnestmax=5
 
 " Text folding
 nnoremap <space> za
-" }}}
-" Extras {{{
-let g:markdown_extensions=["md", "markdown"]
-let g:gist_clip_command = 'xsel -bi'
-let g:AutoCloseProtectedRegions = ["Comment", "String", "Character"]
 " }}}
 " Extra commands {{{
 " Remove all trailing whitespaces
