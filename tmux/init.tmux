@@ -22,7 +22,8 @@ bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 bind-key j    command-prompt -p "Join pane from:" "join-pane -s '%%'"
 bind-key s    command-prompt -p "Send pane to:"   "join-pane -t '%%'"
 
-set -g @sidebar-tree-command 'tree -C -I "tmp|vendor/bundle|target|node_modules"'
+set -g @sidebar-tree-command 'tree -aCI "tmp|bundle|coverage|target|node_modules|.git|log"'
+set -g @sidebar-tree-width '20'
 
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
@@ -32,6 +33,8 @@ set -g @plugin 'tmux-plugins/tmux-sessionist'
 set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-sidebar'
+set -g @plugin 'tmux-plugins/tmux-copycat'
+set -g @plugin 'tmux-plugins/tmux-open'
 
 # Initialize TMUX plugin manager
 run "$HOME/.tmux/plugins/tpm/tpm"

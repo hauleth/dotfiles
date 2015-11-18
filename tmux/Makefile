@@ -1,6 +1,8 @@
+PWD = $(shell pwd)
+
 install:
-	$(LN) init.tmux ${HOME}/.tmux.conf
-	$(LN) . ${HOME}/.tmux
+	$(LN) ${PWD}/init.tmux ${HOME}/.tmux.conf
+	$(LN) ${PWD} ${HOME}/.tmux
 
 clean:
 	rm ${HOME}/.tmux.conf ${HOME}/.tmux

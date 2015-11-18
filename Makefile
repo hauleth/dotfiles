@@ -1,11 +1,11 @@
-LNFLAGS = -rsiT
+LNFLAGS = -sfT
 export LN = ln $(LNFLAGS)
 
-export WGET = wget -Nq --show-progress
+export WGET = wget -Nqnv
 
 export PWD = $(shell pwd)
 
-TARGETS ?= nvim tmux git conky gdb ruby utils bin fish nix
+TARGETS ?= nix fish bin nvim tmux git conky gdb ruby utils
 
 all: $(TARGETS)
 

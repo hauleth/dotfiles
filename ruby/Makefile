@@ -1,6 +1,6 @@
 install:
-	$(LN) pryrc ${HOME}/.pryrc
-	$(LN) gemrc ${HOME}/.gemrc
+	$(LN) ${PWD}/pryrc ${HOME}/.pryrc
+	$(LN) ${PWD}/gemrc ${HOME}/.gemrc
 
 clean:
 	rm ${HOME}/.pryrc ${HOME}/.gemrc

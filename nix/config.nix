@@ -1,13 +1,11 @@
 {
   packageOverrides = pkgs:
   rec {
-    homeEnv = pkgs.buildEnv {
-      name = "homeEnv";
+    runtime = pkgs.buildEnv {
+      name = "runtime";
       paths = [
-        languages
-        editors
-        scm
-        tools
+        pkgs.python27Full
+        pkgs.python27Packages.pip
       ];
     };
 

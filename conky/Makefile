@@ -1,5 +1,7 @@
+PWD = $(shell pwd)
+
 install:
-	$(LN) config ${HOME}/.conkyrc
+	$(LN) ${PWD}/config ${HOME}/.conkyrc
 
 clean:
 	rm ${HOME}/.conkyrc

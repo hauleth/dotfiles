@@ -1,7 +1,9 @@
 XDG_CONFIG_HOME ?= ${HOME}/.config
 
+PWD = $(shell pwd)
+
 install: python
-	$(LN) . $(XDG_CONFIG_HOME)/nvim
+	$(LN) ${PWD} $(XDG_CONFIG_HOME)/nvim
 	# nvim +PlugUpdate +qall # Currently doesn't work
 	@echo 'Run NeoVim and execute `:PlugInstall`'
 

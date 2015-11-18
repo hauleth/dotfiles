@@ -9,6 +9,14 @@ suggest something in [issues](https://github.com/hauleth/dotfiles/issues) or
 create pull request (no link because if you need it, I rather won't accept your
 pull request).
 
+Requirements
+------------
+
+- `fish`
+- `make`
+- `wget`
+- `curl`
+
 Installation
 ------------
 
@@ -20,6 +28,8 @@ Installation easy (but easier way will come in future):
 
 2. Run
 
+        $ make nix fish
+        $ wa u
         $ make -s
 
 3. To install only some of the files use:

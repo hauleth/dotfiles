@@ -1,4 +1,3 @@
-
 #!/bin/sh
 
 # This script installs the Nix package manager on your system by
