@@ -1,4 +1,14 @@
 function work
-  set project (basename (command git rev-parse --show-toplevel))
-  time -f '%E'  -- tmux new -s $project; or time -f '%E' -- tmux attach -t $project
+  set NAME $argv[1]
+
+  pushd "$HOME/Workspace/$NAME"
+
+  if not tmux has-session -t "$NAME" ^/dev/null
+    tmux start \;\
+      new-session -d -s "$NAME"
+  end
+
+  tmux attach -t "$NAME"
+
+  popd
 end

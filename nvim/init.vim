@@ -55,6 +55,7 @@ Plug 'tpope/vim-surround'
 
 " Utils
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
+Plug 'dahu/EditorConfig'
 Plug 'jaxbot/github-issues.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/webapi-vim'
@@ -62,9 +63,9 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'dahu/EditorConfig'
 
 call plug#end()
 " }}}
