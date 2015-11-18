@@ -5,7 +5,7 @@ export WGET = wget -Nq --show-progress
 
 export PWD = $(shell pwd)
 
-TARGETS ?= nvim tmux git conky gdb ruby utils bin fish
+TARGETS ?= nvim tmux git conky gdb ruby utils bin fish nix
 
 all: $(TARGETS)
 

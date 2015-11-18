@@ -22,6 +22,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
+Plug 'LnL7/vim-nix'
 
 " Git
 Plug 'airblade/vim-gitgutter'
