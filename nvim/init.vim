@@ -32,8 +32,8 @@ Plug 'tpope/vim-rhubarb'
 
 " Project management
 Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline'
-Plug 'farseer90718/unite-workflow'
+Plug 'Shougo/unite-outline', { 'on': 'Unite' }
+Plug 'farseer90718/unite-workflow', { 'on': 'Unite' }
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
 
@@ -45,6 +45,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'ervandew/supertab'
 Plug 'mattn/emmet-vim'
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " Code manipulation
 Plug 'Chiel92/vim-autoformat'
@@ -56,7 +57,7 @@ Plug 'tpope/vim-surround'
 " Utils
 Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'dahu/EditorConfig'
-Plug 'jaxbot/github-issues.vim'
+Plug 'jaxbot/github-issues.vim', { 'on': 'Unite' }
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/webapi-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -118,7 +119,7 @@ nnoremap ' `
 nnoremap ` '
 
 " Buffers
-noremap <leader>b   :Unite -buffer-name=buffers -immediately -no-split buffer<CR>
+noremap <leader>b :Unite -buffer-name=buffers -immediately -no-split buffer<CR>
 
 nnoremap gV `[v`]
 
@@ -137,9 +138,8 @@ vnoremap ; :
 nnoremap : ;
 
 " Yanks
-noremap <Leader>p "+p
-noremap <Leader>P "+P
-noremap <silent> <Leader>y :Unite -buffer-name=yanks register history/yank<CR>
+noremap <silent> <Leader>p :Unite -buffer-name=yanks register<CR>
+set clipboard=unnamed
 
 " Fast paste from system clipboard
 inoremap <C-R><C-R> <C-R>+

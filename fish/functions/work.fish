@@ -1,14 +1,11 @@
 function work
   set NAME $argv[1]
 
-  pushd "$HOME/Workspace/$NAME"
-
   if not tmux has-session -t "$NAME" ^/dev/null
-    tmux start \;\
-      new-session -d -s "$NAME"
+    tmux  start-server \;\
+      new-session -d -s "$NAME" -c "$HOME/Workspace/$NAME"
   end
-
   tmux attach -t "$NAME"
-
-  popd
 end
+
+complete -x -c work -a '(find -L ~/Workspace -depth -maxdepth 3 -name .git -type d | sed -e "s:$HOME/Workspace/::" -e "s:/\.git::" | grep -v "\.")'
