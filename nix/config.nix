@@ -12,11 +12,13 @@
     languages = pkgs.buildEnv {
       name = "languages";
       paths = [
-        pkgs.go
-        pkgs.scala
-        pkgs.sbt
-        pkgs.julia
         pkgs.elixir
+        pkgs.ghc
+        pkgs.go
+        pkgs.julia
+        pkgs.ocaml
+        pkgs.sbt
+        pkgs.scala
       ];
     };
 
@@ -32,6 +34,7 @@
       paths = [
         pkgs.git
         pkgs.gitAndTools.hub
+        pkgs.gitAndTools.git-imerge
       ];
     };
 

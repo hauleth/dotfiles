@@ -31,9 +31,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
 " Project management
-Plug 'Shougo/unite.vim'
-Plug 'Shougo/unite-outline', { 'on': 'Unite' }
-Plug 'farseer90718/unite-workflow', { 'on': 'Unite' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
 
@@ -55,9 +53,7 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
 " Utils
-Plug 'Shougo/vimproc.vim', { 'do': 'make' }
 Plug 'dahu/EditorConfig'
-Plug 'jaxbot/github-issues.vim', { 'on': 'Unite' }
 Plug 'junegunn/vim-easy-align'
 Plug 'mattn/webapi-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -110,6 +106,9 @@ set hidden
 
 " Wrap line on movements
 set whichwrap+=<,>,h,l,[,]
+
+" Use system clippboard as default
+set clipboard=unnamed
 " }}}
 " Key mappings {{{
 let mapleader = ','
@@ -118,8 +117,9 @@ let mapleader = ','
 nnoremap ' `
 nnoremap ` '
 
-" Buffers
-noremap <leader>b :Unite -buffer-name=buffers -immediately -no-split buffer<CR>
+" <Home> goes to the beginning of the text on first press and to the beginning
+" of the line on second press. It alternates afterwards.
+nnoremap <expr> <Home> virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 
 nnoremap gV `[v`]
 
@@ -137,12 +137,8 @@ nnoremap ; :
 vnoremap ; :
 nnoremap : ;
 
-" Yanks
-noremap <silent> <Leader>p :Unite -buffer-name=yanks register<CR>
-set clipboard=unnamed
-
 " Fast paste from system clipboard
-inoremap <C-R><C-R> <C-R>+
+inoremap <C-R><C-R> <C-R>*
 
 " Some useful toggles for plugins
 noremap <F2> :UndotreeToggle<CR>

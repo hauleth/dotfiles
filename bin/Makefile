@@ -9,10 +9,6 @@ lein:
 	$(WGET) -O$@ https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	chmod +x $@
 
-git-imerge:
-	$(WGET) -O$@ https://raw.githubusercontent.com/mhagger/git-imerge/master/git-imerge
-	chmod +x $@
-
 pip:
 	pip install --user --upgrade httpie patool
 

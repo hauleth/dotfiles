@@ -60,6 +60,7 @@ tmp/
 .tags
 .gdb_history
 perf.data*
+/oprofile_data
 # }}}
 
 # vim: foldmethod=marker foldlevel=0 foldenable
