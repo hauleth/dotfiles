@@ -1,3 +1,5 @@
+PWD = $(shell pwd)
+
 install:
 	$(LN) ${PWD}/pryrc ${HOME}/.pryrc
 	$(LN) ${PWD}/gemrc ${HOME}/.gemrc
