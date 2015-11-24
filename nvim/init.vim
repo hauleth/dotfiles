@@ -34,6 +34,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
+Plug 'rking/ag.vim'
 
 " TMux Integration
 Plug 'benmills/vimux'
