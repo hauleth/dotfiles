@@ -34,7 +34,7 @@ Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
-Plug 'rking/ag.vim'
+Plug 'mhinz/vim-grepper'
 
 " TMux Integration
 Plug 'benmills/vimux'
@@ -47,7 +47,6 @@ Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 " Code manipulation
-Plug 'Chiel92/vim-autoformat'
 Plug 'Raimondi/delimitMate'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
@@ -191,7 +190,7 @@ set linebreak    " Break lines at convenient points
 set formatoptions+=t
 
 " Formatting and cleaning
-noremap <leader>ff :Autoformat<CR>
+noremap <leader>ff :Format<CR>
 noremap <leader>fc :Clean<CR>
 
 " Set fold method
@@ -205,6 +204,7 @@ nnoremap <space> za
 " Extra commands {{{
 " Remove all trailing whitespaces
 command! Clean %s/\s\+$//e | nohlsearch
+command! Format mark z | norm gg=Gg`z
 
 " Save as root
 command! W w !sudo tee % > /dev/null
