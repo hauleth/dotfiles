@@ -23,6 +23,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
 Plug 'tmux-plugins/vim-tmux'
 Plug 'LnL7/vim-nix'
+Plug 'lervag/vimtex'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -51,6 +52,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'wellle/targets.vim'
 
 " Utils
 Plug 'dahu/EditorConfig'
@@ -110,8 +112,27 @@ set whichwrap+=<,>,h,l,[,]
 " Use system clippboard as default
 set clipboard=unnamed
 " }}}
+" Autoupdate {{{
+" Automatically reload changed files
+set autoread
+
+" Save on buffer change
+set autowriteall
+" }}}
+" Identation {{{
+set smartindent
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
+set expandtab
+
+set textwidth=80
+set nowrap       " Don't wrap lines
+set linebreak    " Break lines at convenient points
+set formatoptions+=t
+" }}}
 " Key mappings {{{
-let mapleader = ','
+let mapleader = "\<space>"
 
 " Swap 'go to marker' mappings
 nnoremap ' `
@@ -144,68 +165,4 @@ inoremap <C-R><C-R> <C-R>*
 noremap <F2> :UndotreeToggle<CR>
 noremap <F3> :NumbersToggle<CR>
 noremap <F4> :IndentGuidesToggle<CR>
-
-" Git Fugitive commands
-noremap <leader>gst :Gstatus<CR>
-noremap <leader>gci :Gcommit<CR>
-noremap <leader>gd  :Gdiff<CR>
-" }}}
-" Search {{{
-" Smart case searches
-set ignorecase
-set smartcase
-
-" Better search
-set magic
-
-" Clear search highlights
-noremap <leader>l :nohlsearch<CR>
-" }}}
-" Files, backups and undo {{{
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
-
-" Save on buffer change
-set autowriteall
-au FocusLost * silent! w
-
-" Keep undo history across sessions, by storing in file.
-" Only works all the time.
-silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
-set undodir=~/.cache/backups
-set undofile
-" }}}
-" Identation and folding {{{
-set smartindent
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
-set expandtab
-
-set textwidth=80
-set nowrap       " Don't wrap lines
-set linebreak    " Break lines at convenient points
-set formatoptions+=t
-
-" Formatting and cleaning
-noremap <leader>ff :Format<CR>
-noremap <leader>fc :Clean<CR>
-
-" Set fold method
-set foldmethod=syntax
-set foldlevel=3
-set foldnestmax=5
-
-" Text folding
-nnoremap <space> za
-" }}}
-" Extra commands {{{
-" Remove all trailing whitespaces
-command! Clean %s/\s\+$//e | nohlsearch
-command! Format mark z | norm gg=Gg`z
-
-" Save as root
-command! W w !sudo tee % > /dev/null
 " }}}

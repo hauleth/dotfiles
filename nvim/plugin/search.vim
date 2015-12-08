@@ -1,3 +1,13 @@
+" Smart case searches
+set ignorecase
+set smartcase
+
+" Better search
+set magic
+
+" Clear search highlights
+noremap <leader>l :nohlsearch<CR>
+
 let g:grepper = {
       \ 'open': 0,
       \ 'switch': 0,

@@ -8,4 +8,4 @@ function work
   tmux attach -t "$NAME"
 end
 
-complete -x -c work -a '(find -L ~/Workspace -depth -maxdepth 3 -name .git -type d | sed -e "s:$HOME/Workspace/::" -e "s:/\.git::" | grep -v "\.")'
+complete -x -c work -a '(find -L ~/Workspace -depth -maxdepth 5 -type d -and -name .git -prune -and -not -path "*/\.cargo/*" -prune -printf "%h\n" | sed -e "s:$HOME/Workspace/::" -e "s:/\.git::")'
