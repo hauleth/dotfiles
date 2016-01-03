@@ -20,4 +20,8 @@ docker-machine:
 	$(WGET) -O$@.zip https://github.com/docker/machine/releases/download/v0.5.0/docker-machine_linux-amd64.zip
 	unzip -f $@.zip
 
+nvr:
+	$(WGET) -O$@ https://raw.githubusercontent.com/mhinz/neovim-remote/master/nvr
+	chmod +x $@
+
 .PHONY: pip $(FILES)

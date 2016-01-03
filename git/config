@@ -1,8 +1,4 @@
-[user]
-	email = lukasz@niemier.pl
-	name = Łukasz Jan Niemier
 [core]
-	excludesfile = ~/.dotfiles/git/ignore
 	editor = nvim
 
 [alias]
@@ -16,6 +12,8 @@
 	squash = rebase -i @{u}
 	st = status -sb
 
+[mergetool]
+	keepBackup = false
 [mergetool "fugitive"]
 	cmd = nvim -f -c Gdiff \"$MERGED\"
 [merge]

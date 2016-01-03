@@ -1,6 +1,5 @@
 {
-  packageOverrides = pkgs:
-  rec {
+  packageOverrides = pkgs: rec {
     runtime = pkgs.buildEnv {
       name = "runtime";
       paths = [
@@ -46,5 +45,7 @@
         pkgs.wrk
       ];
     };
+
+    universal-ctags = pkgs.callPackage ./pkgs/universal-ctags {};
   };
 }

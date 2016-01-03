@@ -1,10 +1,7 @@
 unbind C-b
 set -g prefix C-q
 
-set -g mouse-resize-pane on
-set -g mouse-select-pane on
-set -g mouse-select-window on
-set -g mouse-utf8 on
+set -g mouse on
 
 set -g set-titles on
 
@@ -21,6 +18,10 @@ bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 # Allow sending prefix to child
 bind-key j    command-prompt -p "Join pane from:" "join-pane -s '%%'"
 bind-key s    command-prompt -p "Send pane to:"   "join-pane -t '%%'"
+
+# Start windows and panes at 1, not 0
+set -g base-index 1
+set -g pane-base-index 1
 
 set -g @sidebar-tree-command 'tree -aCI "tmp|bundle|coverage|target|node_modules|.git|log"'
 set -g @sidebar-tree-width '20'

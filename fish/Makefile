@@ -1,8 +1,10 @@
-install:
-	$(WGET) -O- https://raw.githubusercontent.com/wa/wahoo/master/bootstrap.sh | sh || true
-	$(MAKE) plugins
+XDG_CONFIG_HOME ?= ${HOME}/.config
 
-plugins: install.fish
-	fish "$<"
+PWD = $(shell pwd)
+
+install:
+	$(LN) ${PWD}/functions $(XDG_CONFIG_HOME)/fish/functions
+	$(LN) ${PWD}/completions $(XDG_CONFIG_HOME)/fish/completions
+	$(LN) ${PWD}/config.fish $(XDG_CONFIG_HOME)/fish/config.fish
 
 .PHONY: install

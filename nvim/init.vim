@@ -1,7 +1,7 @@
 " vim: foldmethod=marker foldlevel=0 foldenable
 
 " Plugins {{{
-call plug#begin()
+call plug#begin('~/.local/nvim/plugins')
 
 Plug 'tpope/vim-sensible'
 
@@ -65,6 +65,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'majutsushi/tagbar'
 
 call plug#end()
 " }}}
