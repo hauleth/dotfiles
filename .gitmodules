@@ -4,3 +4,6 @@
 [submodule "fish/fisherman"]
 	path = fish/fisherman
 	url = git://github.com/fisherman/fisherman.git
+[submodule "git/template/hooks/commit-comments"]
+	path = git/template/hooks/commit-comments
+	url = https://github.com/thebearjew/commit-comments.git
