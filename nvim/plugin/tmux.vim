@@ -4,6 +4,10 @@ nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-left>  :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-up>    :TmuxNavigateUp<cr>
+nnoremap <silent> <C-down>  :TmuxNavigateDown<cr>
+nnoremap <silent> <C-right> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
 
 let g:VimuxOrientation = 'h'

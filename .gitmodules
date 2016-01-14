@@ -1,3 +1,6 @@
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
+[submodule "fish/fisherman"]
+	path = fish/fisherman
+	url = git://github.com/fisherman/fisherman.git

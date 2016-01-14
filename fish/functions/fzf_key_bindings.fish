@@ -1,0 +1,1 @@
+/home/hauleth/.fzf/shell/key-bindings.fish

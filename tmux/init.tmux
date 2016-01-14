@@ -23,6 +23,8 @@ bind-key s    command-prompt -p "Send pane to:"   "join-pane -t '%%'"
 set -g base-index 1
 set -g pane-base-index 1
 
+set -g @shell_mode 'vi'
+
 set -g @sidebar-tree-command 'tree -aCI "tmp|bundle|coverage|target|node_modules|.git|log"'
 set -g @sidebar-tree-width '20'
 

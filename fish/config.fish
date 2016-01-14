@@ -11,14 +11,16 @@ set -x PATH $NIX_LINK/bin $NIX_LINK/sbin $PATH
 # channel.
 set -gx NIX_PATH nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
 
-set fisher_home ~/fisherman
+set fisher_home ~/.dotfiles/fish/fisherman
 set fisher_config ~/.config/fisherman
 source $fisher_home/config.fish
 
 set fish_greeting (fortune zen)
 
-which hub ^/dev/null >/dev/null; and eval (hub alias -s)
-which rbenv ^/dev/null >/dev/null; and source (rbenv init - | psub)
+available hub; and eval (hub alias -s)
+available rbenv; and source (rbenv init - | psub)
+available thefuck; and source (thefuck --alias | psub)
+available direnv; and eval (direnv hook fish)
 
 if [ -z "$TMUX" ]
   set -gx TERM xterm-256color

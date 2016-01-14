@@ -1,9 +1,6 @@
 function e --wraps "nvim"
   if [ (count $argv) -eq 0 ]
-    set -l f (tempfile)
-    fzf --prompt="edit: " > "$f"; or exit
-    set argv (cat "$f")
-    rm "$f"
+    fzf-tmux --multi --prompt="edit: " | read argv
   end
 
   nvim $argv

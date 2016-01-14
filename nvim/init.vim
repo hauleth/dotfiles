@@ -6,28 +6,24 @@ call plug#begin('~/.local/nvim/plugins')
 Plug 'tpope/vim-sensible'
 
 " Visual
-Plug 'altercation/vim-colors-solarized'
+Plug 'romainl/flattened'
 Plug 'bling/vim-bufferline'
 Plug 'itchyny/lightline.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 
 " Languages
-Plug 'Blackrush/vim-gocode'
 Plug 'Shirk/vim-gas'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elixir-lang/vim-elixir'
-Plug 'pangloss/vim-javascript'
 Plug 'rust-lang/rust.vim'
-Plug 'tmux-plugins/vim-tmux'
 Plug 'LnL7/vim-nix'
 Plug 'lervag/vimtex'
 
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'gregsexton/gitv'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
@@ -36,36 +32,32 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
 Plug 'mhinz/vim-grepper'
+Plug 'wakatime/vim-wakatime'
+Plug 'majutsushi/tagbar'
 
 " TMux Integration
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
-Plug 'ervandew/supertab'
-Plug 'mattn/emmet-vim'
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'Shougo/deoplete.nvim' | Plug 'racer-rust/vim-racer'
 
 " Code manipulation
 Plug 'Raimondi/delimitMate'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'wellle/targets.vim'
 
 " Utils
 Plug 'dahu/EditorConfig'
 Plug 'junegunn/vim-easy-align'
-Plug 'mattn/webapi-vim'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
-Plug 'scrooloose/syntastic'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'majutsushi/tagbar'
+Plug 'benekastah/neomake'
 
 call plug#end()
 " }}}
@@ -75,9 +67,7 @@ set colorcolumn=80
 set cursorline
 
 " Use Dark Solarized theme
-set background=dark
-let g:solarized_termtrans=1
-colorscheme solarized
+colorscheme flattened_dark
 " }}}
 " Per directory .nvimrc {{{
 set exrc
@@ -112,6 +102,9 @@ set whichwrap+=<,>,h,l,[,]
 
 " Use system clippboard as default
 set clipboard=unnamed
+
+" Use proper english
+set spelllang=en_gb
 " }}}
 " Autoupdate {{{
 " Automatically reload changed files
