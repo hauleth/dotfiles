@@ -42,4 +42,6 @@ set -g @plugin 'tmux-plugins/tmux-open'
 # Initialize TMUX plugin manager
 run "$HOME/.tmux/plugins/tpm/tpm"
 
+setw -g mode-keys vi
+
 # vim: ft=tmux

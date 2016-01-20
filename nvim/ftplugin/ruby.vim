@@ -1,5 +1,6 @@
 noremap <F12> :!ripper-tags -f .tags -R . --exclude vendor<CR>
 
 imap ,, =>
+noremap <buffer> g= :RubocopFmt<CR>
 
-let g:syntastic_ruby_checkers = ['rubocop', 'jruby', 'mri']
+command! RubocopFmt !rubocop -a %

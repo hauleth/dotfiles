@@ -2,6 +2,8 @@ compiler cargo
 
 setl colorcolumn=100
 
+nnoremap <buffer> g= :RustFmt<CR>
+
 let g:rustfmt_autosave = 1
 
 let g:neomake_rust_cargo_maker = {
@@ -17,7 +19,20 @@ let g:neomake_rust_cargo_maker = {
       \   '%f:%l: %m',
       \ }
 
-let g:neomake_rust_enabled_makers = ['cargo']
+
+let g:neomake_rust_rustc_maker = {
+      \ 'args': ['-Z', 'parse-only'],
+      \ 'errorformat':
+      \   '%-G%f:%s:,' .
+      \   '%f:%l:%c: %trror: %m,' .
+      \   '%f:%l:%c: %tarning: %m,' .
+      \   '%f:%l:%c: %m,'.
+      \   '%f:%l: %trror: %m,'.
+      \   '%f:%l: %tarning: %m,'.
+      \   '%f:%l: %m',
+      \ }
+
+let g:neomake_rust_enabled_makers = ['rustc']
 
 noremap <leader>rb :up \| call VimuxRunCommand("clear; cargo bench")<CR>
 noremap <leader>rr :up \| call VimuxRunCommand("clear; cargo test")<CR>

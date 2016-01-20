@@ -4,4 +4,4 @@ set foldlevel=3
 set foldnestmax=5
 
 " Text folding
-nnoremap <leader><space> za
+nnoremap <CR> za

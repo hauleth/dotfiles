@@ -6,14 +6,14 @@ call plug#begin('~/.local/nvim/plugins')
 Plug 'tpope/vim-sensible'
 
 " Visual
-Plug 'romainl/flattened'
+Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-bufferline'
 Plug 'itchyny/lightline.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'raymond-w-ko/vim-niji'
 
 " Languages
-Plug 'Shirk/vim-gas'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
@@ -21,6 +21,8 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'rust-lang/rust.vim'
 Plug 'LnL7/vim-nix'
 Plug 'lervag/vimtex'
+Plug 'lambdatoast/elm.vim'
+Plug 'vim-ruby/vim-ruby'
 
 " Git
 Plug 'airblade/vim-gitgutter'
@@ -29,9 +31,7 @@ Plug 'tpope/vim-rhubarb'
 
 " Project management
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-vinegar'
-Plug 'mhinz/vim-grepper'
 Plug 'wakatime/vim-wakatime'
 Plug 'majutsushi/tagbar'
 
@@ -40,7 +40,9 @@ Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
-Plug 'Shougo/deoplete.nvim' | Plug 'racer-rust/vim-racer'
+Plug 'Shougo/deoplete.nvim'
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'racer-rust/vim-racer'
 
 " Code manipulation
 Plug 'Raimondi/delimitMate'
@@ -48,16 +50,25 @@ Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 
-" Utils
+" Movements & Search
+Plug 'easymotion/vim-easymotion'
+Plug 'haya14busa/incsearch-easymotion.vim'
+Plug 'haya14busa/incsearch-fuzzy.vim'
+Plug 'haya14busa/incsearch.vim'
+Plug 'mhinz/vim-grepper'
+
+" Build & Configuration
+Plug 'benekastah/neomake'
 Plug 'dahu/EditorConfig'
+Plug 'tpope/vim-projectionist'
+
+" Utils
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-obsession'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'benekastah/neomake'
 
 call plug#end()
 " }}}
@@ -67,7 +78,9 @@ set colorcolumn=80
 set cursorline
 
 " Use Dark Solarized theme
-colorscheme flattened_dark
+let base16colorspace=256
+set background=dark
+colorscheme base16-ocean
 " }}}
 " Per directory .nvimrc {{{
 set exrc
