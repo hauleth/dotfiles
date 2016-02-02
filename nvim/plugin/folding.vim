@@ -1,7 +1,6 @@
 " Set fold method
-set foldmethod=syntax
-set foldlevel=3
-set foldnestmax=5
+set foldmethod=marker
+set foldlevel=0
 
 " Text folding
 nnoremap <CR> za

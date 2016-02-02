@@ -25,10 +25,4 @@ enable jump shell fish
 enable rbenv init -
 enable thefuck --alias
 
-if [ -z "$TMUX" ]
-  set -gx TERM xterm-256color
-else
-  set -gx TERM screen-256color
-end
-
 agnoster powerline

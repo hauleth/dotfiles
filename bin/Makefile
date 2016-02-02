@@ -1,16 +1,12 @@
-FILES = lein git-imerge docker-compose docker-machine
+FILES = docker-compose docker-machine
 
 PWD = $(shell pwd)
 
-install: $(FILES) pip
-	$(LN) ${PWD} ${HOME}/.local/bin
+install: $(FILES)
 
 lein:
 	$(WGET) -O$@ https://raw.githubusercontent.com/technomancy/leiningen/stable/bin/lein
 	chmod +x $@
-
-pip:
-	pip install --user --upgrade httpie patool
 
 docker-compose:
 	$(WGET) -O$@ https://github.com/docker/compose/releases/download/1.5.1/docker-compose-$(shell uname -s)-$(shell uname -m)
@@ -24,4 +20,4 @@ nvr:
 	$(WGET) -O$@ https://raw.githubusercontent.com/mhinz/neovim-remote/master/nvr
 	chmod +x $@
 
-.PHONY: pip $(FILES)
+.PHONY: $(FILES)

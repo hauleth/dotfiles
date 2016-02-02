@@ -1,4 +1,4 @@
-augroup syntax_chech
+augroup syntax_check
   au!
   autocmd BufEnter,BufWritePost * silent! Neomake
 augroup END

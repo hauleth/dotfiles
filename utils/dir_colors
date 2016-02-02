@@ -1,59 +1,4 @@
 # vi: ft=dircolors
-# Configuration file for dircolors, a utility to help you set the
-# LS_COLORS environment variable used by GNU ls with the --color option.
-# Copyright (C) 1996, 1999-2010 Free Software Foundation, Inc.
-# Copying and distribution of this file, with or without modification,
-# are permitted provided the copyright notice and this notice are preserved.
-# The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
-# slackware version of dircolors) are recognized but ignored.
-# Below, there should be one TERM entry for each termtype that is colorizable
-TERM Eterm
-TERM ansi
-TERM color-xterm
-TERM con132x25
-TERM con132x30
-TERM con132x43
-TERM con132x60
-TERM con80x25
-TERM con80x28
-TERM con80x30
-TERM con80x43
-TERM con80x50
-TERM con80x60
-TERM cons25
-TERM console
-TERM cygwin
-TERM dtterm
-TERM eterm-color
-TERM gnome
-TERM gnome-256color
-TERM jfbterm
-TERM konsole
-TERM kterm
-TERM linux
-TERM linux-c
-TERM mach-color
-TERM mlterm
-TERM putty
-TERM rxvt
-TERM rxvt-256color
-TERM rxvt-cygwin
-TERM rxvt-cygwin-native
-TERM rxvt-unicode
-TERM rxvt-unicode256
-TERM screen
-TERM screen-256color
-TERM screen-256color-bce
-TERM screen-bce
-TERM screen-w
-TERM screen.linux
-TERM vt100
-TERM xterm
-TERM xterm-16color
-TERM xterm-256color
-TERM xterm-88color
-TERM xterm-color
-TERM xterm-debian
 # Below are the color init strings for the basic file types. A color init
 # string consists of one or more of the following numeric codes:
 # Attribute codes:
@@ -90,21 +35,8 @@ OTHER_WRITABLE 48;5;235;38;5;33 # dir that is other-writable (o+w) and not stick
 STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writable
 # This is for files with execute permission:
 EXEC 01;38;5;180
-# List any file extensions like '.gz' or '.tar' that you would like ls
-# to colorize below. Put the extension, a space, and the color init string.
-# (and any comments you want to add after a '#')
-# If you use DOS-style suffixes, you may want to uncomment the following:
-#.cmd 01;32 # executables (bright green)
-#.exe 01;32
-#.com 01;32
-#.btm 01;32
-#.bat 01;32
-# Or if you want to colorize scripts even if they do not have the
-# executable bit actually set.
-#.sh 01;32
-#.csh 01;32
 
- # archives or compressed (violet + bold for compression)
+# archives or compressed (violet + bold for compression) {{{
 .tar    00;38;5;05
 .tgz    01;38;5;05
 .arj    01;38;5;05
@@ -135,8 +67,8 @@ EXEC 01;38;5;180
 .7z     01;38;5;05
 .rz     01;38;5;05
 .apk    01;38;5;05
-
-# image formats (yellow)
+# }}}
+# image formats (yellow) {{{
 .jpg    00;38;5;03
 .JPG    00;38;5;03 #stupid but needed
 .jpeg   00;38;5;03
@@ -162,19 +94,19 @@ EXEC 01;38;5;180
 .cgm    00;38;5;03
 .emf    00;38;5;03
 .eps    00;38;5;03
-
-# files of interest (base1 + bold)
+# }}}
+# files of interest (base1 + bold) {{{
 .pdf    01;38;5;01
 .tex    01;38;5;01
-
-# "unimportant" files as logs and backups (base01)
+# }}}
+# "unimportant" files as logs and backups (base01) {{{
 .log    00;38;5;18
 .bak    00;38;5;18
 .aux    00;38;5;18
 .bbl    00;38;5;18
 .blg    00;38;5;18
-
-# audio formats (orange)
+# }}}
+# audio formats (orange) {{{
 .aac    00;38;5;06
 .au     00;38;5;06
 .flac   00;38;5;06
@@ -186,8 +118,8 @@ EXEC 01;38;5;180
 .ogg    00;38;5;06
 .wav    00;38;5;06
 .oga    00;38;5;06
-
-# video formats (as audio + bold)
+# }}}
+# video formats (as audio + bold) {{{
 .mov    01;38;5;06
 .mpg    01;38;5;06
 .mpeg   01;38;5;06
@@ -207,15 +139,15 @@ EXEC 01;38;5;180
 .flv    01;38;5;06
 .ogv    01;38;5;06
 .ogx    01;38;5;06
-
-# Scripts
+# }}}
+# Scripts {{{
 .fish 01;38;5;02
 .sh   01;38;5;02
-
-# Source files
+# }}}
+# Source files {{{
 .rb       01;38;5;01
 .ru       00;38;5;01
-.rs       00;38;5;07
+.rs       00;38;5;16
 .py       01;38;5;02
 .pyc      00;38;5;02
 .hs       01;38;5;05
@@ -223,21 +155,23 @@ EXEC 01;38;5;180
 .js       01;38;5;11
 .coffee   01;38;5;11
 .ts       01;38;5;11
-
-# Documentation
+.nix      01;38;5;13
+# }}}
+# Documentation {{{
 .md       01;38;5;07
 .markdown 01;38;5;07
-
-# Web
+# }}}
+# Web {{{
 .html 00;38;5;6
 .xml  00;38;5;6
 .yml  00;38;5;6
 .json 00;38;5;6
 .css  00;38;5;6
 .scss 00;38;5;6
-
-# Templates
+# }}}
+# Templates {{{
 .erb      01;38;5;6
 .curly    01;38;5;6
 .haml     01;38;5;6
 .builder  01;38;5;6
+# }}}

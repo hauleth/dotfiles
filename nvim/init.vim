@@ -6,22 +6,23 @@ call plug#begin('~/.local/nvim/plugins')
 Plug 'tpope/vim-sensible'
 
 " Visual
-Plug 'chriskempson/base16-vim'
 Plug 'bling/vim-bufferline'
+Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'raymond-w-ko/vim-niji'
 
 " Languages
+Plug 'LnL7/vim-nix'
 Plug 'cespare/vim-toml'
 Plug 'dag/vim-fish'
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'elixir-lang/vim-elixir'
-Plug 'rust-lang/rust.vim'
-Plug 'LnL7/vim-nix'
-Plug 'lervag/vimtex'
 Plug 'lambdatoast/elm.vim'
+Plug 'lervag/vimtex'
+Plug 'rust-lang/rust.vim'
+Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 
 " Git
@@ -33,7 +34,8 @@ Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'tpope/vim-vinegar'
 Plug 'wakatime/vim-wakatime'
-Plug 'majutsushi/tagbar'
+Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-eunuch'
 
 " TMux Integration
 Plug 'benmills/vimux'
@@ -43,6 +45,7 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'Shougo/deoplete.nvim'
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'racer-rust/vim-racer'
+Plug 'mattn/emmet-vim'
 
 " Code manipulation
 Plug 'Raimondi/delimitMate'

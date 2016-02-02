@@ -32,7 +32,5 @@ let g:neomake_rust_rustc_maker = {
       \   '%f:%l: %m',
       \ }
 
-let g:neomake_rust_enabled_makers = ['rustc']
-
 noremap <leader>rb :up \| call VimuxRunCommand("clear; cargo bench")<CR>
 noremap <leader>rr :up \| call VimuxRunCommand("clear; cargo test")<CR>

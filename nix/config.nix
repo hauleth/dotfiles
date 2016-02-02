@@ -1,26 +1,5 @@
 {
   packageOverrides = pkgs: rec {
-    runtime = pkgs.buildEnv {
-      name = "runtime";
-      paths = [
-        pkgs.python27Full
-        pkgs.python27Packages.pip
-      ];
-    };
-
-    languages = pkgs.buildEnv {
-      name = "languages";
-      paths = [
-        pkgs.elixir
-        pkgs.ghc
-        pkgs.go
-        pkgs.julia
-        pkgs.ocaml
-        pkgs.sbt
-        pkgs.scala
-      ];
-    };
-
     editors = pkgs.buildEnv {
       name = "editors";
       paths = [
@@ -31,6 +10,8 @@
     scm = pkgs.buildEnv {
       name = "scm";
       paths = [
+        pkgs.mercurial
+
         pkgs.git
         pkgs.gitAndTools.hub
         pkgs.gitAndTools.git-imerge
@@ -43,6 +24,10 @@
         pkgs.silver-searcher
         pkgs.jq
         pkgs.wrk
+        pkgs.tmux
+        pkgs.tldr
+        pkgs.direnv
+        universal-ctags
       ];
     };
 
