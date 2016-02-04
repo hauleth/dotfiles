@@ -27,7 +27,7 @@ Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 
 " Git
-Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
@@ -73,6 +73,7 @@ Plug 'mjbrownie/swapit'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'wellle/targets.vim'
 
 call plug#end()
 " }}}
