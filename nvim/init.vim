@@ -12,6 +12,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'myusuf3/numbers.vim'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'raymond-w-ko/vim-niji'
+Plug 'kshenoy/vim-signature'
 
 " Languages
 Plug 'LnL7/vim-nix'
@@ -32,6 +33,7 @@ Plug 'tpope/vim-rhubarb'
 
 " Project management
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-vinegar'
 Plug 'wakatime/vim-wakatime'
 Plug 'justinmk/vim-dirvish'
@@ -58,7 +60,6 @@ Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/incsearch-easymotion.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
-Plug 'mhinz/vim-grepper'
 
 " Build & Configuration
 Plug 'benekastah/neomake'
@@ -77,7 +78,7 @@ call plug#end()
 " }}}
 " Colors {{{
 " Show 80 column
-set colorcolumn=80
+let &colorcolumn="81,+" . join(range(1,100), ',+')
 set cursorline
 
 " Use Dark Solarized theme

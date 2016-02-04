@@ -1,7 +1,5 @@
 compiler cargo
 
-setl colorcolumn=100
-
 nnoremap <buffer> g= :RustFmt<CR>
 
 let g:rustfmt_autosave = 1
