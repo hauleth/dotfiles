@@ -23,4 +23,4 @@ cargo test --no-run || exit $?
 
 
 find $ORIGIN/target/debug -maxdepth 1 -executable -and -type f -print0 \
-  | xargs -0I@ kcov --include-path=src $ORIGIN/target/cov @ "$@"
+  | xargs -0I@ kcov --include-path=src --verify $ORIGIN/target/cov @ "$@"

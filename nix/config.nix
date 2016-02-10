@@ -21,12 +21,16 @@
     tools = pkgs.buildEnv {
       name = "tools";
       paths = [
-        pkgs.silver-searcher
-        pkgs.jq
         pkgs.wrk
         pkgs.tmux
+
+        # CLI tools
         pkgs.tldr
         pkgs.direnv
+        pkgs.silver-searcher
+        pkgs.jq
+        pkgs.python35Packages.pygments
+
         universal-ctags
       ];
     };

@@ -25,6 +25,7 @@ Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
 Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
+Plug 'puppetlabs/puppet-syntax-vim'
 
 " Git
 Plug 'mhinz/vim-signify'
@@ -62,7 +63,7 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'haya14busa/incsearch.vim'
 
 " Build & Configuration
-Plug 'benekastah/neomake'
+Plug 'hauleth/neomake', { 'branch': 'fix/291' }
 Plug 'dahu/EditorConfig'
 Plug 'tpope/vim-projectionist'
 
@@ -74,6 +75,8 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
+Plug 'junegunn/limelight.vim'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 " }}}

@@ -32,12 +32,8 @@ set -g @sidebar-tree-width '20'
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
-set -g @plugin 'tmux-plugins/tmux-sessionist'
-set -g @plugin 'tmux-plugins/tmux-resurrect'
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-sidebar'
-set -g @plugin 'tmux-plugins/tmux-copycat'
-set -g @plugin 'tmux-plugins/tmux-open'
 
 # Initialize TMUX plugin manager
 run "$HOME/.tmux/plugins/tpm/tpm"
