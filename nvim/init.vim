@@ -9,8 +9,6 @@ Plug 'tpope/vim-sensible'
 Plug 'bling/vim-bufferline'
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
-Plug 'myusuf3/numbers.vim'
-Plug 'nathanaelkane/vim-indent-guides'
 Plug 'raymond-w-ko/vim-niji'
 Plug 'kshenoy/vim-signature'
 
@@ -23,7 +21,6 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'lambdatoast/elm.vim'
 Plug 'lervag/vimtex'
 Plug 'rust-lang/rust.vim'
-Plug 'slim-template/vim-slim'
 Plug 'vim-ruby/vim-ruby'
 Plug 'puppetlabs/puppet-syntax-vim'
 
@@ -64,14 +61,13 @@ Plug 'haya14busa/incsearch.vim'
 
 " Build & Configuration
 Plug 'hauleth/neomake', { 'branch': 'fix/291' }
-Plug 'dahu/EditorConfig'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-projectionist'
 
 " Utils
 Plug 'junegunn/vim-easy-align'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
-Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'wellle/targets.vim'
@@ -104,6 +100,7 @@ set list listchars=tab:→\ ,trail:·
 
 " Line numbers are good
 set number
+set relativenumber
 
 " Show current mode down the bottom
 set noshowmode
@@ -126,6 +123,9 @@ set clipboard=unnamed
 
 " Use proper english
 set spelllang=en_gb
+
+" Show me more!
+set scrolloff=10
 " }}}
 " Autoupdate {{{
 " Automatically reload changed files
@@ -179,5 +179,4 @@ inoremap <C-R><C-R> <C-R>*
 " Some useful toggles for plugins
 noremap <F2> :UndotreeToggle<CR>
 noremap <F3> :NumbersToggle<CR>
-noremap <F4> :IndentGuidesToggle<CR>
 " }}}

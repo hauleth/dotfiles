@@ -1,7 +1,7 @@
 { stdenv, fetchzip, automake, autoconf, pkgconfig, libtool }:
 
 stdenv.mkDerivation {
-  name = "universal-ctags";
+  name = "universal-ctags-2016.02.12-f2fef59ce643b4a2c47d356225a5a5e7213b67d6";
 
   buildInputs = [
     automake
@@ -11,8 +11,8 @@ stdenv.mkDerivation {
   ];
 
   src = fetchzip {
-    url = "https://github.com/universal-ctags/ctags/archive/96c6e051ce6e5073a92e2b48d4d9b00be725d436.zip";
-    sha256 = "0nwqc9k62gbhpkmh8gvmdzwg06gl9qviflgij0nrhpnha3wac1x1";
+    url = "https://github.com/universal-ctags/ctags/archive/f2fef59ce643b4a2c47d356225a5a5e7213b67d6.zip";
+    sha256 = "1sa465mlbky91dk6vxwww38lhppd9f5s8hsvxn2pr5viz0755zd9";
   };
 
   preConfigure = "./autogen.sh";

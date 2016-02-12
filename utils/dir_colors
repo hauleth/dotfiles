@@ -20,21 +20,21 @@ RESET 0 # reset to "normal" color
 DIR 00;38;5;04 # directory 01;34
 LINK 00;38;5;04 # symbolic link. (If you set this to 'target' instead of a
  # numerical value, the color is as for the file pointed to.)
-MULTIHARDLINK 00 # regular file with more than one link
-FIFO 48;5;230;38;5;136;01 # pipe
-SOCK 48;5;230;38;5;136;01 # socket
-DOOR 48;5;230;38;5;136;01 # door
-BLK 48;5;230;38;5;244;01 # block device driver
-CHR 48;5;230;38;5;244;01 # character device driver
-ORPHAN 48;5;235;38;5;160 # symlink to nonexistent file, or non-stat'able file
-SETUID 48;5;160;38;5;230 # file that is setuid (u+s)
-SETGID 48;5;136;38;5;230 # file that is setgid (g+s)
-CAPABILITY 30;41 # file with capability
-STICKY_OTHER_WRITABLE 48;5;64;38;5;230 # dir that is sticky and other-writable (+t,o+w)
-OTHER_WRITABLE 48;5;235;38;5;33 # dir that is other-writable (o+w) and not sticky
-STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writable
-# This is for files with execute permission:
-EXEC 01;38;5;180
+# MULTIHARDLINK 00 # regular file with more than one link
+# FIFO 48;5;230;38;5;136;01 # pipe
+# SOCK 48;5;230;38;5;136;01 # socket
+# DOOR 48;5;230;38;5;136;01 # door
+# BLK 48;5;230;38;5;244;01 # block device driver
+# CHR 48;5;230;38;5;244;01 # character device driver
+# ORPHAN 48;5;235;38;5;160 # symlink to nonexistent file, or non-stat'able file
+# SETUID 48;5;160;38;5;230 # file that is setuid (u+s)
+# SETGID 48;5;136;38;5;230 # file that is setgid (g+s)
+# CAPABILITY 30;41 # file with capability
+# STICKY_OTHER_WRITABLE 48;5;64;38;5;230 # dir that is sticky and other-writable (+t,o+w)
+# OTHER_WRITABLE 48;5;235;38;5;33 # dir that is other-writable (o+w) and not sticky
+# STICKY 48;5;33;38;5;230 # dir with the sticky bit set (+t) and not other-writable
+# # This is for files with execute permission:
+# EXEC 01;38;5;180
 
 # archives or compressed (violet + bold for compression) {{{
 .tar    00;38;5;05
