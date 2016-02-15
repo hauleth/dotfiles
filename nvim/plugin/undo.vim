@@ -1,6 +1,6 @@
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
-set noswapfile
+set updatecount=10
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.

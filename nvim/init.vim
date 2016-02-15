@@ -126,6 +126,9 @@ set spelllang=en_gb
 
 " Show me more!
 set scrolloff=10
+
+" Do not preview
+set completeopt-=preview
 " }}}
 " Autoupdate {{{
 " Automatically reload changed files
