@@ -1,9 +1,14 @@
-noremap <F12> :!ripper-tags -f .tags -R . --exclude vendor<CR>
+augroup ctags
+  au!
+  au BufWritePost * :NeomakeSh ripper-tags -f .tags -R . --exclude vendor
+augroup END
 
-imap ,, =>
-" noremap <buffer> g= :RubocopFmt<CR>
+augroup format
+  au!
+  au BufWritePost * :RubocopFmt
+augroup END
 
-command! RubocopFmt update | NeomakeSh rubocop -a %
+command! RubocopFmt NeomakeSh rubocop -la %
 
 noremap <leader>rb :up<bar>call VimuxRunCommand("clear; cargo bench")<CR>
 noremap <leader>rr :up<bar>call VimuxRunCommand("clear; cargo test")<CR>

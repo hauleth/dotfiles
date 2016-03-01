@@ -42,5 +42,6 @@ set -g @plugin 'tmux-plugins/tmux-sidebar'
 run "$HOME/.tmux/plugins/tpm/tpm"
 
 setw -g mode-keys vi
+set-option -ga terminal-overrides ",xterm-256color:Tc"
 
 # vim: ft=tmux

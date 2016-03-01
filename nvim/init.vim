@@ -3,13 +3,10 @@
 " Plugins {{{
 call plug#begin('~/.local/nvim/plugins')
 
-Plug 'tpope/vim-sensible'
-
 " Visual
 Plug 'bling/vim-bufferline'
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
-Plug 'raymond-w-ko/vim-niji'
 Plug 'kshenoy/vim-signature'
 
 " Languages
@@ -29,15 +26,19 @@ Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
 
-" Project management
+" Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'tpope/vim-vinegar'
-Plug 'wakatime/vim-wakatime'
+
+" File management
 Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 
-" TMux Integration
+" Time management
+Plug 'wakatime/vim-wakatime'
+
+" TMux integration
 Plug 'benmills/vimux'
 Plug 'christoomey/vim-tmux-navigator'
 
@@ -52,15 +53,10 @@ Plug 'Raimondi/delimitMate'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-
-" Movements & Search
-Plug 'easymotion/vim-easymotion'
-Plug 'haya14busa/incsearch-easymotion.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'haya14busa/incsearch.vim'
+Plug 'd0c-s4vage/vim-morph'
 
 " Build & Configuration
-Plug 'hauleth/neomake', { 'branch': 'fix/291' }
+Plug 'benekastah/neomake'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-projectionist'
 
@@ -70,7 +66,6 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'wellle/targets.vim'
 Plug 'junegunn/limelight.vim'
 Plug 'junegunn/goyo.vim'
 
@@ -85,11 +80,6 @@ set cursorline
 let base16colorspace=256
 set background=dark
 colorscheme base16-ocean
-" }}}
-" Per directory .nvimrc {{{
-set exrc
-" Disable unsafe commands in local .nvimrc
-set secure
 " }}}
 " User interface {{{
 " Ignore all automatic files and folders
@@ -173,8 +163,9 @@ nnoremap Q     K
 
 " Simplify switching to EX mode
 nnoremap ; :
-vnoremap ; :
 nnoremap : ;
+vnoremap ; :
+vnoremap : ;
 
 " Fast paste from system clipboard
 inoremap <C-R><C-R> <C-R>*
