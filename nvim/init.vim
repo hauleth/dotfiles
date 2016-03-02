@@ -44,7 +44,7 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
 Plug 'Shougo/deoplete.nvim'
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'racer-rust/vim-racer'
 Plug 'mattn/emmet-vim'
 
@@ -57,7 +57,6 @@ Plug 'd0c-s4vage/vim-morph'
 
 " Build & Configuration
 Plug 'benekastah/neomake'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-projectionist'
 
 " Utils
@@ -116,9 +115,6 @@ set spelllang=en_gb
 
 " Show me more!
 set scrolloff=10
-
-" Do not preview
-set completeopt-=preview
 " }}}
 " Autoupdate {{{
 " Automatically reload changed files
@@ -139,38 +135,173 @@ set nowrap       " Don't wrap lines
 set linebreak    " Break lines at convenient points
 set formatoptions+=t
 " }}}
-" Key mappings {{{
-let mapleader = "\<space>"
+" Folding {{{
+set foldmethod=marker
+set foldlevel=0
+" }}}
+" Search {{{
+" Smart case searches
+set ignorecase
+set smartcase
 
-" Swap 'go to marker' mappings
+" Better search
+set magic
+" }}}
+" Backup & undo {{{
+" Turn backup off, since most stuff is in SVN, git etc. anyway...
+set nobackup
+set updatecount=10
+
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+if !isdirectory($HOME . "/.cache/backups")
+  silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
+endif
+set undodir=~/.cache/backups
+set undofile
+" }}}
+" Tags {{{
+set tags+=.tags
+augroup ctags
+  au!
+  au BufWritePost * :NeomakeSh ctags -R .
+augroup END
+" }}}
+" Mappings {{{
+" Leader {{{
+let mapleader = "\<space>"
+" }}}
+" Swap 'go to marker' mappings {{{
 nnoremap ' `
 nnoremap ` '
-
+" }}}
+" Smart <Home> and `^` {{{
 " <Home> goes to the beginning of the text on first press and to the beginning
 " of the line on second press. It alternates afterwards.
 nnoremap <expr> <Home> virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
-
+nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
+" }}}
+" Reselect last Visual {{{
 nnoremap gV `[v`]
-
-" Closing
+" }}}
+" File closing {{{
 nnoremap ZS :xa<CR>
 nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
-
-" Split line at cursor position
+" }}}
+" Split line at cursor position {{{
 nnoremap K     i<CR><Esc>k$
 nnoremap Q     K
-
-" Simplify switching to EX mode
+" }}}
+" Simplify switching to Command mode {{{
 nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
-
-" Fast paste from system clipboard
+" }}}
+" Fast paste from system clipboard {{{
 inoremap <C-R><C-R> <C-R>*
-
-" Some useful toggles for plugins
+" }}}
+" Folding {{{
+nnoremap <CR> za
+" }}}
+" FZF {{{
+noremap <C-p> :<C-u>Files<CR>
+noremap gt :<C-u>Tags<CR>
+nnoremap gb :<C-u>Buffers<CR>
+" }}}
+" UndoTree {{{
 noremap <F2> :UndotreeToggle<CR>
-noremap <F3> :NumbersToggle<CR>
+" }}}
+" EasyAlign {{{
+vmap <leader>a <Plug>(EasyAlign)
+nmap <leader>a <Plug>(EasyAlign)
+" }}}
+" Format whole file {{{
+noremap g= :<C-u>Format<CR>
+" }}}
+" Search {{{
+nnoremap <silent> <leader><leader> :<C-u>set nohlsearch <bar> update<CR>
+
+noremap c* *``cgn
+noremap c# #``cgN
+noremap cg* g*``cgn
+noremap cg# g#``cgN
+" }}}
+" Git {{{
+nnoremap U <nop>
+nnoremap Us :<C-u>Gstatus<CR>
+nnoremap Ud :<C-u>Gdiff<CR>
+nnoremap Ub :<C-u>Gblame<CR>
+nnoremap Uc :<C-u>Gcommit<CR>
+nnoremap Um :<C-u>Gmerge<CR>
+nnoremap Uu :<C-u>Git up<CR>
+nmap UU Uu
+" }}}
+" }}}
+" Plugins {{{
+" BufferLine {{{
+let g:bufferline_echo = 1
+let g:bufferline_rotate = 1
+let g:bufferline_fname_mod = ':~:.'
+" }}}
+" Deoplete {{{
+let g:deoplete#enable_at_startup = 1
+" }}}
+" DelimitMate {{{
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_balance_matchpairs = 1
+" }}}
+" Unload netrw {{{
+let g:loaded_nerwPlugin = 1
+" }}}
+" Formatting & Cleaning {{{
+command! Clean let _s=@/ | %s/\s\+$//e | let @/=_s | set nohlsearch
+command! Format norm gg=Gg``
+" }}}
+" Limelight {{{
+let g:limelight_conceal_guifg = 'DarkGray'
+" }}}
+" Morph {{{
+let g:Morph_UserMorphs = expand('~') . '/.config/Morphs.morph'
+" }}}
+" Neomake {{{
+augroup syntax_check
+  au!
+  autocmd BufEnter,BufWritePost * silent! Neomake
+augroup END
+
+let g:neomake_warning_sign = {
+      \ 'text': '‼',
+      \ 'texthl': 'Warning',
+      \ }
+" }}}
+" TMux {{{
+let g:tmux_navigator_no_mappings = 1
+
+nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
+
+let g:VimuxOrientation = 'h'
+let g:VimuxHeight = '40'
+
+noremap <leader>vl :VimuxRunLastCommand<CR>
+noremap <leader>vi :VimuxInspectPanel<CR>
+noremap <leader>vq :VimuxCloseRunner<CR>
+noremap <leader>vx :VimuxInterruptRunner<CR>
+noremap <leader>vz :call VimuxZoomRunner()<CR>
+" }}}
+" Signify {{{
+let g:signify_sign_add = '▌'
+let g:signify_sign_delete = '▖'
+let g:signify_sign_delete_first_line = '▘'
+let g:signify_sign_change = '▐'
+let g:signify_sign_changedelete = '▞'
+
+let g:signify_sign_show_count = 0
+" }}}
 " }}}
