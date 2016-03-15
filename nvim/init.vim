@@ -10,16 +10,8 @@ Plug 'itchyny/lightline.vim'
 Plug 'kshenoy/vim-signature'
 
 " Languages
-Plug 'LnL7/vim-nix'
-Plug 'cespare/vim-toml'
+Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish'
-Plug 'ekalinin/Dockerfile.vim'
-Plug 'elixir-lang/vim-elixir'
-Plug 'lambdatoast/elm.vim'
-Plug 'lervag/vimtex'
-Plug 'rust-lang/rust.vim'
-Plug 'vim-ruby/vim-ruby'
-Plug 'puppetlabs/puppet-syntax-vim'
 
 " Git
 Plug 'mhinz/vim-signify'
@@ -32,7 +24,6 @@ Plug 'junegunn/fzf.vim'
 
 " File management
 Plug 'justinmk/vim-dirvish'
-Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-eunuch'
 
 " Time management
@@ -44,16 +35,14 @@ Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
 Plug 'Shougo/deoplete.nvim'
-" Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'racer-rust/vim-racer'
 Plug 'mattn/emmet-vim'
+Plug 'racer-rust/vim-racer'
 
 " Code manipulation
-Plug 'Raimondi/delimitMate'
+Plug 'cohama/lexima.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'd0c-s4vage/vim-morph'
 
 " Build & Configuration
 Plug 'benekastah/neomake'
@@ -65,16 +54,10 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/limelight.vim'
-Plug 'junegunn/goyo.vim'
 
 call plug#end()
 " }}}
 " Colors {{{
-" Show 80 column
-let &colorcolumn="81,+" . join(range(1,100), ',+')
-set cursorline
-
 " Use Dark Solarized theme
 let base16colorspace=256
 set background=dark
@@ -85,7 +68,8 @@ colorscheme base16-ocean
 set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 
 " Display tabs and trailing spaces visually
-set list listchars=tab:→\ ,trail:·
+set list
+set listchars=tab:→\ ,trail:·
 
 " Line numbers are good
 set number
@@ -98,14 +82,14 @@ set noshowmode
 set encoding=utf8
 
 " Shorten interruptive command output
-set shortmess=atI
+set shortmess+=atI
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 set hidden
 
 " Wrap line on movements
-set whichwrap+=<,>,h,l,[,]
+set whichwrap+=<,>,[,]
 
 " Use system clippboard as default
 set clipboard=unnamed
@@ -115,13 +99,12 @@ set spelllang=en_gb
 
 " Show me more!
 set scrolloff=10
-" }}}
-" Autoupdate {{{
-" Automatically reload changed files
-set autoread
 
-" Save on buffer change
-set autowriteall
+" Show 80 column
+let &colorcolumn="81,+" . join(range(1,100), ',+')
+set cursorline
+
+set lazyredraw
 " }}}
 " Identation {{{
 set smartindent
@@ -143,14 +126,11 @@ set foldlevel=0
 " Smart case searches
 set ignorecase
 set smartcase
-
-" Better search
-set magic
 " }}}
-" Backup & undo {{{
+" Backup, swap & undo {{{
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
 set nobackup
-set updatecount=10
+set noswapfile
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
@@ -161,10 +141,22 @@ set undodir=~/.cache/backups
 set undofile
 " }}}
 " Tags {{{
-set tags+=.tags
+command! UpdateTags call UpdateTags(0)
+
+let g:tagscmd = 'ctags -a'
+
+function! UpdateTags(check)
+  let l:cwd = getcwd()
+  let l:tagsfile = l:cwd . '/tags'
+
+  if a:check && filewritable(tagsfile)
+    exec('NeomakeSh ' . g:tagscmd . ' -f ' . tagsfile . ' ' . @%)
+  endif
+endfunction
+
 augroup ctags
   au!
-  au BufWritePost * :NeomakeSh ctags -R .
+  au BufWritePost * call UpdateTags(1)
 augroup END
 " }}}
 " Mappings {{{
@@ -178,8 +170,8 @@ nnoremap ` '
 " Smart <Home> and `^` {{{
 " <Home> goes to the beginning of the text on first press and to the beginning
 " of the line on second press. It alternates afterwards.
-nnoremap <expr> <Home> virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
+nmap <Home> ^
 " }}}
 " Reselect last Visual {{{
 nnoremap gV `[v`]
@@ -188,10 +180,11 @@ nnoremap gV `[v`]
 nnoremap ZS :xa<CR>
 nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
+nnoremap ZB :bd<CR>
 " }}}
 " Split line at cursor position {{{
-nnoremap K     i<CR><Esc>k$
-nnoremap Q     K
+nnoremap K i<CR><Esc>k$
+nnoremap Q K
 " }}}
 " Simplify switching to Command mode {{{
 nnoremap ; :
@@ -207,26 +200,33 @@ nnoremap <CR> za
 " }}}
 " FZF {{{
 noremap <C-p> :<C-u>Files<CR>
-noremap gt :<C-u>Tags<CR>
-nnoremap gb :<C-u>Buffers<CR>
+noremap zz :<C-u>Files<CR>
+noremap zt    :<C-u>Tags<CR>
+noremap zb    :<C-u>Buffers<CR>
 " }}}
 " UndoTree {{{
-noremap <F2> :UndotreeToggle<CR>
+noremap <F2> :<C-u>UndotreeToggle<CR>
 " }}}
 " EasyAlign {{{
 vmap <leader>a <Plug>(EasyAlign)
 nmap <leader>a <Plug>(EasyAlign)
 " }}}
-" Format whole file {{{
-noremap g= :<C-u>Format<CR>
+" Format {{{
+noremap g= gg=Gg``
 " }}}
 " Search {{{
-nnoremap <silent> <leader><leader> :<C-u>set nohlsearch <bar> update<CR>
-
+" Easier change and replace word
 noremap c* *``cgn
 noremap c# #``cgN
 noremap cg* g*``cgn
 noremap cg# g#``cgN
+
+" Search for selection
+vnoremap // y/<C-r>"<CR>
+
+" Consistent search forward
+noremap <expr> n 'Nn'[v:searchforward]
+noremap <expr> N 'nN'[v:searchforward]
 " }}}
 " Git {{{
 nnoremap U <nop>
@@ -236,40 +236,39 @@ nnoremap Ub :<C-u>Gblame<CR>
 nnoremap Uc :<C-u>Gcommit<CR>
 nnoremap Um :<C-u>Gmerge<CR>
 nnoremap Uu :<C-u>Git up<CR>
+nnoremap Uf :<C-u>GitFiles<CR>
 nmap UU Uu
 " }}}
 " }}}
-" Plugins {{{
+" Configuration {{{
+" Grep {{{
+set grepformat^=%f:%l:%c:%m
+set grepprg=ag\ --vimgrep\ --hidden
+" }}}
 " BufferLine {{{
 let g:bufferline_echo = 1
 let g:bufferline_rotate = 1
+let g:bufferline_active_buffer_left = '['
+let g:bufferline_active_buffer_right = ']'
 let g:bufferline_fname_mod = ':~:.'
 " }}}
 " Deoplete {{{
 let g:deoplete#enable_at_startup = 1
-" }}}
-" DelimitMate {{{
-let g:delimitMate_expand_cr = 1
-let g:delimitMate_expand_space = 1
-let g:delimitMate_balance_matchpairs = 1
+
+let g:deoplete#omni_patterns = {}
+let g:deoplete#omni_patterns.rust = '[(\.)(::)]'
 " }}}
 " Unload netrw {{{
-let g:loaded_nerwPlugin = 1
+let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
 " }}}
 " Formatting & Cleaning {{{
 command! Clean let _s=@/ | %s/\s\+$//e | let @/=_s | set nohlsearch
-command! Format norm gg=Gg``
-" }}}
-" Limelight {{{
-let g:limelight_conceal_guifg = 'DarkGray'
-" }}}
-" Morph {{{
-let g:Morph_UserMorphs = expand('~') . '/.config/Morphs.morph'
 " }}}
 " Neomake {{{
 augroup syntax_check
   au!
-  autocmd BufEnter,BufWritePost * silent! Neomake
+  autocmd BufEnter,BufWritePost * silent Neomake
 augroup END
 
 let g:neomake_warning_sign = {

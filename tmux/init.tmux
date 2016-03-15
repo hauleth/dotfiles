@@ -12,15 +12,15 @@ source "$HOME/.tmux/themes/agnoster.tmux"
 
 # Smart pane switching with awareness of vim splits
 is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
-bind -n C-h if-shell "$is_vim" "send-keys C-h" "select-pane -L"
+bind -n C-h if-shell "$is_vim" "send-keys Escape \"[104;5u\"" "select-pane -L"
 bind -n C-j if-shell "$is_vim" "send-keys C-j" "select-pane -D"
 bind -n C-k if-shell "$is_vim" "send-keys C-k" "select-pane -U"
 bind -n C-l if-shell "$is_vim" "send-keys C-l" "select-pane -R"
 bind -n C-\ if-shell "$is_vim" "send-keys C-\\" "select-pane -l"
 
 # Allow sending prefix to child
-bind-key j    command-prompt -p "Join pane from:" "join-pane -s '%%'"
-bind-key s    command-prompt -p "Send pane to:"   "join-pane -t '%%'"
+bind-key J    command-prompt -p "Join pane from:" "join-pane -s '%%'"
+bind-key S    command-prompt -p "Send pane to:"   "join-pane -t '%%'"
 
 # Start windows and panes at 1, not 0
 set -g base-index 1

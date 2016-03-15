@@ -14,6 +14,8 @@
 	root = !git checkout master && git up
 	squash = rebase -i @{u}
 	st = status -sb
+	todo = grep -Ee '\\bTODO:?\\b'
+	fixme = grep -Ee '\\bFIX(ME)?:?\\b'
 
 [mergetool]
 	keepBackup = false

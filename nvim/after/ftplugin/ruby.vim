@@ -1,11 +1,6 @@
-augroup ctags
-  au!
-  au BufWritePost * :NeomakeSh ripper-tags -f .tags -R . --exclude vendor
-augroup END
-
 augroup format
   au!
-  au BufWritePost * :RubocopFmt
+  au BufWritePost *.rb :RubocopFmt
 augroup END
 
 command! RubocopFmt NeomakeSh rubocop -la %

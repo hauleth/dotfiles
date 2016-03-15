@@ -35,7 +35,7 @@ rec {
       name = "tools";
       paths = [
         pkgs.wrk
-        pkgs.tmux
+        tmux
 
         # CLI tools
         pkgs.tldr
@@ -50,5 +50,6 @@ rec {
 
     universal-ctags = pkgs.callPackage ./pkgs/universal-ctags {};
     htop = pkgs.callPackage ./pkgs/htop {};
+    tmux = pkgs.callPackage ./pkgs/tmux.nix {};
   };
 }

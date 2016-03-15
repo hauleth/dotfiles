@@ -17,7 +17,7 @@ source $fisher_home/config.fish
 
 theme base16-ocean dark
 
-set fish_greeting (fortune zen)
+# set fish_greeting (fortune zen)
 
 enable direnv hook fish
 enable hub alias -s

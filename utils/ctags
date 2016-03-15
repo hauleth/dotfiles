@@ -2,4 +2,3 @@
 --exclude=log
 --exclude=tmp
 --exclude=target
---exclude=vendor/bundle

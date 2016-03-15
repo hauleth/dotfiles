@@ -1,6 +1,6 @@
 compiler cargo
-nnoremap <buffer> g= :RustFmt<CR>
 
+setlocal formatprg=rustfmt\ --write-mode=display
 let g:rustfmt_autosave = 1
 
 let g:neomake_rust_cargo_maker = {
@@ -15,7 +15,6 @@ let g:neomake_rust_cargo_maker = {
       \   '%f:%l: %tarning: %m,'.
       \   '%f:%l: %m',
       \ }
-
 
 let g:neomake_rust_rustc_maker = {
       \ 'args': ['-Z', 'parse-only'],

@@ -8,7 +8,7 @@ let g:lightline = {
       \   'right': [
       \     [ 'lineinfo' ],
       \     [ 'percent' ],
-      \     [ 'filetype' ]
+      \     [ 'filetype' ],
       \   ]
       \ },
       \ 'enable': {
