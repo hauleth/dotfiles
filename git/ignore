@@ -14,6 +14,7 @@
 *.jar
 *.rar
 *.tar
+*.xz
 *.zip
 # }}}
 # Logs and databases {{{
@@ -60,4 +61,5 @@ tmp/
 .gdb_history
 perf.data*
 /oprofile_data
+*.socket
 # }}}

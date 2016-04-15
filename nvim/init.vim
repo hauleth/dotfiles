@@ -5,18 +5,20 @@ call plug#begin('~/.local/nvim/plugins')
 
 " Visual
 Plug 'bling/vim-bufferline'
-Plug 'chriskempson/base16-vim'
+Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-Plug 'kshenoy/vim-signature'
+Plug 'wellle/targets.vim'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish'
+Plug 'hauleth/vim-ketos'
 
 " Git
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
+Plug 'junegunn/gv.vim'
 
 " Fuzzy find
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -30,11 +32,10 @@ Plug 'tpope/vim-eunuch'
 Plug 'wakatime/vim-wakatime'
 
 " TMux integration
-Plug 'benmills/vimux'
+Plug 'tpope/vim-tbone'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
-Plug 'Shougo/deoplete.nvim'
 Plug 'mattn/emmet-vim'
 Plug 'racer-rust/vim-racer'
 
@@ -47,21 +48,24 @@ Plug 'tpope/vim-surround'
 " Build & Configuration
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-projectionist'
+Plug 'editorconfig/editorconfig-vim'
 
 " Utils
-Plug 'junegunn/vim-easy-align'
+Plug 'godlygeek/tabular'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/Goyo.vim'
+
+" Ruby
+Plug 'tpope/vim-rails'
 
 call plug#end()
 " }}}
 " Colors {{{
-" Use Dark Solarized theme
-let base16colorspace=256
 set background=dark
-colorscheme base16-ocean
+colorscheme gruvbox
 " }}}
 " User interface {{{
 " Ignore all automatic files and folders
@@ -71,12 +75,9 @@ set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 set list
 set listchars=tab:→\ ,trail:·
 
-" Line numbers are good
-set number
-set relativenumber
-
 " Show current mode down the bottom
 set noshowmode
+set showcmd
 
 " Set utf8 as standard encoding
 set encoding=utf8
@@ -100,14 +101,18 @@ set spelllang=en_gb
 " Show me more!
 set scrolloff=10
 
+set iskeyword+=-
+
 " Show 80 column
-let &colorcolumn="81,+" . join(range(1,100), ',+')
+let &colorcolumn="81,+" . join(range(1,200), ',+')
 set cursorline
+
+set splitright
+set splitbelow
 
 set lazyredraw
 " }}}
 " Identation {{{
-set smartindent
 set shiftwidth=2
 set softtabstop=2
 set tabstop=2
@@ -137,31 +142,48 @@ set noswapfile
 if !isdirectory($HOME . "/.cache/backups")
   silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
 endif
-set undodir=~/.cache/backups
+let &undodir=$HOME . "/.cache/backups"
 set undofile
+set undolevels=1000
+set undoreload=10000
 " }}}
 " Tags {{{
-command! UpdateTags call UpdateTags(0)
+command! UpdateTags call UpdateTags(0, '.')
 
 let g:tagscmd = 'ctags -a'
 
-function! UpdateTags(check)
+function! UpdateTags(check, path)
   let l:cwd = getcwd()
   let l:tagsfile = l:cwd . '/tags'
 
-  if a:check && filewritable(tagsfile)
-    exec('NeomakeSh ' . g:tagscmd . ' -f ' . tagsfile . ' ' . @%)
+  if a:check && ! filewritable(tagsfile)
+    return
   endif
+
+  exec('NeomakeSh ' . g:tagscmd . ' -f ' . tagsfile . ' ' . a:path)
 endfunction
 
 augroup ctags
   au!
-  au BufWritePost * call UpdateTags(1)
+  au BufWritePost * call UpdateTags(1, @%)
 augroup END
 " }}}
 " Mappings {{{
 " Leader {{{
 let mapleader = "\<space>"
+" }}}
+" ESC {{{
+inoremap jk <ESC>
+" }}}
+" Disable arrows {{{
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
+noremap! <up> <nop>
+noremap! <down> <nop>
+noremap! <left> <nop>
+noremap! <right> <nop>
 " }}}
 " Swap 'go to marker' mappings {{{
 nnoremap ' `
@@ -197,12 +219,15 @@ inoremap <C-R><C-R> <C-R>*
 " }}}
 " Folding {{{
 nnoremap <CR> za
+au CmdwinEnter * nunmap <CR>
+au CmdwinLeave * nnoremap <CR> za
 " }}}
 " FZF {{{
-noremap <C-p> :<C-u>Files<CR>
-noremap zz :<C-u>Files<CR>
-noremap zt    :<C-u>Tags<CR>
-noremap zb    :<C-u>Buffers<CR>
+nnoremap <C-p> :<C-u>Files<CR>
+nnoremap <leader>f :<C-u>Files<CR>
+nnoremap <leader><leader> :<C-u>Files<CR>
+nnoremap <leader>t :<C-u>Tags<CR>
+nnoremap <leader>b :<C-u>Buffers<CR>
 " }}}
 " UndoTree {{{
 noremap <F2> :<C-u>UndotreeToggle<CR>
@@ -223,27 +248,30 @@ noremap cg# g#``cgN
 
 " Search for selection
 vnoremap // y/<C-r>"<CR>
-
-" Consistent search forward
-noremap <expr> n 'Nn'[v:searchforward]
-noremap <expr> N 'nN'[v:searchforward]
 " }}}
 " Git {{{
 nnoremap U <nop>
 nnoremap Us :<C-u>Gstatus<CR>
 nnoremap Ud :<C-u>Gdiff<CR>
-nnoremap Ub :<C-u>Gblame<CR>
+nnoremap UB :<C-u>Gblame<CR>
+nnoremap Ub :<C-u>Promiscuous<CR>
+nnoremap U- :<C-u>Promiscuous -<CR>
 nnoremap Uc :<C-u>Gcommit<CR>
 nnoremap Um :<C-u>Gmerge<CR>
 nnoremap Uu :<C-u>Git up<CR>
 nnoremap Uf :<C-u>GitFiles<CR>
+nnoremap Ul :<C-u>GV<CR>
+nnoremap UL :<C-u>GV!<CR>
 nmap UU Uu
+" }}}
+" Tabs {{{
+nnoremap <C-w>t :<C-u>tabnew <bar> Dirvish<CR>
 " }}}
 " }}}
 " Configuration {{{
 " Grep {{{
 set grepformat^=%f:%l:%c:%m
-set grepprg=ag\ --vimgrep\ --hidden
+set grepprg=ag\ --vimgrep\ --hidden\ --ignore\ .git
 " }}}
 " BufferLine {{{
 let g:bufferline_echo = 1
@@ -252,15 +280,10 @@ let g:bufferline_active_buffer_left = '['
 let g:bufferline_active_buffer_right = ']'
 let g:bufferline_fname_mod = ':~:.'
 " }}}
-" Deoplete {{{
-let g:deoplete#enable_at_startup = 1
-
-let g:deoplete#omni_patterns = {}
-let g:deoplete#omni_patterns.rust = '[(\.)(::)]'
-" }}}
-" Unload netrw {{{
-let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
+" Unload unneeded plugins {{{
+let g:loaded_netrw         = 1
+let g:loaded_netrwPlugin   = 1
+let g:loaded_vimballPlugin = 1
 " }}}
 " Formatting & Cleaning {{{
 command! Clean let _s=@/ | %s/\s\+$//e | let @/=_s | set nohlsearch
@@ -268,7 +291,7 @@ command! Clean let _s=@/ | %s/\s\+$//e | let @/=_s | set nohlsearch
 " Neomake {{{
 augroup syntax_check
   au!
-  autocmd BufEnter,BufWritePost * silent Neomake
+  autocmd BufWritePost * silent Neomake
 augroup END
 
 let g:neomake_warning_sign = {
@@ -276,23 +299,15 @@ let g:neomake_warning_sign = {
       \ 'texthl': 'Warning',
       \ }
 " }}}
+" MPD {{{
+command! -nargs=+ MPD call jobstart(['mpc', <f-args>])
+command! MPDAdd call fzf#run({
+      \ 'source': 'mpc listall',
+      \ 'sink': 'MPD add',
+      \ })
+" }}}
 " TMux {{{
-let g:tmux_navigator_no_mappings = 1
-
-nnoremap <silent> <C-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <C-\> :TmuxNavigatePrevious<cr>
-
-let g:VimuxOrientation = 'h'
-let g:VimuxHeight = '40'
-
-noremap <leader>vl :VimuxRunLastCommand<CR>
-noremap <leader>vi :VimuxInspectPanel<CR>
-noremap <leader>vq :VimuxCloseRunner<CR>
-noremap <leader>vx :VimuxInterruptRunner<CR>
-noremap <leader>vz :call VimuxZoomRunner()<CR>
+let g:tmux_navigator_save_on_switch = 1
 " }}}
 " Signify {{{
 let g:signify_sign_add = '▌'
@@ -302,5 +317,12 @@ let g:signify_sign_change = '▐'
 let g:signify_sign_changedelete = '▞'
 
 let g:signify_sign_show_count = 0
+" }}}
+" Lexima {{{
+call lexima#add_rule({'char': '%', 'at': '<\%#', 'input_after': ' %>', 'filetype': ['eelixir', 'eruby']})
+" }}}
+" Limelight {{{
+let g:limelight_conceal_ctermfg = 'lightgray'
+let g:limelight_conceal_guifg = '#666666'
 " }}}
 " }}}

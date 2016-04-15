@@ -14,7 +14,7 @@
 # Background 256 color coding:
 # 48;5;COLOR_NUMBER
 
-NORMAL 00;38;5;19 # no color code at all
+NORMAL 00;38;5;01 # no color code at all
 #FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
 DIR 00;38;5;04 # directory 01;34
@@ -156,6 +156,8 @@ LINK 00;38;5;04 # symbolic link. (If you set this to 'target' instead of a
 .coffee   01;38;5;11
 .ts       01;38;5;11
 .nix      01;38;5;13
+.ex       01;38;5;01
+.exs      01;38;5;01
 # }}}
 # Documentation {{{
 .md       01;38;5;07

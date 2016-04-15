@@ -1,3 +1,3 @@
 setlocal spell
 
-map <F9> :!markdown-preview %<CR>
+map <buffer> <F9> :!markdown-preview %<CR>

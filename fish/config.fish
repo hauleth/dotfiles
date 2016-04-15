@@ -11,18 +11,10 @@ set -x PATH $NIX_LINK/bin $NIX_LINK/sbin $PATH
 # channel.
 set -gx NIX_PATH nixpkgs=$HOME/.nix-defexpr/channels/nixpkgs
 
-set fisher_home $DOTFILES/fish/fisherman
-set fisher_config $HOME/.config/fisherman
-source $fisher_home/config.fish
-
-theme base16-ocean dark
-
-# set fish_greeting (fortune zen)
+# theme base16-ocean dark
 
 enable direnv hook fish
 enable hub alias -s
 enable jump shell fish
 enable rbenv init -
 enable thefuck --alias
-
-agnoster powerline

@@ -1,6 +1,6 @@
-nmap ce ^ciwe<ESC>
-nmap cf ^ciwf<ESC>
-nmap cp ^ciwp<ESC>
-nmap cr ^ciwr<ESC>
-nmap cs ^ciws<ESC>
-nmap cd ^ciwd<ESC>
+nmap <buffer> ce ^ciwe<ESC>
+nmap <buffer> cf ^ciwf<ESC>
+nmap <buffer> cp ^ciwp<ESC>
+nmap <buffer> cr ^ciwr<ESC>
+nmap <buffer> cs ^ciws<ESC>
+nmap <buffer> cd ^ciwd<ESC>

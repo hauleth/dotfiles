@@ -1,12 +1,6 @@
 [submodule "tmux/plugins/tpm"]
 	path = tmux/plugins/tpm
 	url = https://github.com/tmux-plugins/tpm.git
-[submodule "fish/fisherman"]
-	path = fish/fisherman
-	url = git://github.com/fisherman/fisherman.git
 [submodule "git/template/hooks/commit-comments"]
 	path = git/template/hooks/commit-comments
 	url = https://github.com/thebearjew/commit-comments.git
-[submodule "fish/base16"]
-	path = fish/base16
-	url = https://github.com/chriskempson/base16-shell.git

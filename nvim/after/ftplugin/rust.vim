@@ -28,5 +28,16 @@ let g:neomake_rust_rustc_maker = {
       \   '%f:%l: %m',
       \ }
 
-noremap <leader>rb :up<bar>call VimuxRunCommand("clear; cargo bench")<CR>
-noremap <leader>rr :up<bar>call VimuxRunCommand("clear; cargo test")<CR>
+ClearSwapList
+
+SwapList float f32 f64
+SwapList integers i8 i16 i32 i64
+SwapList unsigned u8 u16 u32 u64
+SwapList ref_mut & &mut
+SwapList string str String
+SwapList result Ok Err
+SwapList option Some None
+SwapList assert assert assert_eq
+SwapList print print println
+SwapList write write writeln
+SwapList module mod use

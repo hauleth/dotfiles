@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/bin/bash
 
 SEP=
-SEPE=
+SEPE=$(echo -e "\ue0b3")
 
 CLOCK=⌚
-CALENDAR=☼
+CALENDAR=📆
 MUSIC=♫
 
 WIDTH="${1}"
@@ -14,16 +14,15 @@ MEDIUM=140
 
 if [ "$WIDTH" -gt "$MEDIUM" ]; then
   if type mpc >/dev/null; then
-    MPD="#[fg=colour252,bg=default,nobold,noitalics,nounderscore]$SEP#[fg=colour16,bg=colour252,bold,noitalics,nounderscore] $MUSIC $(mpc current)"
-    date_colour='colour252'
+    MPD="#[fg=colour15,bg=default,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour15,bold,noitalics,nounderscore] $MUSIC $(mpc current)"
   fi
 fi
 
 if [ "$WIDTH" -ge "$SMALL" ]; then
-  UNAME="#[fg=colour21,bg=colour18,nobold,noitalics,nounderscore]$SEP#[fg=colour18,bg=colour21,bold,noitalics,nounderscore] $(uname -n)"
+  UNAME="#[fg=colour15,bg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour15,bold,noitalics,nounderscore] $(uname -n)"
 fi
 
-DATE="#[fg=colour18,bg=${date_colour:-default},nobold,noitalics,nounderscore]$SEP#[fg=colour20,bg=colour18,nobold,noitalics,nounderscore] $CALENDAR $(date +'%d.%m.%y')"
-TIME="#[fg=colour19,bg=colour18,nobold,noitalics,nounderscore]$SEPE#[fg=colour20,bg=colour18,bold,noitalics,nounderscore] $CLOCK $(date +'%H:%M')"
+DATE="#[fg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $CALENDAR $(date +'%d.%m.%y')"
+TIME="#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore]$SEPE#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $CLOCK $(date +'%H:%M')"
 
 echo "$MPD $DATE $TIME $UNAME " | sed 's/ *$/ /g'

@@ -1,0 +1,1 @@
+/home/hauleth/.config/fin/agnoster/fish_prompt.fish

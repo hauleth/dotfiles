@@ -16,6 +16,9 @@
 	st = status -sb
 	todo = grep -Ee '\\bTODO:?\\b'
 	fixme = grep -Ee '\\bFIX(ME)?:?\\b'
+	com = checkout master
+	fix = commit --fixup=HEAD
+	psuh = push
 
 [mergetool]
 	keepBackup = false

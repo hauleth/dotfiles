@@ -1,3 +1,2 @@
 " Map gh to hide "hidden" files.
-nnoremap <silent> <buffer> gh
-      \ :g@\v/\.[^\/]+/?$@d <bar> set nohlsearch<CR>
+nnoremap <silent> <buffer> gh :<C-u>call whirl#toggle_dotfiles()<CR>

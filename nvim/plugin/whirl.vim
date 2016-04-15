@@ -5,17 +5,18 @@ if exists("g:loaded_whirl") || v:version < 700 || &cp
   finish
 endif
 let g:loaded_whirl = 1
+let s:save_cpo = &cpo
+set cpo&vim
 
 augroup dirvish_sort
   au!
   au FileType dirvish sort r /[^\/]$/
-  au FileType dirvish g/\~$/d
 augroup END
 
-if empty(maparg('-', 'n'))
-  nnoremap <silent> - :<C-u>Dirvish .<CR>
+if mapcheck('+', 'n') ==# ''
+  nnoremap <silent> + :<C-U>exe 'Dirvish %:p'.repeat(':h',v:count1)<CR>
 endif
-
-if empty(maparg('+', 'n'))
-  nnoremap <silent> + :<C-u>Dirvish %:p:h<CR>
+if mapcheck('-', 'n') ==# ''
+  nnoremap <silent> - :<C-U>Dirvish<CR>
 endif
+let &cpo = s:save_cpo

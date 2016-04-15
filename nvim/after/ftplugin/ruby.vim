@@ -1,9 +1,7 @@
-augroup format
-  au!
-  au BufWritePost *.rb :RubocopFmt
-augroup END
+command! RubocopFmt NeomakeSh rubocop -a %
 
-command! RubocopFmt NeomakeSh rubocop -la %
+ClearSwapList
 
-noremap <leader>rb :up<bar>call VimuxRunCommand("clear; cargo bench")<CR>
-noremap <leader>rr :up<bar>call VimuxRunCommand("clear; cargo test")<CR>
+SwapList visibility public protected private
+SwapList if if unless
+SwapList while while until

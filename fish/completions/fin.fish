@@ -1,0 +1,8 @@
+complete -xc fin -s h -l help -d "Show usage help"
+complete -xc fin -s q -l quiet -d "Enable quiet mode"
+complete -xc fin -s v -l version -d "Show version information"
+complete -xc fin -n "__fish_use_subcommand" -a install -d "Install plugins  /  i"
+complete -xc fin -n "__fish_use_subcommand" -a update -d "Update fin and plugins  /  u"
+complete -xc fin -n "__fish_use_subcommand" -a rm -d "Remove plugins  /  r"
+complete -xc fin -n "__fish_use_subcommand" -a ls -d "List plugins  /  l"
+complete -xc fin -n "__fish_use_subcommand" -a help -d "Show help  /  h"
