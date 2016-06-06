@@ -1,1 +1,1 @@
-/home/hauleth/.fzf/shell/key-bindings.fish
+/Users/hauleth/.fzf/shell/key-bindings.fish

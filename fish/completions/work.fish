@@ -1,1 +1,1 @@
-complete -x -c work -a '(find -L "$WORKSPACE_SRC" -depth -maxdepth 5 -type d -and -name .git -prune -and -not -path "*/\.cargo/*" -prune -printf "%h\n" | sed -e "s:$WORKSPACE_SRC/*::" -e "s:/\.git::")'
+complete -x -c work -a '(find -L "$WORKSPACE" -depth -maxdepth 5 -type d -and -name .git -prune -and -not -path "*/\.cargo/*" -prune -print | sed -e "s:$WORKSPACE/*::" -e "s:/\.git::")'

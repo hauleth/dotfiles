@@ -10,6 +10,8 @@ set -g set-titles on
 
 source "$HOME/.tmux/themes/agnoster.tmux"
 
+set -g default-terminal "xterm-256color"
+
 # Smart pane switching with awareness of vim splits
 is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'
 bind -n C-h if-shell "$is_vim" "send-keys Escape \"[104;5u\"" "select-pane -L"

@@ -2,13 +2,11 @@ XDG_CONFIG_HOME ?= ${HOME}/.config
 
 PWD = $(shell pwd)
 
-install: fin
+install:
 	$(LN) ${PWD} $(XDG_CONFIG_HOME)/fish
+	fish -c 'fin'
 
 functions/fin.fish:
-	$(WGET) -O$@ https://raw.githubusercontent.com/fishery/fin/master/fin.fish
-
-fin: functions/fin.fish
-	fish -c 'fin'
+	$(WGET) -O$@ https://raw.githubusercontent.com/fisherman/fin/master/fin.fish
 
 .PHONY: install

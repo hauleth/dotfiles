@@ -2,7 +2,7 @@ XDG_CONFIG_HOME ?= ${HOME}/.config
 
 PWD = $(shell pwd)
 
-install: python
+install:
 	$(LN) ${PWD} $(XDG_CONFIG_HOME)/nvim
 	nvim +PlugUpgrade +PlugInstall +qa # Currently doesn't work
 

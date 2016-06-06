@@ -402,6 +402,17 @@ function! s:doautocmd(...)
   endif
 endfunction
 
+function! s:dobufread(names)
+  for name in a:names
+    let path = s:rtp(g:plugs[name]).'/**'
+    for dir in ['ftdetect', 'ftplugin']
+      if len(finddir(dir, path))
+        return s:doautocmd('BufRead')
+      endif
+    endfor
+  endfor
+endfunction
+
 function! plug#load(...)
   if a:0 == 0
     return s:err('Argument missing: plugin name(s) required')
@@ -417,7 +428,11 @@ function! plug#load(...)
   for name in a:000
     call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   endfor
+<<<<<<< Updated upstream
   call s:doautocmd('BufRead')
+=======
+  call s:dobufread(a:000)
+>>>>>>> Stashed changes
   return 1
 endfunction
 
@@ -467,13 +482,21 @@ endfunction
 
 function! s:lod_cmd(cmd, bang, l1, l2, args, names)
   call s:lod(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+<<<<<<< Updated upstream
   call s:doautocmd('BufRead')
+=======
+  call s:dobufread(a:names)
+>>>>>>> Stashed changes
   execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
 function! s:lod_map(map, names, prefix)
   call s:lod(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
+<<<<<<< Updated upstream
   call s:doautocmd('BufRead')
+=======
+  call s:dobufread(a:names)
+>>>>>>> Stashed changes
   let extra = ''
   while 1
     let c = getchar(0)
@@ -482,6 +505,13 @@ function! s:lod_map(map, names, prefix)
     endif
     let extra .= nr2char(c)
   endwhile
+  if v:count
+    call feedkeys(v:count, 'n')
+  endif
+  call feedkeys('"'.v:register, 'n')
+  if mode(1) == 'no'
+    call feedkeys(v:operator)
+  endif
   call feedkeys(a:prefix . substitute(a:map, '^<Plug>', "\<Plug>", '') . extra)
 endfunction
 

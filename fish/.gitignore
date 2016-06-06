@@ -1,3 +1,5 @@
 /fishd.*
 /config.*
 /fish_history
+/fundle
+/functions/fundle.fish
