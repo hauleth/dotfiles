@@ -428,11 +428,7 @@ function! plug#load(...)
   for name in a:000
     call s:lod([name], ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
   endfor
-<<<<<<< Updated upstream
-  call s:doautocmd('BufRead')
-=======
   call s:dobufread(a:000)
->>>>>>> Stashed changes
   return 1
 endfunction
 
@@ -482,21 +478,13 @@ endfunction
 
 function! s:lod_cmd(cmd, bang, l1, l2, args, names)
   call s:lod(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
-<<<<<<< Updated upstream
-  call s:doautocmd('BufRead')
-=======
   call s:dobufread(a:names)
->>>>>>> Stashed changes
   execute printf('%s%s%s %s', (a:l1 == a:l2 ? '' : (a:l1.','.a:l2)), a:cmd, a:bang, a:args)
 endfunction
 
 function! s:lod_map(map, names, prefix)
   call s:lod(a:names, ['ftdetect', 'after/ftdetect', 'plugin', 'after/plugin'])
-<<<<<<< Updated upstream
-  call s:doautocmd('BufRead')
-=======
   call s:dobufread(a:names)
->>>>>>> Stashed changes
   let extra = ''
   while 1
     let c = getchar(0)
