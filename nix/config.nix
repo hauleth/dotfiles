@@ -5,7 +5,6 @@ rec {
     all = pkgs.buildEnv {
       name = "all";
       paths = [
-        pkgs.nix
         pkgs.nixops
         editors
         scm

@@ -13,6 +13,7 @@ Plug 'wellle/targets.vim'
 Plug 'sheerun/vim-polyglot'
 Plug 'dag/vim-fish'
 Plug 'hauleth/vim-ketos'
+Plug 'slashmili/alchemist.vim'
 
 " Git
 Plug 'mhinz/vim-signify'
@@ -73,7 +74,7 @@ set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 
 " Display tabs and trailing spaces visually
 set list
-set listchars=tab:→\ ,trail:·
+set listchars=tab:→\ ,trail:·,nbsp:␣
 
 " Show current mode down the bottom
 set noshowmode
@@ -111,6 +112,8 @@ set splitright
 set splitbelow
 
 set lazyredraw
+
+set timeoutlen=500
 " }}}
 " Identation {{{
 set shiftwidth=2
@@ -172,6 +175,11 @@ augroup END
 " Leader {{{
 let mapleader = "\<space>"
 " }}}
+" Store relative line number jumps in the jumplist {{{
+" Treat long lines as break lines (useful when moving around in them).
+noremap <expr> j v:count > 1 ? 'm`' . v:count . 'j' : 'gj'
+noremap <expr> k v:count > 1 ? 'm`' . v:count . 'k' : 'gk'
+" }}}
 " ESC {{{
 inoremap jk <ESC>
 " }}}
@@ -209,10 +217,9 @@ nnoremap K i<CR><Esc>k$
 nnoremap Q K
 " }}}
 " Simplify switching to Command mode {{{
-nnoremap ; :
-nnoremap : ;
-vnoremap ; :
-vnoremap : ;
+noremap ; :
+noremap : ;
+noremap q; q:
 " }}}
 " Fast paste from system clipboard {{{
 inoremap <C-R><C-R> <C-R>*
@@ -241,10 +248,9 @@ noremap g= gg=Gg``
 " }}}
 " Search {{{
 " Easier change and replace word
-noremap c* *``cgn
-noremap c# #``cgN
-noremap cg* g*``cgn
-noremap cg# g#``cgN
+nnoremap c. *Ncgn
+
+noremap <leader>, :nohlsearch<CR>
 
 " Search for selection
 vnoremap // y/<C-r>"<CR>
@@ -252,6 +258,7 @@ vnoremap // y/<C-r>"<CR>
 " Git {{{
 nnoremap U <nop>
 nnoremap Us :<C-u>Gstatus<CR>
+nnoremap Up :<C-u>Git push<CR>
 nnoremap Ud :<C-u>Gdiff<CR>
 nnoremap UB :<C-u>Gblame<CR>
 nnoremap Ub :<C-u>Promiscuous<CR>
@@ -266,6 +273,9 @@ nmap UU Uu
 " }}}
 " Tabs {{{
 nnoremap <C-w>t :<C-u>tabnew <bar> Dirvish<CR>
+" }}}
+" Yank to the end of line {{{
+nnoremap Y y$
 " }}}
 " }}}
 " Configuration {{{
@@ -291,7 +301,7 @@ command! Clean let _s=@/ | %s/\s\+$//e | let @/=_s | set nohlsearch
 " Neomake {{{
 augroup syntax_check
   au!
-  autocmd BufWritePost * silent Neomake
+  autocmd BufEnter,BufWritePost * silent Neomake
 augroup END
 
 let g:neomake_warning_sign = {

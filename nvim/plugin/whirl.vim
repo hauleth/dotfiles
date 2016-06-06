@@ -14,9 +14,9 @@ augroup dirvish_sort
 augroup END
 
 if mapcheck('+', 'n') ==# ''
-  nnoremap <silent> + :<C-U>exe 'Dirvish %:p'.repeat(':h',v:count1)<CR>
+  nnoremap <silent> + :<C-U>Dirvish<CR>
 endif
-if mapcheck('-', 'n') ==# ''
-  nnoremap <silent> - :<C-U>Dirvish<CR>
-endif
+" if mapcheck('-', 'n') ==# ''
+"   nnoremap <silent> - :<C-U>Dirvish<CR>
+" endif
 let &cpo = s:save_cpo

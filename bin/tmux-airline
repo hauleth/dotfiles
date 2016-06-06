@@ -1,11 +1,10 @@
 #!/bin/bash
 
-SEP=
+SEP=$(echo -e "\ue0b2")
 SEPE=$(echo -e "\ue0b3")
 
-CLOCK=⌚
-CALENDAR=📆
-MUSIC=♫
+CLOCK=$(echo -e "\u23f0")
+MUSIC=$(echo -e "\u266b")
 
 WIDTH="${1}"
 
@@ -22,7 +21,7 @@ if [ "$WIDTH" -ge "$SMALL" ]; then
   UNAME="#[fg=colour15,bg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour15,bold,noitalics,nounderscore] $(uname -n)"
 fi
 
-DATE="#[fg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $CALENDAR $(date +'%d.%m.%y')"
-TIME="#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore]$SEPE#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $CLOCK $(date +'%H:%M')"
+DATE="#[fg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $(date +'%d.%m.%y')"
+TIME="#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore]$SEPE#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $(date +'%H:%M')"
 
 echo "$MPD $DATE $TIME $UNAME " | sed 's/ *$/ /g'

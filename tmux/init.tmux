@@ -29,12 +29,17 @@ set -g pane-base-index 1
 set -g @sidebar-tree-command 'tree -aCI "tmp|bundle|coverage|target|node_modules|.git|log"'
 set -g @sidebar-tree-width '50'
 
+set -g @continuum-restore 'on'
+
 # List of plugins
 set -g @plugin 'tmux-plugins/tpm'
 set -g @plugin 'tmux-plugins/tmux-sensible'
 
 set -g @plugin 'tmux-plugins/tmux-yank'
 set -g @plugin 'tmux-plugins/tmux-sidebar'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+set -g @plugin 'tmux-plugins/tmux-continuum'
+set -g @plugin 'Morantron/tmux-fingers'
 
 # Initialize TMUX plugin manager
 run "$HOME/.tmux/plugins/tpm/tpm"
