@@ -1,27 +1,29 @@
 #!/bin/bash
 
-SEP=$(echo -e "\ue0b2")
-SEPE=$(echo -e "\ue0b3")
+SEP=
+SEPE=
 
-CLOCK=$(echo -e "\u23f0")
-MUSIC=$(echo -e "\u266b")
+MUSIC_ICO=♫
 
 WIDTH="${1}"
 
 SMALL=80
 MEDIUM=140
 
-if [ "$WIDTH" -gt "$MEDIUM" ]; then
-  if type mpc >/dev/null; then
-    MPD="#[fg=colour15,bg=default,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour15,bold,noitalics,nounderscore] $MUSIC $(mpc current)"
+if [ "0$WIDTH" -gt "0$MEDIUM" ]; then
+  state=`osascript -e 'tell application "iTunes" to player state as string'`;
+  if [ $state = "playing" ]; then
+    artist=`osascript -e 'tell application "iTunes" to artist of current track as string'`;
+    track=`osascript -e 'tell application "iTunes" to name of current track as string'`;
+    MUSIC="#[fg=colour15]$artist:  $track";
   fi
 fi
 
-if [ "$WIDTH" -ge "$SMALL" ]; then
-  UNAME="#[fg=colour15,bg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour15,bold,noitalics,nounderscore] $(uname -n)"
+if [ "0$WIDTH" -ge "0$SMALL" ]; then
+  UNAME="#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour15,bg=colour00,bold,noitalics,nounderscore] $(uname -n)"
 fi
 
 DATE="#[fg=colour08,nobold,noitalics,nounderscore]$SEP#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $(date +'%d.%m.%y')"
 TIME="#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore]$SEPE#[fg=colour00,bg=colour08,nobold,noitalics,nounderscore] $(date +'%H:%M')"
 
-echo "$MPD $DATE $TIME $UNAME " | sed 's/ *$/ /g'
+echo "$MUSIC $DATE $TIME $UNAME " | sed 's/ *$/ /g'
