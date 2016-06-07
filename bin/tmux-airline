@@ -15,7 +15,7 @@ if [ "0$WIDTH" -gt "0$MEDIUM" ]; then
   if [ $state = "playing" ]; then
     artist=`osascript -e 'tell application "iTunes" to artist of current track as string'`;
     track=`osascript -e 'tell application "iTunes" to name of current track as string'`;
-    MUSIC="#[fg=colour15]$artist:  $track";
+    MUSIC="#[fg=colour15]$artist: $track";
   fi
 fi
 

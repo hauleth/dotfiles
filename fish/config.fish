@@ -11,4 +11,5 @@ fundle init
 enable direnv hook fish
 enable hub alias -s
 enable jump shell fish
+enable rbenv init -
 enable thefuck --alias
