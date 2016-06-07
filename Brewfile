@@ -29,6 +29,7 @@ brew 'htop'
 brew 'tree'
 brew 'wget'
 brew 'universal-ctags', args: %w(HEAD)
+brew 'httpie'
 
 # DB
 brew 'postgresql'
