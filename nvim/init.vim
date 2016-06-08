@@ -7,7 +7,6 @@ call plug#begin('~/.local/nvim/plugins')
 Plug 'bling/vim-bufferline'
 Plug 'morhetz/gruvbox'
 Plug 'itchyny/lightline.vim'
-Plug 'wellle/targets.vim'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -49,7 +48,6 @@ Plug 'tpope/vim-surround'
 " Build & Configuration
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-projectionist'
-Plug 'editorconfig/editorconfig-vim'
 
 " Utils
 Plug 'godlygeek/tabular'
@@ -57,10 +55,7 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/Goyo.vim'
-
-" Ruby
-Plug 'tpope/vim-rails'
+Plug 'junegunn/Goyo.vim', { 'on': 'Goyo' }
 
 call plug#end()
 " }}}
@@ -95,9 +90,6 @@ set whichwrap+=<,>,[,]
 
 " Use system clippboard as default
 set clipboard=unnamed
-
-" Use proper english
-set spelllang=en_gb
 
 " Show me more!
 set scrolloff=10
@@ -261,8 +253,6 @@ nnoremap Us :<C-u>Gstatus<CR>
 nnoremap Up :<C-u>Git push<CR>
 nnoremap Ud :<C-u>Gdiff<CR>
 nnoremap UB :<C-u>Gblame<CR>
-nnoremap Ub :<C-u>Promiscuous<CR>
-nnoremap U- :<C-u>Promiscuous -<CR>
 nnoremap Uc :<C-u>Gcommit<CR>
 nnoremap Um :<C-u>Gmerge<CR>
 nnoremap Uu :<C-u>Git up<CR>
@@ -280,8 +270,10 @@ nnoremap Y y$
 " }}}
 " Configuration {{{
 " Grep {{{
-set grepformat^=%f:%l:%c:%m
-set grepprg=ag\ --vimgrep\ --hidden\ --ignore\ .git
+if executable('ag')
+  set grepformat^=%f:%l:%c:%m
+  set grepprg=ag\ --vimgrep\ --hidden
+endif
 " }}}
 " BufferLine {{{
 let g:bufferline_echo = 1
