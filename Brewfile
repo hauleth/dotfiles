@@ -30,7 +30,16 @@ brew 'tree'
 brew 'wget'
 brew 'universal-ctags', args: %w(HEAD)
 brew 'httpie'
+brew 'diff-so-fancy'
+brew 'jpegoptim'
 
 # DB
 brew 'postgresql'
 brew 'redis'
+
+# Multimedia
+brew 'ffmpeg'
+brew 'youtube-dl'
+brew 'imagemagick'
+
+# vi: ft=ruby
