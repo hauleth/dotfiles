@@ -242,7 +242,8 @@ noremap g= gg=Gg``
 " Easier change and replace word
 nnoremap c. *Ncgn
 
-noremap <leader>, :nohlsearch<CR>
+nnoremap <leader>, :nohlsearch<CR>
+nnoremap <C-c> <C-c>:nohlsearch<CR>
 
 " Search for selection
 vnoremap // y/<C-r>"<CR>
