@@ -5,12 +5,9 @@ set -g mouse on
 
 set -g set-titles on
 
-# set -g lock-after-time 5
-# set -g lock-command "/home/hauleth/.nix-profile/bin/cmatrix -sC blue"
-
 source "$HOME/.tmux/themes/agnoster.tmux"
 
-set -g default-terminal "xterm-256color"
+set -g default-command "reattach-to-user-namespace -l $SHELL"
 
 # Smart pane switching with awareness of vim splits
 is_vim='echo "#{pane_current_command}" | grep -iqE "(^|\/)g?(view|n?vim?)(diff)?$"'

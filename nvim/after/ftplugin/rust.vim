@@ -28,6 +28,8 @@ let g:neomake_rust_rustc_maker = {
       \   '%f:%l: %m',
       \ }
 
+inoreabbrev excr extern crate
+
 ClearSwapList
 
 SwapList float f32 f64

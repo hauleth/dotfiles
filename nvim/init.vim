@@ -32,7 +32,6 @@ Plug 'tpope/vim-eunuch'
 Plug 'wakatime/vim-wakatime'
 
 " TMux integration
-Plug 'tpope/vim-tbone'
 Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
@@ -103,8 +102,6 @@ set cursorline
 set splitright
 set splitbelow
 
-set lazyredraw
-
 set timeoutlen=500
 " }}}
 " Identation {{{
@@ -134,13 +131,19 @@ set noswapfile
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
-if !isdirectory($HOME . "/.cache/backups")
-  silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
+if &diff
+  set noundofile
+  set undolevels=-1
+  set undoreload=-1
+else
+  if !isdirectory($HOME . "/.cache/backups")
+    silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
+  endif
+  let &undodir=$HOME . "/.cache/backups"
+  set undofile
+  set undolevels=1000
+  set undoreload=10000
 endif
-let &undodir=$HOME . "/.cache/backups"
-set undofile
-set undolevels=1000
-set undoreload=10000
 " }}}
 " Tags {{{
 command! UpdateTags call UpdateTags(0, '.')
