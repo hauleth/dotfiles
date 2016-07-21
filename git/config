@@ -12,7 +12,6 @@
 	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
 	pr = pull-request
 	rci = commit --amend --reuse-message HEAD
-	root = !git checkout master && git up
 	squash = rebase -i @{u}
 	st = status -sb
 	todo = grep -Ee '\\bTODO:?\\b'
@@ -20,6 +19,8 @@
 	com = checkout master
 	fix = commit --fixup=HEAD
 	psuh = push
+	up = pull --all
+	ag = grep
 
 [mergetool]
 	keepBackup = false
@@ -28,14 +29,24 @@
 [merge]
 	tool = fugitive
 
+[branch]
+	autoSetupRebase = always
 [push]
 	default = simple
 [pull]
 	ff = only
+[merge]
+	ff = false
 [rebase]
 	autostash = true
 [credential]
 	helper = cache --timeout=3600
+
+# Automatically sign all tags and commits
+[tag]
+	forceSignAnnotated = true
+[commit]
+	gpgsign = true
 
 [filter "lfs"]
 	clean = git-lfs clean %f
