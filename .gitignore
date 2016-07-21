@@ -1,10 +1,3 @@
-/bin/*
-!/bin/tmux-airline
-!/bin/cargo-cov
-!/bin/cargon
-!/bin/git-cleanup
-!/bin/Makefile
-
 /nvim/spell
 /nvim/.netrwhist
 
@@ -14,5 +7,7 @@
 !/nvim/tags/.keep
 
 /.tmp
+
+/tags
 
 *.spl
