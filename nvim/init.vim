@@ -297,7 +297,7 @@ command! Clean let _s=@/ | %s/\s\+$//e | let @/=_s | set nohlsearch
 " Neomake {{{
 augroup syntax_check
   au!
-  autocmd BufEnter,BufWritePost * silent if !&diff | Neomake | endif
+  autocmd BufWritePost * silent if !&diff | Neomake | endif
 augroup END
 
 let g:neomake_warning_sign = {
