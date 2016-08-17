@@ -4,7 +4,7 @@ set -g status-bg colour00
 set -g status-left-length 30
 set -g status-left '#[fg=colour00,bg=colour08,nobold] #S #[fg=colour08,bg=colour00,nobold]'
 
-set -g status-right '#(eval tmux-airline #{client_width})'
+set -g status-right '#(reattach-to-user-namespace tmux-airline #{client_width})'
 set -g status-right-length 150
 
 set -g window-status-format "#[fg=colour08,bg=colour00] #I  #W#[default]"

@@ -41,6 +41,8 @@
 	autostash = true
 [credential]
 	helper = cache --timeout=3600
+[help]
+	autocorrect = 1
 
 # Automatically sign all tags and commits
 [tag]

@@ -1,12 +1,13 @@
 " vim: foldmethod=marker foldlevel=0 foldenable
 
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+
 " Plugins {{{
 call plug#begin('~/.local/nvim/plugins')
 
 " Visual
 Plug 'bling/vim-bufferline'
 Plug 'morhetz/gruvbox'
-Plug 'itchyny/lightline.vim'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -17,7 +18,6 @@ Plug 'slashmili/alchemist.vim'
 " Git
 Plug 'mhinz/vim-signify'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
 Plug 'junegunn/gv.vim'
 
 " Fuzzy find
@@ -28,33 +28,33 @@ Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-eunuch'
 
-" Time management
-Plug 'wakatime/vim-wakatime'
-
 " TMux integration
 Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
-Plug 'mattn/emmet-vim'
 Plug 'racer-rust/vim-racer'
+Plug 'ludovicchabant/vim-gutentags'
 
 " Code manipulation
-Plug 'cohama/lexima.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-rails'
 
 " Build & Configuration
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-projectionist'
 
 " Utils
-Plug 'godlygeek/tabular'
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/Goyo.vim', { 'on': 'Goyo' }
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
+Plug 'wellle/targets.vim'
 
 call plug#end()
 " }}}
@@ -145,27 +145,6 @@ else
   set undoreload=10000
 endif
 " }}}
-" Tags {{{
-command! UpdateTags call UpdateTags(0, '.')
-
-let g:tagscmd = 'ctags -a'
-
-function! UpdateTags(check, path)
-  let l:cwd = getcwd()
-  let l:tagsfile = l:cwd . '/tags'
-
-  if a:check && ! filewritable(tagsfile) && &diff
-    return
-  endif
-
-  exec('NeomakeSh ' . g:tagscmd . ' -f ' . tagsfile . ' ' . a:path)
-endfunction
-
-augroup ctags
-  au!
-  au BufWritePost * call UpdateTags(1, @%)
-augroup END
-" }}}
 " Mappings {{{
 " Leader {{{
 let mapleader = "\<space>"
@@ -174,9 +153,6 @@ let mapleader = "\<space>"
 " Treat long lines as break lines (useful when moving around in them).
 noremap <expr> j v:count > 1 ? 'm`' . v:count . 'j' : 'gj'
 noremap <expr> k v:count > 1 ? 'm`' . v:count . 'k' : 'gk'
-" }}}
-" ESC {{{
-inoremap jk <ESC>
 " }}}
 " Disable arrows {{{
 noremap <up> <nop>
@@ -259,7 +235,7 @@ nnoremap Ud :<C-u>Gdiff<CR>
 nnoremap UB :<C-u>Gblame<CR>
 nnoremap Uc :<C-u>Gcommit<CR>
 nnoremap Um :<C-u>Gmerge<CR>
-nnoremap Uu :<C-u>Git up<CR>
+nnoremap Uu :<C-u>Git pull --all<CR>
 nnoremap Uf :<C-u>GitFiles<CR>
 nnoremap Ul :<C-u>GV<CR>
 nnoremap UL :<C-u>GV!<CR>
@@ -323,9 +299,6 @@ let g:signify_sign_change = '▐'
 let g:signify_sign_changedelete = '▞'
 
 let g:signify_sign_show_count = 0
-" }}}
-" Lexima {{{
-call lexima#add_rule({'char': '%', 'at': '<\%#', 'input_after': ' %>', 'filetype': ['eelixir', 'eruby']})
 " }}}
 " Limelight {{{
 let g:limelight_conceal_ctermfg = 'lightgray'

@@ -57,7 +57,8 @@ tmp/
 # Other {{{
 .rake_tasks
 .meteor/
-.tags
+/tags
+/tags.*
 .gdb_history
 perf.data*
 /oprofile_data
