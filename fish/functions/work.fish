@@ -4,7 +4,7 @@ function work
   tmux has-session -t "$NAME"
   or tmux new-session -d -s "$NAME" -c "$WORKSPACE/$NAME"
   if [ -z "$TMUX" ]
-    tmux attach-session -t "$NAME"
+    tmux -CC attach-session -t "$NAME"
   else
     tmux switch-client -t "$NAME"
   end

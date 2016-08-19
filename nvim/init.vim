@@ -7,7 +7,7 @@ call plug#begin('~/.local/nvim/plugins')
 
 " Visual
 Plug 'bling/vim-bufferline'
-Plug 'morhetz/gruvbox'
+Plug 'cocopon/iceberg.vim'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -60,7 +60,7 @@ call plug#end()
 " }}}
 " Colors {{{
 set background=dark
-colorscheme gruvbox
+colorscheme iceberg
 " }}}
 " User interface {{{
 " Ignore all automatic files and folders
