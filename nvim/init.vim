@@ -6,7 +6,7 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 call plug#begin('~/.local/nvim/plugins')
 
 " Visual
-Plug 'bling/vim-bufferline'
+Plug 'ap/vim-buftabline'
 Plug 'cocopon/iceberg.vim'
 
 " Languages
@@ -34,6 +34,7 @@ Plug 'christoomey/vim-tmux-navigator'
 " Completion
 Plug 'racer-rust/vim-racer'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Code manipulation
 Plug 'tommcdo/vim-exchange'
@@ -183,10 +184,6 @@ nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
 nnoremap ZB :bd<CR>
 " }}}
-" Split line at cursor position {{{
-nnoremap K i<CR><Esc>k$
-nnoremap Q K
-" }}}
 " Simplify switching to Command mode {{{
 noremap ; :
 noremap : ;
@@ -305,3 +302,6 @@ let g:limelight_conceal_ctermfg = 'lightgray'
 let g:limelight_conceal_guifg = '#666666'
 " }}}
 " }}}
+
+noremap Q gq
+let g:deoplete#enable_at_startup = 1
