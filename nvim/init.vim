@@ -8,6 +8,7 @@ call plug#begin('~/.local/nvim/plugins')
 " Visual
 Plug 'ap/vim-buftabline'
 Plug 'cocopon/iceberg.vim'
+Plug 'rakr/vim-two-firewatch'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -27,9 +28,6 @@ Plug 'junegunn/fzf.vim'
 " File management
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-eunuch'
-
-" TMux integration
-Plug 'christoomey/vim-tmux-navigator'
 
 " Completion
 Plug 'racer-rust/vim-racer'
@@ -60,6 +58,7 @@ Plug 'wellle/targets.vim'
 call plug#end()
 " }}}
 " Colors {{{
+set termguicolors
 set background=dark
 colorscheme iceberg
 " }}}
@@ -284,9 +283,6 @@ command! MPDAdd call fzf#run({
       \ 'source': 'mpc listall',
       \ 'sink': 'MPD add',
       \ })
-" }}}
-" TMux {{{
-let g:tmux_navigator_save_on_switch = 1
 " }}}
 " Signify {{{
 let g:signify_sign_add = '▌'
