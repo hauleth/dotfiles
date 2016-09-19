@@ -1,5 +1,12 @@
 " vsearch.vim - simplify visual search
-" Maintainer:   Łukasz Niemier <lukasz@niemier.pl>
+" Maintainer:   Łukasz Niemier <http://lukasz.niemier.pl>
+
+if exists("g:loaded_whirl") || v:version < 700 || &cp
+  finish
+endif
+let g:loaded_whirl = 1
+let s:save_cpo = &cpo
+set cpo&vim
 
 function! s:VSetSearch()
   let temp = @@
@@ -18,5 +25,7 @@ xnoremap <Plug>(vsearch-change-selected-backward) :<C-u>call <SID>VSetSearch()<C
 xmap * <Plug>(vsearch-search-selected-forward)
 xmap # <Plug>(vsearch-search-selected-backward)
 
-xmap gs <Plug>(vsearch-change-selected-forward)
-xmap gS <Plug>(vsearch-change-selected-backward)
+xmap s <Plug>(vsearch-change-selected-forward)
+xmap S <Plug>(vsearch-change-selected-backward)
+
+let &cpo = s:save_cpo

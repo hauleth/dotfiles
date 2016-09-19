@@ -41,6 +41,8 @@
 	autostash = true
 [credential]
 	helper = cache --timeout=3600
+[fetch]
+	prune = true
 [help]
 	autocorrect = 1
 

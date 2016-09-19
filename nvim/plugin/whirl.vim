@@ -1,5 +1,5 @@
-" whirl.vim - vinegar for your dirvish
-" Maintainer:   Łukasz Jan Niemier <http://lukasz.niemier.pl>
+" whirl.vim - vinegar for your dirvish Maintainer:   Łukasz Jan Niemier
+" <http://lukasz.niemier.pl>
 
 if exists("g:loaded_whirl") || v:version < 700 || &cp
   finish
@@ -10,11 +10,13 @@ set cpo&vim
 
 augroup dirvish_sort
   au!
-  au FileType dirvish sort r /[^\/]$/
+  autocmd FileType dirvish let b:dirvish['pos']=getline('.') |
+        \ sort! | sort! r /[/]$/ |
+        \ keepjumps call search('\V\^'.escape(b:dirvish['pos'], '\').'\$', 'cw')
 augroup END
 
 if mapcheck('+', 'n') ==# ''
-  nnoremap <silent> + :<C-U>Dirvish<CR>
+  nnoremap + :<C-U>Dirvish<CR>
 endif
 
 let &cpo = s:save_cpo

@@ -1,6 +1,7 @@
 " vim: foldmethod=marker foldlevel=0 foldenable
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+let $EDITOR="nvr"
 
 " Plugins {{{
 call plug#begin('~/.local/nvim/plugins')
@@ -8,7 +9,6 @@ call plug#begin('~/.local/nvim/plugins')
 " Visual
 Plug 'ap/vim-buftabline'
 Plug 'cocopon/iceberg.vim'
-Plug 'rakr/vim-two-firewatch'
 
 " Languages
 Plug 'sheerun/vim-polyglot'
@@ -32,7 +32,7 @@ Plug 'tpope/vim-eunuch'
 " Completion
 Plug 'racer-rust/vim-racer'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'fishbullet/deoplete-ruby'
 
 " Code manipulation
 Plug 'tommcdo/vim-exchange'
@@ -45,6 +45,7 @@ Plug 'tpope/vim-rails'
 " Build & Configuration
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-projectionist'
+Plug 'editorconfig/editorconfig-vim'
 
 " Utils
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
@@ -74,18 +75,15 @@ set listchars=tab:→\ ,trail:·,nbsp:␣
 set noshowmode
 set showcmd
 
-" Set utf8 as standard encoding
-set encoding=utf8
-
 " Shorten interruptive command output
-set shortmess+=atI
+set shortmess=atI
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
 set hidden
 
 " Wrap line on movements
-set whichwrap+=<,>,[,]
+set whichwrap+=[,]
 
 " Use system clippboard as default
 set clipboard=unnamed
@@ -113,7 +111,7 @@ set expandtab
 set textwidth=80
 set nowrap       " Don't wrap lines
 set linebreak    " Break lines at convenient points
-set formatoptions+=t
+set formatoptions+=l
 " }}}
 " Folding {{{
 set foldmethod=marker
@@ -178,10 +176,9 @@ nmap <Home> ^
 nnoremap gV `[v`]
 " }}}
 " File closing {{{
-nnoremap ZS :xa<CR>
+nnoremap ZS :wa<CR>
 nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
-nnoremap ZB :bd<CR>
 " }}}
 " Simplify switching to Command mode {{{
 noremap ; :
@@ -197,21 +194,15 @@ au CmdwinEnter * nunmap <CR>
 au CmdwinLeave * nnoremap <CR> za
 " }}}
 " FZF {{{
-nnoremap <C-p> :<C-u>Files<CR>
-nnoremap <leader>f :<C-u>Files<CR>
 nnoremap <leader><leader> :<C-u>Files<CR>
-nnoremap <leader>t :<C-u>Tags<CR>
 nnoremap <leader>b :<C-u>Buffers<CR>
 " }}}
 " UndoTree {{{
 noremap <F2> :<C-u>UndotreeToggle<CR>
 " }}}
-" EasyAlign {{{
-vmap <leader>a <Plug>(EasyAlign)
-nmap <leader>a <Plug>(EasyAlign)
-" }}}
 " Format {{{
 noremap g= gg=Gg``
+noremap Q gq
 " }}}
 " Search {{{
 " Easier change and replace word
@@ -239,9 +230,18 @@ nmap UU Uu
 " }}}
 " Tabs {{{
 nnoremap <C-w>t :<C-u>tabnew <bar> Dirvish<CR>
+nnoremap ]w gt
+nnoremap [w gT
 " }}}
 " Yank to the end of line {{{
 nnoremap Y y$
+" }}}
+" Terminal {{{
+nnoremap <C-q>c :<C-u>term<CR>
+nnoremap <C-q>s :<C-u>split <bar> term<CR>
+nnoremap <C-q>v :<C-u>vsplit <bar> term<CR>
+
+tnoremap <C-q><C-q> <C-\><C-n>
 " }}}
 " }}}
 " Configuration {{{
@@ -250,13 +250,6 @@ if executable('ag')
   set grepformat^=%f:%l:%c:%m
   set grepprg=ag\ --vimgrep\ --hidden
 endif
-" }}}
-" BufferLine {{{
-let g:bufferline_echo = 1
-let g:bufferline_rotate = 1
-let g:bufferline_active_buffer_left = '['
-let g:bufferline_active_buffer_right = ']'
-let g:bufferline_fname_mod = ':~:.'
 " }}}
 " Unload unneeded plugins {{{
 let g:loaded_netrw         = 1
@@ -277,13 +270,6 @@ let g:neomake_warning_sign = {
       \ 'texthl': 'Warning',
       \ }
 " }}}
-" MPD {{{
-command! -nargs=+ MPD call jobstart(['mpc', <f-args>])
-command! MPDAdd call fzf#run({
-      \ 'source': 'mpc listall',
-      \ 'sink': 'MPD add',
-      \ })
-" }}}
 " Signify {{{
 let g:signify_sign_add = '▌'
 let g:signify_sign_delete = '▖'
@@ -297,7 +283,23 @@ let g:signify_sign_show_count = 0
 let g:limelight_conceal_ctermfg = 'lightgray'
 let g:limelight_conceal_guifg = '#666666'
 " }}}
+" Terminal colors {{{
+let g:terminal_color_0 = "#2a3158"
+let g:terminal_color_1 = "#e27878"
+let g:terminal_color_2 = "#89b8c2"
+let g:terminal_color_3 = "#e4aa80"
+let g:terminal_color_4 = "#84a0c6"
+let g:terminal_color_5 = "#d1a8ad"
+let g:terminal_color_6 = "#adc1cb"
+let g:terminal_color_7 = "#c6c8d1"
+let g:terminal_color_8 = "#444b71"
+let g:terminal_color_9 = "#e2a478"
+let g:terminal_color_10 = "#b4be82"
+let g:terminal_color_11 = "#d8e599"
+let g:terminal_color_12 = "#3e445e"
+let g:terminal_color_13 = "#673e43"
+let g:terminal_color_14 = "#686f9a"
+let g:terminal_color_15 = "#d4d5db"
 " }}}
-
-noremap Q gq
+" }}}
 let g:deoplete#enable_at_startup = 1
