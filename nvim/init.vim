@@ -32,7 +32,6 @@ Plug 'tpope/vim-eunuch'
 " Completion
 Plug 'racer-rust/vim-racer'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' } | Plug 'fishbullet/deoplete-ruby'
 
 " Code manipulation
 Plug 'tommcdo/vim-exchange'
@@ -52,9 +51,8 @@ Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/Goyo.vim', { 'on': 'Goyo' }
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' }
 Plug 'wellle/targets.vim'
+Plug 'mhinz/vim-grepper'
 
 call plug#end()
 " }}}
@@ -246,9 +244,9 @@ tnoremap <C-q><C-q> <C-\><C-n>
 " }}}
 " Configuration {{{
 " Grep {{{
-if executable('ag')
+if executable('rg')
   set grepformat^=%f:%l:%c:%m
-  set grepprg=ag\ --vimgrep\ --hidden
+  set grepprg=rg\ --vimgrep
 endif
 " }}}
 " Unload unneeded plugins {{{
@@ -278,10 +276,6 @@ let g:signify_sign_change = '▐'
 let g:signify_sign_changedelete = '▞'
 
 let g:signify_sign_show_count = 0
-" }}}
-" Limelight {{{
-let g:limelight_conceal_ctermfg = 'lightgray'
-let g:limelight_conceal_guifg = '#666666'
 " }}}
 " Terminal colors {{{
 let g:terminal_color_0 = "#2a3158"

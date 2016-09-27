@@ -3,30 +3,30 @@ compiler cargo
 setlocal formatprg=rustfmt\ --write-mode=display
 let g:rustfmt_autosave = 1
 
-let g:neomake_rust_cargo_maker = {
-      \ 'append_file': 0,
-      \ 'args': ['check'],
-      \ 'errorformat':
-      \   '%-G%f:%s:,' .
-      \   '%f:%l:%c: %trror: %m,' .
-      \   '%f:%l:%c: %tarning: %m,' .
-      \   '%f:%l:%c: %m,'.
-      \   '%f:%l: %trror: %m,'.
-      \   '%f:%l: %tarning: %m,'.
-      \   '%f:%l: %m',
-      \ }
+" let g:neomake_rust_cargo_maker = {
+"       \ 'append_file': 0,
+"       \ 'args': ['check'],
+"       \ 'errorformat':
+"       \   '%-G%f:%s:,' .
+"       \   '%f:%l:%c: %trror: %m,' .
+"       \   '%f:%l:%c: %tarning: %m,' .
+"       \   '%f:%l:%c: %m,'.
+"       \   '%f:%l: %trror: %m,'.
+"       \   '%f:%l: %tarning: %m,'.
+"       \   '%f:%l: %m',
+"       \ }
 
-let g:neomake_rust_rustc_maker = {
-      \ 'args': ['-Z', 'parse-only'],
-      \ 'errorformat':
-      \   '%-G%f:%s:,' .
-      \   '%f:%l:%c: %trror: %m,' .
-      \   '%f:%l:%c: %tarning: %m,' .
-      \   '%f:%l:%c: %m,'.
-      \   '%f:%l: %trror: %m,'.
-      \   '%f:%l: %tarning: %m,'.
-      \   '%f:%l: %m',
-      \ }
+" let g:neomake_rust_rustc_maker = {
+"       \ 'args': ['-Z', 'parse-only'],
+"       \ 'errorformat':
+"       \   '%-G%f:%s:,' .
+"       \   '%f:%l:%c: %trror: %m,' .
+"       \   '%f:%l:%c: %tarning: %m,' .
+"       \   '%f:%l:%c: %m,'.
+"       \   '%f:%l: %trror: %m,'.
+"       \   '%f:%l: %tarning: %m,'.
+"       \   '%f:%l: %m',
+"       \ }
 
 inoreabbrev excr extern crate
 
