@@ -187,9 +187,7 @@ noremap q; q:
 inoremap <C-R><C-R> <C-R>*
 " }}}
 " Folding {{{
-nnoremap <CR> za
-au CmdwinEnter * nunmap <CR>
-au CmdwinLeave * nnoremap <CR> za
+nnoremap <expr> <CR> foldlevel('.')?'za':"\<CR>"
 " }}}
 " FZF {{{
 nnoremap <leader><leader> :<C-u>Files<CR>
