@@ -37,14 +37,13 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'Raimondi/delimitMate'
+Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rails'
 
 " Build & Configuration
 Plug 'benekastah/neomake'
 Plug 'tpope/vim-projectionist'
-Plug 'editorconfig/editorconfig-vim'
 
 " Utils
 Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }

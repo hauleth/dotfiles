@@ -5,7 +5,7 @@ export WGET = wget -Nqnv
 
 export PWD = $(shell pwd)
 
-TARGETS ?= fish bin nvim tmux git conky gdb ruby utils
+TARGETS ?= fish bin nvim git ruby utils
 
 all: $(TARGETS)
 

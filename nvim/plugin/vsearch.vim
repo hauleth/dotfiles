@@ -11,7 +11,7 @@ set cpo&vim
 function! s:VSetSearch(type, ...)
   let temp = @@
   if a:0
-    silent exe "normal! gvy"
+    silent exe "norm! gvy"
   elseif a:type == 'line'
     silent exe "normal! '[V']y"
   else
@@ -23,15 +23,11 @@ function! s:VSetSearch(type, ...)
   let @@ = temp
 endfunction
 
-nnoremap <Plug>(vsearch-change-motion-forward) :<C-u>set opfunc=<SID>VSetSearch<CR>g@
-
 xnoremap <Plug>(vsearch-search-selected-forward) :<C-u>call <SID>VSetSearch(visualmode(), 1)<CR>/<CR>
 xnoremap <Plug>(vsearch-search-selected-backward) :<C-u>call <SID>VSetSearch(visualmode(), 1)<CR>?<CR>
 
 xnoremap <Plug>(vsearch-change-selected-forward) :<C-u>call <SID>VSetSearch(visualmode(), 1)<CR>:set hlsearch<CR>cgn
 xnoremap <Plug>(vsearch-change-selected-backward) :<C-u>call <SID>VSetSearch(visualmode(), 1)<CR>:set hlsearch<CR>cgN
-
-nmap s <Plug>(vsearch-change-motion-forward)
 
 xmap * <Plug>(vsearch-search-selected-forward)
 xmap # <Plug>(vsearch-search-selected-backward)
