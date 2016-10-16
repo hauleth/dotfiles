@@ -1,7 +1,9 @@
 " whirl.vim - vinegar for your dirvish Maintainer:   Łukasz Jan Niemier
 " <http://lukasz.niemier.pl>
 
-if exists("g:loaded_whirl") || v:version < 700 || &cp
+scriptencoding utf-8
+
+if exists('g:loaded_whirl') || v:version < 700 || &cp
   finish
 endif
 let g:loaded_whirl = 1

@@ -1,13 +1,13 @@
-" vim: foldmethod=marker foldlevel=0 foldenable
+scriptencoding utf-8
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-let $EDITOR="nvr"
+let $EDITOR='nvr'
 
 " Plugins {{{
-let s:plugins = filereadable(expand("~/.config/nvim/autoload/plug.vim", 1))
+let s:plugins = filereadable(expand($HOME . '/.config/nvim/autoload/plug.vim', 1))
 if !s:plugins
-  silent call mkdir(expand("~/.config/nvim/autoload", 1), 'p')
-  exe '!curl -fLo '.expand("~/.config/nvim/autoload/plug.vim", 1)
+  silent call mkdir(expand($HOME . '/.config/nvim/autoload', 1), 'p')
+  exe '!curl -fLo '.expand($HOME . '/.config/nvim/autoload/plug.vim', 1)
         \ .' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 endif
 
@@ -15,57 +15,58 @@ call plug#begin('~/.local/nvim/plugins')
 
 " Visual
 Plug 'ap/vim-buftabline'
-Plug 'cocopon/iceberg.vim'
+Plug 'chriskempson/base16-vim'
 
 " Languages
-Plug 'sheerun/vim-polyglot'
+Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
 Plug 'hauleth/vim-ketos'
 Plug 'slashmili/alchemist.vim'
 
 " Git
 Plug 'mhinz/vim-signify'
-Plug 'tpope/vim-fugitive'
-Plug 'junegunn/gv.vim'
+Plug 'tpope/vim-fugitive' |
+      \ Plug 'junegunn/gv.vim'
 
 " Fuzzy find
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } |
+      \ Plug 'junegunn/fzf.vim'
 
 " File management
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-eunuch'
 
 " Completion
-Plug 'racer-rust/vim-racer'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'racer-rust/vim-racer'
 
 " Code manipulation
-Plug 'tommcdo/vim-exchange'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-surround'
 Plug 'jiangmiao/auto-pairs'
+Plug 'tommcdo/vim-exchange'
+Plug 'tommcdo/vim-lion'
+Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-rails'
+Plug 'tpope/vim-surround'
 
 " Build & Configuration
-Plug 'benekastah/neomake'
+Plug 'tpope/vim-dispatch' |
+      \ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
+" Plug 'w0rp/ale'
+Plug 'w0rp/ale'
 
 " Utils
-Plug 'mbbill/undotree', { 'on': 'UndotreeToggle' }
+Plug 'kopischke/vim-fetch'
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'wellle/targets.vim'
-Plug 'mhinz/vim-grepper'
 
 call plug#end()
 " }}}
 " Colors {{{
 set termguicolors
 set background=dark
-colorscheme iceberg
+colorscheme base16-ocean
 " }}}
 " User interface {{{
 " Ignore all automatic files and folders
@@ -98,13 +99,12 @@ set scrolloff=10
 set iskeyword+=-
 
 " Show 80 column
-let &colorcolumn="81,+" . join(range(1,200), ',+')
+let &colorcolumn='81,+' . join(range(1,200), ',+')
 set cursorline
 
-set splitright
-set splitbelow
+" set belloff=all
 
-set timeoutlen=500
+set splitright splitbelow
 " }}}
 " Identation {{{
 set shiftwidth=2
@@ -138,10 +138,10 @@ if &diff
   set undolevels=-1
   set undoreload=-1
 else
-  if !isdirectory($HOME . "/.cache/backups")
+  if !isdirectory($HOME . '/.cache/backups')
     silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
   endif
-  let &undodir=$HOME . "/.cache/backups"
+  let &undodir=$HOME . '/.cache/backups'
   set undofile
   set undolevels=1000
   set undoreload=10000
@@ -150,11 +150,6 @@ endif
 " Mappings {{{
 " Leader {{{
 let mapleader = "\<space>"
-" }}}
-" Store relative line number jumps in the jumplist {{{
-" Treat long lines as break lines (useful when moving around in them).
-noremap <expr> j v:count > 1 ? 'm`' . v:count . 'j' : 'gj'
-noremap <expr> k v:count > 1 ? 'm`' . v:count . 'k' : 'gk'
 " }}}
 " Disable arrows {{{
 noremap <up> <nop>
@@ -166,18 +161,10 @@ noremap! <down> <nop>
 noremap! <left> <nop>
 noremap! <right> <nop>
 " }}}
-" Swap 'go to marker' mappings {{{
-nnoremap ' `
-nnoremap ` '
-" }}}
 " Smart <Home> and `^` {{{
 " <Home> goes to the beginning of the text on first press and to the beginning
 " of the line on second press. It alternates afterwards.
 nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
-nmap <Home> ^
-" }}}
-" Reselect last Visual {{{
-nnoremap gV `[v`]
 " }}}
 " File closing {{{
 nnoremap ZS :wa<CR>
@@ -199,78 +186,29 @@ nnoremap <expr> <CR> foldlevel('.')?'za':"\<CR>"
 nnoremap <leader><leader> :<C-u>Files<CR>
 nnoremap <leader>b :<C-u>Buffers<CR>
 " }}}
-" UndoTree {{{
-noremap <F2> :<C-u>UndotreeToggle<CR>
-" }}}
 " Format {{{
 noremap g= gg=Gg``
 noremap Q gq
 " }}}
 " Search {{{
 " Easier change and replace word
-nnoremap c. *Ncgn
-
 nnoremap <leader>, :nohlsearch<CR>
 nnoremap <C-c> <C-c>:nohlsearch<CR>
-
-" Search for selection
-vnoremap // y/<C-r>"<CR>
-" }}}
-" Git {{{
-nnoremap U <nop>
-nnoremap Us :<C-u>Gstatus<CR>
-nnoremap Up :<C-u>Git push<CR>
-nnoremap Ud :<C-u>Gdiff<CR>
-nnoremap UB :<C-u>Gblame<CR>
-nnoremap Uc :<C-u>Gcommit<CR>
-nnoremap Um :<C-u>Gmerge<CR>
-nnoremap Uu :<C-u>Git pull --all<CR>
-nnoremap Uf :<C-u>GitFiles<CR>
-nnoremap Ul :<C-u>GV<CR>
-nnoremap UL :<C-u>GV!<CR>
-nmap UU Uu
 " }}}
 " Tabs {{{
 nnoremap <C-w>t :<C-u>tabnew <bar> Dirvish<CR>
 nnoremap ]w gt
 nnoremap [w gT
 " }}}
-" Yank to the end of line {{{
-nnoremap Y y$
-" }}}
-" Terminal {{{
-nnoremap <C-q>c :<C-u>term<CR>
-nnoremap <C-q>s :<C-u>split <bar> term<CR>
-nnoremap <C-q>v :<C-u>vsplit <bar> term<CR>
-
-tnoremap <C-q><C-q> <C-\><C-n>
-" }}}
 " }}}
 " Configuration {{{
-" Grep {{{
-if executable('rg')
-  set grepformat^=%f:%l:%c:%m
-  set grepprg=rg\ --vimgrep
-endif
-" }}}
 " Unload unneeded plugins {{{
 let g:loaded_netrw         = 1
 let g:loaded_netrwPlugin   = 1
 let g:loaded_vimballPlugin = 1
 " }}}
 " Formatting & Cleaning {{{
-command! Clean let _s=@/ | %s/\s\+$//e | let @/=_s | set nohlsearch
-" }}}
-" Neomake {{{
-augroup syntax_check
-  au!
-  autocmd BufWritePost * silent if !&diff | Neomake | endif
-augroup END
-
-let g:neomake_warning_sign = {
-      \ 'text': '‼',
-      \ 'texthl': 'Warning',
-      \ }
+command! Clean let _s = @/ | %s/\s\+$//e | let @/ = _s | set nohlsearch
 " }}}
 " Signify {{{
 let g:signify_sign_add = '▌'
@@ -281,23 +219,8 @@ let g:signify_sign_changedelete = '▞'
 
 let g:signify_sign_show_count = 0
 " }}}
-" Terminal colors {{{
-let g:terminal_color_0 = "#2a3158"
-let g:terminal_color_1 = "#e27878"
-let g:terminal_color_2 = "#89b8c2"
-let g:terminal_color_3 = "#e4aa80"
-let g:terminal_color_4 = "#84a0c6"
-let g:terminal_color_5 = "#d1a8ad"
-let g:terminal_color_6 = "#adc1cb"
-let g:terminal_color_7 = "#c6c8d1"
-let g:terminal_color_8 = "#444b71"
-let g:terminal_color_9 = "#e2a478"
-let g:terminal_color_10 = "#b4be82"
-let g:terminal_color_11 = "#d8e599"
-let g:terminal_color_12 = "#3e445e"
-let g:terminal_color_13 = "#673e43"
-let g:terminal_color_14 = "#686f9a"
-let g:terminal_color_15 = "#d4d5db"
+augroup align_windows
+  au!
+  autocmd VimResized * wincmd =
+augroup END
 " }}}
-" }}}
-let g:deoplete#enable_at_startup = 1

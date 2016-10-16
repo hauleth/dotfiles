@@ -8,7 +8,7 @@
 " Highlights functions. Unknown functions are an error.
 " Based on the SQL syntax files that come with Vim.
 
-if exists("b:current_syntax")
+if exists('b:current_syntax')
   finish
 endif
 
@@ -212,7 +212,7 @@ syn match   sqlSetValues    contained "\<\(\(un\)\?ordered\)\>"
 
 let sh_minlines = 200
 let sh_maxlines = 2 * sh_minlines
-exec "syn sync minlines=" . sh_minlines . " maxlines=" . sh_maxlines
+exec 'syn sync minlines=' . sh_minlines . ' maxlines=' . sh_maxlines
 
 command -nargs=+ HiLink hi def link <args>
 
@@ -241,4 +241,4 @@ HiLink sqlSetValues     Special
 
 delcommand HiLink
 
-let b:current_syntax = "sql"
+let b:current_syntax = 'sql'
