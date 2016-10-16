@@ -4,6 +4,13 @@ let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let $EDITOR="nvr"
 
 " Plugins {{{
+let s:plugins = filereadable(expand("~/.config/nvim/autoload/plug.vim", 1))
+if !s:plugins
+  silent call mkdir(expand("~/.config/nvim/autoload", 1), 'p')
+  exe '!curl -fLo '.expand("~/.config/nvim/autoload/plug.vim", 1)
+        \ .' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+endif
+
 call plug#begin('~/.local/nvim/plugins')
 
 " Visual
