@@ -8,10 +8,13 @@ fundle plugin 'tuvistavie/fish-fastdir'
 
 fundle init
 
-enable direnv hook fish
-enable hub alias -s
-enable jump shell fish
-enable rbenv init -
-enable thefuck --alias
+alias ssh="env TERM=xterm-256color ssh"
 
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+if status --is-interactive
+  enable direnv hook fish
+  enable hub alias -s
+  enable jump shell fish
+  enable rbenv init -
+
+  test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+end

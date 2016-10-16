@@ -10,3 +10,9 @@ nnoremap Uf :<C-u>GitFiles<CR>
 nnoremap Ul :<C-u>GV<CR>
 nnoremap UL :<C-u>GV!<CR>
 nmap UU Uu
+
+let g:gitgutter_sign_added = '▌'
+let g:gitgutter_sign_removed = '▖'
+let g:gitgutter_sign_removed_first_line = '▘'
+let g:gitgutter_sign_modified = '▐'
+let g:gitgutter_sign_modified_removed = '▞'

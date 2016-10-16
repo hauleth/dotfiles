@@ -21,10 +21,12 @@ Plug 'chriskempson/base16-vim'
 Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
 Plug 'hauleth/vim-ketos'
-Plug 'slashmili/alchemist.vim'
+Plug 'tpope/vim-markdown'
+Plug 'elixir-lang/vim-elixir' |
+      \ Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
 " Git
-Plug 'mhinz/vim-signify'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive' |
       \ Plug 'junegunn/gv.vim'
 
@@ -47,19 +49,21 @@ Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
+Plug 'AndrewRadev/splitjoin.vim'
 
 " Build & Configuration
 Plug 'tpope/vim-dispatch' |
       \ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
-" Plug 'w0rp/ale'
 Plug 'w0rp/ale'
 
 " Utils
 Plug 'kopischke/vim-fetch'
+Plug 'wellle/targets.vim'
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'junegunn/limelight.vim'
 
 call plug#end()
 " }}}
@@ -75,10 +79,10 @@ set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 " Display tabs and trailing spaces visually
 set list
 set listchars=tab:→\ ,trail:·,nbsp:␣
+set conceallevel=2
 
 " Show current mode down the bottom
-set noshowmode
-set showcmd
+set showmode showcmd
 
 " Shorten interruptive command output
 set shortmess=atI
@@ -209,15 +213,6 @@ let g:loaded_vimballPlugin = 1
 " }}}
 " Formatting & Cleaning {{{
 command! Clean let _s = @/ | %s/\s\+$//e | let @/ = _s | set nohlsearch
-" }}}
-" Signify {{{
-let g:signify_sign_add = '▌'
-let g:signify_sign_delete = '▖'
-let g:signify_sign_delete_first_line = '▘'
-let g:signify_sign_change = '▐'
-let g:signify_sign_changedelete = '▞'
-
-let g:signify_sign_show_count = 0
 " }}}
 augroup align_windows
   au!
