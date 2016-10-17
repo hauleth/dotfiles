@@ -1,3 +1,3 @@
 function p
-	pretty $argv
+    pretty $argv
 end

@@ -1,3 +1,3 @@
 function e --wraps $EDITOR
-  eval $EDITOR $argv
+    env $EDITOR $argv
 end

@@ -1,3 +1,3 @@
 function map
-  xargs -n1 $argv
+    xargs -n1 $argv
 end

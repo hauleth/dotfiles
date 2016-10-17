@@ -1,3 +1,3 @@
 function gdb --wrap gdb
-  command gdb -q $argv
+    command gdb -q $argv
 end

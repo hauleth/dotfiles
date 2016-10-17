@@ -1,4 +1,4 @@
 function b --wrap bundle
-  bundle $argv
+    bundle $argv
 end
 
