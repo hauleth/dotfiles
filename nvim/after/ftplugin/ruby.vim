@@ -1,4 +1,4 @@
-command! RubocopFmt NeomakeSh rubocop -a %
+setlocal formatprg=rubocop-clean
 
 ClearSwapList
 
