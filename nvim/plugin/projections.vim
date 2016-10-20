@@ -12,6 +12,7 @@ let g:projectionist_heuristics = {
       \      'start': 'mix phoenix.server',
       \      'make': 'mix',
       \      'console': 'iex -S mix',
+      \      'dispatch': 'mix test',
       \    },
       \
       \    'test/*_test.exs': {
@@ -46,6 +47,8 @@ let g:projectionist_heuristics = {
       \    'web/router.ex': { 'type': 'router' },
       \  },
       \  'Cargo.toml': {
-      \    'src/{}.rs': { 'type': 'source' }
+      \    'src/*.rs': { 'type': 'source' },
+      \    'tests/*.rs': { 'type': 'test' },
+      \    'benches/*.rs': { 'type': 'bench' },
       \  }
       \}

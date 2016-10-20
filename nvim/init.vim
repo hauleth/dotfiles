@@ -13,9 +13,10 @@ endif
 
 call plug#begin('~/.local/nvim/plugins')
 
+Plug 'mhinz/vim-startify'
+
 " Visual
 Plug 'ap/vim-buftabline'
-Plug 'chriskempson/base16-vim'
 
 " Languages
 Plug 'rust-lang/rust.vim'
@@ -64,13 +65,15 @@ Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/limelight.vim'
+Plug 'kana/vim-niceblock'
+Plug 'moll/vim-bbye'
 
 call plug#end()
 " }}}
 " Colors {{{
 set termguicolors
 set background=dark
-colorscheme base16-ocean
+colorscheme ocean
 " }}}
 " User interface {{{
 " Ignore all automatic files and folders
@@ -155,6 +158,7 @@ endif
 " Leader {{{
 let mapleader = "\<space>"
 " }}}
+nnoremap Y y$
 " Disable arrows {{{
 noremap <up> <nop>
 noremap <down> <nop>
@@ -171,6 +175,16 @@ noremap! <right> <nop>
 nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 " }}}
 " File closing {{{
+func! Close()
+  let l:bufcount = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
+
+  if l:bufcount == 1
+    xit
+  else
+    update | Bdelete
+  endif
+endfunc
+nnoremap ZZ :call Close()<CR>
 nnoremap ZS :wa<CR>
 nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
