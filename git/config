@@ -44,7 +44,7 @@
 [fetch]
 	prune = true
 [help]
-	autocorrect = 1
+	autocorrect = 5
 
 # Automatically sign all tags and commits
 [tag]

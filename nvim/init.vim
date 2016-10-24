@@ -67,6 +67,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/limelight.vim'
 Plug 'kana/vim-niceblock'
 Plug 'moll/vim-bbye'
+Plug '/Users/hauleth/Workspace/hauleth/sad.vim'
 
 call plug#end()
 " }}}
@@ -85,7 +86,7 @@ set listchars=tab:→\ ,trail:·,nbsp:␣
 set conceallevel=2
 
 " Show current mode down the bottom
-set showmode showcmd
+set noshowmode showcmd
 
 " Shorten interruptive command output
 set shortmess=atI
@@ -178,13 +179,17 @@ nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 func! Close()
   let l:bufcount = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
 
+  update
+
   if l:bufcount == 1
-    xit
+    quit
+  elseif winnr('$') != 1
+    bdelete
   else
-    update | Bdelete
+    Bdelete
   endif
 endfunc
-nnoremap ZZ :call Close()<CR>
+nnoremap <silent> ZZ :call Close()<CR>
 nnoremap ZS :wa<CR>
 nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
