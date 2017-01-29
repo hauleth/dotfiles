@@ -1,0 +1,10 @@
+#!/bin/sh
+
+conflicts="$(git diff --cached --name-only -S'<<<<<< HEAD')"
+
+if [ -n "$conflicts" ]
+then
+    echo "Unresolved merge conflicts in this commit:"
+    echo "$conflicts"
+    exit 1
+fi

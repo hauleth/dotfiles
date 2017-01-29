@@ -1,3 +1,3 @@
 function e --wraps $EDITOR
-    env $EDITOR $argv
+    sh -c "$EDITOR \"\$@\"" -- $argv
 end

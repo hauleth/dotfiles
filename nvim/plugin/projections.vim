@@ -1,7 +1,7 @@
 func! s:PhoenixFileTemplate(type, ...)
   let l:project = '{project|basename|camelcase}'
 
-  return 'defmodule '.l:project.'.{camelcase}'.a:0." do\n"
+  return 'defmodule '.l:project.'.{camelcase|dot}'.a:0." do\n"
         \.'  use '.l:project.'Web, :'.a:type."\n"
         \.'end'
 endfunc
@@ -9,21 +9,21 @@ endfunc
 let g:projectionist_heuristics = {
       \ 'mix.exs&web/web.ex': {
       \    '*': {
-      \      'start': 'mix phoenix.server',
+      \      'start': 'iex -S mix phoenix.server',
       \      'make': 'mix',
       \      'console': 'iex -S mix',
-      \      'dispatch': 'mix test',
+      \      'dispatch': 'mix test --trace',
       \    },
       \
       \    'test/*_test.exs': {
       \      'alternate': 'web/{}.ex',
-      \      'dispatch': 'mix test {file}',
+      \      'dispatch': 'iex -S mix test {file}',
       \    },
       \
       \    'web/channels/*_channel.ex': {
       \      'type': 'channel',
       \      'alternate': 'test/channels/{}_channel_test.exs',
-      \      'template': <SID>PhoenixFileTemplate('channel', 'Channel'),
+      \      'template': <SID>PhoenixFileTemplate('Channel'),
       \    },
       \    'web/controllers/*_controller.ex': {
       \      'type': 'controller',

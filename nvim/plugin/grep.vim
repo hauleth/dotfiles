@@ -1,12 +1,7 @@
-set grepformat^=%f:%l:%c:%m
-
 if executable('rg')
-  set grepprg=rg\ --vimgrep
+    set grepprg=rg\ --vimgrep\ --no-heading gfm=%f:%l:%c:%m,%f:%l%m,%f\ \ %l%m
 elseif executable('ag')
-  set grepprg=ag\ --vimgrep
-elseif executable('pt')
-  set grepprg=pt\ --nogroup\ --nocolor
-elseif executable('ack')
-  set grepprg=ack\ --nogroup\ --column\ --smart-case\ --nocolor\ --follow\ $*
+    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
 endif
 

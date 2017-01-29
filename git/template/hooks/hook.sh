@@ -1,12 +1,13 @@
-#!/bin/bash
+#!/bin/sh
 
 script="$(basename "$0")"
+PLUGS_DIR="$GIT_DIR/hooks/plugs"
 
 test -d "$GIT_DIR"/rebase-merge -o -d "$GIT_DIR"/rebase-apply && exit 0
-for enabled_plugin in $(git config --get-all hooks.enabled-plugins)
+for enabled_plugin in "$PLUGS_DIR"/*
 do
-  if [ -x "$GIT_DIR/hooks/$enabled_plugin/$script" ]
+  if [ -x "$PLUGS_DIR/$enabled_plugin/$script" ]
   then
-    "$GIT_DIR/hooks/$enabled_plugin/$script" "$@" || exit $?
+    "$PLUGS_DIR/$enabled_plugin/$script" "$@" || exit $?
   fi
 done

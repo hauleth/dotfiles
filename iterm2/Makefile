@@ -3,7 +3,7 @@ ITERM2_CONFIG_PATH ?= ${HOME}/Library/Preferences
 PWD = $(shell pwd)
 
 install: terminfo
-	$(LN) ${PWD}/com.googlecode.iterm2.plist $(ITERM2_CONFIG_PATH)/
+	cp ${PWD}/com.googlecode.iterm2.plist $(ITERM2_CONFIG_PATH)/
 
 terminfo: xterm-256color-italic.terminfo
 	tic $<

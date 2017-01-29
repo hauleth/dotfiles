@@ -1,10 +1,16 @@
-set makeprg=mix
+setlocal makeprg=mix
+setlocal ts=2
 
-iabbrev mdoc @moduledoc
-iabbrev defm defmodule
+iabbrev <buffer> mdoc @moduledoc """
+iabbrev <buffer> pry require IEx; IEx.pry
+
+iabbrev <buffer> defm defmodule
+iabbrev <buffer> defi defimpl
+
+inoremap ,, =>
 
 ClearSwapList
 
 SwapList defs def defp
-SwapList imports require import use alias
-SwapList tuples :ok :error
+SwapList deps require import use alias
+SwapList errors :ok :error

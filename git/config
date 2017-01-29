@@ -1,5 +1,4 @@
 [core]
-	editor = nvim
 	pager = "diff-so-fancy | less --tabs=4 -RFX"
 
 [alias]
@@ -19,13 +18,12 @@
 	com = checkout master
 	fix = commit --fixup=HEAD
 	psuh = push
-	up = pull --all
 	ag = grep
 
 [mergetool]
 	keepBackup = false
 [mergetool "fugitive"]
-	cmd = nvim -f -c Gdiff \"$MERGED\"
+	cmd = nvim -d
 [merge]
 	tool = fugitive
 

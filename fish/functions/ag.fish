@@ -1,3 +1,3 @@
 function ag
-	rg  $argv;
+    rg $argv
 end

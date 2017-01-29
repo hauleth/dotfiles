@@ -1,73 +1,128 @@
+" vi: foldmethod=marker
 scriptencoding utf-8
 
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-let $EDITOR='nvr'
+" Unload unneeded plugins {{{
+let g:loaded_netrw         = 1
+let g:loaded_netrwPlugin   = 1
+let g:loaded_vimballPlugin = 1
+" }}}
 
 " Plugins {{{
-let s:plugins = filereadable(expand($HOME . '/.config/nvim/autoload/plug.vim', 1))
-if !s:plugins
-  silent call mkdir(expand($HOME . '/.config/nvim/autoload', 1), 'p')
-  exe '!curl -fLo '.expand($HOME . '/.config/nvim/autoload/plug.vim', 1)
-        \ .' https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-endif
-
 call plug#begin('~/.local/nvim/plugins')
 
 Plug 'mhinz/vim-startify'
 
-" Visual
-Plug 'ap/vim-buftabline'
+" Leader {{{
+Plug 'hecal3/vim-leader-guide', { 'on': 'LeaderGuide' }
+let mapleader = "\<space>"
+nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+" }}}
 
 " Languages
 Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
-Plug 'hauleth/vim-ketos'
-Plug 'tpope/vim-markdown'
+Plug 'cespare/vim-toml'
 Plug 'elixir-lang/vim-elixir' |
-      \ Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+            \ Plug 'slashmili/alchemist.vim'
+Plug 'hashivim/vim-hashicorp-tools'
 
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive' |
-      \ Plug 'junegunn/gv.vim'
+Plug 'lambdalisue/vim-gita'
+nnoremap U  :<C-u>LeaderGuide 'U'<CR>
+nnoremap Us :<C-u>Gita status<CR>
+nnoremap Up :<C-u>Gita push<CR>
+nnoremap Ud :<C-u>Gita diff<CR>
+nnoremap Ub :<C-u>Gita branch<CR>
+nnoremap UB :<C-u>Gita blame<CR>
+nnoremap Uc :<C-u>Gita commit<CR>
+nnoremap Uu :<C-u>Gita pull --all<CR>
+nmap UU Uu
 
 " Fuzzy find
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' } |
-      \ Plug 'junegunn/fzf.vim'
+Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install --bin', 'on': ['SK'] }
+nnoremap <leader><leader> :<C-u>SK<CR>
 
 " File management
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-eunuch'
 
 " Completion
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'racer-rust/vim-racer'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 
 " Code manipulation
 Plug 'jiangmiao/auto-pairs'
-Plug 'tommcdo/vim-exchange'
+Plug 'tommcdo/vim-exchange', { 'on': ['<Plug>(Exchange)',
+            \ '<Plug>(ExchangeClear)', '<Plug>(ExchangeLine)'] }
+nmap cx  <Plug>(Exchange)
+xmap X   <Plug>(Exchange)
+nmap cxc <Plug>(ExchangeClear)
+nmap cxx <Plug>(ExchangeLine)
+
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
-Plug 'AndrewRadev/splitjoin.vim'
+Plug 'AndrewRadev/splitjoin.vim', { 'on': ['SplitjoinJoin', 'SplitjoinSplit'] }
+nnoremap <silent> gJ :<C-u>SplitjoinJoin<CR>
+nnoremap <silent> gS :<C-u>SplitjoinSplit<CR>
 
 " Build & Configuration
 Plug 'tpope/vim-dispatch' |
-      \ Plug 'radenling/vim-dispatch-neovim'
+            \ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
 Plug 'w0rp/ale'
+let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_save = 1
+let g:ale_sign_column_always = 1
+let g:ale_sign_error = '=>'
+let g:ale_sign_warning = '->'
+
+let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
+let g:ale_echo_msg_format = '[%linter%] %s'
+
+augroup ale_lint
+    au!
+    au InsertLeave * call ale#Queue(0)
+augroup END
 
 " Utils
-Plug 'kopischke/vim-fetch'
 Plug 'wellle/targets.vim'
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/limelight.vim'
-Plug 'kana/vim-niceblock'
-Plug 'moll/vim-bbye'
-Plug '/Users/hauleth/Workspace/hauleth/sad.vim'
+Plug 'moll/vim-bbye', { 'on': ['Bdelete'] }
+Plug 'romainl/vim-qf'
+Plug 'justinmk/vim-sneak'
+"replace 'f' with 1-char Sneak
+nmap f <Plug>Sneak_f
+nmap F <Plug>Sneak_F
+xmap f <Plug>Sneak_f
+xmap F <Plug>Sneak_F
+omap f <Plug>Sneak_f
+omap F <Plug>Sneak_F
+"replace 't' with 1-char Sneak
+nmap t <Plug>Sneak_t
+nmap T <Plug>Sneak_T
+xmap t <Plug>Sneak_t
+xmap T <Plug>Sneak_T
+omap t <Plug>Sneak_t
+omap T <Plug>Sneak_T
+
+Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
+nmap c <Plug>(sad-change-forward)
+vmap c <Plug>(sad-change-forward)
+nmap C <Plug>(sad-change-forward)$
+nnoremap cc cc
+nnoremap <leader>c c
+nnoremap <leader>C C
+vnoremap <leader>c c
+
+Plug 'rizzatti/dash.vim', { 'on': ['Dash', 'DashKeywords', '<Plug>DashSearch'] }
+nmap gK <Plug>DashSearch
 
 call plug#end()
 " }}}
@@ -91,33 +146,39 @@ set noshowmode showcmd
 " Shorten interruptive command output
 set shortmess=atI
 
-" This makes vim act like all other editors, buffers can
-" exist in the background without being in a window.
 set hidden
+set autowriteall
 
 " Wrap line on movements
 set whichwrap+=[,]
 
-" Use system clippboard as default
-set clipboard=unnamed
-
-" Show me more!
-set scrolloff=10
+" Keep cursor in the middle
+set scrolloff=9999
 
 set iskeyword+=-
 
 " Show 80 column
 let &colorcolumn='81,+' . join(range(1,200), ',+')
-set cursorline
-
-" set belloff=all
 
 set splitright splitbelow
+set diffopt+=vertical,iwhite
+
+func! StatuslineErrors()
+    if &modifiable
+        return ' '.ALEGetStatusLine().' '
+    else
+        return ''
+    endif
+endfunc
+
+let &laststatus = 2
+let &statusline = "%<%2n » %f%{&modified ? ' +' : ''} «"
+            \ . "%=%4c:%l %#Error#%{StatuslineErrors()}"
 " }}}
 " Identation {{{
-set shiftwidth=2
-set softtabstop=2
-set tabstop=2
+set shiftwidth=0
+set softtabstop=-1
+set tabstop=4
 set expandtab
 
 set textwidth=80
@@ -125,14 +186,10 @@ set nowrap       " Don't wrap lines
 set linebreak    " Break lines at convenient points
 set formatoptions+=l
 " }}}
-" Folding {{{
-set foldmethod=marker
-set foldlevel=0
-" }}}
 " Search {{{
 " Smart case searches
-set ignorecase
-set smartcase
+set ignorecase smartcase inccommand=nosplit
+command! -nargs=+ Grep silent grep <q-args>
 " }}}
 " Backup, swap & undo {{{
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
@@ -142,24 +199,20 @@ set noswapfile
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
 if &diff
-  set noundofile
-  set undolevels=-1
-  set undoreload=-1
+    set noundofile
+    set undolevels=-1
+    set undoreload=-1
 else
-  if !isdirectory($HOME . '/.cache/backups')
-    silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
-  endif
-  let &undodir=$HOME . '/.cache/backups'
-  set undofile
-  set undolevels=1000
-  set undoreload=10000
+    if !isdirectory($HOME . '/.cache/backups')
+        silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
+    endif
+    let &undodir=$HOME . '/.cache/backups'
+    set undofile
+    set undolevels=1000
+    set undoreload=10000
 endif
 " }}}
 " Mappings {{{
-" Leader {{{
-let mapleader = "\<space>"
-" }}}
-nnoremap Y y$
 " Disable arrows {{{
 noremap <up> <nop>
 noremap <down> <nop>
@@ -176,42 +229,30 @@ noremap! <right> <nop>
 nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 " }}}
 " File closing {{{
-func! Close()
-  let l:bufcount = len(filter(range(1, bufnr('$')), 'buflisted(v:val)'))
-
-  update
-
-  if l:bufcount == 1
-    quit
-  elseif winnr('$') != 1
-    bdelete
-  else
-    Bdelete
-  endif
-endfunc
-nnoremap <silent> ZZ :call Close()<CR>
 nnoremap ZS :wa<CR>
 nnoremap ZA :qa<CR>
 nnoremap ZX :cq<CR>
 " }}}
 " Simplify switching to Command mode {{{
-noremap ; :
-noremap : ;
-noremap q; q:
+nnoremap ; :
+vnoremap ; :
+nmap : <Plug>Sneak_;
+vmap : <Plug>Sneak_;
+nnoremap q; q:
 " }}}
 " Fast paste from system clipboard {{{
 inoremap <C-R><C-R> <C-R>*
+nnoremap Y y$
+nnoremap <leader>y "+y
+nnoremap <leader>p "+p
 " }}}
 " Folding {{{
 nnoremap <expr> <CR> foldlevel('.')?'za':"\<CR>"
 " }}}
-" FZF {{{
-nnoremap <leader><leader> :<C-u>Files<CR>
-nnoremap <leader>b :<C-u>Buffers<CR>
-" }}}
 " Format {{{
-noremap g= gg=Gg``
+nnoremap g= gg=Gg``
 noremap Q gq
+nnoremap gQ gggqG``
 " }}}
 " Search {{{
 " Easier change and replace word
@@ -219,22 +260,24 @@ nnoremap <leader>, :nohlsearch<CR>
 nnoremap <C-c> <C-c>:nohlsearch<CR>
 " }}}
 " Tabs {{{
-nnoremap <C-w>t :<C-u>tabnew <bar> Dirvish<CR>
 nnoremap ]w gt
 nnoremap [w gT
 " }}}
 " }}}
+augroup dynamic_cursorline
+    au!
+    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
+    au WinLeave * setlocal nocursorline
+augroup END
 " Configuration {{{
-" Unload unneeded plugins {{{
-let g:loaded_netrw         = 1
-let g:loaded_netrwPlugin   = 1
-let g:loaded_vimballPlugin = 1
-" }}}
 " Formatting & Cleaning {{{
 command! Clean let _s = @/ | %s/\s\+$//e | let @/ = _s | set nohlsearch
 " }}}
 augroup align_windows
-  au!
-  autocmd VimResized * wincmd =
+    au!
+    autocmd VimResized * wincmd =
 augroup END
+
+let g:deoplete#enable_at_startup = 1
+let g:sql_type_default = 'pgsql'
 " }}}
