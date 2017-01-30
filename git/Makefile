@@ -3,7 +3,7 @@ PWD = $(shell pwd)
 install:
 	git config --global include.path "$(PWD)/config"
 	git config --global core.excludesfile "$(PWD)/ignore"
-	git config --global init.templatedir "$(PWD)/template"
+	git config --global core.hooksPath "$(PWD)/hooks"
 
 clean:
 	git config --global --unset include.path

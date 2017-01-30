@@ -74,7 +74,7 @@ nnoremap <silent> gS :<C-u>SplitjoinSplit<CR>
 Plug 'tpope/vim-dispatch' |
             \ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
-Plug 'w0rp/ale'
+Plug 'w0rp/ale', { 'dir': '~/Workspace/w0rp/ale' }
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_sign_column_always = 1
