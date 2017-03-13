@@ -25,7 +25,7 @@ Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
 Plug 'cespare/vim-toml'
 Plug 'elixir-lang/vim-elixir' |
-    Plug 'slashmili/alchemist.vim'
+            \ Plug 'slashmili/alchemist.vim'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'keith/swift.vim'
 
