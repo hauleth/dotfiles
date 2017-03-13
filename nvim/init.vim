@@ -25,21 +25,36 @@ Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
 Plug 'cespare/vim-toml'
 Plug 'elixir-lang/vim-elixir' |
-            \ Plug 'slashmili/alchemist.vim'
+    Plug 'slashmili/alchemist.vim'
 Plug 'hashivim/vim-hashicorp-tools'
+Plug 'keith/swift.vim'
 
 " Git
 Plug 'airblade/vim-gitgutter'
-Plug 'lambdalisue/vim-gita'
+let g:gitgutter_sign_added = '▌'
+let g:gitgutter_sign_removed = '▖'
+let g:gitgutter_sign_removed_first_line = '▘'
+let g:gitgutter_sign_modified = '▐'
+let g:gitgutter_sign_modified_removed = '▞'
+
+Plug 'lambdalisue/gina.vim'
 nnoremap U  :<C-u>LeaderGuide 'U'<CR>
-nnoremap Us :<C-u>Gita status<CR>
-nnoremap Up :<C-u>Gita push<CR>
-nnoremap Ud :<C-u>Gita diff<CR>
-nnoremap Ub :<C-u>Gita branch<CR>
-nnoremap UB :<C-u>Gita blame<CR>
-nnoremap Uc :<C-u>Gita commit<CR>
-nnoremap Uu :<C-u>Gita pull --all<CR>
+nnoremap Us :<C-u>Gina  status<CR>
+nnoremap Up :<C-u>Gina! push<CR>
+nnoremap Ud :<C-u>Gina  diff<CR>
+nnoremap Ub :<C-u>Gina  branch<CR>
+nnoremap UB :<C-u>Gina  blame<CR>
+nnoremap Uc :<C-u>Gina  commit<CR>
+nnoremap Uu :<C-u>Gina! pull --all<CR>
 nmap UU Uu
+cabbr Gita Gina
+cabbr Gita! Gina!
+cabbr G Gina
+cabbr G! Gina!
+cabbr git Gina
+cabbr git! Gina!
+cabbr Git Gina
+cabbr Git! Gina!
 
 " Fuzzy find
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install --bin', 'on': ['SK'] }
@@ -50,7 +65,6 @@ Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-eunuch'
 
 " Completion
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 
 " Code manipulation
@@ -74,7 +88,7 @@ nnoremap <silent> gS :<C-u>SplitjoinSplit<CR>
 Plug 'tpope/vim-dispatch' |
             \ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
-Plug 'w0rp/ale', { 'dir': '~/Workspace/w0rp/ale' }
+Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 0
 let g:ale_lint_on_save = 1
 let g:ale_sign_column_always = 1
@@ -135,6 +149,8 @@ colorscheme ocean
 " Ignore all automatic files and folders
 set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 
+syntax sync minlines=500
+
 " Display tabs and trailing spaces visually
 set list
 set listchars=tab:→\ ,trail:·,nbsp:␣
@@ -146,7 +162,7 @@ set noshowmode showcmd
 " Shorten interruptive command output
 set shortmess=atI
 
-set hidden
+set nohidden
 set autowriteall
 
 " Wrap line on movements
@@ -158,8 +174,9 @@ set scrolloff=9999
 set iskeyword+=-
 
 " Show 80 column
-let &colorcolumn='81,+' . join(range(1,200), ',+')
+let &colorcolumn='81'
 
+set mouse=a
 set splitright splitbelow
 set diffopt+=vertical,iwhite
 
@@ -213,16 +230,6 @@ else
 endif
 " }}}
 " Mappings {{{
-" Disable arrows {{{
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
-noremap! <up> <nop>
-noremap! <down> <nop>
-noremap! <left> <nop>
-noremap! <right> <nop>
-" }}}
 " Smart <Home> and `^` {{{
 " <Home> goes to the beginning of the text on first press and to the beginning
 " of the line on second press. It alternates afterwards.
@@ -264,11 +271,6 @@ nnoremap ]w gt
 nnoremap [w gT
 " }}}
 " }}}
-augroup dynamic_cursorline
-    au!
-    au VimEnter,WinEnter,BufWinEnter * setlocal cursorline
-    au WinLeave * setlocal nocursorline
-augroup END
 " Configuration {{{
 " Formatting & Cleaning {{{
 command! Clean let _s = @/ | %s/\s\+$//e | let @/ = _s | set nohlsearch
@@ -278,6 +280,5 @@ augroup align_windows
     autocmd VimResized * wincmd =
 augroup END
 
-let g:deoplete#enable_at_startup = 1
 let g:sql_type_default = 'pgsql'
 " }}}

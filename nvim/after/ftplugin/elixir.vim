@@ -7,7 +7,7 @@ iabbrev <buffer> pry require IEx; IEx.pry
 iabbrev <buffer> defm defmodule
 iabbrev <buffer> defi defimpl
 
-inoremap ,, =>
+inoremap ,, <Space>=>
 
 ClearSwapList
 
