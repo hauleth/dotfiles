@@ -11,6 +11,8 @@ let g:loaded_vimballPlugin = 1
 " Plugins {{{
 call plug#begin('~/.local/nvim/plugins')
 
+Plug 'AlessandroYorba/Sidonia'
+
 Plug 'mhinz/vim-startify'
 
 " Leader {{{
@@ -24,8 +26,7 @@ vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
 Plug 'rust-lang/rust.vim'
 Plug 'dag/vim-fish'
 Plug 'cespare/vim-toml'
-Plug 'elixir-lang/vim-elixir' |
-            \ Plug 'slashmili/alchemist.vim'
+Plug 'elixir-lang/vim-elixir'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'keith/swift.vim'
 
@@ -39,13 +40,13 @@ let g:gitgutter_sign_modified_removed = '▞'
 
 Plug 'lambdalisue/gina.vim'
 nnoremap U  :<C-u>LeaderGuide 'U'<CR>
-nnoremap Us :<C-u>Gina  status<CR>
-nnoremap Up :<C-u>Gina! push<CR>
-nnoremap Ud :<C-u>Gina  diff<CR>
-nnoremap Ub :<C-u>Gina  branch<CR>
-nnoremap UB :<C-u>Gina  blame<CR>
-nnoremap Uc :<C-u>Gina  commit<CR>
-nnoremap Uu :<C-u>Gina! pull --all<CR>
+nnoremap Us :<C-u>keepalt Gina  status<CR>
+nnoremap Up :<C-u>Gina push<CR>
+nnoremap Ud :<C-u>keepalt Gina  diff<CR>
+nnoremap Ub :<C-u>keepalt Gina  branch<CR>
+nnoremap UB :<C-u>keepalt Gina  blame<CR>
+nnoremap Uc :<C-u>keepalt Gina  commit<CR>
+nnoremap Uu :<C-u>Gina pull --all<CR>
 nmap UU Uu
 cabbr Gita Gina
 cabbr Gita! Gina!
@@ -66,6 +67,7 @@ Plug 'tpope/vim-eunuch'
 
 " Completion
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
 
 " Code manipulation
 Plug 'jiangmiao/auto-pairs'
@@ -89,19 +91,14 @@ Plug 'tpope/vim-dispatch' |
             \ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
 Plug 'w0rp/ale'
-let g:ale_lint_on_text_changed = 0
+let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_save = 1
-let g:ale_sign_column_always = 1
 let g:ale_sign_error = '=>'
 let g:ale_sign_warning = '->'
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_echo_msg_format = '[%linter%] %s'
-
-augroup ale_lint
-    au!
-    au InsertLeave * call ale#Queue(0)
-augroup END
 
 " Utils
 Plug 'wellle/targets.vim'
@@ -143,7 +140,7 @@ call plug#end()
 " Colors {{{
 set termguicolors
 set background=dark
-colorscheme ocean
+colorscheme sidonia
 " }}}
 " User interface {{{
 " Ignore all automatic files and folders
@@ -279,6 +276,8 @@ augroup align_windows
     au!
     autocmd VimResized * wincmd =
 augroup END
+
+command! Note setlocal nobl bt=nofile bh=delete
 
 let g:sql_type_default = 'pgsql'
 " }}}

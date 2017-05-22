@@ -21,6 +21,7 @@ if status --is-interactive
     fundle plugin 'oh-my-fish/plugin-argu'
     fundle plugin 'oh-my-fish/plugin-expand'
     fundle plugin 'tuvistavie/fish-asdf'
+    fundle plugin 'tuvistavie/fish-ssh-agent'
 
     fundle init
 
