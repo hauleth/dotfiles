@@ -11,7 +11,7 @@ let g:loaded_vimballPlugin = 1
 " Plugins {{{
 call plug#begin('~/.local/nvim/plugins')
 
-Plug 'AlessandroYorba/Sidonia'
+Plug 'hauleth/Sidonia'
 
 Plug 'mhinz/vim-startify'
 
@@ -90,6 +90,7 @@ nnoremap <silent> gS :<C-u>SplitjoinSplit<CR>
 Plug 'tpope/vim-dispatch' |
             \ Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
+Plug 'direnv/direnv.vim'
 Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1

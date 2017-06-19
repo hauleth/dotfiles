@@ -17,8 +17,8 @@
 	fixme = grep -Ee '\\bFIX(ME)?:?\\b'
 	com = checkout master
 	fix = commit --fixup=HEAD
-	psuh = push
 	ag = grep
+	rg = grep
 
 [mergetool]
 	keepBackup = false
