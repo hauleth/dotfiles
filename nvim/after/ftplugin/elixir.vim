@@ -9,6 +9,8 @@ iabbrev <buffer> defi defimpl
 
 inoremap <buffer> ,, <Space>=>
 
+iabbrev <buffer> pkey add :id, :binary_id, primary_key: true
+
 ClearSwapList
 
 SwapList defs def defp

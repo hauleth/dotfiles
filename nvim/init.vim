@@ -28,26 +28,20 @@ Plug 'dag/vim-fish'
 Plug 'cespare/vim-toml'
 Plug 'elixir-lang/vim-elixir'
 Plug 'hashivim/vim-hashicorp-tools'
-Plug 'keith/swift.vim'
+Plug 'mustache/vim-mustache-handlebars'
+Plug 'leafgarland/typescript-vim'
 
-" Git
-Plug 'airblade/vim-gitgutter'
-let g:gitgutter_sign_added = '▌'
-let g:gitgutter_sign_removed = '▖'
-let g:gitgutter_sign_removed_first_line = '▘'
-let g:gitgutter_sign_modified = '▐'
-let g:gitgutter_sign_modified_removed = '▞'
-
-Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/gina.vim', { 'tag': 'v0.3.1' }
 nnoremap U  :<C-u>LeaderGuide 'U'<CR>
-nnoremap Us :<C-u>keepalt Gina  status<CR>
 nnoremap Up :<C-u>Gina push<CR>
-nnoremap Ud :<C-u>keepalt Gina  diff<CR>
-nnoremap Ub :<C-u>keepalt Gina  branch<CR>
-nnoremap UB :<C-u>keepalt Gina  blame<CR>
-nnoremap Uc :<C-u>keepalt Gina  commit<CR>
+nnoremap Us :<C-u>keepalt Gina status -s<CR>
+nnoremap Ud :<C-u>keepalt Gina diff :<CR>
+nnoremap Ub :<C-u>keepalt Gina branch<CR>
+nnoremap UB :<C-u>keepalt Gina blame :<CR>
+nnoremap Uc :<C-u>keepalt Gina commit<CR>
 nnoremap Uu :<C-u>Gina pull --all<CR>
-nmap UU Uu
+nmap     UU Uu
+
 cabbr Gita Gina
 cabbr Gita! Gina!
 cabbr G Gina
@@ -68,6 +62,7 @@ Plug 'tpope/vim-eunuch'
 " Completion
 Plug 'racer-rust/vim-racer', { 'for': 'rust' }
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Code manipulation
 Plug 'jiangmiao/auto-pairs'
@@ -95,8 +90,8 @@ Plug 'w0rp/ale'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_save = 1
-let g:ale_sign_error = '=>'
-let g:ale_sign_warning = '->'
+let g:ale_sign_error = '⇒'
+let g:ale_sign_warning = '→'
 
 let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
 let g:ale_echo_msg_format = '[%linter%] %s'
@@ -106,9 +101,22 @@ Plug 'wellle/targets.vim'
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
+Plug 'tpope/tpope-vim-abolish'
 Plug 'moll/vim-bbye', { 'on': ['Bdelete'] }
 Plug 'romainl/vim-qf'
+
+Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
+nmap c <Plug>(sad-change-forward)
+vmap c <Plug>(sad-change-forward)
+nmap C <Plug>(sad-change-forward)$
+nnoremap cc cc
+nnoremap <leader>c c
+nnoremap <leader>C C
+vnoremap <leader>c c
+
 Plug 'justinmk/vim-sneak'
+nmap : <Plug>Sneak_;
+vmap : <Plug>Sneak_;
 "replace 'f' with 1-char Sneak
 nmap f <Plug>Sneak_f
 nmap F <Plug>Sneak_F
@@ -123,15 +131,6 @@ xmap t <Plug>Sneak_t
 xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
-
-Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
-nmap c <Plug>(sad-change-forward)
-vmap c <Plug>(sad-change-forward)
-nmap C <Plug>(sad-change-forward)$
-nnoremap cc cc
-nnoremap <leader>c c
-nnoremap <leader>C C
-vnoremap <leader>c c
 
 Plug 'rizzatti/dash.vim', { 'on': ['Dash', 'DashKeywords', '<Plug>DashSearch'] }
 nmap gK <Plug>DashSearch
@@ -186,9 +185,18 @@ func! StatuslineErrors()
     endif
 endfunc
 
-let &laststatus = 2
-let &statusline = "%<%2n » %f%{&modified ? ' +' : ''} «"
-            \ . "%=%4c:%l %#Error#%{StatuslineErrors()}"
+func! SetStatusline()
+    let &laststatus = 2
+    let &statusline = "%<%2n » %f%{&modified ? ' +' : ''} «"
+                \ . "%=%4c:%l %#Error#%{StatuslineErrors()}"
+endfunc
+
+call SetStatusline()
+augroup StatusLine
+    au!
+    autocmd BufEnter * call SetStatusline()
+augroup END
+
 " }}}
 " Identation {{{
 set shiftwidth=0
@@ -228,6 +236,7 @@ else
 endif
 " }}}
 " Mappings {{{
+inoremap <CR> <C-]><CR>
 " Smart <Home> and `^` {{{
 " <Home> goes to the beginning of the text on first press and to the beginning
 " of the line on second press. It alternates afterwards.
@@ -241,8 +250,6 @@ nnoremap ZX :cq<CR>
 " Simplify switching to Command mode {{{
 nnoremap ; :
 vnoremap ; :
-nmap : <Plug>Sneak_;
-vmap : <Plug>Sneak_;
 nnoremap q; q:
 " }}}
 " Fast paste from system clipboard {{{
@@ -281,4 +288,5 @@ augroup END
 command! Note setlocal nobl bt=nofile bh=delete
 
 let g:sql_type_default = 'pgsql'
+call deoplete#enable()
 " }}}

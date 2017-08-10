@@ -2,6 +2,7 @@
 --exclude=log
 --exclude=tmp
 --exclude=target
+--exclude=_build
 
 --langdef=Elixir
 --langmap=Elixir:.ex.exs

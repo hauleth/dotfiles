@@ -8,7 +8,7 @@
 	ci = commit
 	co = checkout
 	cob = checkout -b
-	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%aN> %G?%Creset' --abbrev-commit
+	lg = log --color --graph --oneline --abbrev-commit
 	pr = pull-request
 	rci = commit --amend --reuse-message HEAD
 	squash = rebase -i @{u}
@@ -49,10 +49,14 @@
 	forceSignAnnotated = true
 [commit]
 	gpgsign = true
+	verbose = true
 
 [filter "lfs"]
 	clean = git-lfs clean %f
 	smudge = git-lfs smudge %f
 	required = true
+
+[rerere]
+	enabled = true
 
 # vim: ft=gitconfig noexpandtab
