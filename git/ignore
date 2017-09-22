@@ -63,4 +63,5 @@ tmp/
 perf.data*
 /oprofile_data
 *.socket
+.tool-versions-e
 # }}}

@@ -1,7 +1,6 @@
 " vi: foldmethod=marker
 scriptencoding utf-8
 
-let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 " Unload unneeded plugins {{{
 let g:loaded_netrw         = 1
 let g:loaded_netrwPlugin   = 1
@@ -11,7 +10,7 @@ let g:loaded_vimballPlugin = 1
 " Plugins {{{
 call plug#begin('~/.local/nvim/plugins')
 
-Plug 'hauleth/Sidonia'
+Plug 'hauleth/blame.vim'
 
 Plug 'mhinz/vim-startify'
 
@@ -28,10 +27,10 @@ Plug 'dag/vim-fish'
 Plug 'cespare/vim-toml'
 Plug 'elixir-lang/vim-elixir'
 Plug 'hashivim/vim-hashicorp-tools'
-Plug 'mustache/vim-mustache-handlebars'
-Plug 'leafgarland/typescript-vim'
+Plug 'posva/vim-vue'
+Plug 'rodjek/vim-puppet'
 
-Plug 'lambdalisue/gina.vim', { 'tag': 'v0.3.1' }
+Plug 'lambdalisue/gina.vim'
 nnoremap U  :<C-u>LeaderGuide 'U'<CR>
 nnoremap Up :<C-u>Gina push<CR>
 nnoremap Us :<C-u>keepalt Gina status -s<CR>
@@ -60,9 +59,10 @@ Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-eunuch'
 
 " Completion
-Plug 'racer-rust/vim-racer', { 'for': 'rust' }
+Plug 'racer-rust/vim-racer'
 Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-completion-manager' |
+            \ Plug 'roxma/nvim-cm-racer'
 
 " Code manipulation
 Plug 'jiangmiao/auto-pairs'
@@ -81,20 +81,20 @@ Plug 'AndrewRadev/splitjoin.vim', { 'on': ['SplitjoinJoin', 'SplitjoinSplit'] }
 nnoremap <silent> gJ :<C-u>SplitjoinJoin<CR>
 nnoremap <silent> gS :<C-u>SplitjoinSplit<CR>
 
+Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
+nmap c <Plug>(sad-change-forward)
+vmap c <Plug>(sad-change-forward)
+nmap C <Plug>(sad-change-forward)$
+nnoremap cc cc
+nnoremap <leader>c c
+nnoremap <leader>C C
+vnoremap <leader>c c
+
 " Build & Configuration
-Plug 'tpope/vim-dispatch' |
-            \ Plug 'radenling/vim-dispatch-neovim'
+Plug 'tpope/vim-dispatch'
+Plug 'radenling/vim-dispatch-neovim'
 Plug 'tpope/vim-projectionist'
 Plug 'direnv/direnv.vim'
-Plug 'w0rp/ale'
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_on_save = 1
-let g:ale_sign_error = '⇒'
-let g:ale_sign_warning = '→'
-
-let g:ale_statusline_format = ['⨉ %d', '⚠ %d', '⬥ ok']
-let g:ale_echo_msg_format = '[%linter%] %s'
 
 " Utils
 Plug 'wellle/targets.vim'
@@ -104,15 +104,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'tpope/tpope-vim-abolish'
 Plug 'moll/vim-bbye', { 'on': ['Bdelete'] }
 Plug 'romainl/vim-qf'
-
-Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
-nmap c <Plug>(sad-change-forward)
-vmap c <Plug>(sad-change-forward)
-nmap C <Plug>(sad-change-forward)$
-nnoremap cc cc
-nnoremap <leader>c c
-nnoremap <leader>C C
-vnoremap <leader>c c
+let g:qf_auto_open_quickfix = 0
 
 Plug 'justinmk/vim-sneak'
 nmap : <Plug>Sneak_;
@@ -139,8 +131,7 @@ call plug#end()
 " }}}
 " Colors {{{
 set termguicolors
-set background=dark
-colorscheme sidonia
+colorscheme blame
 " }}}
 " User interface {{{
 " Ignore all automatic files and folders
@@ -177,18 +168,10 @@ set mouse=a
 set splitright splitbelow
 set diffopt+=vertical,iwhite
 
-func! StatuslineErrors()
-    if &modifiable
-        return ' '.ALEGetStatusLine().' '
-    else
-        return ''
-    endif
-endfunc
-
 func! SetStatusline()
     let &laststatus = 2
     let &statusline = "%<%2n » %f%{&modified ? ' +' : ''} «"
-                \ . "%=%4c:%l %#Error#%{StatuslineErrors()}"
+                \ . "%=%4c:%l"
 endfunc
 
 call SetStatusline()
@@ -288,5 +271,4 @@ augroup END
 command! Note setlocal nobl bt=nofile bh=delete
 
 let g:sql_type_default = 'pgsql'
-call deoplete#enable()
 " }}}

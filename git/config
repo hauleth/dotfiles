@@ -37,6 +37,7 @@
 	ff = false
 [rebase]
 	autostash = true
+	autosquash = true
 [credential]
 	helper = cache --timeout=3600
 [fetch]

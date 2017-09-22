@@ -1,6 +1,6 @@
 #!/bin/sh
 
-conflicts="$(git diff --cached --name-only -S'<<<<<< HEAD')"
+conflicts="$(git diff --cached --name-only -S'<<<<<<')"
 
 if [ -n "$conflicts" ]
 then
