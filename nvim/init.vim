@@ -8,7 +8,7 @@ let g:loaded_vimballPlugin = 1
 " }}}
 
 " Plugins {{{
-call plug#begin('~/.local/nvim/plugins')
+call plug#begin('~/.local/share/nvim/plugins')
 
 Plug 'hauleth/blame.vim'
 
@@ -60,7 +60,7 @@ Plug 'tpope/vim-eunuch'
 
 " Completion
 Plug 'racer-rust/vim-racer'
-Plug 'slashmili/alchemist.vim', { 'for': 'elixir' }
+Plug 'slashmili/alchemist.vim'
 Plug 'roxma/nvim-completion-manager' |
             \ Plug 'roxma/nvim-cm-racer'
 
@@ -137,8 +137,6 @@ colorscheme blame
 " Ignore all automatic files and folders
 set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 
-syntax sync minlines=500
-
 " Display tabs and trailing spaces visually
 set list
 set listchars=tab:→\ ,trail:·,nbsp:␣
@@ -195,7 +193,6 @@ set formatoptions+=l
 " Search {{{
 " Smart case searches
 set ignorecase smartcase inccommand=nosplit
-command! -nargs=+ Grep silent grep <q-args>
 " }}}
 " Backup, swap & undo {{{
 " Turn backup off, since most stuff is in SVN, git etc. anyway...

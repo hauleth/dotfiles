@@ -1,5 +1,5 @@
 let g:startify_list_order = ['sessions', 'dir']
-let g:startify_session_dir = '~/.local/nvim/sessions/'
+let g:startify_session_dir = '~/.local/share/nvim/sessions/'
 let g:startify_session_autoload = 1
 let g:startify_session_persistence = 1
 

@@ -16,7 +16,7 @@
 	todo = grep -Ee '\\bTODO:?\\b'
 	fixme = grep -Ee '\\bFIX(ME)?:?\\b'
 	com = checkout master
-	fix = commit --fixup=HEAD
+	fixup = commit --fixup=HEAD
 	ag = grep
 	rg = grep
 
