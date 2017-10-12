@@ -28,7 +28,6 @@ Plug 'cespare/vim-toml'
 Plug 'elixir-lang/vim-elixir'
 Plug 'hashivim/vim-hashicorp-tools'
 Plug 'posva/vim-vue'
-Plug 'rodjek/vim-puppet'
 
 Plug 'lambdalisue/gina.vim'
 nnoremap U  :<C-u>LeaderGuide 'U'<CR>
@@ -61,25 +60,18 @@ Plug 'tpope/vim-eunuch'
 " Completion
 Plug 'racer-rust/vim-racer'
 Plug 'slashmili/alchemist.vim'
-Plug 'roxma/nvim-completion-manager' |
-            \ Plug 'roxma/nvim-cm-racer'
+Plug 'roxma/nvim-completion-manager'
+Plug 'roxma/nvim-cm-racer'
 
 " Code manipulation
 Plug 'jiangmiao/auto-pairs'
-Plug 'tommcdo/vim-exchange', { 'on': ['<Plug>(Exchange)',
-            \ '<Plug>(ExchangeClear)', '<Plug>(ExchangeLine)'] }
-nmap cx  <Plug>(Exchange)
-xmap X   <Plug>(Exchange)
-nmap cxc <Plug>(ExchangeClear)
-nmap cxx <Plug>(ExchangeLine)
+Plug 'tommcdo/vim-exchange'
 
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-surround'
-Plug 'AndrewRadev/splitjoin.vim', { 'on': ['SplitjoinJoin', 'SplitjoinSplit'] }
-nnoremap <silent> gJ :<C-u>SplitjoinJoin<CR>
-nnoremap <silent> gS :<C-u>SplitjoinSplit<CR>
+Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
 nmap c <Plug>(sad-change-forward)
@@ -91,8 +83,9 @@ nnoremap <leader>C C
 vnoremap <leader>c c
 
 " Build & Configuration
-Plug 'tpope/vim-dispatch'
-Plug 'radenling/vim-dispatch-neovim'
+Plug 'skywind3000/asyncrun.vim'
+command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+
 Plug 'tpope/vim-projectionist'
 Plug 'direnv/direnv.vim'
 
@@ -102,9 +95,7 @@ Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/tpope-vim-abolish'
-Plug 'moll/vim-bbye', { 'on': ['Bdelete'] }
 Plug 'romainl/vim-qf'
-let g:qf_auto_open_quickfix = 0
 
 Plug 'justinmk/vim-sneak'
 nmap : <Plug>Sneak_;
@@ -124,9 +115,6 @@ xmap T <Plug>Sneak_T
 omap t <Plug>Sneak_t
 omap T <Plug>Sneak_T
 
-Plug 'rizzatti/dash.vim', { 'on': ['Dash', 'DashKeywords', '<Plug>DashSearch'] }
-nmap gK <Plug>DashSearch
-
 call plug#end()
 " }}}
 " Colors {{{
@@ -142,11 +130,8 @@ set list
 set listchars=tab:→\ ,trail:·,nbsp:␣
 set conceallevel=2
 
-" Show current mode down the bottom
-set noshowmode showcmd
-
-" Shorten interruptive command output
-set shortmess=atI
+" Do not show current mode down the bottom
+set noshowmode
 
 set nohidden
 set autowriteall
@@ -162,7 +147,6 @@ set iskeyword+=-
 " Show 80 column
 let &colorcolumn='81'
 
-set mouse=a
 set splitright splitbelow
 set diffopt+=vertical,iwhite
 
@@ -172,7 +156,6 @@ func! SetStatusline()
                 \ . "%=%4c:%l"
 endfunc
 
-call SetStatusline()
 augroup StatusLine
     au!
     autocmd BufEnter * call SetStatusline()
@@ -192,7 +175,7 @@ set formatoptions+=l
 " }}}
 " Search {{{
 " Smart case searches
-set ignorecase smartcase inccommand=nosplit
+set smartcase inccommand=nosplit
 " }}}
 " Backup, swap & undo {{{
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
@@ -232,18 +215,15 @@ nnoremap ; :
 vnoremap ; :
 nnoremap q; q:
 " }}}
-" Fast paste from system clipboard {{{
-inoremap <C-R><C-R> <C-R>*
+" Fix idiotic vim defaults {{{
 nnoremap Y y$
-nnoremap <leader>y "+y
-nnoremap <leader>p "+p
 " }}}
 " Folding {{{
 nnoremap <expr> <CR> foldlevel('.')?'za':"\<CR>"
 " }}}
 " Format {{{
 nnoremap g= gg=Gg``
-noremap Q gq
+noremap  Q gq
 nnoremap gQ gggqG``
 " }}}
 " Search {{{
