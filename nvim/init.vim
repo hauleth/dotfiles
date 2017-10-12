@@ -16,9 +16,8 @@ Plug 'mhinz/vim-startify'
 
 " Leader {{{
 Plug 'hecal3/vim-leader-guide', { 'on': 'LeaderGuide' }
-let mapleader = "\<space>"
-nnoremap <silent> <leader> :<c-u>LeaderGuide '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>LeaderGuideVisual '<Space>'<CR>
+nnoremap <silent> <Space> :<c-u>LeaderGuide '<Space>'<CR>
+vnoremap <silent> <Space> :<c-u>LeaderGuideVisual '<Space>'<CR>
 " }}}
 
 " Languages
@@ -51,7 +50,7 @@ cabbr Git! Gina!
 
 " Fuzzy find
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install --bin', 'on': ['SK'] }
-nnoremap <leader><leader> :<C-u>SK<CR>
+nnoremap <Space><Space> :<C-u>SK<CR>
 
 " File management
 Plug 'justinmk/vim-dirvish'
@@ -78,9 +77,9 @@ nmap c <Plug>(sad-change-forward)
 vmap c <Plug>(sad-change-forward)
 nmap C <Plug>(sad-change-forward)$
 nnoremap cc cc
-nnoremap <leader>c c
-nnoremap <leader>C C
-vnoremap <leader>c c
+nnoremap <Space>c c
+nnoremap <Space>C C
+vnoremap <Space>c c
 
 " Build & Configuration
 Plug 'skywind3000/asyncrun.vim'
@@ -228,7 +227,7 @@ nnoremap gQ gggqG``
 " }}}
 " Search {{{
 " Easier change and replace word
-nnoremap <leader>, :nohlsearch<CR>
+nnoremap <Space>, :nohlsearch<CR>
 nnoremap <C-c> <C-c>:nohlsearch<CR>
 " }}}
 " Tabs {{{
