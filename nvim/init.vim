@@ -65,7 +65,6 @@ Plug 'roxma/nvim-cm-racer'
 " Code manipulation
 Plug 'jiangmiao/auto-pairs'
 Plug 'tommcdo/vim-exchange'
-
 Plug 'tommcdo/vim-lion'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -73,6 +72,7 @@ Plug 'tpope/vim-surround'
 Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
+
 nmap c <Plug>(sad-change-forward)
 vmap c <Plug>(sad-change-forward)
 nmap C <Plug>(sad-change-forward)$
@@ -83,6 +83,8 @@ vnoremap <Space>c c
 
 " Build & Configuration
 Plug 'skywind3000/asyncrun.vim'
+Plug 'romainl/vim-qf'
+
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
 Plug 'tpope/vim-projectionist'
@@ -93,28 +95,16 @@ Plug 'wellle/targets.vim'
 Plug 'mjbrownie/swapit'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
-Plug 'tpope/tpope-vim-abolish'
-Plug 'romainl/vim-qf'
-
-Plug 'justinmk/vim-sneak'
-nmap : <Plug>Sneak_;
-vmap : <Plug>Sneak_;
-"replace 'f' with 1-char Sneak
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-"replace 't' with 1-char Sneak
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
 
 call plug#end()
+" }}}
+" Identation {{{
+set tabstop=4 shiftwidth=0  softtabstop=-1 expandtab
+
+set textwidth=80
+set nowrap       " Don't wrap lines
+set linebreak    " Break lines at convenient points
+set formatoptions+=l
 " }}}
 " Colors {{{
 set termguicolors
@@ -125,15 +115,14 @@ colorscheme blame
 set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
 
 " Display tabs and trailing spaces visually
-set list
-set listchars=tab:→\ ,trail:·,nbsp:␣
+set list listchars=tab:→\ ,trail:·,nbsp:␣
 set conceallevel=2
 
 " Do not show current mode down the bottom
 set noshowmode
 
-set nohidden
-set autowriteall
+" Autowrite files when possible
+set nohidden autowriteall
 
 " Wrap line on movements
 set whichwrap+=[,]
@@ -141,15 +130,20 @@ set whichwrap+=[,]
 " Keep cursor in the middle
 set scrolloff=9999
 
+set mouse=a
+
+" Hypen is part of the keyword, if you want to substract then add spaces
 set iskeyword+=-
 
 " Show 80 column
-let &colorcolumn='81'
+let &colorcolumn = &textwidth + 1
 
 set splitright splitbelow
+
+" Diff in vertical splits and ignore whitespaces
 set diffopt+=vertical,iwhite
 
-func! SetStatusline()
+func! SetStatusline() abort
     let &laststatus = 2
     let &statusline = "%<%2n » %f%{&modified ? ' +' : ''} «"
                 \ . "%=%4c:%l"
@@ -157,29 +151,17 @@ endfunc
 
 augroup StatusLine
     au!
+
     autocmd BufEnter * call SetStatusline()
 augroup END
-
-" }}}
-" Identation {{{
-set shiftwidth=0
-set softtabstop=-1
-set tabstop=4
-set expandtab
-
-set textwidth=80
-set nowrap       " Don't wrap lines
-set linebreak    " Break lines at convenient points
-set formatoptions+=l
 " }}}
 " Search {{{
 " Smart case searches
-set smartcase inccommand=nosplit
+set ignorecase smartcase inccommand=nosplit
 " }}}
 " Backup, swap & undo {{{
 " Turn backup off, since most stuff is in SVN, git etc. anyway...
-set nobackup
-set noswapfile
+set nobackup noswapfile
 
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
@@ -244,7 +226,7 @@ augroup align_windows
     autocmd VimResized * wincmd =
 augroup END
 
-command! Note setlocal nobl bt=nofile bh=delete
+command! Note setlocal nobuflisted buftype=nofile bufhidden=delete
 
 let g:sql_type_default = 'pgsql'
 " }}}
