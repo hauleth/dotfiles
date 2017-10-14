@@ -8,27 +8,33 @@ let g:loaded_vimballPlugin = 1
 " }}}
 
 " Plugins {{{
-call plug#begin('~/.local/share/nvim/plugins')
+set packpath^=~/.local/share/nvim
+packadd minpac
+call minpac#init()
+call minpac#add('k-takata/minpac', {'type': 'opt'})
 
-Plug 'hauleth/blame.vim'
+command! PackUpdate call minpac#update()
+command! PackClean call minpac#clean()
 
-Plug 'mhinz/vim-startify'
+call minpac#add('hauleth/blame.vim')
+
+call minpac#add('mhinz/vim-startify')
 
 " Leader {{{
-Plug 'hecal3/vim-leader-guide', { 'on': 'LeaderGuide' }
+call minpac#add('hecal3/vim-leader-guide')
 nnoremap <silent> <Space> :<c-u>LeaderGuide '<Space>'<CR>
 vnoremap <silent> <Space> :<c-u>LeaderGuideVisual '<Space>'<CR>
 " }}}
 
 " Languages
-Plug 'rust-lang/rust.vim'
-Plug 'dag/vim-fish'
-Plug 'cespare/vim-toml'
-Plug 'elixir-lang/vim-elixir'
-Plug 'hashivim/vim-hashicorp-tools'
-Plug 'posva/vim-vue'
+call minpac#add('rust-lang/rust.vim')
+call minpac#add('dag/vim-fish')
+call minpac#add('cespare/vim-toml')
+call minpac#add('elixir-lang/vim-elixir')
+call minpac#add('hashivim/vim-hashicorp-tools')
+call minpac#add('posva/vim-vue')
 
-Plug 'lambdalisue/gina.vim'
+call minpac#add('lambdalisue/gina.vim')
 nnoremap U  :<C-u>LeaderGuide 'U'<CR>
 nnoremap Up :<C-u>Gina push<CR>
 nnoremap Us :<C-u>keepalt Gina status -s<CR>
@@ -49,29 +55,31 @@ cabbr Git Gina
 cabbr Git! Gina!
 
 " Fuzzy find
-Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install --bin', 'on': ['SK'] }
+call minpac#add('lotabout/skim', { 'do': '!./install --bin' })
 nnoremap <Space><Space> :<C-u>SK<CR>
+call minpac#add('tpope/vim-projectionist')
+call minpac#add('direnv/direnv.vim')
 
 " File management
-Plug 'justinmk/vim-dirvish'
-Plug 'tpope/vim-eunuch'
+call minpac#add('justinmk/vim-dirvish')
+call minpac#add('tpope/vim-eunuch')
 
 " Completion
-Plug 'racer-rust/vim-racer'
-Plug 'slashmili/alchemist.vim'
-Plug 'roxma/nvim-completion-manager'
-Plug 'roxma/nvim-cm-racer'
+call minpac#add('racer-rust/vim-racer')
+call minpac#add('slashmili/alchemist.vim')
+call minpac#add('roxma/nvim-completion-manager')
+call minpac#add('roxma/nvim-cm-racer')
 
 " Code manipulation
-Plug 'jiangmiao/auto-pairs'
-Plug 'tommcdo/vim-exchange'
-Plug 'tommcdo/vim-lion'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-surround'
-Plug 'AndrewRadev/splitjoin.vim'
+call minpac#add('jiangmiao/auto-pairs')
+call minpac#add('tommcdo/vim-exchange')
+call minpac#add('tommcdo/vim-lion')
+call minpac#add('tpope/vim-commentary')
+call minpac#add('tpope/vim-endwise')
+call minpac#add('tpope/vim-surround')
+call minpac#add('AndrewRadev/splitjoin.vim')
 
-Plug 'hauleth/sad.vim', { 'on': ['<Plug>(sad-change-forward)'] }
+call minpac#add('hauleth/sad.vim')
 
 nmap c <Plug>(sad-change-forward)
 vmap c <Plug>(sad-change-forward)
@@ -82,21 +90,14 @@ nnoremap <Space>C C
 vnoremap <Space>c c
 
 " Build & Configuration
-Plug 'skywind3000/asyncrun.vim'
-Plug 'romainl/vim-qf'
-
+call minpac#add('skywind3000/asyncrun.vim')
+call minpac#add('romainl/vim-qf')
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
 
-Plug 'tpope/vim-projectionist'
-Plug 'direnv/direnv.vim'
-
 " Utils
-Plug 'wellle/targets.vim'
-Plug 'mjbrownie/swapit'
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-unimpaired'
-
-call plug#end()
+call minpac#add('wellle/targets.vim')
+call minpac#add('tpope/vim-repeat')
+call minpac#add('tpope/vim-unimpaired')
 " }}}
 " Identation {{{
 set tabstop=4 shiftwidth=0  softtabstop=-1 expandtab
@@ -143,17 +144,8 @@ set splitright splitbelow
 " Diff in vertical splits and ignore whitespaces
 set diffopt+=vertical,iwhite
 
-func! SetStatusline() abort
-    let &laststatus = 2
-    let &statusline = "%<%2n » %f%{&modified ? ' +' : ''} «"
-                \ . "%=%4c:%l"
-endfunc
-
-augroup StatusLine
-    au!
-
-    autocmd BufEnter * call SetStatusline()
-augroup END
+let &laststatus = 2
+let &statusline = "%<%2n » %f%{&modified ? ' +' : ''} «%=%4c:%l"
 " }}}
 " Search {{{
 " Smart case searches
