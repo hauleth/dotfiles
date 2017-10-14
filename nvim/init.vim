@@ -47,6 +47,7 @@ if exists('*minpac#init')
     call minpac#add('roxma/nvim-cm-racer')
 
     " Code manipulation
+    call minpac#add('mjbrownie/swapit')
     call minpac#add('jiangmiao/auto-pairs')
     call minpac#add('tommcdo/vim-exchange')
     call minpac#add('tommcdo/vim-lion')
@@ -124,20 +125,13 @@ set ignorecase smartcase inccommand=nosplit
 set nobackup noswapfile
 
 " Keep undo history across sessions, by storing in file.
-" Only works all the time.
-if &diff
-    set noundofile
-    set undolevels=-1
-    set undoreload=-1
-else
-    if !isdirectory($HOME . '/.cache/backups')
-        silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
-    endif
-    let &undodir=$HOME . '/.cache/backups'
-    set undofile
-    set undolevels=1000
-    set undoreload=10000
+if !isdirectory($HOME . '/.cache/backups')
+    silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
 endif
+let &undodir=$HOME . '/.cache/backups'
+set undofile
+set undolevels=1000
+set undoreload=10000
 " }}}
 " Mappings {{{
 " Fuzzy file search {{{
