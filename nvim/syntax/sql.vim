@@ -214,31 +214,27 @@ let sh_minlines = 200
 let sh_maxlines = 2 * sh_minlines
 exec 'syn sync minlines=' . sh_minlines . ' maxlines=' . sh_maxlines
 
-command -nargs=+ HiLink hi def link <args>
+highlight def link sqlComment       Comment
+highlight def link sqlError         Error
+highlight def link sqlFunction      Function
+highlight def link sqlUnknownFunc   Exception
+highlight def link sqlKeyword       Special
+highlight def link sqlConditional   Conditional
+highlight def link sqlNumber        Number
+highlight def link sqlOperator      Operator
+highlight def link sqlParen         Comment
+highlight def link sqlParenEmpty    Operator
+highlight def link sqlParenFunc     Function
+highlight def link sqlSpecial       Keyword
+highlight def link sqlStatement     Statement
+highlight def link sqlString        String
+highlight def link sqlTodo          Todo
+highlight def link sqlType          Type
+highlight def link sqlVariable      Identifier
 
-HiLink sqlComment       Comment
-HiLink sqlError         Error
-HiLink sqlFunction      Function
-HiLink sqlUnknownFunc   Exception
-HiLink sqlKeyword       Special
-HiLink sqlConditional   Conditional
-HiLink sqlNumber        Number
-HiLink sqlOperator      Operator
-HiLink sqlParen         Comment
-HiLink sqlParenEmpty    Operator
-HiLink sqlParenFunc     Function
-HiLink sqlSpecial       Keyword
-HiLink sqlStatement     Statement
-HiLink sqlString        String
-HiLink sqlTodo          Todo
-HiLink sqlType          Type
-HiLink sqlVariable      Identifier
-
-HiLink sqlAnyString     sqlString
-HiLink sqlAnyVariable   sqlVariable
-HiLink sqlSetOptions    Operator
-HiLink sqlSetValues     Special
-
-delcommand HiLink
+highlight def link sqlAnyString     sqlString
+highlight def link sqlAnyVariable   sqlVariable
+highlight def link sqlSetOptions    Operator
+highlight def link sqlSetValues     Special
 
 let b:current_syntax = 'sql'
