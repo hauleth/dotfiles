@@ -1,11 +1,3 @@
-/nvim/spell
-/nvim/.netrwhist
-
-/nvim/plugged
-
-/nvim/tags/*/
-!/nvim/tags/.keep
-
 /.tmp
 
 /tags
