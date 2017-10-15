@@ -10,6 +10,8 @@ endfunc
 func! plugins#spec() abort
     packadd minpac
 
+    echom 'Load minpac spec'
+
     call minpac#init()
     " Package manager {{{
     call minpac#add('k-takata/minpac', {'type': 'opt'})
