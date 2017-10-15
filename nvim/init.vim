@@ -8,8 +8,8 @@ let g:loaded_vimballPlugin = 1
 " }}}
 
 " Plugins {{{
-command! PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+command! -bar PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
+command! -bar PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
 
 set packpath^=~/.local/share/nvim
 
@@ -61,9 +61,10 @@ if exists('*minpac#init')
     call minpac#add('AndrewRadev/splitjoin.vim')
     call minpac#add('hauleth/sad.vim')
     " }}}
-    " Task running {{{
+    " Task running & quickfix {{{
     call minpac#add('skywind3000/asyncrun.vim')
     call minpac#add('romainl/vim-qf')
+    call minpac#add('romainl/vim-qlist')
     " }}}
     " Utils {{{
     call minpac#add('wellle/targets.vim')
@@ -118,10 +119,10 @@ set splitright splitbelow
 let &laststatus  = 2
 let &statusline  = ""
 let &statusline .= " "
+let &statusline .= "» %f%{statusline#modified()} «%<"
+let &statusline .= "%="
 let &statusline .= "%{statusline#repo()}"
-let &statusline .= "%="
-let &statusline .= "» %f%{statusline#modified()} «"
-let &statusline .= "%="
+let &statusline .= " "
 let &statusline .= "%{statusline#quickfix()}%4c:%l"
 let &statusline .= " "
 " }}}
@@ -130,25 +131,15 @@ let &statusline .= " "
 " Smart case searches
 set ignorecase smartcase inccommand=nosplit
 " }}}
-" Backup, swap & undo {{{
-" Turn backup off, since most stuff is in SVN, git etc. anyway... {{{
-set nobackup noswapfile
-" }}}
-" Keep undo history across sessions, by storing in file {{{
-if !isdirectory($HOME . '/.cache/backups')
-    silent !mkdir -p ~/.cache/backups > /dev/null 2>&1
-endif
-let &undodir=$HOME . '/.cache/backups'
+" Permanent undo {{{
 set undofile
-set undolevels=1000
-set undoreload=10000
-" }}}
 " }}}
 " Mappings {{{
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>SK<CR>
 " }}}
 " Git shortcuts {{{
+nnoremap U  <nop>
 nnoremap Up :<C-u>Gina push<CR>
 nnoremap Us :<C-u>keepalt Gina status -s<CR>
 nnoremap Ud :<C-u>keepalt Gina diff :<CR>
@@ -168,22 +159,23 @@ cabbr Git Gina
 cabbr Git! Gina!
 " }}}
 " Sad changes {{{
-nmap c <Plug>(sad-change-forward)
-vmap c <Plug>(sad-change-forward)
-nmap C <Plug>(sad-change-forward)$
-nnoremap cc cc
-nnoremap <Space>c c
-nnoremap <Space>C C
-vnoremap <Space>c c
+" nmap c <Plug>(sad-change-forward)
+" vmap c <Plug>(sad-change-forward)
+" nmap C <Plug>(sad-change-forward)$
+" nnoremap cc cc
+" nnoremap <Space>c c
+" nnoremap <Space>C C
+" vnoremap <Space>c c
 " }}}
-" Asynchronous make {{{
+" Asynchronous commands {{{
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
+command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
 " }}}
 " Expand abbreviations on enter {{{
 inoremap <CR> <C-]><CR>
 " }}}
-" Smart <Home> and `^` {{{
-" <Home> goes to the beginning of the text on first press and to the beginning
+" Smart `^` {{{
+" `^` goes to the beginning of the text on first press and to the beginning
 " of the line on second press. It alternates afterwards.
 nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 " }}}
@@ -203,24 +195,43 @@ nnoremap Y y$
 " Folding {{{
 nnoremap <expr> <CR> foldlevel('.')?'za':"\<CR>"
 " }}}
-" Notes {{{
-command! Note setlocal nobuflisted buftype=nofile bufhidden=delete
+" Scratchpad {{{
+command! Scratchify setlocal nobuflisted buftype=nofile bufhidden=delete
+command! Scratch enew | Scratchify
+command! SScratch split | Scratchify
+command! VScratch vsplit | Scratchify
 " }}}
 " Format {{{
 nnoremap g= gg=Gg``
-noremap  Q gq
+noremap  Q  gq
 nnoremap gQ gggqG``
 
 command! Clean let _s = @/ | %s/\s\+$//e | let @/ = _s | set nohlsearch
 " }}}
 " Search {{{
+if executable('rg')
+    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+    set gfm=%f:%l:%c:%m,%f:%l%m,%f\ \ %l%m
+elseif executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
+endif
+
 " Easier change and replace word
 nnoremap <Space>, :nohlsearch<CR>
-nnoremap <C-c> <C-c>:nohlsearch<CR>
 " }}}
 " Tabs {{{
 nnoremap ]w gt
 nnoremap [w gT
+" }}}
+" Terminal {{{
+nnoremap <C-q> <nop>
+nnoremap <C-q>c :<C-u>term<CR>
+nnoremap <C-q>s :<C-u>split +term<CR>
+nnoremap <C-q>v :<C-u>vsplit +term<CR>
+nnoremap <C-q>t :<C-u>tabnew +term<CR>
+
+tnoremap <C-q> <C-\><C-n>
 " }}}
 " }}}
 " Autocommands {{{
@@ -228,4 +239,13 @@ augroup align_windows
     au!
     autocmd VimResized * wincmd =
 augroup END
+" }}}
+" Startify {{{
+let g:startify_list_order = ['sessions', 'dir']
+let g:startify_session_dir = '~/.local/share/nvim/sessions/'
+let g:startify_session_autoload = 1
+let g:startify_session_persistence = 1
+
+let g:startify_change_to_dir = 0
+let g:startify_change_to_vcs_root = 1
 " }}}

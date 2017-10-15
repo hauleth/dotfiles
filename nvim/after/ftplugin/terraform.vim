@@ -1,6 +1,6 @@
 setlocal makeprg=terraform
 setlocal formatprg=terraform\ fmt\ -
-setlocal ts=2
+setlocal tabstop=2
 
 augroup autoformat
     au!

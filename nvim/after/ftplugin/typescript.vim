@@ -1,1 +1,1 @@
-setlocal ts=2
+setlocal tabstop=2

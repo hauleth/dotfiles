@@ -8,5 +8,9 @@ function! statusline#modified()
 endfunction
 
 function! statusline#repo()
-    return gina#component#repo#branch() . ' ' .gina#component#status#preset('fancy')
+    return gina#component#repo#branch()
+endfunction
+
+function! statusline#quickfix_name()
+    return qf#IsQfWindow(winnr()) ? 'QuickFix' : 'Location'
 endfunction

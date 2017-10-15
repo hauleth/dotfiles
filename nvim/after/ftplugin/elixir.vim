@@ -1,5 +1,5 @@
 setlocal makeprg=mix
-setlocal ts=2
+setlocal tabstop=2
 
 iabbrev <buffer> mdoc @moduledoc """
 iabbrev <buffer> pry require IEx; IEx.pry

@@ -1,1 +1,0 @@
-command! Update source % | PlugInstall
