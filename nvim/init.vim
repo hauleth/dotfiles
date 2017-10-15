@@ -8,70 +8,10 @@ let g:loaded_vimballPlugin = 1
 " }}}
 
 " Plugins {{{
-command! -bar PackUpdate packadd minpac | source $MYVIMRC | call minpac#update()
-command! -bar PackClean  packadd minpac | source $MYVIMRC | call minpac#clean()
+command! -bar PackUpdate call plugins#load() | call minpac#update()
+command! -bar PackClean  call plugins#load() | call minpac#clean()
 
 set packpath^=~/.local/share/nvim
-
-if exists('*minpac#init')
-    call minpac#init()
-    " Package manager {{{
-    call minpac#add('k-takata/minpac', {'type': 'opt'})
-    " }}}
-    " Colorscheme {{{
-    call minpac#add('hauleth/blame.vim')
-    " }}}
-    " Launch screen {{{
-    call minpac#add('mhinz/vim-startify')
-    " }}}
-    " Languages {{{
-    call minpac#add('rust-lang/rust.vim')
-    call minpac#add('dag/vim-fish')
-    call minpac#add('cespare/vim-toml')
-    call minpac#add('elixir-lang/vim-elixir')
-    call minpac#add('hashivim/vim-hashicorp-tools')
-    call minpac#add('posva/vim-vue')
-    " }}}
-    " Git {{{
-    call minpac#add('lambdalisue/gina.vim')
-    " }}}
-    " Project navigation {{{
-    call minpac#add('lotabout/skim', { 'do': '!./install --bin' })
-    call minpac#add('tpope/vim-projectionist')
-    call minpac#add('direnv/direnv.vim')
-    " }}}
-    " File manager {{{
-    call minpac#add('justinmk/vim-dirvish')
-    call minpac#add('tpope/vim-eunuch')
-    " }}}
-    " Completion {{{
-    call minpac#add('racer-rust/vim-racer')
-    call minpac#add('slashmili/alchemist.vim')
-    call minpac#add('roxma/nvim-completion-manager')
-    call minpac#add('roxma/nvim-cm-racer')
-    " }}}
-    " Code manipulation {{{
-    call minpac#add('mjbrownie/swapit')
-    call minpac#add('jiangmiao/auto-pairs')
-    call minpac#add('tommcdo/vim-exchange')
-    call minpac#add('tommcdo/vim-lion')
-    call minpac#add('tpope/vim-commentary')
-    call minpac#add('tpope/vim-endwise')
-    call minpac#add('tpope/vim-surround')
-    call minpac#add('AndrewRadev/splitjoin.vim')
-    call minpac#add('hauleth/sad.vim')
-    " }}}
-    " Task running & quickfix {{{
-    call minpac#add('skywind3000/asyncrun.vim')
-    call minpac#add('romainl/vim-qf')
-    call minpac#add('romainl/vim-qlist')
-    " }}}
-    " Utils {{{
-    call minpac#add('wellle/targets.vim')
-    call minpac#add('tpope/vim-repeat')
-    call minpac#add('tpope/vim-unimpaired')
-    " }}}
-endif
 " }}}
 " Identation {{{
 set tabstop=4 shiftwidth=0 softtabstop=-1 expandtab
@@ -117,14 +57,14 @@ set splitright splitbelow
 " }}}
 " Statusline {{{
 let &laststatus  = 2
-let &statusline  = ""
-let &statusline .= " "
-let &statusline .= "» %f%{statusline#modified()} «%<"
-let &statusline .= "%="
-let &statusline .= "%{statusline#repo()}"
-let &statusline .= " "
-let &statusline .= "%{statusline#quickfix()}%4c:%l"
-let &statusline .= " "
+let &statusline  = ''
+let &statusline .= ' '
+let &statusline .= '» %f%{statusline#modified()} «%<'
+let &statusline .= '%='
+let &statusline .= '%{statusline#repo()}'
+let &statusline .= ' '
+let &statusline .= '%{statusline#quickfix()}%4c:%l'
+let &statusline .= ' '
 " }}}
 " }}}
 " Search {{{
@@ -134,7 +74,7 @@ set ignorecase smartcase inccommand=nosplit
 " Permanent undo {{{
 set undofile
 " }}}
-" Mappings {{{
+" Custom configurations {{{
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>SK<CR>
 " }}}
@@ -211,13 +151,13 @@ command! Clean let _s = @/ | %s/\s\+$//e | let @/ = _s | set nohlsearch
 " Search {{{
 if executable('rg')
     set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
-    set gfm=%f:%l:%c:%m,%f:%l%m,%f\ \ %l%m
+    set grepformat=%f:%l:%c:%m,%f:%l%m,%f\ \ %l%m
 elseif executable('ag')
     set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
     set grepformat^=%f:%l:%c:%m
 endif
 
-" Easier change and replace word
+" Quickly disable highligh
 nnoremap <Space>, :nohlsearch<CR>
 " }}}
 " Tabs {{{
@@ -225,16 +165,21 @@ nnoremap ]w gt
 nnoremap [w gT
 " }}}
 " Terminal {{{
-nnoremap <C-q> <nop>
-nnoremap <C-q>c :<C-u>term<CR>
-nnoremap <C-q>s :<C-u>split +term<CR>
-nnoremap <C-q>v :<C-u>vsplit +term<CR>
-nnoremap <C-q>t :<C-u>tabnew +term<CR>
+if has('nvim')
+    nnoremap <C-q> <nop>
+    nnoremap <C-q>c :<C-u>term<CR>
+    nnoremap <C-q>s :<C-u>split +term<CR>
+    nnoremap <C-q>v :<C-u>vsplit +term<CR>
+    nnoremap <C-q>t :<C-u>tabnew +term<CR>
 
-tnoremap <C-q> <C-\><C-n>
+    tnoremap <C-q> <C-\><C-n>
+
+    if executable('nvr')
+        let $EDITOR = 'nvr -cc split --remote-wait'
+    endif
+endif
 " }}}
-" }}}
-" Autocommands {{{
+" Auto align windows {{{
 augroup align_windows
     au!
     autocmd VimResized * wincmd =
@@ -248,4 +193,5 @@ let g:startify_session_persistence = 1
 
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
+" }}}
 " }}}
