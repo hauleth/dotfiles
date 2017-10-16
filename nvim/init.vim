@@ -8,8 +8,8 @@ let g:loaded_vimballPlugin = 1
 " }}}
 
 " Plugins {{{
-command! -bar PackUpdate call plugins#load() | call minpac#update()
-command! -bar PackClean  call plugins#load() | call minpac#clean()
+command! -bar PackUpdate call plugins#reload() | call minpac#update()
+command! -bar PackClean  call plugins#reload() | call minpac#clean()
 
 set packpath^=~/.local/share/nvim
 " }}}

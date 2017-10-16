@@ -1,11 +1,13 @@
 " vi: foldmethod=marker
+let s:current_file = expand("<sfile>")
 
-func! plugins#load() abort
-    " This intentionally call non existing function
-    silent! call plugins#reload()
+if !exists("*plugins#reload")
+    func! plugins#reload() abort
+        exec 'source ' . s:current_file
 
-    call plugins#spec()
-endfunc
+        call plugins#spec()
+    endfunc
+endif
 
 func! plugins#spec() abort
     packadd minpac
@@ -64,13 +66,11 @@ func! plugins#spec() abort
     call minpac#add('romainl/vim-qf')
     call minpac#add('romainl/vim-qlist')
     " }}}
-    " Linting {{{
-    call minpac#add('w0rp/ale')
-    " }}}
     " Utils {{{
     call minpac#add('wellle/targets.vim')
     call minpac#add('tpope/vim-repeat')
     call minpac#add('tpope/vim-unimpaired')
+    call minpac#add('wakatime/vim-wakatime')
     " }}}
 endfunc
 
