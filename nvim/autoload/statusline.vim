@@ -11,6 +11,8 @@ endfunction
 
 function! statusline#repo() abort
     return gina#component#repo#branch()
+                \ . ' '
+                \ . gina#component#traffic#preset('fancy')
 endfunction
 
 function! statusline#quickfix_name() abort

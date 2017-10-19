@@ -127,6 +127,8 @@ nnoremap ZX :cq<CR>
 " Simplify switching to Command mode {{{
 nnoremap ; :
 vnoremap ; :
+nnoremap : ;
+vnoremap : ;
 nnoremap q; q:
 " }}}
 " Fix idiotic vim defaults {{{
