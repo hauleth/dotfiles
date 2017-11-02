@@ -1,7 +1,7 @@
 " vi: foldmethod=marker
-let s:current_file = expand("<sfile>")
+let s:current_file = expand('<sfile>')
 
-if !exists("*plugins#reload")
+if !exists('*plugins#reload')
     func! plugins#reload() abort
         exec 'source ' . s:current_file
 
@@ -76,7 +76,7 @@ endfunc
 
 " Helpers
 
-func! s:install_skim() abort
+func! s:install_skim(...) abort
     if has(':AsyncRun')
         noautocmd AsyncRun! ./install --bin
     else

@@ -20,6 +20,11 @@ set textwidth=80
 set nowrap linebreak formatoptions+=l
 " }}}
 " User interface {{{
+set lazyredraw
+
+" Ignore case. If your code uses different casing to differentiate files, then
+" you need mental help
+set wildignorecase fileignorecase
 " Colors {{{
 set termguicolors
 colorscheme blame
@@ -75,6 +80,7 @@ set ignorecase smartcase inccommand=nosplit
 set undofile
 " }}}
 " Custom configurations {{{
+let g:vue_disable_pre_processors = 1
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>SK<CR>
 " }}}
@@ -93,19 +99,8 @@ cabbr Gita Gina
 cabbr Gita! Gina!
 cabbr G Gina
 cabbr G! Gina!
-cabbr git Gina
-cabbr git! Gina!
 cabbr Git Gina
 cabbr Git! Gina!
-" }}}
-" Sad changes {{{
-" nmap c <Plug>(sad-change-forward)
-" vmap c <Plug>(sad-change-forward)
-" nmap C <Plug>(sad-change-forward)$
-" nnoremap cc cc
-" nnoremap <Space>c c
-" nnoremap <Space>C C
-" vnoremap <Space>c c
 " }}}
 " Asynchronous commands {{{
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
@@ -177,7 +172,7 @@ if has('nvim')
     tnoremap <C-q> <C-\><C-n>
 
     if executable('nvr')
-        let $EDITOR = 'nvr -cc split --remote-wait'
+        let $EDITOR = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
     endif
 endif
 " }}}

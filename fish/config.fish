@@ -9,6 +9,13 @@ enable hub alias -s
 enable direnv hook fish
 enable rbenv init -
 
+set fish_user_paths ~/Workspace/hauleth/dotfiles/bin \
+                    ~/.bin \
+                    ~/.cargo/bin \
+                    ~/go/bin \
+                    ~/.mix \
+                    /usr/local/opt/gettext/bin
+
 if status --is-interactive
     if not functions -q fundle
         eval (curl -sfL https://git.io/fundle-install)
@@ -27,5 +34,5 @@ if status --is-interactive
 
     enable jump shell fish
 
-    ssh-add -K ^/dev/null
+    ssh-add -K ^/dev/null &
 end
