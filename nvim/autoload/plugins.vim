@@ -33,10 +33,12 @@ func! plugins#spec() abort
     call minpac#add('posva/vim-vue')
     " }}}
     " Git {{{
-    call minpac#add('lambdalisue/gina.vim')
+    " call minpac#add('lambdalisue/gina.vim')
+    call minpac#add('tpope/vim-fugitive')
+    call minpac#add('idanarye/vim-merginal')
     " }}}
     " Project navigation {{{
-    call minpac#add('lotabout/skim', { 'do': function('s:install_skim') })
+    call minpac#add('junegunn/fzf')
     call minpac#add('tpope/vim-projectionist')
     call minpac#add('direnv/direnv.vim')
     " }}}

@@ -2,9 +2,8 @@
 scriptencoding utf-8
 
 " Unload unneeded plugins {{{
-let g:loaded_netrw         = 1
-let g:loaded_netrwPlugin   = 1
-let g:loaded_vimballPlugin = 1
+let g:loaded_netrwPlugin   = 1 "$VIMRUNTIME/plugin/netrwPlugin.vim
+let g:loaded_2html_plugin  = 1 "$VIMRUNTIME/plugin/tohtml.vim
 " }}}
 
 " Plugins {{{
@@ -82,25 +81,18 @@ set undofile
 " Custom configurations {{{
 let g:vue_disable_pre_processors = 1
 " Fuzzy file search {{{
-nnoremap <Space><Space> :<C-u>SK<CR>
+nnoremap <Space><Space> :<C-u>FZF<CR>
 " }}}
 " Git shortcuts {{{
 nnoremap U  <nop>
-nnoremap Up :<C-u>Gina push<CR>
-nnoremap Us :<C-u>keepalt Gina status -s<CR>
-nnoremap Ud :<C-u>keepalt Gina diff :<CR>
-nnoremap Ub :<C-u>keepalt Gina branch<CR>
-nnoremap UB :<C-u>keepalt Gina blame :<CR>
-nnoremap Uc :<C-u>keepalt Gina commit<CR>
-nnoremap Uu :<C-u>Gina pull --all<CR>
+nnoremap Up :<C-u>Gpush<CR>
+nnoremap Us :<C-u>Gstatus<CR>
+nnoremap Ud :<C-u>Gdiff<CR>
+nnoremap Ub :<C-u>Merginal<CR>
+nnoremap UB :<C-u>Gblame<CR>
+nnoremap Uc :<C-u>Gcommit<CR>
+nnoremap Uu :<C-u>Gpull<CR>
 nmap     UU Uu
-
-cabbr Gita Gina
-cabbr Gita! Gina!
-cabbr G Gina
-cabbr G! Gina!
-cabbr Git Gina
-cabbr Git! Gina!
 " }}}
 " Asynchronous commands {{{
 command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>

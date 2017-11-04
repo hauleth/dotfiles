@@ -10,9 +10,10 @@ function! statusline#modified() abort
 endfunction
 
 function! statusline#repo() abort
-    return gina#component#repo#branch()
-                \ . ' '
-                \ . gina#component#traffic#preset('fancy')
+    " return gina#component#repo#branch()
+    "             \ . ' '
+    "             \ . gina#component#traffic#preset('fancy')
+    return ''
 endfunction
 
 function! statusline#quickfix_name() abort

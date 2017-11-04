@@ -1,6 +1,7 @@
-nmap <buffer> ce ^ciwe<ESC>
-nmap <buffer> cf ^ciwf<ESC>
-nmap <buffer> cp ^ciwp<ESC>
-nmap <buffer> cr ^ciwr<ESC>
-nmap <buffer> cs ^ciws<ESC>
-nmap <buffer> cd ^ciwd<ESC>
+nnoremap <buffer> ce :Edit<CR>
+nnoremap <buffer> cf :Fixup<CR>
+nnoremap <buffer> cp :Pick<CR>
+nnoremap <buffer> cr :Reword<CR>
+nnoremap <buffer> cs :Squash<CR>
+
+nnoremap <buffer> cc :Cycle<CR>
