@@ -17,27 +17,7 @@ SwapList defs def defp
 SwapList deps require import use alias
 SwapList errors :ok :error
 
-let s:projections = {
-            \ 'apps/*/mix.exs': { 'type': 'app' },
-            \ 'lib/*.ex': {
-            \   'type': 'lib',
-            \   'alternate': 'test/{}_test.exs',
-            \   'template': ['defmodule {camelcase|capitalize|dot} do', 'end'],
-            \ },
-            \ 'test/*_test.exs': {
-            \   'type': 'test',
-            \   'alternate': 'lib/{}.ex',
-            \   'template': ['defmodule {camelcase|capitalize|dot}Test do', '  use ExUnit.Case', 'end'],
-            \ },
-            \ 'priv/**/migrations/*.exs': { 'type': 'migration' },
-            \ 'mix.exs': { 'type': 'mix' },
-            \ 'config/*.exs': { 'type': 'config' },
-            \ }
-
 augroup elixir_projectionist
     au!
-    autocmd User ProjectionistDetect
-                \ call projections#append(
-                \   projections#find_root(g:projectionist_file, {path -> filereadable(path . '/mix.exs')}),
-                \   s:projections)
+    autocmd User ProjectionistDetect call projections#elixir#detect()
 augroup END

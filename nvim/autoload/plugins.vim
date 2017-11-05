@@ -64,22 +64,15 @@ func! plugins#spec() abort
     " }}}
     " Task running & quickfix {{{
     call minpac#add('kassio/neoterm')
+    call minpac#add('hauleth/asyncdo.vim')
     call minpac#add('romainl/vim-qf')
     call minpac#add('romainl/vim-qlist')
+    call minpac#add('w0rp/ale')
     " }}}
     " Utils {{{
     call minpac#add('tpope/vim-repeat')
     call minpac#add('tpope/vim-unimpaired')
     call minpac#add('wellle/targets.vim')
+    call minpac#add('kopischke/vim-fetch')
     " }}}
-endfunc
-
-" Helpers
-
-func! s:install_skim(...) abort
-    if has(':AsyncRun')
-        noautocmd AsyncRun! ./install --bin
-    else
-        ! ./install --bin
-    endif
 endfunc

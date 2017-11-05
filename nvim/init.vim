@@ -65,8 +65,6 @@ let &statusline  = ''
 let &statusline .= ' '
 let &statusline .= '» %f%{statusline#modified()} «%<'
 let &statusline .= '%='
-let &statusline .= '%{statusline#repo()}'
-let &statusline .= ' '
 let &statusline .= '%{statusline#quickfix()}%4c:%l'
 let &statusline .= ' '
 " }}}
@@ -92,10 +90,13 @@ nnoremap UB :<C-u>Gblame<CR>
 nnoremap Uc :<C-u>Gcommit<CR>
 nnoremap Uu :<C-u>Gpull<CR>
 nmap     UU Uu
+
+cabbrev G  Git
+cabbrev G! Git!
 " }}}
 " Asynchronous commands {{{
-command! -nargs=* -complete=file Make exe 'AsyncDo '.&makeprg.' '.<q-args>
-command! -nargs=* -complete=file Grep exe 'AsyncDo '.&grepprg.' '.<q-args>
+command! -bang -nargs=* -complete=file Make exe 'AsyncDo<bang> '.&makeprg.' <args>'
+command! -nargs=* -complete=file Grep exe 'AsyncDo<bang> '.&grepprg.' <args>'
 " }}}
 " Expand abbreviations on enter {{{
 inoremap <CR> <C-]><CR>
@@ -170,7 +171,7 @@ endif
 " Auto align windows {{{
 augroup align_windows
     au!
-    autocmd VimResized * wincmd =
+    au VimResized * wincmd =
 augroup END
 " }}}
 " Startify {{{

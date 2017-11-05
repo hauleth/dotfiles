@@ -2,18 +2,15 @@ scriptencoding utf-8
 
 " displays a flag if there are unseen quickfix errors
 function! statusline#quickfix() abort
-  return get(g:, 'quickfix_pending') ? '⎈' : ''
+    let l:ret = ''
+    let l:ret .= get(g:, 'quickfix_pending') ? '♻️' : ''
+    let l:ret .= exists('g:asyncdo_job') ? '⚙' : ''
+
+    return l:ret
 endfunction
 
 function! statusline#modified() abort
     return &modified ? ' +' : ''
-endfunction
-
-function! statusline#repo() abort
-    " return gina#component#repo#branch()
-    "             \ . ' '
-    "             \ . gina#component#traffic#preset('fancy')
-    return ''
 endfunction
 
 function! statusline#quickfix_name() abort
