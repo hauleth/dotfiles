@@ -1,5 +1,3 @@
-compiler cargo
-
 setlocal iskeyword+=!
 setlocal formatprg=rustfmt\ --write-mode=display
 let g:rustfmt_autosave = 1

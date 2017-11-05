@@ -1,1 +1,1 @@
-au BufRead,BufNewFile *.curly set ft=html syn=html
+au BufRead,BufNewFile *.curly setlocal ft=html syn=html

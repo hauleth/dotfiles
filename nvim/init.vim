@@ -29,7 +29,7 @@ set termguicolors
 colorscheme blame
 " }}}
 " Ignore all automatic files and folders {{{
-set wildignore=*.o,*~,*.pyc,.git,*/tmp/*
+set wildignore=*.o,*~,*/.git,*/tmp/*,*/node_modules/*,*/_build/*,*/deps/*,*/target/*
 " }}}
 " Display tabs and trailing spaces visually {{{
 set list listchars=tab:→\ ,trail:·,nbsp:␣
@@ -79,9 +79,8 @@ set ignorecase smartcase inccommand=nosplit
 set undofile
 " }}}
 " Custom configurations {{{
-let g:vue_disable_pre_processors = 1
 " Fuzzy file search {{{
-nnoremap <Space><Space> :<C-u>FZF<CR>
+nnoremap <Space><Space> :<C-u>Files<CR>
 " }}}
 " Git shortcuts {{{
 nnoremap U  <nop>
@@ -95,8 +94,8 @@ nnoremap Uu :<C-u>Gpull<CR>
 nmap     UU Uu
 " }}}
 " Asynchronous commands {{{
-command! -bang -nargs=* -complete=file Make AsyncRun -program=make @ <args>
-command! -bang -nargs=* -complete=file Grep AsyncRun -program=grep @ <args>
+command! -nargs=* -complete=file Make exe 'AsyncDo '.&makeprg.' '.<q-args>
+command! -nargs=* -complete=file Grep exe 'AsyncDo '.&grepprg.' '.<q-args>
 " }}}
 " Expand abbreviations on enter {{{
 inoremap <CR> <C-]><CR>
