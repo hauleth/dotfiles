@@ -67,12 +67,13 @@ func! plugins#spec() abort
     call minpac#add('hauleth/asyncdo.vim')
     call minpac#add('romainl/vim-qf')
     call minpac#add('romainl/vim-qlist')
-    call minpac#add('w0rp/ale')
     " }}}
     " Utils {{{
     call minpac#add('tpope/vim-repeat')
     call minpac#add('tpope/vim-unimpaired')
     call minpac#add('wellle/targets.vim')
     call minpac#add('kopischke/vim-fetch')
+    call minpac#add('t9md/vim-choosewin')
+    call minpac#add('mbbill/undotree')
     " }}}
 endfunc

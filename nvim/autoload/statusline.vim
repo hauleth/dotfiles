@@ -4,7 +4,7 @@ scriptencoding utf-8
 function! statusline#quickfix() abort
     let l:ret = ''
     let l:ret .= get(g:, 'quickfix_pending') ? '♻️' : ''
-    let l:ret .= exists('g:asyncdo_job') ? '⚙' : ''
+    let l:ret .= exists('g:asyncdo') || exists('w:asyncdo') ? '⚙' : ''
 
     return l:ret
 endfunction

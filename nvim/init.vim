@@ -54,7 +54,7 @@ set mouse=a
 set iskeyword+=-
 " }}}
 " Show 80 column {{{
-let &colorcolumn = &textwidth + 1
+set colorcolumn=+1
 " }}}
 " Split in CORRECT places {{{
 set splitright splitbelow
@@ -155,7 +155,7 @@ nnoremap [w gT
 " }}}
 " Terminal {{{
 if has('nvim')
-    nnoremap <C-q> <nop>
+    nmap <C-q> <Esc>
     nnoremap <C-q>c :<C-u>term<CR>
     nnoremap <C-q>s :<C-u>split +term<CR>
     nnoremap <C-q>v :<C-u>vsplit +term<CR>
@@ -166,13 +166,21 @@ if has('nvim')
     if executable('nvr')
         let $EDITOR = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
     endif
+
+    augroup terminal_config
+        au!
+        au Termopen * setlocal scrolloff=0
+    augroup END
 endif
 " }}}
-" Auto align windows {{{
+" Split management {{{
 augroup align_windows
     au!
     au VimResized * wincmd =
 augroup END
+
+nmap <C-w>q <plug>(choosewin)
+nmap <C-_> <plug>(choosewin)
 " }}}
 " Startify {{{
 let g:startify_list_order = ['sessions', 'dir']
