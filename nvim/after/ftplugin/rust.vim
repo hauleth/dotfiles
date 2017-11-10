@@ -1,3 +1,6 @@
+compiler cargo
+setlocal makeprg=cargo
+
 setlocal iskeyword+=!
 setlocal formatprg=rustfmt\ --write-mode=display
 let g:rustfmt_autosave = 1
@@ -21,3 +24,8 @@ SwapList assert assert assert_eq
 SwapList print print println
 SwapList write write writeln
 SwapList module mod use
+
+augroup rust_projectionist
+    au!
+    autocmd User ProjectionistDetect call projections#rust#detect()
+augroup END

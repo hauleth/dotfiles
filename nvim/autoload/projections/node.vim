@@ -15,7 +15,7 @@ let s:nuxt_projections = {
             \     '</script>',
             \     '',
             \     '<style>',
-            \     '</style>'
+            \     '</style>',
             \   ]
             \ },
             \ 'components/*.vue': { 'type': 'component' },
@@ -29,11 +29,14 @@ let s:nuxt_projections = {
             \     'export const state = () => ({open}',
             \     '{close})',
             \     '',
+            \     'export const getters = {open}',
+            \     '{close}',
+            \     '',
             \     'export const mutations = {open}',
             \     '{close}',
             \     '',
             \     'export const actions = {open}',
-            \     '{close}'
+            \     '{close}',
             \   ]
             \ },
             \ 'nuxt.config.js': { 'type': 'config' },

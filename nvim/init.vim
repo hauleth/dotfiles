@@ -29,7 +29,7 @@ set termguicolors
 colorscheme blame
 " }}}
 " Ignore all automatic files and folders {{{
-set wildignore=*.o,*~,*/.git,*/tmp/*,*/node_modules/*,*/_build/*,*/deps/*,*/target/*
+set wildignore+=*.o,*~,*/.git,*/tmp,*/node_modules,*/_build,*/deps,*/target
 " }}}
 " Display tabs and trailing spaces visually {{{
 set list listchars=tab:→\ ,trail:·,nbsp:␣
@@ -40,9 +40,6 @@ set noshowmode
 " }}}
 " Autowrite files when possible {{{
 set nohidden autowriteall
-" }}}
-" Wrap line on movements {{{
-set whichwrap+=[,]
 " }}}
 " Keep cursor in the middle {{{
 set scrolloff=9999
@@ -95,16 +92,18 @@ cabbrev G  Git
 cabbrev G! Git!
 " }}}
 " Asynchronous commands {{{
-command! -bang -nargs=* -complete=file Make exe 'AsyncDo<bang> '.&makeprg.' <args>'
-command! -nargs=* -complete=file Grep exe 'AsyncDo<bang> '.&grepprg.' <args>'
+command! -bang -nargs=* Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
+command! -bang -nargs=* Grep call asyncdo#run(<bang>0, &grepprg, <f-args>)
+command! -bang -nargs=* LMake call asyncdo#lrun(<bang>0, &makeprg, <f-args>)
+command! -bang -nargs=* LGrep call asyncdo#lrun(<bang>0, &grepprg, <f-args>)
 " }}}
 " Expand abbreviations on enter {{{
 inoremap <CR> <C-]><CR>
 " }}}
-" Smart `^` {{{
-" `^` goes to the beginning of the text on first press and to the beginning
+" Smart `0` {{{
+" `0` goes to the beginning of the text on first press and to the beginning
 " of the line on second press. It alternates afterwards.
-nnoremap <expr> ^ virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
+nnoremap <expr> 0 virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'
 " }}}
 " File closing {{{
 nnoremap ZS :wa<CR>
@@ -122,13 +121,14 @@ nnoremap q; q:
 nnoremap Y y$
 " }}}
 " Folding {{{
-nnoremap <expr> <CR> foldlevel('.')?'za':"\<CR>"
+nnoremap <expr> <CR> foldlevel('.') ? 'za' : "\<CR>"
 " }}}
 " Scratchpad {{{
 command! Scratchify setlocal nobuflisted buftype=nofile bufhidden=delete
-command! Scratch enew | Scratchify
-command! SScratch split | Scratchify
+command! Scratch  enew   | Scratchify
+command! SScratch split  | Scratchify
 command! VScratch vsplit | Scratchify
+command! TScratch tab    | Scratchify
 " }}}
 " Format {{{
 nnoremap g= gg=Gg``
@@ -154,24 +154,22 @@ nnoremap ]w gt
 nnoremap [w gT
 " }}}
 " Terminal {{{
-if has('nvim')
-    nmap <C-q> <Esc>
-    nnoremap <C-q>c :<C-u>term<CR>
-    nnoremap <C-q>s :<C-u>split +term<CR>
-    nnoremap <C-q>v :<C-u>vsplit +term<CR>
-    nnoremap <C-q>t :<C-u>tabnew +term<CR>
+nmap <C-q> <Esc>
+nnoremap <C-q>c :<C-u>term<CR>
+nnoremap <C-q>s :<C-u>split +term<CR>
+nnoremap <C-q>v :<C-u>vsplit +term<CR>
+nnoremap <C-q>t :<C-u>tabnew +term<CR>
 
-    tnoremap <C-q> <C-\><C-n>
+tnoremap <C-q> <C-\><C-n>
 
-    if executable('nvr')
-        let $EDITOR = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
-    endif
-
-    augroup terminal_config
-        au!
-        au Termopen * setlocal scrolloff=0
-    augroup END
+if executable('nvr')
+    let $EDITOR = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
 endif
+
+augroup terminal_config
+    au!
+    au TermOpen * setlocal scrolloff=0
+augroup END
 " }}}
 " Split management {{{
 augroup align_windows
