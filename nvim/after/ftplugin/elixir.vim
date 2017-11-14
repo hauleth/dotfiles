@@ -3,7 +3,7 @@ setlocal tabstop=2
 
 command! -buffer ModuleName echo ft#elixir#module_name()
 command! -buffer Function echo ft#elixir#full_ident()
-command! -buffer XrefCallers call asyncdo#run(1, 'mix', ['xref', 'callers', ft#elixir#full_ident()])
+command! -buffer XrefCallers call asyncdo#run(1, 'mix', 'xref', 'callers', ft#elixir#full_ident())
 
 inoreabbrev <buffer> mdoc @moduledoc """
 inoreabbrev <buffer> pry require IEx; IEx.pry

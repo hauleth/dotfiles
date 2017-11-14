@@ -34,7 +34,8 @@ colorscheme blame
 set wildignore+=*.o,*~,*/.git,*/tmp,*/node_modules,*/_build,*/deps,*/target
 " }}}
 " Display tabs and trailing spaces visually {{{
-set list listchars=tab:→\ ,trail:·,nbsp:␣
+set fillchars=vert:┃,fold:·
+set list listchars=tab:→\ ,trail:·,nbsp:␣,extends:↦,precedes:↤
 set conceallevel=2
 " }}}
 " Do not show current mode down the bottom {{{
