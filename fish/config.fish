@@ -1,4 +1,4 @@
-alias ssh="env TERM=xterm-256color ssh"
+alias ssh='env TERM=xterm-256color ssh'
 
 function enable
     available "$argv[1]"

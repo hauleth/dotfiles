@@ -46,9 +46,15 @@ func! plugins#spec() abort
     call minpac#add('tpope/vim-eunuch')
     " }}}
     " Completion {{{
-    call minpac#add('roxma/nvim-completion-manager')
-    call minpac#add('racer-rust/vim-racer')
-    call minpac#add('roxma/nvim-cm-racer')
+    call minpac#add('prabirshrestha/async.vim')
+    call minpac#add('prabirshrestha/asyncomplete.vim')
+
+    call minpac#add('Shougo/neco-vim')
+    call minpac#add('prabirshrestha/asyncomplete-necovim.vim')
+
+    call minpac#add('keremc/asyncomplete-racer.vim')
+
+    call minpac#add('yami-beta/asyncomplete-omni.vim')
     call minpac#add('slashmili/alchemist.vim')
     " }}}
     " Code manipulation {{{
@@ -75,5 +81,6 @@ func! plugins#spec() abort
     call minpac#add('kopischke/vim-fetch')
     call minpac#add('t9md/vim-choosewin')
     call minpac#add('mbbill/undotree')
+    call minpac#add('andymass/vim-matchup', {'type': 'opt'})
     " }}}
 endfunc

@@ -1,16 +1,18 @@
 " vi: foldmethod=marker
 scriptencoding utf-8
 
-" Unload unneeded plugins {{{
-let g:loaded_netrwPlugin   = 1 "$VIMRUNTIME/plugin/netrwPlugin.vim
-let g:loaded_2html_plugin  = 1 "$VIMRUNTIME/plugin/tohtml.vim
-" }}}
-
 " Plugins {{{
 command! -bar PackUpdate call plugins#reload() | call minpac#update()
 command! -bar PackClean  call plugins#reload() | call minpac#clean()
 
 set packpath^=~/.local/share/nvim
+
+packadd! vim-matchup
+
+" Unload unneeded plugins {{{
+let g:loaded_netrwPlugin   = 1 "$VIMRUNTIME/plugin/netrwPlugin.vim
+let g:loaded_2html_plugin  = 1 "$VIMRUNTIME/plugin/tohtml.vim
+" }}}
 " }}}
 " Identation {{{
 set tabstop=4 shiftwidth=0 softtabstop=-1 expandtab
@@ -126,9 +128,9 @@ nnoremap <expr> <CR> foldlevel('.') ? 'za' : "\<CR>"
 " Scratchpad {{{
 command! Scratchify setlocal nobuflisted buftype=nofile bufhidden=delete
 command! Scratch  enew   | Scratchify
-command! SScratch split  | Scratchify
-command! VScratch vsplit | Scratchify
-command! TScratch tab    | Scratchify
+command! SScratch new    | Scratchify
+command! VScratch vnew   | Scratchify
+command! TScratch tabnew | Scratchify
 " }}}
 " Format {{{
 nnoremap g= gg=Gg``
@@ -189,4 +191,27 @@ let g:startify_session_persistence = 1
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 " }}}
+" Match up {{{
+let g:matchup_matchparen_status_offscreen = 0
+" }}}
+" }}}
+" Completions {{{
+" let g:asyncomplete_completion_delay = 500
+
+augroup asyncomplete_register_sources
+    au!
+    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
+                \ 'name': 'omni',
+                \ 'whitelist': ['*'],
+                \ 'blacklist': ['html', 'html.javascript'],
+                \ 'completor': function('asyncomplete#sources#omni#completor')
+                \  }))
+    autocmd User asyncomplete_setup call asyncomplete#register_source(
+                \ asyncomplete#sources#racer#get_source_options())
+    autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
+                \ 'name': 'necovim',
+                \ 'whitelist': ['vim'],
+                \ 'completor': function('asyncomplete#sources#necovim#completor'),
+                \ }))
+augroup END
 " }}}

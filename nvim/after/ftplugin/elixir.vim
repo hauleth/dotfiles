@@ -1,15 +1,19 @@
 setlocal makeprg=mix
 setlocal tabstop=2
 
-iabbrev <buffer> mdoc @moduledoc """
-iabbrev <buffer> pry require IEx; IEx.pry
+command! -buffer ModuleName echo ft#elixir#module_name()
+command! -buffer Function echo ft#elixir#full_ident()
+command! -buffer XrefCallers call asyncdo#run(1, 'mix', ['xref', 'callers', ft#elixir#full_ident()])
 
-iabbrev <buffer> defm defmodule
-iabbrev <buffer> defi defimpl
+inoreabbrev <buffer> mdoc @moduledoc """
+inoreabbrev <buffer> pry require IEx; IEx.pry
+
+inoreabbrev <buffer> defm defmodule
+inoreabbrev <buffer> defi defimpl
 
 inoremap <buffer> ,, <Space>=>
 
-iabbrev <buffer> pkey add :id, :binary_id, primary_key: true
+inoreabbrev <buffer> pkey add :id, :binary_id, primary_key: true
 
 ClearSwapList
 
