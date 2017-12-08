@@ -7,7 +7,6 @@ end
 
 enable hub alias -s
 enable direnv hook fish
-enable rbenv init -
 
 set fish_user_paths ~/Workspace/hauleth/dotfiles/bin \
                     ~/.bin \

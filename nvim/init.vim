@@ -2,17 +2,15 @@
 scriptencoding utf-8
 
 " Plugins {{{
-command! -bar PackUpdate call plugins#reload() | call minpac#update()
-command! -bar PackClean  call plugins#reload() | call minpac#clean()
-
-set packpath^=~/.local/share/nvim
-
-packadd! vim-matchup
-
 " Unload unneeded plugins {{{
 let g:loaded_netrwPlugin   = 1 "$VIMRUNTIME/plugin/netrwPlugin.vim
 let g:loaded_2html_plugin  = 1 "$VIMRUNTIME/plugin/tohtml.vim
 " }}}
+command! -bar PackUpdate call plugins#reload() | call minpac#update()
+command! -bar PackClean  call plugins#reload() | call minpac#clean()
+
+set rtp+=/usr/local/opt/fzf
+set packpath^=~/.local/share/nvim
 " }}}
 " Identation {{{
 set tabstop=4 shiftwidth=0 softtabstop=-1 expandtab
@@ -21,7 +19,7 @@ set textwidth=80
 set nowrap linebreak formatoptions+=l
 " }}}
 " User interface {{{
-set lazyredraw
+" set lazyredraw
 
 " Ignore case. If your code uses different casing to differentiate files, then
 " you need mental help
@@ -60,12 +58,11 @@ set colorcolumn=+1
 set splitright splitbelow
 " }}}
 " Statusline {{{
-let &laststatus  = 2
 let &statusline  = ''
 let &statusline .= ' '
 let &statusline .= '» %f%{statusline#modified()} «%<'
 let &statusline .= '%='
-let &statusline .= '%{statusline#quickfix()}%4c:%l'
+let &statusline .= '%4c:%l'
 let &statusline .= ' '
 " }}}
 " }}}
@@ -78,21 +75,22 @@ set undofile
 " }}}
 " Custom configurations {{{
 " Fuzzy file search {{{
-nnoremap <Space><Space> :<C-u>Files<CR>
+nnoremap <Space><Space> :<C-u>FZF<CR>
 " }}}
 " Git shortcuts {{{
 nnoremap U  <nop>
-nnoremap Up :<C-u>Gpush<CR>
-nnoremap Us :<C-u>Gstatus<CR>
-nnoremap Ud :<C-u>Gdiff<CR>
-nnoremap Ub :<C-u>Merginal<CR>
-nnoremap UB :<C-u>Gblame<CR>
-nnoremap Uc :<C-u>Gcommit<CR>
-nnoremap Uu :<C-u>Gpull<CR>
+nnoremap Up :<C-u>Gina push<CR>
+nnoremap Us :<C-u>Gina status -s<CR>
+nnoremap Ud :<C-u>Gina diff<CR>
+nnoremap Ub :<C-u>Gina branch<CR>
+nnoremap UB :<C-u>Gina blame<CR>
+nnoremap Uc :<C-u>Gina commit<CR>
+nnoremap Uu :<C-u>Gina pull<CR>
+nnoremap Ug :<C-u>Gina log --graph<CR>
 nmap     UU Uu
 
-cabbrev G  Git
-cabbrev G! Git!
+cabbrev G  Gina
+cabbrev G! Gina!
 " }}}
 " Asynchronous commands {{{
 command! -bang -nargs=* Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
@@ -171,7 +169,8 @@ endif
 
 augroup terminal_config
     au!
-    au TermOpen * setlocal scrolloff=0
+    au BufEnter,BufWinEnter,WinEnter term://* set scrolloff=0
+    au BufLeave,BufWinLeave,WinLeave term://* set scrolloff=9999
 augroup END
 " }}}
 " Split management {{{
@@ -195,24 +194,46 @@ let g:startify_change_to_vcs_root = 1
 " Match up {{{
 let g:matchup_matchparen_status_offscreen = 0
 " }}}
+" HighlihtedYank {{{
+let g:highlightedyank_highlight_duration = 200
+" }}}
+" Snipe f/F/t/T {{{
+" let g:snipe_jump_tokens = 'asdfghklqwertyuiopzxcvbnm'
+let g:snipe_jump_tokens = 'fhghdjskal'
+
+nmap F <Plug>(snipe-F)
+nmap f <Plug>(snipe-f)
+nmap T <Plug>(snipe-T)
+nmap t <Plug>(snipe-t)
+" }}}
 " }}}
 " Completions {{{
-" let g:asyncomplete_completion_delay = 500
+set complete=.,w,b,t,i
+set completeopt=menu,longest,noselect
+let g:lsp_async_completion = 1
+let g:echodoc_enable_at_startup = 1
+let g:cpty_awk_cmd = 'mawk -f'
 
-augroup asyncomplete_register_sources
+augroup lsp_servers
     au!
-    au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#omni#get_source_options({
-                \ 'name': 'omni',
-                \ 'whitelist': ['*'],
-                \ 'blacklist': ['html', 'html.javascript'],
-                \ 'completor': function('asyncomplete#sources#omni#completor')
-                \  }))
-    autocmd User asyncomplete_setup call asyncomplete#register_source(
-                \ asyncomplete#sources#racer#get_source_options())
-    autocmd User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#necovim#get_source_options({
-                \ 'name': 'necovim',
-                \ 'whitelist': ['vim'],
-                \ 'completor': function('asyncomplete#sources#necovim#completor'),
-                \ }))
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'elixir-ls',
+                \ 'cmd': {server_info->[&shell, &shellcmdflag, 'env ERL_LIBS=/Users/hauleth/Workspace/JakeBecker/elixir-ls/lsp mix elixir_ls.language_server']},
+                \ 'whitelist': ['elixir'],
+                \ })
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'rls',
+                \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+                \ 'whitelist': ['rust'],
+                \ })
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'vue-language-server',
+                \ 'cmd': {server_info->['vls']},
+                \ 'whitelist': ['vue'],
+                \ })
 augroup END
 " }}}
+
+nnoremap zS :echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<'
+            \ . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<'
+            \ . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'<CR>

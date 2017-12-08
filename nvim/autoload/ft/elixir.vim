@@ -1,5 +1,5 @@
 func! s:get_ident(str) abort
-    return matchstr(a:str, 'def\%(module\|macro\|p\)\?\s\+\zs[A-Z][A-Za-z0-9._]*\ze')
+    return matchstr(a:str, 'def\%(module\|macro\|delegate\)\?\s\+\zs[A-Z][A-Za-z0-9._]*\ze')
 endfunc
 
 func! ft#elixir#module_name() abort
@@ -28,7 +28,7 @@ func! ft#elixir#full_ident() abort
     let l:line = getline('.')
     call winrestview(l:view)
 
-    if l:line =~# '^\s*def\s\+\k'
+    if l:line =~# '^\s*def\%(macro\|delegate\)\?\s\+\k'
         return ft#elixir#module_name().'.'.s:get_ident(l:line)
     elseif l:line =~# '^\s*defmodule\s\+\k\+'
         return ft#elixir#module_name()

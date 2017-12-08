@@ -1,5 +1,5 @@
 compiler cargo
-setlocal makeprg=cargo
+setlocal omnifunc=lsp#complete
 
 setlocal iskeyword+=!
 setlocal formatprg=rustfmt\ --write-mode=display
