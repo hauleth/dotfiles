@@ -25,6 +25,8 @@ set nowrap linebreak formatoptions+=l
 " you need mental help
 set wildignorecase fileignorecase
 " Colors {{{
+syntax sync minlines=256
+
 set termguicolors
 colorscheme blame
 " }}}

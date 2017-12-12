@@ -29,7 +29,6 @@ func! plugins#spec() abort
     call minpac#add('dag/vim-fish')
     call minpac#add('elixir-lang/vim-elixir')
     call minpac#add('pangloss/vim-javascript')
-    call minpac#add('rust-lang/rust.vim')
     call minpac#add('tsandall/vim-rego')
     call minpac#add('posva/vim-vue')
     " }}}
@@ -47,7 +46,7 @@ func! plugins#spec() abort
     call minpac#add('prabirshrestha/async.vim')
     call minpac#add('prabirshrestha/vim-lsp', {'type': 'opt'})
     call minpac#add('Shougo/echodoc.vim', {'type': 'opt'})
-    call minpac#add('fcpg/vim-complimentary')
+    call minpac#add('fcpg/vim-complimentary', {'type': 'opt'})
     " }}}
     " Code manipulation {{{
     call minpac#add('AndrewRadev/splitjoin.vim', {'type': 'opt'})
