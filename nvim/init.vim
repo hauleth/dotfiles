@@ -13,7 +13,7 @@ set rtp+=/usr/local/opt/fzf
 set packpath^=~/.local/share/nvim
 " }}}
 " Identation {{{
-set tabstop=4 shiftwidth=0 softtabstop=-1 expandtab
+set tabstop=4 shiftwidth=0 expandtab
 
 set textwidth=80
 set nowrap linebreak formatoptions+=l
@@ -62,7 +62,7 @@ let &statusline  = ''
 let &statusline .= ' '
 let &statusline .= '» %f%{statusline#modified()} «%<'
 let &statusline .= '%='
-let &statusline .= '%4c:%l'
+let &statusline .= '%{statusline#quickfix()} %4c:%l'
 let &statusline .= ' '
 " }}}
 " }}}
@@ -166,12 +166,6 @@ tnoremap <C-q> <C-\><C-n>
 if executable('nvr')
     let $EDITOR = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
 endif
-
-augroup terminal_config
-    au!
-    au BufEnter,BufWinEnter,WinEnter term://* set scrolloff=0
-    au BufLeave,BufWinLeave,WinLeave term://* set scrolloff=9999
-augroup END
 " }}}
 " Split management {{{
 augroup align_windows
@@ -208,29 +202,32 @@ nmap t <Plug>(snipe-t)
 " }}}
 " }}}
 " Completions {{{
-set complete=.,w,b,t,i
+set complete=.,w,b,t,u
 set completeopt=menu,longest,noselect
-let g:lsp_async_completion = 1
 let g:echodoc_enable_at_startup = 1
 let g:cpty_awk_cmd = 'mawk -f'
 
+let g:lsp_servers = [
+            \ {
+            \   'name': 'elixir-ls',
+            \   'cmd': {server_info->[&shell, &shellcmdflag, 'env ERL_LIBS=/Users/hauleth/Workspace/JakeBecker/elixir-ls/lsp mix elixir_ls.language_server']},
+            \   'whitelist': ['elixir'],
+            \ },
+            \ {
+            \   'name': 'rls',
+            \   'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+            \   'whitelist': ['rust'],
+            \ },
+            \ {
+            \   'name': 'vue-language-server',
+            \   'cmd': {server_info->['vls']},
+            \   'whitelist': ['vue'],
+            \ }
+            \ ]
+
 augroup lsp_servers
     au!
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'elixir-ls',
-                \ 'cmd': {server_info->[&shell, &shellcmdflag, 'env ERL_LIBS=/Users/hauleth/Workspace/JakeBecker/elixir-ls/lsp mix elixir_ls.language_server']},
-                \ 'whitelist': ['elixir'],
-                \ })
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'rls',
-                \ 'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-                \ 'whitelist': ['rust'],
-                \ })
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'vue-language-server',
-                \ 'cmd': {server_info->['vls']},
-                \ 'whitelist': ['vue'],
-                \ })
+    au User lsp_setup call completion#lsp()
 augroup END
 " }}}
 

@@ -1,6 +1,6 @@
 setlocal makeprg=mix
 setlocal tabstop=2
-setlocal omnifunc=lsp#complete
+setlocal iskeyword+=!,?
 
 command! -buffer ModuleName echo ft#elixir#module_name()
 command! -buffer Function echo ft#elixir#full_ident()

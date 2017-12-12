@@ -47,7 +47,7 @@ func! plugins#spec() abort
     call minpac#add('prabirshrestha/async.vim')
     call minpac#add('prabirshrestha/vim-lsp', {'type': 'opt'})
     call minpac#add('Shougo/echodoc.vim', {'type': 'opt'})
-    call minpac#add('fcpg/vim-complimentary', {'type': 'opt'})
+    call minpac#add('fcpg/vim-complimentary')
     " }}}
     " Code manipulation {{{
     call minpac#add('AndrewRadev/splitjoin.vim', {'type': 'opt'})

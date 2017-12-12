@@ -5,7 +5,7 @@ function enable
     and source (eval "$argv" | psub)
 end
 
-enable hub alias -s
+available lab; and alias git=lab
 enable direnv hook fish
 
 set fish_user_paths ~/Workspace/hauleth/dotfiles/bin \

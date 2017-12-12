@@ -1,1 +1,1 @@
-packadd vim-complimentary
+setlocal iskeyword-=#

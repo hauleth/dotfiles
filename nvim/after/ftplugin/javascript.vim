@@ -1,4 +1,5 @@
 setlocal tabstop=2
+setlocal makeprg=yarn
 
 augroup node_projectionist
     au!
