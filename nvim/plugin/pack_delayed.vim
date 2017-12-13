@@ -1,6 +1,7 @@
 func! s:delayed_load(...) abort
     packadd asyncdo.vim
     packadd auto-pairs
+    packadd echodoc.vim
     packadd sad.vim
     packadd splitjoin.vim
     packadd targets.vim
@@ -12,14 +13,12 @@ func! s:delayed_load(...) abort
     packadd vim-exchange
     packadd vim-highlightedyank
     packadd vim-lion
+    packadd vim-lsp
     packadd vim-qf
     packadd vim-qlist
-    packadd vim-repeat
     packadd vim-snipe
     packadd vim-surround
     packadd vim-unimpaired
-    packadd vim-lsp
-    packadd echodoc.vim
 
     call lsp#enable()
 

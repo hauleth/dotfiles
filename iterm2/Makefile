@@ -5,8 +5,8 @@ PWD = $(shell pwd)
 install: terminfo blame.itermcolors
 	cp ${PWD}/com.googlecode.iterm2.plist ${ITERM2_CONFIG_PATH}/
 
-terminfo: xterm-256color-italic.terminfo
-	tic $<
+terminfo: xterm-256color.terminfo
+	tic -o ${HOME}/.terminfo $<
 
 clean:
 	rm ${ITERM2_CONFIG_PATH}/com.googlecode.iterm2.plist
