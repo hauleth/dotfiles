@@ -10,20 +10,6 @@ inoreabbrev <buffer> excr extern crate
 nnoremap <buffer> K     <Plug>(rust-doc)
 nnoremap <buffer> <C-]> <Plug>(rust-def)
 
-ClearSwapList
-
-SwapList float f32 f64
-SwapList integers i8 i16 i32 i64
-SwapList unsigned u8 u16 u32 u64
-SwapList ref_mut & &mut
-SwapList string str String
-SwapList result Ok Err
-SwapList option Some None
-SwapList assert assert assert_eq
-SwapList print print println
-SwapList write write writeln
-SwapList module mod use
-
 augroup rust_projectionist
     au!
     autocmd User ProjectionistDetect call projections#rust#detect()

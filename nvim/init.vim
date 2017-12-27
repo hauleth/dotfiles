@@ -31,7 +31,7 @@ set termguicolors
 colorscheme blame
 " }}}
 " Ignore all automatic files and folders {{{
-set wildignore+=*.o,*~,*/.git,*/tmp,*/node_modules,*/_build,*/deps,*/target
+set wildignore+=*.o,*~,**/.git/**,**/tmp/**,**/node_modules/**,**/_build/**,**/deps/**,**/target/**,**/uploads/**
 " }}}
 " Display tabs and trailing spaces visually {{{
 set fillchars=vert:┃,fold:·
@@ -45,7 +45,7 @@ set noshowmode
 set nohidden autowriteall
 " }}}
 " Keep cursor in the middle {{{
-set scrolloff=9999
+set scrolloff=100
 " }}}
 " Enable mouse suport {{{
 set mouse=a
@@ -78,6 +78,7 @@ set undofile
 " Custom configurations {{{
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>FZF<CR>
+nnoremap <Space>f :<C-u>find **/
 " }}}
 " Git shortcuts {{{
 nnoremap U  <nop>
@@ -96,9 +97,9 @@ cabbrev G! Gina!
 " }}}
 " Asynchronous commands {{{
 command! -bang -nargs=* Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* Grep call asyncdo#run(<bang>0, &grepprg, <f-args>)
+command! -bang -nargs=* Grep silent! grep<bang> <args>
 command! -bang -nargs=* LMake call asyncdo#lrun(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* LGrep call asyncdo#lrun(<bang>0, &grepprg, <f-args>)
+command! -bang -nargs=* LGrep silent! lgrep<bang> <args>
 " }}}
 " Expand abbreviations on enter {{{
 inoremap <CR> <C-]><CR>
@@ -127,11 +128,11 @@ nnoremap Y y$
 nnoremap <expr> <CR> foldlevel('.') ? 'za' : "\<CR>"
 " }}}
 " Scratchpad {{{
-command! Scratchify setlocal nobuflisted buftype=nofile bufhidden=delete
-command! Scratch  enew   | Scratchify
-command! SScratch new    | Scratchify
-command! VScratch vnew   | Scratchify
-command! TScratch tabnew | Scratchify
+command! Scratchify setlocal nobuflisted noswapfile buftype=nofile bufhidden=delete
+command! Scratch  enew   |Scratchify
+command! SScratch new    +Scratchify
+command! VScratch vnew   +Scratchify
+command! TScratch tabnew +Scratchify
 " }}}
 " Format {{{
 nnoremap g= gg=Gg``
@@ -164,6 +165,7 @@ nnoremap <C-q>v :<C-u>vsplit +term<CR>
 nnoremap <C-q>t :<C-u>tabnew +term<CR>
 
 tnoremap <C-q> <C-\><C-n>
+inoremap <C-q> <ESC>
 
 if executable('nvr')
     let $EDITOR = 'nvr -cc split -c "set bufhidden=delete" --remote-wait'
@@ -205,34 +207,20 @@ nmap t <Plug>(snipe-t)
 " }}}
 " Completions {{{
 set complete=.,w,b,t,u
-set completeopt=menu,longest,noselect
+set completeopt=menuone,noselect,noinsert
+
+let g:lsp_async_completion = 1
 let g:echodoc_enable_at_startup = 1
-let g:cpty_awk_cmd = 'mawk -f'
 
-let g:lsp_servers = [
-            \ {
-            \   'name': 'elixir-ls',
-            \   'cmd': {server_info->[&shell, &shellcmdflag, 'env ERL_LIBS=/Users/hauleth/Workspace/JakeBecker/elixir-ls/lsp mix elixir_ls.language_server']},
-            \   'whitelist': ['elixir'],
-            \ },
-            \ {
-            \   'name': 'rls',
-            \   'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
-            \   'whitelist': ['rust'],
-            \ },
-            \ {
-            \   'name': 'vue-language-server',
-            \   'cmd': {server_info->['vls']},
-            \   'whitelist': ['vue'],
-            \ }
-            \ ]
+let g:usnip_dirs = ['~/.config/nvim/snips']
 
-augroup lsp_servers
+augroup lsp_servers_setup
     au!
     au User lsp_setup call completion#lsp()
 augroup END
 " }}}
 
-nnoremap zS :echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<'
+let g:vue_disable_pre_processors=1
+nnoremap zS :<C-u>echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<'
             \ . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<'
             \ . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'<CR>

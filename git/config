@@ -19,6 +19,7 @@
 	fixup = commit --fixup=HEAD
 	ag = grep
 	rg = grep
+	ver = tag --sort=version:refname
 
 [mergetool]
 	keepBackup = false

@@ -4,10 +4,10 @@ func! s:delayed_load(...) abort
     packadd echodoc.vim
     packadd sad.vim
     packadd splitjoin.vim
+    packadd switch.vim
     packadd targets.vim
     packadd vim-choosewin
     packadd vim-commentary
-    packadd vim-endwise
     packadd vim-enmasse
     packadd vim-eunuch
     packadd vim-exchange
@@ -16,6 +16,7 @@ func! s:delayed_load(...) abort
     packadd vim-lsp
     packadd vim-qf
     packadd vim-qlist
+    packadd vim-rsi
     packadd vim-snipe
     packadd vim-surround
     packadd vim-unimpaired

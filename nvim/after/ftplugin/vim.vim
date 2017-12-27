@@ -1,3 +1,3 @@
-packadd! vim-complimentary
+packadd vim-complimentary
 
 setlocal omnifunc=complimentary#CompleteCpty

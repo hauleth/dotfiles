@@ -47,31 +47,37 @@ func! plugins#spec() abort
     call minpac#add('prabirshrestha/vim-lsp', {'type': 'opt'})
     call minpac#add('Shougo/echodoc.vim', {'type': 'opt'})
     call minpac#add('fcpg/vim-complimentary', {'type': 'opt'})
+    call minpac#add('hauleth/usnip.vim')
     " }}}
     " Code manipulation {{{
     call minpac#add('AndrewRadev/splitjoin.vim', {'type': 'opt'})
     call minpac#add('hauleth/sad.vim', {'type': 'opt'})
     call minpac#add('jiangmiao/auto-pairs', {'type': 'opt'})
-    call minpac#add('mjbrownie/swapit') " Used in some ftplugins
+    call minpac#add('AndrewRadev/switch.vim', {'type': 'opt'})
     call minpac#add('tommcdo/vim-exchange', {'type': 'opt'})
     call minpac#add('tommcdo/vim-lion', {'type': 'opt'})
     call minpac#add('tpope/vim-commentary', {'type': 'opt'})
-    call minpac#add('tpope/vim-endwise', {'type': 'opt'})
+    call minpac#add('tpope/vim-endwise') " Requires access to au FileType
     call minpac#add('tpope/vim-surround', {'type': 'opt'})
+    " }}}
+    " Movements {{{
+    call minpac#add('wellle/targets.vim', {'type': 'opt'})
+    call minpac#add('yangmillstheory/vim-snipe', {'type': 'opt'})
     " }}}
     " Task running & quickfix {{{
     call minpac#add('hauleth/asyncdo.vim', {'type': 'opt'})
     call minpac#add('romainl/vim-qf', {'type': 'opt'})
     call minpac#add('romainl/vim-qlist', {'type': 'opt'})
+    call minpac#add('Olical/vim-enmasse', {'type': 'opt'})
+    " }}}
+    " Splits management {{{
+    call minpac#add('t9md/vim-choosewin', {'type': 'opt'})
     " }}}
     " Utils {{{
-    call minpac#add('Olical/vim-enmasse', {'type': 'opt'})
     call minpac#add('tpope/vim-repeat') " autoload-only plugin
     call minpac#add('tpope/vim-unimpaired', {'type': 'opt'})
-    call minpac#add('wellle/targets.vim', {'type': 'opt'})
-    call minpac#add('t9md/vim-choosewin', {'type': 'opt'})
+    call minpac#add('tpope/vim-rsi', {'type': 'opt'})
     call minpac#add('machakann/vim-highlightedyank', {'type': 'opt'})
-    call minpac#add('yangmillstheory/vim-snipe', {'type': 'opt'})
     call minpac#add('direnv/direnv.vim') " Requires access to VimEnter
     " }}}
 endfunc
