@@ -1,11 +1,10 @@
 scriptencoding utf-8
 
-nnoremap <buffer><silent> q :cclose<CR>
-nnoremap <buffer><silent> O <CR>:cclose<CR>
+setlocal nolist
 
-if &previewwindow
-    setlocal wrap
-endif
+nnoremap <buffer><silent> q :cclose<CR>
+nnoremap <buffer><silent> o <CR>
+nnoremap <buffer><silent> O <CR>:cclose<CR>
 
 let &l:statusline  = ''
 let &l:statusline .= ' '

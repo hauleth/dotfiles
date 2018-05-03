@@ -1,0 +1,5 @@
+#!/bin/sh
+
+ELIXIR_LS_PATH="${ELIXIR_LS_PATH:-"$HOME/.local/share/applications/lsp"}"
+
+exec "$ELIXIR_LS_PATH/language_server.sh"

@@ -2,4 +2,4 @@
 
 set -e
 
-git branch --merged master | grep -v '^\*' | grep -v master | xargs -n1 git branch -D
+git branch --merged master | grep -v '^\*' | grep -v master | xargs -n1 git branch -d

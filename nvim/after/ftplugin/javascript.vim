@@ -1,4 +1,4 @@
-setlocal tabstop=2
+setlocal shiftwidth=2
 setlocal makeprg=yarn
 
 setlocal includeexpr=ft#javascript#includeexpr(v:fname)

@@ -1,15 +1,12 @@
 let s:lsp_servers = [
             \ {
             \   'name': 'elixir-ls',
-            \   'cmd': {server_info->
-            \       [&shell,
-            \        &shellcmdflag,
-            \        'env ERL_LIBS='.<SID>append_env($ERL_LIBS, '~/Workspace/JakeBecker/elixir-ls/lsp').' mix elixir_ls.language_server']},
+            \   'cmd': {server_info->['elixir-ls']},
             \   'whitelist': ['elixir'],
             \ },
             \ {
             \   'name': 'rls',
-            \   'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
+            \   'cmd': {server_info->['rustup', 'run', 'beta', 'rls']},
             \   'whitelist': ['rust'],
             \ },
             \ {
@@ -23,24 +20,26 @@ func! s:append_env(env, path) abort
     return (a:env is# '' ? '' : a:env.':') . expand(a:path)
 endfunc
 
-func! s:has_server() abort
-    return len(lsp#get_whitelisted_servers()) > 0
-endfunc
-
 func! s:setup_mappings() abort
-    if !s:has_server() | return | endif
+    for l:server in lsp#get_whitelisted_servers()
+        let l:cap = lsp#get_server_capabilities(l:server)
 
-    if empty(&omnifunc)
-        setlocal omnifunc=lsp#complete
-    endif
+        if !empty(get(l:cap, 'completionProvider')) && empty(&omnifunc)
+            setlocal omnifunc=lsp#complete
+        endif
 
-    if !maparg('<C-]>') isnot# ''
-        nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
-    endif
+        if get(l:cap, 'definitionProvider') && maparg('<C-]>') is# ''
+            nnoremap <buffer> <C-]> :<C-u>LspDefinition<CR>
+        endif
 
-    if !maparg('K') isnot# ''
-        nnoremap <buffer> K :<C-u>LspHover<CR>
-    endif
+        if get(l:cap, 'documentFormattingProvider')
+            nnoremap <buffer> gQ :<C-u>LspDocumentFormat<CR>
+        endif
+
+        if get(l:cap, 'hoverProvider')
+            setlocal keywordprg=:LspHover
+        endif
+    endfor
 endfunc
 
 func! completion#lsp() abort
@@ -48,13 +47,13 @@ func! completion#lsp() abort
         call lsp#register_server(l:server)
     endfor
 
-    let g:lsp_log_verbose = 1
     let g:lsp_log_file=$HOME.'/.local/share/nvim/lsp.log'
 
     call s:setup_mappings()
 
-    augroup lsp_completion
-        au!
-        au FileType * call s:setup_mappings()
+    augroup lsp_mappings
+        autocmd!
+        autocmd User lsp_server_init call s:setup_mappings()
+        autocmd FileType * call s:setup_mappings()
     augroup END
 endfunc

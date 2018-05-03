@@ -1,33 +1,31 @@
-" vi: foldmethod=marker
+" vi: foldmethod=marker foldlevel=0
 scriptencoding utf-8
 
 " Plugins {{{
-" Unload unneeded plugins {{{
-let g:loaded_netrwPlugin   = 1 "$VIMRUNTIME/plugin/netrwPlugin.vim
-let g:loaded_2html_plugin  = 1 "$VIMRUNTIME/plugin/tohtml.vim
-" }}}
 command! -bar PackUpdate call plugins#reload() | call minpac#update()
 command! -bar PackClean  call plugins#reload() | call minpac#clean()
 
-set rtp+=/usr/local/opt/fzf
+set runtimepath^=/usr/local/opt/fzf/
 set packpath^=~/.local/share/nvim
 " }}}
 " Identation {{{
-set tabstop=4 shiftwidth=0 expandtab
+set shiftwidth=4 expandtab
 
 set textwidth=80
 set nowrap linebreak formatoptions+=l
 " }}}
 " User interface {{{
-" set lazyredraw
+set lazyredraw
+
+set title
 
 " Ignore case. If your code uses different casing to differentiate files, then
 " you need mental help
 set wildignorecase fileignorecase
+set wildmode=full
 " Colors {{{
-syntax sync minlines=256
-
 set termguicolors
+" set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
 colorscheme blame
 " }}}
 " Ignore all automatic files and folders {{{
@@ -45,7 +43,7 @@ set noshowmode
 set nohidden autowriteall
 " }}}
 " Keep cursor in the middle {{{
-set scrolloff=100
+set scrolloff=9999
 " }}}
 " Enable mouse suport {{{
 set mouse=a
@@ -59,18 +57,14 @@ set colorcolumn=+1
 " Split in CORRECT places {{{
 set splitright splitbelow
 " }}}
-" Statusline {{{
-let &statusline  = ''
-let &statusline .= ' '
-let &statusline .= '» %f%{statusline#modified()} «%<'
-let &statusline .= '%='
-let &statusline .= '%{statusline#quickfix()} %4c:%l'
-let &statusline .= ' '
-" }}}
 " }}}
 " Search {{{
 " Smart case searches
-set ignorecase smartcase inccommand=nosplit
+set ignorecase smartcase
+
+if has('inccommand')
+    set inccommand=nosplit
+end
 " }}}
 " Permanent undo {{{
 set undofile
@@ -78,28 +72,29 @@ set undofile
 " Custom configurations {{{
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>FZF<CR>
-nnoremap <Space>f :<C-u>find **/
+
+set path=,,
 " }}}
 " Git shortcuts {{{
 nnoremap U  <nop>
-nnoremap Up :<C-u>Gina push<CR>
-nnoremap Us :<C-u>Gina status -s<CR>
-nnoremap Ud :<C-u>Gina diff<CR>
-nnoremap Ub :<C-u>Gina branch<CR>
-nnoremap UB :<C-u>Gina blame<CR>
-nnoremap Uc :<C-u>Gina commit<CR>
-nnoremap Uu :<C-u>Gina pull<CR>
-nnoremap Ug :<C-u>Gina log --graph<CR>
+nnoremap Up :<C-u>Gpush<CR>
+nnoremap Us :<C-u>Gstatus<CR>
+nnoremap Ud :<C-u>Gdiff<CR>
+nnoremap Ub :<C-u>MerginalToggle<CR>
+nnoremap UB :<C-u>Gblame<CR>
+nnoremap Uc :<C-u>Gcommit<CR>
+nnoremap Uu :<C-u>Gpull<CR>
+nnoremap Ug :<C-u>Glog<CR>
 nmap     UU Uu
 
-cabbrev G  Gina
-cabbrev G! Gina!
+cabbrev G  Git
+cabbrev G! Git!
 " }}}
 " Asynchronous commands {{{
 command! -bang -nargs=* Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* Grep silent! grep<bang> <args>
+command! -bang -nargs=* Grep call asyncdo#run(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
 command! -bang -nargs=* LMake call asyncdo#lrun(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* LGrep silent! lgrep<bang> <args>
+command! -bang -nargs=* LGrep call asyncdo#lrun(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
 " }}}
 " Expand abbreviations on enter {{{
 inoremap <CR> <C-]><CR>
@@ -125,6 +120,9 @@ nnoremap q; q:
 nnoremap Y y$
 " }}}
 " Folding {{{
+set foldmethod=syntax
+set foldlevel=999
+
 nnoremap <expr> <CR> foldlevel('.') ? 'za' : "\<CR>"
 " }}}
 " Scratchpad {{{
@@ -139,7 +137,7 @@ nnoremap g= gg=Gg``
 noremap  Q  gq
 nnoremap gQ gggqG``
 
-command! Clean let _s = @/ | %s/\s\+$//e | let @/ = _s | set nohlsearch
+command! Clean keeppatterns %s/\s\+$//e | set nohlsearch
 " }}}
 " Search {{{
 if executable('rg')
@@ -158,7 +156,7 @@ nnoremap ]w gt
 nnoremap [w gT
 " }}}
 " Terminal {{{
-nmap <C-q> <Esc>
+nnoremap <C-q> <Nop>
 nnoremap <C-q>c :<C-u>term<CR>
 nnoremap <C-q>s :<C-u>split +term<CR>
 nnoremap <C-q>v :<C-u>vsplit +term<CR>
@@ -189,14 +187,10 @@ let g:startify_session_persistence = 1
 let g:startify_change_to_dir = 0
 let g:startify_change_to_vcs_root = 1
 " }}}
-" Match up {{{
-let g:matchup_matchparen_status_offscreen = 0
-" }}}
 " HighlihtedYank {{{
 let g:highlightedyank_highlight_duration = 200
 " }}}
 " Snipe f/F/t/T {{{
-" let g:snipe_jump_tokens = 'asdfghklqwertyuiopzxcvbnm'
 let g:snipe_jump_tokens = 'fhghdjskal'
 
 nmap F <Plug>(snipe-F)
@@ -206,11 +200,11 @@ nmap t <Plug>(snipe-t)
 " }}}
 " }}}
 " Completions {{{
-set complete=.,w,b,t,u
+set complete=.,w,b,t,k,kspell
 set completeopt=menuone,noselect,noinsert
 
-let g:lsp_async_completion = 1
-let g:echodoc_enable_at_startup = 1
+let g:lsp_async_completion = v:true
+let g:echodoc_enable_at_startup = v:true
 
 let g:usnip_dirs = ['~/.config/nvim/snips']
 
@@ -220,7 +214,10 @@ augroup lsp_servers_setup
 augroup END
 " }}}
 
-let g:vue_disable_pre_processors=1
-nnoremap zS :<C-u>echo 'hi<' . synIDattr(synID(line('.'),col('.'),1),'name') . '> trans<'
-            \ . synIDattr(synID(line('.'),col('.'),0),'name') . '> lo<'
-            \ . synIDattr(synIDtrans(synID(line('.'),col('.'),1)),'name') . '>'<CR>
+let g:pivotaltracker_name = 'hauleth'
+let g:peekaboo_delay = 1000
+
+augroup autoreload_config
+    autocmd!
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END

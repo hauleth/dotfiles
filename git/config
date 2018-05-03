@@ -1,5 +1,5 @@
 [core]
-	pager = "diff-so-fancy | less --tabs=4 -RFX"
+	pager = "/usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less --tabs=4 -RFX"
 
 [alias]
 	ai = add -i
@@ -20,6 +20,8 @@
 	ag = grep
 	rg = grep
 	ver = tag --sort=version:refname
+	skip = update-index --skip-worktree
+	unskip = update-index --no-skip-worktree
 
 [mergetool]
 	keepBackup = false

@@ -68,3 +68,4 @@ perf.data*
 *.socket
 .tool-versions-e
 # }}}
+.elixir_ls

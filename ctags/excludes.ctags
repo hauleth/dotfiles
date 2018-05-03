@@ -1,0 +1,5 @@
+--exclude=.git
+--exclude=log
+--exclude=tmp
+
+--fields=+l

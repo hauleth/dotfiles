@@ -1,0 +1,8 @@
+{
+    "nvim/init.vim": {
+        "type": "nvim"
+    },
+    "nvim/autoload/*.vim": {
+        "type": "autoload"
+    }
+}

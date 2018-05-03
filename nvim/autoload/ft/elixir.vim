@@ -36,3 +36,7 @@ func! ft#elixir#full_ident() abort
         echoerr 'No ident in current line'
     endif
 endfunc
+
+func! ft#elixir#mix_compl(lead, ...) abort
+    return systemlist("mix help | awk '/^mix ".a:lead."/ { print $2 }'")
+endfunc
