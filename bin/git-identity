@@ -2,14 +2,15 @@
 
 set -eo pipefail
 
-USAGE=<<EOF
+USAGE=$(cat <<EOF
 [-d|--define] <identity> <name> <email>
  | [-p|--print] <identity>
  | [-r|--remove] <identity>
  | [-l|--list]
  | [-R|--list-raw]
+ | [-h|--help]
  | <identity>
-EOF
+EOF)
 
 lookup () {
   local identity="$1"
@@ -98,6 +99,10 @@ remove_identity () {
 
 IDENTITY="$1"
 
+usage () {
+  echo "${USAGE}"
+}
+
 check_arguments () {
   if [ "$1" -lt "$2" ]; then
     usage
@@ -127,6 +132,11 @@ case "$IDENTITY" in
   -p|--print)
     shift
     print_raw_identity "$1"
+    ;;
+
+  -h|--help)
+    shift
+    usage
     ;;
 
   *) use_identity "$IDENTITY" ;;
