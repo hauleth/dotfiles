@@ -1,0 +1,40 @@
+# enter fullscreen mode for the focused container
+ctrl + cmd - f : chunkc tiling::window --toggle fullscreen
+
+# change focus between tiling / floating windows
+shift + ctrl + cmd - space : chunkc tiling::window --toggle float
+
+# change layout of desktop
+ctrl + cmd - e : chunkc tiling::desktop --layout bsp
+ctrl + cmd - s : chunkc tiling::desktop --layout monocle
+
+# kill focused window
+shift + ctrl + cmd - q : chunkc tiling::window --close
+
+# change focus
+ctrl + cmd - h : chunkc tiling::window --focus west
+ctrl + cmd - j : chunkc tiling::window --focus south
+ctrl + cmd - k : chunkc tiling::window --focus north
+ctrl + cmd - l : chunkc tiling::window --focus east
+
+ctrl + cmd - p : chunkc tiling::window --focus prev
+ctrl + cmd - n : chunkc tiling::window --focus next
+
+# move focused window
+shift + ctrl + cmd - h : chunkc tiling::window --warp west
+shift + ctrl + cmd - j : chunkc tiling::window --warp south
+shift + ctrl + cmd - k : chunkc tiling::window --warp north
+shift + ctrl + cmd - l : chunkc tiling::window --warp east
+
+ctrl + cmd - r : chunkc tiling::desktop --rotate 90
+
+# move focused container to workspace
+shift + ctrl + cmd - m : chunkc tiling::window --send-to-desktop $(chunkc get _last_active_desktop)
+shift + ctrl + cmd - p : chunkc tiling::window --send-to-desktop prev
+shift + ctrl + cmd - n : chunkc tiling::window --send-to-desktop next
+shift + ctrl + cmd - 1 : chunkc tiling::window --send-to-desktop 1
+shift + ctrl + cmd - 2 : chunkc tiling::window --send-to-desktop 2
+shift + ctrl + cmd - 3 : chunkc tiling::window --send-to-desktop 3
+shift + ctrl + cmd - 4 : chunkc tiling::window --send-to-desktop 4
+shift + ctrl + cmd - 5 : chunkc tiling::window --send-to-desktop 5
+shift + ctrl + cmd - 6 : chunkc tiling::window --send-to-desktop 6

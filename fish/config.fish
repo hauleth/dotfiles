@@ -8,10 +8,10 @@ end
 alias git=hub
 source (direnv hook fish | psub)
 
+set -x LESS '-SRFXi'
+
 set fish_user_paths ~/Workspace/hauleth/dotfiles/bin \
-                    ~/.bin \
                     ~/.cargo/bin \
-                    ~/.mix \
                     /usr/local/opt/gettext/bin
 
 if not functions -q fundle

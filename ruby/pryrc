@@ -1,5 +1,0 @@
-# Editor {{{
-Pry.config.editor = 'nvim'
-# }}}
-
-Pry.config.theme = "solarized"

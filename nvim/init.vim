@@ -203,6 +203,9 @@ nmap t <Plug>(snipe-t)
 set complete=.,w,b,t,k,kspell
 set completeopt=menuone,noselect,noinsert
 
+" Set username for PT plugin
+let g:pivotaltracker_name = 'hauleth'
+
 let g:lsp_async_completion = v:true
 let g:echodoc_enable_at_startup = v:true
 
@@ -213,11 +216,12 @@ augroup lsp_servers_setup
     au User lsp_setup call completion#lsp()
 augroup END
 " }}}
-
-let g:pivotaltracker_name = 'hauleth'
-let g:peekaboo_delay = 1000
-
+" Reload $MYVIMRC on save {{{
 augroup autoreload_config
     autocmd!
     autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
+" }}}
+
+" Load custom configuration for given machine
+runtime custom.vim

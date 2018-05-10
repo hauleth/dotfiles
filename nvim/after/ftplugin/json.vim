@@ -1,4 +1,5 @@
 setlocal formatprg=jq\ .
+setlocal shiftwidth=2
 
 augroup node_projectionist
     au!
