@@ -3,20 +3,43 @@
 set -eo pipefail
 
 USAGE=$(cat <<EOF
-[-d|--define] <identity> <name> <email>
+ | [-d|--define] <identity> <name> <email>
  | [-p|--print] <identity>
  | [-r|--remove] <identity>
  | [-l|--list]
  | [-R|--list-raw]
  | [-h|--help]
  | <identity>
+
+Define identity globally:
+  git -d private "My Name Suername" me@example.com
+  git -d company "My Name Suername" me@your-company.com
+
+Use identity in your git repository:
+  cd your_repository
+  git identity private
+
+List current identity:
+  cd your_repository
+  git identity private
+ 
+Print current identity:
+  cd your_repository
+  git identity
+
 EOF)
+
+error () {
+  local message="$1"
+  (>&2 echo "$message")
+  exit 1
+}
 
 lookup () {
   local identity="$1"
   local key="$2"
 
-  git config "identity.$identity.$key"
+  git config "identity.$identity.$key" || error "Unknown identity: $identity"
 }
 
 format_identity () {
@@ -72,9 +95,20 @@ print_raw_identity () {
 print_current_identity () {
   local identity
 
-  identity="$(git config user.identity)"
-
-  echo "Current identity: $(format_identity "$identity")"
+  identity="$(git config user.identity || echo "")"
+  if [ "$identity" ]; then
+    echo "Current identity: $(format_identity "$identity")"
+  else
+    (>&2 echo "=================================================")
+    (>&2 echo -e "\033[0;31mNO IDENTITY SET\033[0m")
+    (>&2 echo "Your name: $(git config user.name)")
+    (>&2 echo "Your email: $(git config user.email)")
+    (>&2 echo "=================================================")
+    (>&2 echo "How to use this tool")
+    (>&2 echo "${USAGE}")
+    (>&2 echo "=================================================")
+    exit 1
+  fi
 }
 
 define_identity () {
