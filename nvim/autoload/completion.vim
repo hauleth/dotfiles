@@ -1,12 +1,12 @@
 let s:lsp_servers = [
             \ {
             \   'name': 'elixir-ls',
-            \   'cmd': {server_info->['elixir-ls']},
+            \   'cmd': {server_info->[$HOME.'/.local/share/applications/lsp/language_server.sh']},
             \   'whitelist': ['elixir'],
             \ },
             \ {
             \   'name': 'rls',
-            \   'cmd': {server_info->['rustup', 'run', 'beta', 'rls']},
+            \   'cmd': {server_info->['rustup', 'run', 'nightly', 'rls']},
             \   'whitelist': ['rust'],
             \ },
             \ {

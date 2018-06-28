@@ -13,6 +13,20 @@ let s:projections = {
             \ 'priv/**/migrations/*.exs': { 'type': 'migration' },
             \ 'mix.exs': { 'type': 'mix' },
             \ 'config/*.exs': { 'type': 'config' },
+            \ '*.ex': {
+            \   'makery': {
+            \     'lint': { 'compiler': 'credo' },
+            \     'test': { 'compiler': 'exunit' },
+            \     'build': { 'compiler': 'mix' }
+            \   }
+            \ },
+            \ '*.exs': {
+            \   'makery': {
+            \     'lint': { 'compiler': 'credo' },
+            \     'test': { 'compiler': 'exunit' },
+            \     'build': { 'compiler': 'mix' }
+            \   }
+            \ }
             \ }
 
 func! projections#elixir#detect() abort

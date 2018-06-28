@@ -25,12 +25,12 @@ z40=0000000000000000000000000000000000000000
 IFS=' '
 while read local_ref local_sha remote_ref remote_sha
 do
-  if [ "$local_sha" = $z40 ]
+  if [ "$local_sha" = "$z40" ]
   then
     # Handle delete
     :
   else
-    if [ "$remote_sha" = $z40 ]
+    if [ "$remote_sha" = "$z40" ]
     then
       # New branch, examine all commits
       range="$local_sha"
@@ -40,7 +40,7 @@ do
     fi
 
     # Check for WIP commit
-    commit=$(git rev-list -n 1 --grep -i '^WIP' "$range")
+    commit="$(git rev-list -n 1 -i --grep '^WIP' "$range")"
     if [ -n "$commit" ]
     then
       echo "Found WIP commit in $local_ref, not pushing"

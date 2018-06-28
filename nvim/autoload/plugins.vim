@@ -54,7 +54,6 @@ func! plugins#spec() abort
     " Code manipulation {{{
     call minpac#add('AndrewRadev/splitjoin.vim', {'type': 'opt'})
     call minpac#add('hauleth/sad.vim', {'type': 'opt'})
-    call minpac#add('jiangmiao/auto-pairs', {'type': 'opt'})
     call minpac#add('tommcdo/vim-exchange', {'type': 'opt'})
     call minpac#add('tommcdo/vim-lion', {'type': 'opt'})
     call minpac#add('tpope/vim-commentary', {'type': 'opt'})
@@ -63,8 +62,8 @@ func! plugins#spec() abort
     " }}}
     " Movements {{{
     call minpac#add('wellle/targets.vim', {'type': 'opt'})
-    call minpac#add('yangmillstheory/vim-snipe', {'type': 'opt'})
     call minpac#add('tommcdo/vim-ninja-feet')
+    call minpac#add('rhysd/clever-f.vim')
     " }}}
     " Task running & quickfix {{{
     call minpac#add('hauleth/asyncdo.vim', {'type': 'opt'})
@@ -85,5 +84,9 @@ func! plugins#spec() abort
     call minpac#add('sgur/vim-editorconfig') " Required during startup
     call minpac#add('tpope/vim-characterize')
     call minpac#add('junegunn/limelight.vim')
+    call minpac#add('wakatime/vim-wakatime', {'type': 'opt'})
+    call minpac#add('https://gitlab.com/hauleth/qfx.vim.git')
+    call minpac#add('tpope/vim-dadbod')
+    call minpac#add('https://gitlab.com/hauleth/smart.vim.git')
     " }}}
 endfunc

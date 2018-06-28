@@ -2,6 +2,8 @@
 scriptencoding utf-8
 
 " Plugins {{{
+let g:loaded_netrwPlugin = 1
+
 command! -bar PackUpdate call plugins#reload() | call minpac#update()
 command! -bar PackClean  call plugins#reload() | call minpac#clean()
 
@@ -62,7 +64,7 @@ set splitright splitbelow
 " Smart case searches
 set ignorecase smartcase
 
-if has('inccommand')
+if exists('+inccommand')
     set inccommand=nosplit
 end
 " }}}
@@ -92,9 +94,9 @@ cabbrev G! Git!
 " }}}
 " Asynchronous commands {{{
 command! -bang -nargs=* Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* Grep call asyncdo#run(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
+command! -bang -nargs=* -complete=dir Grep call asyncdo#run(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
 command! -bang -nargs=* LMake call asyncdo#lrun(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* LGrep call asyncdo#lrun(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
+command! -bang -nargs=* -complete=dir LGrep call asyncdo#lrun(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
 " }}}
 " Expand abbreviations on enter {{{
 inoremap <CR> <C-]><CR>
@@ -190,14 +192,6 @@ let g:startify_change_to_vcs_root = 1
 " HighlihtedYank {{{
 let g:highlightedyank_highlight_duration = 200
 " }}}
-" Snipe f/F/t/T {{{
-let g:snipe_jump_tokens = 'fhghdjskal'
-
-nmap F <Plug>(snipe-F)
-nmap f <Plug>(snipe-f)
-nmap T <Plug>(snipe-T)
-nmap t <Plug>(snipe-t)
-" }}}
 " }}}
 " Completions {{{
 set complete=.,w,b,t,k,kspell
@@ -219,9 +213,12 @@ augroup END
 " Reload $MYVIMRC on save {{{
 augroup autoreload_config
     autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
+    autocmd BufWritePost $MYVIMRC source $MYVIMRC | e!
 augroup END
 " }}}
+
+" Needed for Projectionist and dadbod
+command! -nargs=* Start <mods> split term://<args>
 
 " Load custom configuration for given machine
 runtime custom.vim

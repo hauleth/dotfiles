@@ -1,13 +1,9 @@
 func! did_you_mean#call()
     try
         let l:glob = expand('%').'*'
-        " As of Vim 7.4, glob() has an optional parameter to split, but not
-        " everybody is using 7.4 yet
         let l:matching_files = glob(l:glob, v:false, v:true)
 
-        if empty(l:matching_files)
-            return
-        endif
+        if empty(l:matching_files) | return | endif
     catch
         return
     endtry
@@ -22,8 +18,8 @@ func! did_you_mean#call()
     if l:selected_number >= 1 && l:selected_number <= len(l:matching_files)
         let l:tmp = @#
         let l:empty_buffer_nr = bufnr('%')
-        execute ':edit ' . fnameescape(l:matching_files[l:selected_number-1])
-        execute ':silent bdelete ' . l:empty_buffer_nr
+        execute 'edit ' . fnameescape(l:matching_files[l:selected_number-1])
+        execute 'silent bdelete ' . l:empty_buffer_nr
         let @# = l:tmp
     endif
 endfunc

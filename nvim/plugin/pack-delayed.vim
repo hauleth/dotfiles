@@ -12,7 +12,6 @@ func! s:delayed_load(...) " No abort as we want to continue if any plugin fails
                 \ | packadd vim-merginal
 
     packadd asyncdo.vim
-    packadd auto-pairs
     packadd echodoc.vim
     packadd sad.vim
     packadd splitjoin.vim
@@ -26,12 +25,10 @@ func! s:delayed_load(...) " No abort as we want to continue if any plugin fails
     packadd vim-qf
     packadd vim-qlist
     packadd vim-rsi
-    packadd vim-snipe
     packadd vim-surround
     packadd vim-unimpaired
+    packadd vim-wakatime
     echom 'Loaded plugins'
-
-    au! delayed_pack_load VimEnter *
 endfunc
 
 augroup delayed_pack_load
