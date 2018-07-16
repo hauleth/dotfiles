@@ -113,9 +113,9 @@ nnoremap ZX :cq<CR>
 " }}}
 " Simplify switching to Command mode {{{
 nnoremap ; :
-vnoremap ; :
+xnoremap ; :
 nnoremap : ;
-vnoremap : ;
+xnoremap : ;
 nnoremap q; q:
 " }}}
 " Fix idiotic vim defaults {{{
@@ -219,6 +219,9 @@ augroup END
 
 " Needed for Projectionist and dadbod
 command! -nargs=* Start <mods> split term://<args>
+command! -nargs=? Dash call dash#open(<f-args>)
+
+nnoremap gK :Dash<CR>
 
 " Load custom configuration for given machine
 runtime custom.vim

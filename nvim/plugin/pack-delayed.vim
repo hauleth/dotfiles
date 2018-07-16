@@ -27,7 +27,10 @@ func! s:delayed_load(...) " No abort as we want to continue if any plugin fails
     packadd vim-rsi
     packadd vim-surround
     packadd vim-unimpaired
-    packadd vim-wakatime
+
+    if get(g:, 'wakatime_enabled', v:false)
+        packadd vim-wakatime
+    endif
     echom 'Loaded plugins'
 endfunc
 

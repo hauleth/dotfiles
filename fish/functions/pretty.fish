@@ -1,3 +1,3 @@
-function pretty
-    pygmentize -f terminal -g $argv | less -RS
+function pretty --wrap highlight
+    highlight -O ansi --force --stdout $argv | less -RS
 end

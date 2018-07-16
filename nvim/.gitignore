@@ -1,3 +1,4 @@
 /spell
 /tags/*
 !/nvim/tags
+custom.vim

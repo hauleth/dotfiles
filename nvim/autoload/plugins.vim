@@ -32,6 +32,7 @@ func! plugins#spec() abort
     call minpac#add('tsandall/vim-rego') " ftplugin
     call minpac#add('posva/vim-vue') " ftplugin
     call minpac#add('tpope/vim-scriptease') " ftplugin
+    call minpac#add('saltstack/salt-vim') " ftplugin
     " }}}
     " Git {{{
     call minpac#add('tpope/vim-fugitive', { 'type': 'opt' })
@@ -80,7 +81,9 @@ func! plugins#spec() abort
     call minpac#add('tpope/vim-unimpaired', {'type': 'opt'})
     call minpac#add('tpope/vim-rsi', {'type': 'opt'})
     call minpac#add('machakann/vim-highlightedyank')
-    call minpac#add('direnv/direnv.vim') " Requires access to VimEnter
+    if executable('direnv')
+        call minpac#add('direnv/direnv.vim') " Requires access to VimEnter
+    endif
     call minpac#add('sgur/vim-editorconfig') " Required during startup
     call minpac#add('tpope/vim-characterize')
     call minpac#add('junegunn/limelight.vim')

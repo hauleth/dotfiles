@@ -24,3 +24,5 @@ fundle init
 if status --is-interactive
     keychain --eval --quiet -Q id_ed25519 | source
 end
+
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
