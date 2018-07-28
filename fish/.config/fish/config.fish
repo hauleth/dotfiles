@@ -6,10 +6,7 @@ source (direnv hook fish | psub)
 set -x LESS '-SRFXi'
 set -x ERL_AFLAGS '-kernel shell_history enabled'
 
-set fish_user_paths ~/Workspace/hauleth/dotfiles/bin \
-                    ~/.cargo/bin \
-                    /usr/local/opt/gettext/bin \
-                    ~/.cache/rebar3/bin/
+set fish_user_paths ~/Workspace/hauleth/dotfiles/bin ~/.cargo/bin /usr/local/opt/gettext/bin ~/.cache/rebar3/bin/
 
 if not functions -q fundle
     eval (curl -sfL https://git.io/fundle-install)
@@ -25,4 +22,5 @@ if status --is-interactive
     keychain --eval --quiet -Q id_ed25519 | source
 end
 
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
+test -e {$HOME}/.iterm2_shell_integration.fish
+and source {$HOME}/.iterm2_shell_integration.fish
