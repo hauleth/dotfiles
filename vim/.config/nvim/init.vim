@@ -135,9 +135,9 @@ command! VScratch vnew   +Scratchify
 command! TScratch tabnew +Scratchify
 " }}}
 " Format {{{
-nnoremap g= gg=Gg``
+nnoremap g= =aGg``
 noremap  Q  gq
-nnoremap gQ gggqG``
+nnoremap gQ gqaG``
 
 command! Clean keeppatterns %s/\s\+$//e | set nohlsearch
 " }}}
@@ -217,11 +217,21 @@ augroup autoreload_config
 augroup END
 " }}}
 
+if executable('direnv')
+    augroup autoreload_config
+        autocmd!
+        autocmd BufWritePost .envrc silent !direnv allow %
+    augroup END
+endif
+
 " Needed for Projectionist and dadbod
-command! -nargs=* Start <mods> split term://<args>
+command! -nargs=* Start <mods> split term://<args> <bar> startinsert
+command! -nargs=0 Ctags call jobstart(['ptags', '--include-ignored', '--include-untracked'])
 command! -nargs=? Dash call dash#open(<f-args>)
 
 nnoremap gK :Dash<CR>
+
+onoremap aG :<C-u>normal! ggVG<CR>
 
 " Load custom configuration for given machine
 runtime custom.vim

@@ -191,7 +191,7 @@ syn match   sqlAnyString    contained ".*" contains=sqlVariable
 syn region  sqlSetRegion    matchgroup=sqlStatement start="^\s*set\>" matchgroup=NONE end="$" contains=sqlSetOptions,sqlSetValues
 syn keyword sqlSetOptions   contained autorecovery colsep copytypecheck describe escchar flagger
 syn keyword sqlSetOptions   contained instance logsource long null recsep recsepchar
-syn keyword sqlSetOptions   contained 
+syn keyword sqlSetOptions   contained
 syn match   sqlSetOptions   contained "\<\(app\w*\|array\w*\|auto\w*\|autop\w*\)\>"
 syn match   sqlSetOptions   contained "\<\(autot\w*\|blo\w*\|cmds\w*\|con\w*\|copyc\w*\)\>"
 syn match   sqlSetOptions   contained "\<\(def\w*\|echo\|editf\w*\|emb\w*\|errorl\w*\|esc\w*\)\>"
