@@ -10,86 +10,80 @@ if !exists('*plugins#reload')
 endif
 
 func! plugins#spec() abort
-    packadd minpac
+    packadd vim-packager
 
-    echom 'Load minpac spec'
-
-    call minpac#init()
+    call packager#init({'dir': '~/.local/share/nvim/site/pack/packager'})
     " Package manager {{{
-    call minpac#add('k-takata/minpac', {'type': 'opt'})
+    call packager#add('kristijanhusak/vim-packager', {'type': 'opt'})
     " }}}
     " Colorscheme {{{
-    call minpac#add('hauleth/blame.vim') " colorscheme
-    " }}}
-    " Launch screen {{{
-    call minpac#add('mhinz/vim-startify') " Required during startup
-    " }}}
-    " Languages {{{
-    call minpac#add('cespare/vim-toml') " ftplugin
-    call minpac#add('dag/vim-fish') " ftplugin
-    call minpac#add('elixir-lang/vim-elixir') " ftplugin
-    call minpac#add('pangloss/vim-javascript') " ftplugin
-    call minpac#add('tsandall/vim-rego') " ftplugin
-    call minpac#add('posva/vim-vue') " ftplugin
-    call minpac#add('tpope/vim-scriptease') " ftplugin
-    call minpac#add('saltstack/salt-vim') " ftplugin
-    " }}}
-    " Git {{{
-    call minpac#add('tpope/vim-fugitive', { 'type': 'opt' })
-    call minpac#add('idanarye/vim-merginal', { 'type': 'opt' })
+    call packager#add('hauleth/blame.vim') " colorscheme
+    call packager#add('dylanaraps/wal.vim') " colorscheme
     " }}}
     " Project navigation {{{
-    call minpac#add('tpope/vim-projectionist') " Requires access to VimEnter
+    call packager#add('tpope/vim-projectionist') " Requires access to VimEnter
+    " }}}
+    " Git {{{
+    call packager#add('tpope/vim-fugitive', { 'type': 'opt' })
+    " }}}
+    " Launch screen {{{
+    call packager#add('mhinz/vim-startify') " Required during startup
+    " }}}
+    " Languages {{{
+    call packager#add('aklt/plantuml-syntax') " ftplugin
+    call packager#add('b4b4r07/vim-hcl') " ftplugin
+    call packager#add('cespare/vim-toml') " ftplugin
+    call packager#add('dag/vim-fish') " ftplugin
+    call packager#add('elixir-lang/vim-elixir') " ftplugin
+    call packager#add('pangloss/vim-javascript') " ftplugin
+    call packager#add('tpope/vim-cucumber') " ftplugin
+    call packager#add('tpope/vim-scriptease', {'type': 'opt'}) " ftplugin
+    call packager#add('LnL7/vim-nix')
     " }}}
     " File manager {{{
-    call minpac#add('justinmk/vim-dirvish') " Required for opening directories
-    call minpac#add('tpope/vim-eunuch', {'type': 'opt'})
+    call packager#add('justinmk/vim-dirvish') " Required for opening directories
+    call packager#add('tpope/vim-eunuch')
     " }}}
     " Completion {{{
-    call minpac#add('prabirshrestha/async.vim') " autoload-only
-    call minpac#add('prabirshrestha/vim-lsp')
-    call minpac#add('Shougo/echodoc.vim', {'type': 'opt'})
-    call minpac#add('fcpg/vim-complimentary') " autoload-only
-    call minpac#add('hauleth/pivotaltracker.vim') " autoload-only
+    call packager#add('prabirshrestha/async.vim') " autoload-only
+    call packager#add('prabirshrestha/vim-lsp')
+    call packager#add('Shougo/echodoc.vim')
+    call packager#add('fcpg/vim-complimentary') " autoload-only
+    call packager#add('vim-erlang/vim-erlang-omnicomplete')
     " }}}
     " Code manipulation {{{
-    call minpac#add('AndrewRadev/splitjoin.vim', {'type': 'opt'})
-    call minpac#add('hauleth/sad.vim', {'type': 'opt'})
-    call minpac#add('tommcdo/vim-exchange', {'type': 'opt'})
-    call minpac#add('tommcdo/vim-lion', {'type': 'opt'})
-    call minpac#add('tpope/vim-commentary', {'type': 'opt'})
-    call minpac#add('tpope/vim-endwise') " Requires access to au FileType
-    call minpac#add('tpope/vim-surround', {'type': 'opt'})
+    call packager#add('AndrewRadev/splitjoin.vim')
+    call packager#add('hauleth/sad.vim')
+    call packager#add('tommcdo/vim-exchange')
+    call packager#add('tommcdo/vim-lion')
+    call packager#add('tpope/vim-commentary')
+    call packager#add('tpope/vim-endwise') " Requires access to au FileType
+    call packager#add('machakann/vim-sandwich', {'type': 'opt'})
     " }}}
     " Movements {{{
-    call minpac#add('wellle/targets.vim', {'type': 'opt'})
-    call minpac#add('tommcdo/vim-ninja-feet')
-    call minpac#add('rhysd/clever-f.vim')
+    call packager#add('wellle/targets.vim', {'type': 'opt'})
+    call packager#add('rhysd/clever-f.vim')
+    call packager#add('edkolev/erlang-motions.vim')
     " }}}
     " Task running & quickfix {{{
-    call minpac#add('hauleth/asyncdo.vim', {'type': 'opt'})
-    call minpac#add('romainl/vim-qf', {'type': 'opt'})
-    call minpac#add('romainl/vim-qlist', {'type': 'opt'})
-    call minpac#add('Olical/vim-enmasse', {'type': 'opt'})
-    call minpac#add('igemnace/vim-makery')
+    call packager#add('hauleth/asyncdo.vim')
+    call packager#add('romainl/vim-qf')
+    call packager#add('romainl/vim-qlist')
+    call packager#add('Olical/vim-enmasse')
+    call packager#add('igemnace/vim-makery')
     " }}}
     " Splits management {{{
-    call minpac#add('t9md/vim-choosewin', {'type': 'opt'})
+    call packager#add('t9md/vim-choosewin')
     " }}}
     " Utils {{{
-    call minpac#add('tpope/vim-repeat') " autoload-only plugin
-    call minpac#add('tpope/vim-unimpaired', {'type': 'opt'})
-    call minpac#add('tpope/vim-rsi', {'type': 'opt'})
-    call minpac#add('machakann/vim-highlightedyank')
-    if executable('direnv')
-        call minpac#add('direnv/direnv.vim') " Requires access to VimEnter
-    endif
-    call minpac#add('sgur/vim-editorconfig') " Required during startup
-    call minpac#add('tpope/vim-characterize')
-    call minpac#add('junegunn/limelight.vim')
-    call minpac#add('wakatime/vim-wakatime', {'type': 'opt'})
-    call minpac#add('https://gitlab.com/hauleth/qfx.vim.git')
-    call minpac#add('tpope/vim-dadbod')
-    call minpac#add('https://gitlab.com/hauleth/smart.vim.git')
+    call packager#add('tpope/vim-repeat') " autoload-only plugin
+    call packager#add('tpope/vim-unimpaired', {'type': 'opt'})
+    call packager#add('tpope/vim-rsi')
+    call packager#add('direnv/direnv.vim', {'type': 'opt'})
+    call packager#add('sgur/vim-editorconfig') " Required during startup
+    call packager#add('tpope/vim-characterize')
+    call packager#add('https://gitlab.com/hauleth/qfx.vim.git')
+    call packager#add('tpope/vim-dadbod')
+    call packager#add('https://gitlab.com/hauleth/smart.vim.git')
     " }}}
 endfunc

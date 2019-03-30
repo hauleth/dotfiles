@@ -1,3 +1,0 @@
-[submodule "nvim/pack/minpac/opt/minpac"]
-	path = nvim/pack/minpac/opt/minpac
-	url = git://github.com/k-takata/minpac.git

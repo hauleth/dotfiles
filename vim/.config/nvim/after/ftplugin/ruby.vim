@@ -1,2 +1,4 @@
 setlocal formatprg=rubocop-clean
-setlocal tabstop=2
+setlocal shiftwidth=2
+
+let b:undo_ftplugin = b:undo_ftplugin . ' | setl fp& sw&'

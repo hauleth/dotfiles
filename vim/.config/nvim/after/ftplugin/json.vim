@@ -1,7 +1,4 @@
-setlocal formatprg=jq\ .
+setlocal equalprg=jq\ .
 setlocal shiftwidth=2
 
-augroup node_projectionist
-    au!
-    autocmd User ProjectionistDetect call projections#node#detect()
-augroup END
+let b:undo_ftplugin = 'setl ep& sw&'

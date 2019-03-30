@@ -1,18 +1,10 @@
-LNFLAGS = -sf
-export LN = ln $(LNFLAGS)
-
-export WGET = wget -Nqnv
-
-export PWD = $(shell pwd)
-
-TARGETS ?= fish bin nvim git utils iterm2 ctags wm
+TARGETS ?= fish vim kitty git ctags wm misc
 
 all: $(TARGETS)
 
 $(TARGETS):
-	$(MAKE) -C $@ install
-
-update:
-	@git submodule foreach git pull
+	@printf "%s\t" $@
+	@stow -t "${HOME}" -R "$@" 2> /dev/null && printf "\033[32m✓" || printf "\033[31m✗"
+	@printf "\033[m\n"
 
 .PHONY: $(TARGETS) all

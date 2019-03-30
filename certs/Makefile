@@ -1,18 +1,31 @@
-PRIV_KEY = private.key
-CERT     = cert.csr
+NAME     ?= localhost
+DOMAIN   ?= localhost
+
+KEY      ?= ${NAME}.key
+SIGN_REQ ?= ${NAME}.csr
+CERT     ?= ${NAME}.crt
+
+SUBJECT = "/C=US/ST=Connecticut/O=/localityName=New Haven/commonName=${DOMAIN}/commonName=*.${DOMAIN}/organizationalUnitName=/emailAddress=/"
 
 all: ${CERT}
 
-clean:
-	$(RM) -rf ${PRIV_KEY} ${CERT}
+install: all
+	security import ${CERT}
+	security add-trusted-cert ${CERT}
+
+clea:
+	$(RM) -rf ${KEY} ${CERT} ${SIGN_REQ}
 
 verify: ${CERT}
 	openssl x509 -noout -text -in $<
 
-${PRIV_KEY}:
-	openssl genrsa -out $@ 2048
+${KEY}:
+	openssl genrsa -out "$@" 2048
 
-${CERT}: self-signed.conf ${PRIV_KEY}
-	openssl req -config $< -new -x509 -sha256 -key ${PRIV_KEY} -days 3650 -out $@ -subj "/C=US/ST=California/L=San Francisco/O=My Company, Inc./CN=localhost/"
+${SIGN_REQ}: ${KEY}
+	openssl req -new -sha256 -subj $(SUBJECT) -key "$<" -out "$@" -passin pass:""
 
-.PHONY: all clean verify
+${CERT}: ${SIGN_REQ} ${KEY}
+	openssl x509 -req -days 365 -in "${SIGN_REQ}" -signkey "${KEY}" -out "$@"
+
+.PHONY: all clean verify install

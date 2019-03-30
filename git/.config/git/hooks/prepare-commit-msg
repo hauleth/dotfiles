@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git riff hook "prepare-commit-msg" "$@"

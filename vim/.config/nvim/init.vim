@@ -1,14 +1,19 @@
 " vi: foldmethod=marker foldlevel=0
 scriptencoding utf-8
 
+if exists('$IN_NIX_SHELL')
+    set shell=fish
+endif
+
 " Plugins {{{
 let g:loaded_netrwPlugin = 1
 
-command! -bar PackUpdate call plugins#reload() | call minpac#update()
-command! -bar PackClean  call plugins#reload() | call minpac#clean()
+command! -bar PackInstall call plugins#reload() | call packager#install()
+command! -bar PackUpdate  call plugins#reload() | call packager#update()
+command! -bar PackClean   call plugins#reload() | call packager#clean()
+command! -bar PackStatus  call plugins#reload() | call packager#status()
 
 set runtimepath^=/usr/local/opt/fzf/
-set packpath^=~/.local/share/nvim
 " }}}
 " Identation {{{
 set shiftwidth=4 expandtab
@@ -18,6 +23,8 @@ set nowrap linebreak formatoptions+=l
 " }}}
 " User interface {{{
 set lazyredraw
+
+set updatetime=500
 
 set title
 
@@ -60,6 +67,10 @@ set colorcolumn=+1
 set splitright splitbelow
 " }}}
 " }}}
+" Diff options {{{
+set diffopt-=internal
+set diffopt+=indent-heuristic,algorithm:patience
+" }}}
 " Search {{{
 " Smart case searches
 set ignorecase smartcase
@@ -83,7 +94,7 @@ nnoremap Up :<C-u>Gpush<CR>
 nnoremap Us :<C-u>Gstatus<CR>
 nnoremap Ud :<C-u>Gdiff<CR>
 nnoremap Ub :<C-u>MerginalToggle<CR>
-nnoremap UB :<C-u>Gblame<CR>
+nnoremap UB :<C-u>Start tig blame %<CR>
 nnoremap Uc :<C-u>Gcommit<CR>
 nnoremap Uu :<C-u>Gpull<CR>
 nnoremap Ug :<C-u>Glog<CR>
@@ -93,9 +104,11 @@ cabbrev G  Git
 cabbrev G! Git!
 " }}}
 " Asynchronous commands {{{
-command! -bang -nargs=* Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
-command! -bang -nargs=* -complete=dir Grep call asyncdo#run(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
-command! -bang -nargs=* LMake call asyncdo#lrun(<bang>0, &makeprg, <f-args>)
+command! -bang -nargs=* -complete=file Make call asyncdo#run(<bang>0, &makeprg, <f-args>)
+command! -bang -nargs=* -complete=dir Grep call asyncdo#run(<bang>0,
+            \ { 'job': &grepprg, 'errorformat': &grepformat },
+            \ <f-args>)
+command! -bang -nargs=* -complete=file LMake call asyncdo#lrun(<bang>0, &makeprg, <f-args>)
 command! -bang -nargs=* -complete=dir LGrep call asyncdo#lrun(<bang>0, { 'job': &grepprg, 'errorformat': &grepformat }, <f-args>)
 " }}}
 " Expand abbreviations on enter {{{
@@ -126,13 +139,6 @@ set foldmethod=syntax
 set foldlevel=999
 
 nnoremap <expr> <CR> foldlevel('.') ? 'za' : "\<CR>"
-" }}}
-" Scratchpad {{{
-command! Scratchify setlocal nobuflisted noswapfile buftype=nofile bufhidden=delete
-command! Scratch  enew   |Scratchify
-command! SScratch new    +Scratchify
-command! VScratch vnew   +Scratchify
-command! TScratch tabnew +Scratchify
 " }}}
 " Format {{{
 nnoremap g= =aGg``
@@ -182,56 +188,45 @@ nmap <C-_> <plug>(choosewin)
 " }}}
 " Startify {{{
 let g:startify_list_order = ['sessions', 'dir']
-let g:startify_session_dir = '~/.local/share/nvim/sessions/'
-let g:startify_session_autoload = 1
-let g:startify_session_persistence = 1
+let g:startify_session_dir = '~/.local/share/nvim/site/sessions/'
+let g:startify_session_autoload = v:true
+let g:startify_session_persistence = v:true
 
-let g:startify_change_to_dir = 0
-let g:startify_change_to_vcs_root = 1
-" }}}
-" HighlihtedYank {{{
-let g:highlightedyank_highlight_duration = 200
+let g:startify_change_to_dir = v:false
+let g:startify_change_to_vcs_root = v:true
+let g:startify_fortune_use_unicode = v:true
 " }}}
 " }}}
 " Completions {{{
 set complete=.,w,b,t,k,kspell
 set completeopt=menuone,noselect,noinsert
 
-" Set username for PT plugin
-let g:pivotaltracker_name = 'hauleth'
-
-let g:lsp_async_completion = v:true
-let g:echodoc_enable_at_startup = v:true
-
-let g:usnip_dirs = ['~/.config/nvim/snips']
-
-augroup lsp_servers_setup
-    au!
-    au User lsp_setup call completion#lsp()
-augroup END
+let g:echodoc#enable_at_startup = v:true
+let g:echodoc#type = 'virtual'
 " }}}
-" Reload $MYVIMRC on save {{{
-augroup autoreload_config
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC | e!
-augroup END
-" }}}
+
+set sessionoptions-=help
 
 if executable('direnv')
-    augroup autoreload_config
+    augroup autoreload_envrc
         autocmd!
         autocmd BufWritePost .envrc silent !direnv allow %
     augroup END
 endif
 
 " Needed for Projectionist and dadbod
-command! -nargs=* Start <mods> split term://<args> <bar> startinsert
-command! -nargs=0 Ctags call jobstart(['ptags', '--include-ignored', '--include-untracked'])
+command! -nargs=* Start <mods> split new <bar> call termopen(<q-args>) <bar> startinsert
+command! -nargs=0 Ctags AsyncDo ctags -R
 command! -nargs=? Dash call dash#open(<f-args>)
 
 nnoremap gK :Dash<CR>
 
 onoremap aG :<C-u>normal! ggVG<CR>
+
+command! Bd b#|bd#
+
+packadd! vim-sandwich
+runtime macros/sandwich/keymap/surround.vim
 
 " Load custom configuration for given machine
 runtime custom.vim

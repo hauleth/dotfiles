@@ -1,1 +1,4 @@
 --exclude=node_modules
+--exclude=project.json
+--exclude=package-lock.json
+--exclude=yarn.lock

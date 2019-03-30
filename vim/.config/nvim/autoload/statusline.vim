@@ -16,6 +16,8 @@ endfunction
 function! statusline#filename() abort
     if isdirectory(expand('%'))
         return 'Dirvish'
+    elseif &buftype ==# 'nofile' && (&bufhidden ==# 'hidden' || &bufhidden ==# 'delete')
+        return 'Scratch'
     else
         return fnamemodify(statusline#relpath(), ':t')
     endif

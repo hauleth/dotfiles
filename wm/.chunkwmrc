@@ -51,12 +51,12 @@ chunkc set window_float_next             0
 chunkc set window_float_center           1
 chunkc set window_region_locked          1
 
-chunkc set focused_border_color          "$NFOCUS"
+chunkc set focused_border_color          "0xFFc1c9d4"
 chunkc set focused_border_width          5
 chunkc set focused_border_radius         0
 chunkc set focused_border_skip_floating  0
 
-chunkc tiling::rule --owner Dash --state float
+chunkc tiling::rule --owner Dash --state sticky
 
 #
 # NOTE: specify plugins to load when chunkwm starts.

@@ -11,4 +11,4 @@ CompilerSet errorformat=
             \%f:%l:%c:\ %t:\ %m,
             \%f:%l:\ %t:\ %m
 
-CompilerSet makeprg=mix\ credo\ suggest\ --format=flycheck
+CompilerSet makeprg=mix\ credo\ list\ --format=flycheck
