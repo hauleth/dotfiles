@@ -2,3 +2,5 @@
 *.csr
 *.crt
 *.pem
+*.srl
+*.conf
