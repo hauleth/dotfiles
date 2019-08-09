@@ -2,3 +2,4 @@
 /tags/*
 !/nvim/tags
 /nvim/custom.vim
+/nvim/pack

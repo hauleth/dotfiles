@@ -11,7 +11,6 @@ endif
 
 func! plugins#spec() abort
     packadd vim-packager
-
     call packager#init({'dir': '~/.local/share/nvim/site/pack/packager'})
     " Package manager {{{
     call packager#add('kristijanhusak/vim-packager', {'type': 'opt'})
@@ -43,6 +42,7 @@ func! plugins#spec() abort
     " File manager {{{
     call packager#add('justinmk/vim-dirvish') " Required for opening directories
     call packager#add('tpope/vim-eunuch')
+    call packager#add('srstevenson/vim-picker')
     " }}}
     " Completion {{{
     call packager#add('prabirshrestha/async.vim') " autoload-only

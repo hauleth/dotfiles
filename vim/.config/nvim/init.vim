@@ -1,9 +1,7 @@
 " vi: foldmethod=marker foldlevel=0
 scriptencoding utf-8
 
-if exists('$IN_NIX_SHELL')
-    set shell=fish
-endif
+set shell=fish
 
 " Plugins {{{
 let g:loaded_netrwPlugin = 1
@@ -12,8 +10,6 @@ command! -bar PackInstall call plugins#reload() | call packager#install()
 command! -bar PackUpdate  call plugins#reload() | call packager#update()
 command! -bar PackClean   call plugins#reload() | call packager#clean()
 command! -bar PackStatus  call plugins#reload() | call packager#status()
-
-set runtimepath^=/usr/local/opt/fzf/
 " }}}
 " Identation {{{
 set shiftwidth=4 expandtab
@@ -34,7 +30,7 @@ set wildignorecase fileignorecase
 set wildmode=full
 " Colors {{{
 set termguicolors
-" set guicursor=n-v-c-sm:block,i-ci-ve:ver25,r-cr-o:hor20
+set guicursor=n-v-c-sm:block-Cursor,i-ci-ve:ver25-Cursor,r-cr-o:hor20-Cursor
 colorscheme blame
 " }}}
 " Ignore all automatic files and folders {{{
@@ -68,7 +64,6 @@ set splitright splitbelow
 " }}}
 " }}}
 " Diff options {{{
-set diffopt-=internal
 set diffopt+=indent-heuristic,algorithm:patience
 " }}}
 " Search {{{
@@ -84,7 +79,10 @@ set undofile
 " }}}
 " Custom configurations {{{
 " Fuzzy file search {{{
-nnoremap <Space><Space> :<C-u>FZF<CR>
+nnoremap <Space><Space> :<C-u>PickerEdit<CR>
+
+let g:picker_custom_find_executable = 'rg'
+let g:picker_custom_find_flags = '--color never --files --hidden --glob !.git'
 
 set path=,,
 " }}}
@@ -93,8 +91,7 @@ nnoremap U  <nop>
 nnoremap Up :<C-u>Gpush<CR>
 nnoremap Us :<C-u>Gstatus<CR>
 nnoremap Ud :<C-u>Gdiff<CR>
-nnoremap Ub :<C-u>MerginalToggle<CR>
-nnoremap UB :<C-u>Start tig blame %<CR>
+nnoremap UB :<C-u>Gblame<CR>
 nnoremap Uc :<C-u>Gcommit<CR>
 nnoremap Uu :<C-u>Gpull<CR>
 nnoremap Ug :<C-u>Glog<CR>
@@ -201,11 +198,13 @@ let g:startify_fortune_use_unicode = v:true
 set complete=.,w,b,t,k,kspell
 set completeopt=menuone,noselect,noinsert
 
+set tags^=./**/tags
+
 let g:echodoc#enable_at_startup = v:true
 let g:echodoc#type = 'virtual'
 " }}}
 
-set sessionoptions-=help
+set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
 
 if executable('direnv')
     augroup autoreload_envrc
@@ -214,12 +213,20 @@ if executable('direnv')
     augroup END
 endif
 
+augroup hotfix
+    autocmd!
+    autocmd FocusGained * checktime
+    autocmd CursorHold * checktime
+    autocmd ColorScheme * highlight LspErrorHighlight gui=underline cterm=underline
+                \ | highlight LspWarningHighlight gui=underline cterm=underline
+augroup END
 " Needed for Projectionist and dadbod
 command! -nargs=* Start <mods> split new <bar> call termopen(<q-args>) <bar> startinsert
 command! -nargs=0 Ctags AsyncDo ctags -R
 command! -nargs=? Dash call dash#open(<f-args>)
 
 nnoremap gK :Dash<CR>
+nnoremap gx :<C-u>call open#open()<CR>
 
 onoremap aG :<C-u>normal! ggVG<CR>
 
