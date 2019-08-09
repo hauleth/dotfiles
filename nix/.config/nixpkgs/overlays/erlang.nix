@@ -1,13 +1,18 @@
 self: super:
 
-{
-  fetchMixDeps = self.callPackage ./erlang/fetch-mix-deps.nix {};
+with self;
 
-  erlangSourcer = self.callPackage ./erlang/sourcer.nix {
-    erlang = self.beam.packages.erlang;
+let
+  fetchMixDeps = callPackage ./erlang/fetch-mix-deps.nix {};
+in
+{
+  inherit fetchMixDeps;
+
+  erlangSourcer = callPackage ./erlang/sourcer.nix {
+    erlang = beam.packages.erlang;
   };
 
   elixirLS = self.callPackage ./erlang/elixir-ls.nix {
-    erlang = self.beam.packages.erlang;
+    erlang = beam.packages.erlang;
   };
 }

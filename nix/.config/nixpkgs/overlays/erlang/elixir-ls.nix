@@ -1,4 +1,6 @@
-{ stdenv, erlang, fetchFromGitHub }:
+{ stdenv, erlang, fetchFromGitHub, fetchMixDeps, git }:
+
+with erlang;
 
 stdenv.mkDerivation rec {
   name = "elixir-ls";
