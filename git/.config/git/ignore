@@ -60,11 +60,11 @@ tmp/
 # Other {{{
 .rake_tasks
 .meteor/
-/tags
-/tags.*
+tags
+tags.*
 .gdb_history
 perf.data*
-/oprofile_data
+oprofile_data
 *.socket
 .tool-versions-e
 # }}}

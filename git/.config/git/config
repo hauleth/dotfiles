@@ -1,5 +1,4 @@
 [core]
-	pager = "/usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less --tabs=4 -RFX"
 	commitGraph = true
 [gc]
 	writeCommitGraph = true
@@ -24,6 +23,7 @@
 	skip = update-index --skip-worktree
 	unskip = update-index --no-skip-worktree
 	publish = push -u hauleth
+	cleaner = !git branch --merged master | grep -v '^[ *]*master$' | xargs -r git branch -d
 
 [mergetool]
 	keepBackup = false
@@ -66,7 +66,7 @@
 	enabled = true
 
 [diff]
-	suppressBlankEmpty = true
+	; suppressBlankEmpty = true
 	indentHeuristic = true
 	algorithm = histogram
 	mnemonicPrefix = true
@@ -74,5 +74,8 @@
 [color.diff]
 	old = blue
 	new = yellow
+
+[pack]
+	useSparse = true
 
 # vim: ft=gitconfig noexpandtab
