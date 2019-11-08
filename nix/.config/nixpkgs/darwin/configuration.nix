@@ -1,5 +1,8 @@
 { config, pkgs, ... }:
 
+let
+  gitFuller = pkgs.gitAndTools.gitFull.override { sendEmailSupport = true; };
+in
 {
   system.defaults.dock.autohide = true;
 
@@ -8,26 +11,35 @@
 
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
-  environment.systemPackages = with pkgs;
-    [ neovim
-      neovim-remote
-      universal-ctags
-      ripgrep
-      fzy
-      jq
-      direnv
-      git
-      gitAndTools.hub
-      gitAndTools.git-imerge
-      gitAndTools.git-test
-      gitAndTools.tig
-      gnupg
-      keychain
-      noti
-      entr
-      httpie
-      dnsmasq
-    ];
+  environment.systemPackages = with pkgs; [
+    aerc
+    asciinema
+    bat
+    coreutils
+    direnv
+    dnsmasq
+    entr
+    fzy
+    gitAndTools.diff-so-fancy
+    gitAndTools.git-imerge
+    gitAndTools.git-test
+    gitAndTools.hub
+    gitAndTools.tig
+    gitFuller
+    git-lfs
+    gnupg
+    httpie
+    imagemagick
+    jq
+    neovim
+    neovim-remote
+    nix-index
+    noti
+    ripgrep
+    universal-ctags
+    weechat
+    w3m
+  ];
 
   environment.shells = [ pkgs.fish ];
 
@@ -35,13 +47,17 @@
   fonts.fonts = let
     iosevkaTerm = pkgs.iosevka.override {
       set = "term";
-      family = "Iosevka Term";
-      design = [ "ss10" "term" ];
+      privateBuildPlan = {
+        family = "Iosevka Term";
+        design = [ "ss10" "cv10" "cv38" "cv62" "term" ];
+      };
     };
     iosevka = pkgs.iosevka.override {
       set = "ss10";
-      family = null;
-      design = [ "ss10" "calt-logic" ];
+      privateBuildPlan = {
+        family = "Iosevka";
+        design = [ "ss10" "cv10" "cv38" "cv62" "calt-logic" ];
+      };
     };
   in [
     pkgs.lato
@@ -67,7 +83,7 @@
     enable = true;
     text = ''
       address=/localhost/127.0.0.1
-      '';
+    '';
   };
   environment.etc."resolver/localhost" = {
     enable = true;

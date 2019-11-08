@@ -1,4 +1,4 @@
-{ stdenv, elixir, rebar3, git, cacert }:
+{ stdenv, elixir, rebar3, gitMinimal, cacert }:
 
 { name, version, sha256 ? null, src, env ? "prod" }:
 
@@ -7,7 +7,7 @@ with stdenv;
 mkDerivation {
   name = "mix-deps-${name}-${version}";
 
-  nativeBuildInputs = [ elixir git cacert ];
+  nativeBuildInputs = [ elixir gitMinimal cacert ];
 
   phases = [ "downloadPhase" "installPhase" ];
 
@@ -16,15 +16,11 @@ mkDerivation {
     export MIX_HOME=$PWD
     export MIX_ENV=${env}
 
-    echo $HEX_HOME
-
     cp -R ${src}/* .
 
     mix local.hex --force
     mix local.rebar rebar3 ${rebar3}/bin/rebar3
     mix deps.get
-
-    ls -la deps
     '';
 
   installPhase = ''
@@ -34,7 +30,6 @@ mkDerivation {
 
   outputHashAlgo = "sha256";
   outputHashMode = "recursive";
-  # outputHash = sha256;
 
   impureEnvVars = lib.fetchers.proxyImpureEnvVars;
 }

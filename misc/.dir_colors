@@ -2,7 +2,7 @@
 # Below are the color init strings for the basic file types. A color init
 # string consists of one or more of the following numeric codes:
 # Attribute codes:
-# 00=none 01=bold 04=underscore 05=blink 07=reverse 08=concealed
+# 00=none 01=bold 03=cursive 04=underscore 05=blink 07=reverse 08=concealed
 # Text color codes:
 # 30=black 31=red 32=green 33=yellow 34=blue 35=magenta 36=cyan 37=white
 # Background color codes:
@@ -14,7 +14,7 @@
 # Background 256 color coding:
 # 48;5;COLOR_NUMBER
 
-NORMAL 00;38;5;01 # no color code at all
+NORMAL 00;38;5;07 # no color code at all
 #FILE 00 # regular file: use no color at all
 RESET 0 # reset to "normal" color
 DIR 00;38;5;04 # directory 01;34
@@ -100,11 +100,11 @@ LINK 00;38;5;04 # symbolic link. (If you set this to 'target' instead of a
 .tex    01;38;5;01
 # }}}
 # "unimportant" files as logs and backups (base01) {{{
-.log    00;38;5;18
-.bak    00;38;5;18
-.aux    00;38;5;18
-.bbl    00;38;5;18
-.blg    00;38;5;18
+.log    00;38;5;5
+.bak    00;38;5;5
+.aux    00;38;5;5
+.bbl    00;38;5;5
+.blg    00;38;5;5
 # }}}
 # audio formats (orange) {{{
 .aac    00;38;5;06

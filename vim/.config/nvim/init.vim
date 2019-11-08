@@ -5,6 +5,7 @@ set shell=fish
 
 " Plugins {{{
 let g:loaded_netrwPlugin = 1
+let g:loaded_matchit = 1
 
 command! -bar PackInstall call plugins#reload() | call packager#install()
 command! -bar PackUpdate  call plugins#reload() | call packager#update()
@@ -56,9 +57,6 @@ set mouse=a
 " Hypen is part of the keyword, if you want to substract then add spaces {{{
 set iskeyword+=-
 " }}}
-" Show 80 column {{{
-set colorcolumn=+1
-" }}}
 " Split in CORRECT places {{{
 set splitright splitbelow
 " }}}
@@ -78,11 +76,24 @@ end
 set undofile
 " }}}
 " Custom configurations {{{
+" Matchparen {{{
+let g:matchup_matchparen_offscreen = {'method': 'popup'}
+
+augroup matchparen
+    autocmd!
+    autocmd BufEnter term://* NoMatchParen
+    autocmd BufLeave term://* DoMatchParen
+augroup END
+" }}}
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>PickerEdit<CR>
 
 let g:picker_custom_find_executable = 'rg'
 let g:picker_custom_find_flags = '--color never --files --hidden --glob !.git'
+let g:clap#provider#files# = {
+            \ 'source': 'rg --color never --files --hidden --glob !.git',
+            \ 'sink': 'e'
+            \ }
 
 set path=,,
 " }}}
@@ -215,11 +226,11 @@ endif
 
 augroup hotfix
     autocmd!
-    autocmd FocusGained * checktime
-    autocmd CursorHold * checktime
+    autocmd BufLeave * call utils#cleanup()
     autocmd ColorScheme * highlight LspErrorHighlight gui=underline cterm=underline
                 \ | highlight LspWarningHighlight gui=underline cterm=underline
 augroup END
+
 " Needed for Projectionist and dadbod
 command! -nargs=* Start <mods> split new <bar> call termopen(<q-args>) <bar> startinsert
 command! -nargs=0 Ctags AsyncDo ctags -R

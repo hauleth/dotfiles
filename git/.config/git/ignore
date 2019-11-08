@@ -69,3 +69,4 @@ oprofile_data
 .tool-versions-e
 # }}}
 .elixir_ls
+/.direnv

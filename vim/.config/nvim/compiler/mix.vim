@@ -8,4 +8,4 @@ if exists(":CompilerSet") != 2
 endif
 
 CompilerSet errorformat=%A%t%*[^:]:\ %m,%C%f:%l:\ %m,%C%f:%l,%Z
-CompilerSet makeprg=mix
+CompilerSet makeprg=mix\ compile

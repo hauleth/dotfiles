@@ -1,5 +1,6 @@
 [core]
 	commitGraph = true
+	pager = "diff-so-fancy | less --tabs=4 -RFX"
 [gc]
 	writeCommitGraph = true
 [alias]
@@ -19,11 +20,10 @@
 	com = checkout master
 	ag = grep
 	rg = grep
-	ver = tag --sort=version:refname
 	skip = update-index --skip-worktree
 	unskip = update-index --no-skip-worktree
 	publish = push -u hauleth
-	cleaner = !git branch --merged master | grep -v '^[ *]*master$' | xargs -r git branch -d
+	cleanup = "!git branch --format='%(refname:lstrip=2)' --no-contains HEAD --no-contains master --merged master | xargs -xn1 git branch -d"
 
 [mergetool]
 	keepBackup = false
@@ -36,6 +36,7 @@
 	autoSetupRebase = always
 [push]
 	default = simple
+	followTags = true
 [pull]
 	ff = only
 [merge]
@@ -53,6 +54,7 @@
 # Automatically sign all tags and commits
 [tag]
 	forceSignAnnotated = true
+	sort = version:refname
 [commit]
 	gpgsign = true
 	verbose = true
@@ -71,11 +73,29 @@
 	algorithm = histogram
 	mnemonicPrefix = true
 
+[diff "elixir"]
+	xfuncname = "^[ \t]*((def(macro|module|impl|guard|protocol)?p?|test)[ \t].*)$"
+
+[color]
+	ui = true
+
 [color.diff]
 	old = blue
 	new = yellow
 
+[color.diff-highlight]
+	oldNormal = "blue"
+	oldHighlight = "blue ul"
+	newNormal = "yellow"
+	newHighlight = "yellow ul"
+
 [pack]
 	useSparse = true
 
-# vim: ft=gitconfig noexpandtab
+[sendemail]
+	annotate = true
+	confirm = always
+	thread = true
+	supersscc = self
+
+# vim: ft=gitconfig noexpandtab sw=8

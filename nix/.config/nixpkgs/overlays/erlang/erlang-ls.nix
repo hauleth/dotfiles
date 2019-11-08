@@ -1,13 +1,11 @@
 { rebar3Relx, fetchFromGitHub, gitMinimal }:
 
 let
-  json = builtins.fromJSON (builtins.readFile ./sourcer.json);
+  json = builtins.fromJSON (builtins.readFile ./erlang-ls.json);
 in rebar3Relx rec {
-  name = "erlang-sourcer";
+  name = "erlang-ls";
   version = json.rev;
   releaseType = "escript";
-
-  nativeBuildInputs = [ gitMinimal ];
 
   src = fetchFromGitHub json;
 }

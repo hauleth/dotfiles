@@ -1,24 +1,20 @@
-{ stdenv, erlang, fetchFromGitHub, fetchMixDeps, git }:
+{ stdenv, elixir, rebar3, hex, fetchFromGitHub, fetchMixDeps, gitMinimal }:
 
-with erlang;
-
+let
+  json = builtins.fromJSON (builtins.readFile ./elixir-ls.json);
+in
 stdenv.mkDerivation rec {
   name = "elixir-ls";
-  version = "unstable-2019-07-15";
+  version = json.rev;
 
-  nativeBuildInputs = [ elixir hex git ];
+  nativeBuildInputs = [ elixir hex gitMinimal deps ];
 
   deps = fetchMixDeps {
     inherit name version src;
   };
 
   # refresh: nix-prefetch-git https://github.com/elixir-lsp/elixir-ls.git [--rev branchName | --rev sha]
-  src = fetchFromGitHub {
-    rev = "95c021fdb8e279ae3e9ab0ae1af8624d5572fad3";
-    owner = "elixir-lsp";
-    repo = "elixir-ls";
-    sha256 = "0qkqra09rvw6hxa8pbdvxnvqlvgw0qyq2rlgd56hxjbxa280ba1c";
-  };
+  src = fetchFromGitHub json;
 
   dontStrip = true;
 

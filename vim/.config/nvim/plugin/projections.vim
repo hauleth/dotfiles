@@ -20,6 +20,10 @@ let g:projectionist_heuristics['mix.exs'] = {
             \   'alternate': 'test/{}_test.exs',
             \   'template': ['defmodule {camelcase|capitalize|dot} do', 'end'],
             \ },
+            \ 'src/*.erl': {
+            \   'type': 'src',
+            \   'alternate': 'test/{}_SUITE.erl',
+            \ },
             \ 'test/*_test.exs': {
             \   'type': 'test',
             \   'alternate': 'lib/{}.ex',

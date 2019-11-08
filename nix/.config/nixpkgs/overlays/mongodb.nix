@@ -1,6 +1,6 @@
 self: super:
 
-with self;
+with super;
 
 {
   mongodb-4_0 = stdenv.mkDerivation rec {

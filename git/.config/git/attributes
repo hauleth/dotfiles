@@ -1,0 +1,7 @@
+# Elixir
+*.ex diff=elixir
+*.exs diff=elixir
+
+# Erlang
+*.erl diff=erlang
+*.hrl diff=erlang

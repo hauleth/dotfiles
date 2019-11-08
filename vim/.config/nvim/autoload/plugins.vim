@@ -1,5 +1,8 @@
 " vi: foldmethod=marker foldlevel=0
 let s:current_file = expand('<sfile>')
+let s:data_dir = exists('$XDG_DATA_HOME') ? $XDG_DATA_HOME : $HOME . '/.local/share'
+
+let s:dir = s:data_dir . '/nvim/site/pack/packager'
 
 if !exists('*plugins#reload')
     func! plugins#reload() abort
@@ -11,7 +14,11 @@ endif
 
 func! plugins#spec() abort
     packadd vim-packager
-    call packager#init({'dir': '~/.local/share/nvim/site/pack/packager'})
+
+    if !exists('g:packager')
+        call packager#init({'dir': s:dir})
+    endif
+
     " Package manager {{{
     call packager#add('kristijanhusak/vim-packager', {'type': 'opt'})
     " }}}
@@ -21,6 +28,9 @@ func! plugins#spec() abort
     " }}}
     " Project navigation {{{
     call packager#add('tpope/vim-projectionist') " Requires access to VimEnter
+    call packager#add('srstevenson/vim-picker')
+    call packager#add('justinmk/vim-dirvish') " Required for opening directories
+    call packager#add('tpope/vim-eunuch')
     " }}}
     " Git {{{
     call packager#add('tpope/vim-fugitive', { 'type': 'opt' })
@@ -39,17 +49,11 @@ func! plugins#spec() abort
     call packager#add('tpope/vim-scriptease', {'type': 'opt'}) " ftplugin
     call packager#add('LnL7/vim-nix')
     " }}}
-    " File manager {{{
-    call packager#add('justinmk/vim-dirvish') " Required for opening directories
-    call packager#add('tpope/vim-eunuch')
-    call packager#add('srstevenson/vim-picker')
-    " }}}
     " Completion {{{
     call packager#add('prabirshrestha/async.vim') " autoload-only
     call packager#add('prabirshrestha/vim-lsp')
     call packager#add('Shougo/echodoc.vim')
     call packager#add('fcpg/vim-complimentary') " autoload-only
-    call packager#add('vim-erlang/vim-erlang-omnicomplete')
     " }}}
     " Code manipulation {{{
     call packager#add('AndrewRadev/splitjoin.vim')
@@ -76,13 +80,15 @@ func! plugins#spec() abort
     call packager#add('t9md/vim-choosewin')
     " }}}
     " Utils {{{
+    call packager#add('andymass/vim-matchup')
     call packager#add('tpope/vim-repeat') " autoload-only plugin
     call packager#add('tpope/vim-unimpaired', {'type': 'opt'})
     call packager#add('tpope/vim-rsi')
-    call packager#add('direnv/direnv.vim', {'type': 'opt'})
+    call packager#add('direnv/direnv.vim')
     call packager#add('sgur/vim-editorconfig') " Required during startup
     call packager#add('tpope/vim-characterize')
     call packager#add('https://gitlab.com/hauleth/qfx.vim.git')
+    call packager#add('hauleth/vim-backscratch')
     call packager#add('tpope/vim-dadbod')
     call packager#add('https://gitlab.com/hauleth/smart.vim.git')
     " }}}

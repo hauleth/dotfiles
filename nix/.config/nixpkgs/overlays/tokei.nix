@@ -1,8 +1,10 @@
 self: super:
 
+with super;
+
 {
-  tokei = self.tokei.overrideDerivation (cfg: {
-    buildInputs = self.stdenv.lib.optionals self.stdenv.isDarwin [
+  tokei = tokei.overrideDerivation (cfg: {
+    buildInputs = stdenv.lib.optionals stdenv.isDarwin [
       self.libiconv
       self.darwin.apple_sdk.frameworks.Security
     ];
