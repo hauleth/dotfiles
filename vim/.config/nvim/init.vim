@@ -7,10 +7,9 @@ set shell=fish
 let g:loaded_netrwPlugin = 1
 let g:loaded_matchit = 1
 
-command! -bar PackInstall call plugins#reload() | call packager#install()
-command! -bar PackUpdate  call plugins#reload() | call packager#update()
-command! -bar PackClean   call plugins#reload() | call packager#clean()
-command! -bar PackStatus  call plugins#reload() | call packager#status()
+command! -bar PackUpdate  call plugins#reload() | call minpac#update()
+command! -bar PackClean   call plugins#reload() | call minpac#clean()
+command! -bar PackStatus  call plugins#reload() | call minpac#status()
 " }}}
 " Identation {{{
 set shiftwidth=4 expandtab
@@ -86,7 +85,7 @@ augroup matchparen
 augroup END
 " }}}
 " Fuzzy file search {{{
-nnoremap <Space><Space> :<C-u>PickerEdit<CR>
+nnoremap <Space><Space> :<C-u>Clap files<CR>
 
 let g:picker_custom_find_executable = 'rg'
 let g:picker_custom_find_flags = '--color never --files --hidden --glob !.git'
@@ -235,6 +234,7 @@ augroup END
 command! -nargs=* Start <mods> split new <bar> call termopen(<q-args>) <bar> startinsert
 command! -nargs=0 Ctags AsyncDo ctags -R
 command! -nargs=? Dash call dash#open(<f-args>)
+command! Term <mods> split +term <bar> startinsert
 
 nnoremap gK :Dash<CR>
 nnoremap gx :<C-u>call open#open()<CR>
