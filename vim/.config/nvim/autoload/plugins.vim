@@ -33,7 +33,7 @@ func! plugins#spec() abort
     call minpac#add('liuchengxu/vim-clap')
     " }}}
     " Git {{{
-    call minpac#add('tpope/vim-fugitive', { 'type': 'opt' })
+    call minpac#add('tpope/vim-fugitive')
     " }}}
     " Launch screen {{{
     call minpac#add('mhinz/vim-startify') " Required during startup
@@ -91,5 +91,6 @@ func! plugins#spec() abort
     call minpac#add('hauleth/vim-backscratch')
     call minpac#add('tpope/vim-dadbod')
     call minpac#add('https://gitlab.com/hauleth/smart.vim.git')
+    call minpac#add('reedes/vim-pencil')
     " }}}
 endfunc

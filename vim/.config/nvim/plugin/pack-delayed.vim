@@ -5,9 +5,6 @@ let g:loaded_pack_delayed = 1
 
 func! DelayedLoad(...) abort " No abort as we want to continue if any plugin fails
     " Git
-    packadd vim-fugitive
-                \ | call fugitive#detect(getcwd())
-
     packadd vim-unimpaired
     packadd targets.vim
 

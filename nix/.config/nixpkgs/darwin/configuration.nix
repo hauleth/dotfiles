@@ -18,25 +18,24 @@ in
     direnv
     dnsmasq
     entr
+    findutils
     fzy
+    git-lfs
     gitAndTools.diff-so-fancy
     gitAndTools.git-imerge
     gitAndTools.git-test
     gitAndTools.hub
     gitAndTools.tig
     gitFuller
-    git-lfs
     gnupg
     httpie
     imagemagick
     jq
     neovim
     neovim-remote
-    nix-index
     noti
     ripgrep
     universal-ctags
-    weechat
     w3m
   ];
 

@@ -10,7 +10,7 @@
 	ci = commit
 	co = checkout
 	cob = checkout -b
-	lg = log --color --graph --oneline --abbrev-commit
+	lg = log --color --graph --abbrev-commit --pretty=format:'%C(yellow)%h%C(auto)%d %s <%C(green)%aN%C(reset)> (%C(blue)%ar%C(reset))'
 	pr = pull-request
 	rci = commit --amend --reuse-message HEAD
 	squash = rebase -i @{u}
@@ -23,7 +23,7 @@
 	skip = update-index --skip-worktree
 	unskip = update-index --no-skip-worktree
 	publish = push -u hauleth
-	cleanup = "!git branch --format='%(refname:lstrip=2)' --no-contains HEAD --no-contains master --merged master | xargs -xn1 git branch -d"
+	cleanup = "!git branch --format=\"%(if:notequals=*)%(HEAD)%(then)%(if:notequals=${1:-master})%(refname:lstrip=2)%(then)%(refname:lstrip=2)%(end)%(end)\" --merged master | xargs -rpxL1 git branch -d"
 
 [mergetool]
 	keepBackup = false

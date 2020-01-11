@@ -12,7 +12,7 @@ command! -bar PackClean   call plugins#reload() | call minpac#clean()
 command! -bar PackStatus  call plugins#reload() | call minpac#status()
 " }}}
 " Identation {{{
-set shiftwidth=4 expandtab
+set shiftwidth=2 expandtab
 
 set textwidth=80
 set nowrap linebreak formatoptions+=l
@@ -87,6 +87,7 @@ augroup END
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>Clap files<CR>
 
+let g:picker_default_external_filter = 'fzy'
 let g:picker_custom_find_executable = 'rg'
 let g:picker_custom_find_flags = '--color never --files --hidden --glob !.git'
 let g:clap#provider#files# = {
