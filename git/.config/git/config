@@ -1,6 +1,7 @@
 [core]
 	commitGraph = true
 	pager = "diff-so-fancy | less --tabs=4 -RFX"
+	commentChar = ";"
 [gc]
 	writeCommitGraph = true
 [alias]

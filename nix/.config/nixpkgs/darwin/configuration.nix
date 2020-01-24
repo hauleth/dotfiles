@@ -37,6 +37,7 @@ in
     ripgrep
     universal-ctags
     w3m
+    weechat
   ];
 
   environment.shells = [ pkgs.fish ];

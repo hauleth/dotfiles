@@ -87,13 +87,15 @@ augroup END
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>Clap files<CR>
 
-let g:picker_default_external_filter = 'fzy'
-let g:picker_custom_find_executable = 'rg'
-let g:picker_custom_find_flags = '--color never --files --hidden --glob !.git'
 let g:clap#provider#files# = {
-            \ 'source': 'rg --color never --files --hidden --glob !.git',
-            \ 'sink': 'e'
-            \ }
+      \ 'on_typed': function('clap#impl#on_typed'),
+      \ 'source': 'rg --files --hidden --glob !.git',
+      \ 'sink': function('clap#provider#files#sink_impl'),
+      \ 'filter': function('clap#filter#'),
+      \ 'support_open_action': v:true,
+      \ 'enable_rooter': v:true,
+      \ 'syntax': 'clap_files'
+      \ }
 
 set path=,,
 " }}}

@@ -38,11 +38,21 @@ augroup LSC
     autocmd User lsp_setup call lsp#register_server({
                 \ 'name': 'ElixirLS',
                 \ 'cmd': s:nix_shell('elixir-ls', 'elixirLS'),
+                \ 'root_uri':{server_info->lsp#utils#path_to_uri(
+                \     lsp#utils#find_nearest_parent_file_directory(
+                \         lsp#utils#get_buffer_path(),
+                \         ['mix.lock', 'mix.exs', '.git/']
+                \     ))},
                 \ 'whitelist': ['elixir', 'eelixir']
                 \})
     autocmd User lsp_setup call lsp#register_server({
                 \ 'name': 'Sourcer',
                 \ 'cmd': s:nix_shell('erlang_ls -t stdio --stdout', 'erlangSourcer'),
+                \ 'root_uri':{server_info->lsp#utils#path_to_uri(
+                \     lsp#utils#find_nearest_parent_file_directory(
+                \         lsp#utils#get_buffer_path(),
+                \         ['rebar.lock', 'rebar.config', '.git/']
+                \     ))},
                 \ 'whitelist': ['erlang']
                 \})
     autocmd User lsp_setup call lsp#register_server({

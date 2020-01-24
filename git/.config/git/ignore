@@ -65,7 +65,6 @@ tags.*
 .gdb_history
 perf.data*
 oprofile_data
-*.socket
 .tool-versions-e
 # }}}
 .elixir_ls
