@@ -34,6 +34,7 @@ func! plugins#spec() abort
     " }}}
     " Git {{{
     call minpac#add('tpope/vim-fugitive')
+    call minpac#add('rbong/vim-flog')
     " }}}
     " Launch screen {{{
     call minpac#add('mhinz/vim-startify') " Required during startup
@@ -92,5 +93,6 @@ func! plugins#spec() abort
     call minpac#add('tpope/vim-dadbod')
     call minpac#add('https://gitlab.com/hauleth/smart.vim.git')
     call minpac#add('reedes/vim-pencil')
+    call minpac#add('vimwiki/vimwiki')
     " }}}
 endfunc

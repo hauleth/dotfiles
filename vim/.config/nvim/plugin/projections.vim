@@ -27,7 +27,7 @@ let g:projectionist_heuristics['mix.exs'] = {
             \ 'test/*_test.exs': {
             \   'type': 'test',
             \   'alternate': 'lib/{}.ex',
-            \   'template': ['defmodule {camelcase|capitalize|dot}Test do', '  use ExUnit.Case', '', '  alias {camelcase|capitalize|dot}, as: Subject', '', '  doctest Subject', 'end'],
+            \   'template': ['defmodule {camelcase|capitalize|dot}Test do', '  use ExUnit.Case', '', '  @subject {camelcase|capitalize|dot}', '', '  doctest @subject', 'end'],
             \ },
             \ 'mix.exs': { 'type': 'mix' },
             \ 'config/*.exs': { 'type': 'config' },

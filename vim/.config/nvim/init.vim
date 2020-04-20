@@ -87,14 +87,16 @@ augroup END
 " Fuzzy file search {{{
 nnoremap <Space><Space> :<C-u>Clap files<CR>
 
+let g:clap_provider_grep_opts = '-H --no-heading --vimgrep --smart-case --hidden --glob !.git'
+
 let g:clap#provider#files# = {
-      \ 'on_typed': function('clap#impl#on_typed'),
       \ 'source': 'rg --files --hidden --glob !.git',
+      \ 'sink*': function('clap#provider#files#sink_star_impl'),
       \ 'sink': function('clap#provider#files#sink_impl'),
-      \ 'filter': function('clap#filter#'),
       \ 'support_open_action': v:true,
       \ 'enable_rooter': v:true,
-      \ 'syntax': 'clap_files'
+      \ 'syntax': 'clap_files',
+      \ 'on_move': function('clap#provider#files#on_move_impl')
       \ }
 
 set path=,,
@@ -197,10 +199,21 @@ nmap <C-w>q <plug>(choosewin)
 nmap <C-_> <plug>(choosewin)
 " }}}
 " Startify {{{
-let g:startify_list_order = ['sessions', 'dir']
+let g:startify_lists = [
+      \ {'type': 'sessions', 'header': ['   Sessions']},
+      \ {'type': 'commands', 'header': ['   Wiki']},
+      \ ]
 let g:startify_session_dir = '~/.local/share/nvim/site/sessions/'
 let g:startify_session_autoload = v:true
 let g:startify_session_persistence = v:true
+
+let g:startify_commands = [
+      \ {'w': ['Wiki', 'VimwikiIndex']},
+      \ {'d': ['Diary', 'VimwikiDiaryIndex']},
+      \ {'t': ['Today', 'VimwikiMakeDiaryNote']},
+      \ {'y': ['Yesterday', 'VimwikiMakeYesterdayDiaryNote']},
+      \ {'a': ['Tomorrow', 'VimwikiMakeTomorrowDiaryNote']},
+      \ ]
 
 let g:startify_change_to_dir = v:false
 let g:startify_change_to_vcs_root = v:true
@@ -225,6 +238,12 @@ if executable('direnv')
         autocmd BufWritePost .envrc silent !direnv allow %
     augroup END
 endif
+
+augroup terminal_scrolloff
+  autocmd!
+  autocmd BufEnter term://* silent setl scrolloff=0
+  autocmd BufLeave term://* silent setl scrolloff=9999
+augroup END
 
 augroup hotfix
     autocmd!

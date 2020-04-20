@@ -35,31 +35,34 @@ endfunc
 
 augroup LSC
     autocmd!
+
     autocmd User lsp_setup call lsp#register_server({
                 \ 'name': 'ElixirLS',
                 \ 'cmd': s:nix_shell('elixir-ls', 'elixirLS'),
                 \ 'root_uri':{server_info->lsp#utils#path_to_uri(
                 \     lsp#utils#find_nearest_parent_file_directory(
                 \         lsp#utils#get_buffer_path(),
-                \         ['mix.lock', 'mix.exs', '.git/']
+                \         ['mix.lock', '.git/']
                 \     ))},
                 \ 'whitelist': ['elixir', 'eelixir']
-                \})
+                \ })
+
     autocmd User lsp_setup call lsp#register_server({
-                \ 'name': 'Sourcer',
-                \ 'cmd': s:nix_shell('erlang_ls -t stdio --stdout', 'erlangSourcer'),
+                \ 'name': 'ErlangLS',
+                \ 'cmd': s:nix_shell('erlang_ls --transport stdio', 'erlangLS'),
                 \ 'root_uri':{server_info->lsp#utils#path_to_uri(
                 \     lsp#utils#find_nearest_parent_file_directory(
                 \         lsp#utils#get_buffer_path(),
-                \         ['rebar.lock', 'rebar.config', '.git/']
+                \         ['rebar.lock', '.git/']
                 \     ))},
                 \ 'whitelist': ['erlang']
-                \})
-    autocmd User lsp_setup call lsp#register_server({
-                \ 'name': 'RLS',
-                \ 'cmd': s:nix_shell('rls'),
-                \ 'whitelist': ['rust']
-                \})
+                \ })
+
+    " autocmd User lsp_setup call lsp#register_server({
+    "             \ 'name': 'RLS',
+    "             \ 'cmd': s:nix_shell('rls'),
+    "             \ 'whitelist': ['rust']
+    "             \ })
 
     autocmd User lsp_server_init call <SID>setup_ls()
     autocmd BufEnter * call <SID>setup_ls()
