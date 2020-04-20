@@ -18,7 +18,7 @@ ulimit -n 10480
 
 set fish_user_paths ~/bin ~/.nix-profile/bin /run/current-system/sw/bin
 
-if type nix-locate ^/dev/null >/dev/null
+if type nix-locate 2>/dev/null >/dev/null
     function nix_locate_bin --on-event fish_command_not_found
         if not test -t 1
             __fish_default_command_not_found_handler $argv[1]
