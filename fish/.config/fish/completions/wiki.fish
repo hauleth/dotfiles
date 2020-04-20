@@ -1,0 +1,5 @@
+complete -f -c wiki -xa diary -d 'Open Diary index'
+complete -f -c wiki -xa today -d 'Open today Diary entry'
+complete -f -c wiki -xa yesterday -d 'Open yesterday Diary entry'
+complete -f -c wiki -xa tomorrow -d 'Open tomorrow Diary entry'
+complete -f -c wiki -xa index -d 'Open Wiki index'

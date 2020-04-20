@@ -16,7 +16,7 @@ in
     nativeBuildInputs = [ git ];
 
     preBuild = ''
-      cp -R ${libhydrogen}/* ext/libhydrogen/
+      ln -s ext/libhydrogen ${libhydrogen} ext/libhydrogen
       '';
 
     src = fetchGit {
