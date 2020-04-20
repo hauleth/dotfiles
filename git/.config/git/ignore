@@ -69,3 +69,4 @@ oprofile_data
 # }}}
 .elixir_ls
 /.direnv
+.vagrant/

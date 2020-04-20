@@ -1,3 +1,4 @@
+
 # Elixir
 *.ex diff=elixir
 *.exs diff=elixir
@@ -5,3 +6,23 @@
 # Erlang
 *.erl diff=erlang
 *.hrl diff=erlang
+
+# TeX
+*.tex diff=tex
+
+# Rust
+*.rust diff=rust
+
+# CSS
+*.css diff=css
+
+# Ruby
+*.rb diff=ruby
+
+# Python
+*.py diff=python
+
+# Markdown
+*.md diff=markdown
+*.mdown diff=markdown
+*.markdown diff=markdown

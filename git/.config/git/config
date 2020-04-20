@@ -11,20 +11,20 @@
 	ci = commit
 	co = checkout
 	cob = checkout -b
-	lg = log --color --graph --abbrev-commit --pretty=format:'%C(yellow)%h%C(auto)%d %s <%C(green)%aN%C(reset)> (%C(blue)%ar%C(reset))'
-	pr = pull-request
+	lg = log --color --graph --abbrev-commit --pretty=simple-oneline
 	rci = commit --amend --reuse-message HEAD
 	squash = rebase -i @{u}
 	st = status -sb
 	todo = grep -Ee '\\bTODO:?\\b'
 	fixme = grep -Ee '\\bFIX(ME)?:?\\b'
 	com = checkout master
-	ag = grep
-	rg = grep
 	skip = update-index --skip-worktree
 	unskip = update-index --no-skip-worktree
 	publish = push -u hauleth
 	cleanup = "!git branch --format=\"%(if:notequals=*)%(HEAD)%(then)%(if:notequals=${1:-master})%(refname:lstrip=2)%(then)%(refname:lstrip=2)%(end)%(end)\" --merged master | xargs -rpxL1 git branch -d"
+
+[pretty]
+	simple-oneline = "%C(yellow)%h%C(auto)%d %s <%C(green)%aN%C(reset)> (%C(blue)%ar%C(reset))"
 
 [mergetool]
 	keepBackup = false
@@ -74,19 +74,19 @@
 	algorithm = histogram
 	mnemonicPrefix = true
 
-[diff "elixir"]
-	xfuncname = "^[ \t]*((def(macro|module|impl|guard|protocol)?p?|test)[ \t].*)$"
+[diff "markdown"]
+	xfuncname = "^(#+\\s+.*)$"
 
 [color]
 	ui = true
 
 [color.diff]
-	old = blue
+	old = magenta
 	new = yellow
 
 [color.diff-highlight]
-	oldNormal = "blue"
-	oldHighlight = "blue ul"
+	oldNormal = "magenta"
+	oldHighlight = "magenta ul"
 	newNormal = "yellow"
 	newHighlight = "yellow ul"
 
