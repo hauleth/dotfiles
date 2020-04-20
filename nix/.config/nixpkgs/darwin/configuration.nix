@@ -1,8 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  gitFuller = pkgs.gitAndTools.gitFull.override { sendEmailSupport = true; };
-in
 {
   system.defaults.dock.autohide = true;
 
@@ -26,14 +23,16 @@ in
     gitAndTools.git-test
     gitAndTools.hub
     gitAndTools.tig
-    gitFuller
+    gitFull
     gnupg
     httpie
     imagemagick
     jq
+    lnav
     neovim
     neovim-remote
     noti
+    pinentry_mac
     ripgrep
     universal-ctags
     w3m
@@ -69,7 +68,7 @@ in
   environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = true;
+  services.nix-daemon.enable = false;
   services.nix-daemon.enableSocketListener = true;
 
   # Set .localhost. TLD on loopback address
@@ -91,20 +90,18 @@ in
 
   nix.package = pkgs.nixStable;
   # nix.useSandbox = true;
-  # nix.sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
+  nix.sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
 
   nixpkgs.config.allowUnfree = true;
 
   programs.gnupg.agent.enable = false;
   programs.gnupg.agent.enableSSHSupport = true;
 
-  # programs.nix-index.enable = true;
-
   programs.fish.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
-  system.stateVersion = 3;
+  system.stateVersion = 4;
 
   # You should generally set this to the total number of logical cores in your system.
   # $ sysctl -n hw.ncpu
