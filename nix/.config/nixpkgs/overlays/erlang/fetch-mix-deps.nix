@@ -1,6 +1,6 @@
 { stdenvNoCC, elixir, rebar, rebar3, git, cacert }:
 
-{ name ? null, src, env ? "prod", ... }:
+{ name ? null, src, sha256, env ? "prod" }:
 
 stdenvNoCC.mkDerivation {
   name = "mix-deps" + (if name != null then "-${name}" else "");
@@ -25,13 +25,14 @@ stdenvNoCC.mkDerivation {
 
   buildPhase = ''
     mix deps.get
+    find "$out" -path '*/.git/*' -a ! -name HEAD -exec rm -rf {} +
     '';
 
   dontInstall = true;
 
-  # outputHashAlgo = "sha256";
-  # outputHashMode = "recursive";
-  # outputHash = sha256;
+  outputHashAlgo = "sha256";
+  outputHashMode = "recursive";
+  outputHash = sha256;
 
   impureEnvVars = stdenvNoCC.lib.fetchers.proxyImpureEnvVars;
 }

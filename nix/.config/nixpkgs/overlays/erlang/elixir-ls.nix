@@ -12,6 +12,8 @@ stdenv.mkDerivation rec {
   deps = fetchMixDeps {
     name = "${name}-${version}";
     inherit src;
+
+    sha256 = "0jfv98ibrfm0p46sanjnpxp3hivqafh5qi8cf0c71ssvcqbfk9il";
   };
 
   # refresh: nix-prefetch-git https://github.com/elixir-lsp/elixir-ls.git [--rev branchName | --rev sha]
@@ -32,13 +34,15 @@ stdenv.mkDerivation rec {
 
     cp --no-preserve=all -R ${deps} deps
 
+    mix deps.compile --no-deps-check
+
     runHook postConfigure
   '';
 
   buildPhase = ''
     runHook preBuild
 
-    mix elixir_ls.release
+    mix do compile --no-deps-check, elixir_ls.release
 
     runHook postBuild
   '';
