@@ -1,6 +1,15 @@
 { config, pkgs, ... }:
 
 {
+  imports = [
+    ./services/dnsmasq.nix
+  ];
+
+  nixpkgs.config.allowUnfree = true;
+  nixpkgs.overlays = [
+    (import ../overlays/encpipe.nix)
+  ];
+
   system.defaults.dock.autohide = true;
 
   system.keyboard.enableKeyMapping = true;
@@ -68,34 +77,33 @@
   environment.darwinConfig = "$HOME/.config/nixpkgs/darwin/configuration.nix";
 
   # Auto upgrade nix package and the daemon service.
-  services.nix-daemon.enable = false;
-  services.nix-daemon.enableSocketListener = true;
+  services.nix-daemon = {
+    enable = false;
+    enableSocketListener = true;
+  };
 
-  # Set .localhost. TLD on loopback address
-  launchd.daemons.dnsmasq = {
-    command = "${pkgs.dnsmasq}/bin/dnsmasq -a 127.0.0.1 --keep-in-foreground";
-    serviceConfig.KeepAlive = true;
-    serviceConfig.RunAtLoad = true;
-  };
-  environment.etc."dnsmasq.conf" = {
+  services.dnsmasq = {
     enable = true;
-    text = ''
-      address=/localhost/127.0.0.1
-    '';
-  };
-  environment.etc."resolver/localhost" = {
-    enable = true;
-    text = "nameserver 127.0.0.1";
+    addresses = {
+      localhost = "127.0.0.1";
+    };
   };
 
   nix.package = pkgs.nixStable;
   # nix.useSandbox = true;
-  nix.sandboxPaths = [ "/System/Library/Frameworks" "/System/Library/PrivateFrameworks" "/usr/lib" "/private/tmp" "/private/var/tmp" "/usr/bin/env" ];
+  nix.sandboxPaths = [
+    "/System/Library/Frameworks"
+    "/System/Library/PrivateFrameworks"
+    "/usr/lib"
+    "/private/tmp"
+    "/private/var/tmp"
+    "/usr/bin/env"
+  ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  programs.gnupg.agent.enable = false;
-  programs.gnupg.agent.enableSSHSupport = true;
+  programs.gnupg = {
+    agent.enable = false;
+    agent.enableSSHSupport = true;
+  };
 
   programs.fish.enable = true;
 

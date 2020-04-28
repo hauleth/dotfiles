@@ -4,6 +4,8 @@ with super;
 
 let
   libhydrogen = fetchGit {
+    name = "libhydrogen";
+
     url = "https://github.com/jedisct1/libhydrogen.git";
     ref = "master";
   };
@@ -16,8 +18,10 @@ in
     nativeBuildInputs = [ git ];
 
     preBuild = ''
-      ln -s ext/libhydrogen ${libhydrogen} ext/libhydrogen
+      cp -R ${libhydrogen}/* ext/libhydrogen
       '';
+
+    installFlags = [ "PREFIX=$(out)" ];
 
     src = fetchGit {
       url = "https://github.com/jedisct1/encpipe.git";
