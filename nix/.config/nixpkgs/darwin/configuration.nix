@@ -22,7 +22,6 @@
     bat
     coreutils
     direnv
-    dnsmasq
     entr
     findutils
     fzy
@@ -89,6 +88,15 @@
     };
   };
 
+  programs.gnupg = {
+    agent.enable = false;
+    agent.enableSSHSupport = true;
+  };
+
+  programs.fish = {
+    enable = true;
+  };
+
   nix.package = pkgs.nixStable;
   # nix.useSandbox = true;
   nix.sandboxPaths = [
@@ -99,13 +107,6 @@
     "/private/var/tmp"
     "/usr/bin/env"
   ];
-
-  programs.gnupg = {
-    agent.enable = false;
-    agent.enableSSHSupport = true;
-  };
-
-  programs.fish.enable = true;
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
