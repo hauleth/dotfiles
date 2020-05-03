@@ -1,10 +1,6 @@
 { config, pkgs, ... }:
 
 {
-  imports = [
-    ./services/dnsmasq.nix
-  ];
-
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (import ../overlays/encpipe.nix)
