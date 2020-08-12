@@ -1,38 +1,40 @@
 { stdenvNoCC, elixir, rebar, rebar3, git, cacert }:
 
-{ name ? null, src, sha256, env ? "prod" }:
+let
+  fetchMixDeps =
+    { name ? null, src, sha256, env ? "prod" }:
+    stdenvNoCC.mkDerivation {
+      name = "mix-deps" + (if name != null then "-${name}" else "");
 
-stdenvNoCC.mkDerivation {
-  name = "mix-deps" + (if name != null then "-${name}" else "");
+      nativeBuildInputs = [ elixir git cacert ];
 
-  nativeBuildInputs = [ elixir git cacert ];
+      inherit src;
 
-  inherit src;
+      MIX_ENV = env;
+      MIX_REBAR = "${rebar}/bin/rebar";
+      MIX_REBAR3 = "${rebar3}/bin/rebar3";
 
-  configurePhase = ''
-    export MIX_ENV="${env}"
+      configurePhase = ''
+        export HEX_HOME="$PWD/hex"
+        export MIX_HOME="$PWD/mix"
+        export MIX_DEPS_PATH="$out"
+        export REBAR_GLOBAL_CONFIG_DIR="$PWD/rebar3"
+        export REBAR_CACHE_DIR="$PWD/rebar3.cache"
 
-    export HEX_HOME="$PWD/hex"
-    export MIX_HOME="$PWD/mix"
-    export MIX_DEPS_PATH="$out"
-    export MIX_REBAR="${rebar}/bin/rebar"
-    export MIX_REBAR3="${rebar3}/bin/rebar3"
-    export REBAR_GLOBAL_CONFIG_DIR="$PWD/rebar3"
-    export REBAR_CACHE_DIR="$PWD/rebar3.cache"
+        mix local.hex --force
+      '';
 
-    mix local.hex --force
-    '';
+      buildPhase = ''
+        mix deps.get
+        find "$out" -path '*/.git/*' -a ! -name HEAD -exec rm -rf {} +
+      '';
 
-  buildPhase = ''
-    mix deps.get
-    find "$out" -path '*/.git/*' -a ! -name HEAD -exec rm -rf {} +
-    '';
+      dontInstall = true;
 
-  dontInstall = true;
+      outputHashAlgo = "sha256";
+      outputHashMode = "recursive";
+      outputHash = sha256;
 
-  outputHashAlgo = "sha256";
-  outputHashMode = "recursive";
-  outputHash = sha256;
-
-  impureEnvVars = stdenvNoCC.lib.fetchers.proxyImpureEnvVars;
-}
+      impureEnvVars = stdenvNoCC.lib.fetchers.proxyImpureEnvVars;
+    };
+in fetchMixDeps

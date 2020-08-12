@@ -2,8 +2,14 @@
 	commitGraph = true
 	pager = "diff-so-fancy | less --tabs=4 -RFX"
 	commentChar = ";"
-[gc]
-	writeCommitGraph = true
+
+[user]
+	useConfigOnly = true
+
+[feature]
+	experimental = true
+	manyFiles = true
+
 [alias]
 	ai = add -i
 	b = branch
@@ -26,12 +32,8 @@
 [pretty]
 	simple-oneline = "%C(yellow)%h%C(auto)%d %s <%C(green)%aN%C(reset)> (%C(blue)%ar%C(reset))"
 
-[mergetool]
-	keepBackup = false
-[mergetool "fugitive"]
-	cmd = nvim -d
 [merge]
-	tool = fugitive
+	conflictstyle = diff3
 
 [branch]
 	autoSetupRebase = always
@@ -56,20 +58,24 @@
 [tag]
 	forceSignAnnotated = true
 	sort = version:refname
+[versionsort]
+	suffix = ""
+	suffix = "-rc"
+	suffix = "-pre"
 [commit]
 	gpgsign = true
 	verbose = true
 
 [filter "lfs"]
-	clean = git-lfs clean %f
-	smudge = git-lfs smudge %f
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
 	required = true
 
 [rerere]
 	enabled = true
 
 [diff]
-	; suppressBlankEmpty = true
 	indentHeuristic = true
 	algorithm = histogram
 	mnemonicPrefix = true

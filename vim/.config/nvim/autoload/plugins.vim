@@ -82,17 +82,17 @@ func! plugins#spec() abort
     " }}}
     " Utils {{{
     call minpac#add('andymass/vim-matchup')
-    call minpac#add('tpope/vim-repeat') " autoload-only plugin
-    call minpac#add('tpope/vim-unimpaired', {'type': 'opt'})
-    call minpac#add('tpope/vim-rsi')
     call minpac#add('direnv/direnv.vim')
-    call minpac#add('sgur/vim-editorconfig') " Required during startup
-    call minpac#add('tpope/vim-characterize')
-    call minpac#add('https://gitlab.com/hauleth/qfx.vim.git')
     call minpac#add('hauleth/vim-backscratch')
-    call minpac#add('tpope/vim-dadbod')
+    call minpac#add('https://gitlab.com/hauleth/qfx.vim.git')
     call minpac#add('https://gitlab.com/hauleth/smart.vim.git')
     call minpac#add('reedes/vim-pencil')
+    call minpac#add('sgur/vim-editorconfig') " Required during startup
+    call minpac#add('simnalamburt/vim-mundo')
+    call minpac#add('tpope/vim-characterize')
+    call minpac#add('tpope/vim-dadbod')
+    call minpac#add('tpope/vim-repeat') " autoload-only plugin
+    call minpac#add('tpope/vim-rsi')
     call minpac#add('vimwiki/vimwiki')
     " }}}
 endfunc

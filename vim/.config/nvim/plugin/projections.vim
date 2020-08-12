@@ -59,7 +59,7 @@ let g:projectionist_heuristics['rebar.config'] = {
             \ 'test/*_SUITE.erl': {
             \   'type': 'test',
             \   'alternate': 'src/{}.erl',
-            \   'template': ['-module({basename}).', '',
+            \   'template': ['-module({basename}_SUITE).', '',
             \                '-compile(export_all).', '',
             \                '-include_lib("stdlib/include/assert.hrl").',
             \                '-include_lib("common_test/include/ct.hrl").', '',

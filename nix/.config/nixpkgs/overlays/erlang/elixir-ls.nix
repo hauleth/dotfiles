@@ -13,7 +13,7 @@ stdenv.mkDerivation rec {
     name = "${name}-${version}";
     inherit src;
 
-    sha256 = "0jfv98ibrfm0p46sanjnpxp3hivqafh5qi8cf0c71ssvcqbfk9il";
+    sha256 = "1j7v56mfa087wi3x8kdcbqq0wsdiw284cwlccvxs1b60rypx5k55";
   };
 
   # refresh: nix-prefetch-git https://github.com/elixir-lsp/elixir-ls.git [--rev branchName | --rev sha]

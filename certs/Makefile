@@ -53,7 +53,7 @@ ${CERT}: ${SIGN_REQ} ${CACERT} ${CAKEY} config.conf
 	SAN="DNS:${DOMAIN},DNS:*.${DOMAIN}" \
 		openssl x509 -req -out "$@" -in ${SIGN_REQ} \
 		-CA ${CACERT} -CAkey ${CAKEY} -CAcreateserial \
-		-days 1825 -sha256 \
+		-days 365 -sha256 \
 		-extfile config.conf
 
 ${PEM}: ${CERT} ${KEY}

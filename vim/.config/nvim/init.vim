@@ -98,8 +98,6 @@ let g:clap#provider#files# = {
       \ 'syntax': 'clap_files',
       \ 'on_move': function('clap#provider#files#on_move_impl')
       \ }
-
-set path=,,
 " }}}
 " Git shortcuts {{{
 nnoremap U  <nop>
@@ -171,9 +169,19 @@ endif
 " Quickly disable highligh
 nnoremap <Space>, :nohlsearch<CR>
 " }}}
-" Tabs {{{
+" Cycling {{{
 nnoremap ]w gt
 nnoremap [w gT
+
+nnoremap ]q :<C-u>cnext<CR>
+nnoremap [q :<C-u>cprev<CR>
+nnoremap ]Q :<C-u>cnfile<CR>
+nnoremap [Q :<C-u>cpfile<CR>
+
+nnoremap ]l :<C-u>lnext<CR>
+nnoremap [l :<C-u>lprev<CR>
+nnoremap ]L :<C-u>lnfile<CR>
+nnoremap [L :<C-u>lpfile<CR>
 " }}}
 " Terminal {{{
 nnoremap <C-q> <Nop>

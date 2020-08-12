@@ -4,6 +4,8 @@
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
     (import ../overlays/encpipe.nix)
+    (import ../overlays/fonts.nix)
+    (import ../overlays/ctags.nix)
   ];
 
   system.defaults.dock.autohide = true;
@@ -40,29 +42,15 @@
     ripgrep
     universal-ctags
     w3m
+    watchman
     weechat
   ];
 
   environment.shells = [ pkgs.fish ];
 
   fonts.enableFontDir = true;
-  fonts.fonts = let
-    iosevkaTerm = pkgs.iosevka.override {
-      set = "term";
-      privateBuildPlan = {
-        family = "Iosevka Term";
-        design = [ "ss10" "cv10" "cv38" "cv62" "term" ];
-      };
-    };
-    iosevka = pkgs.iosevka.override {
-      set = "ss10";
-      privateBuildPlan = {
-        family = "Iosevka";
-        design = [ "ss10" "cv10" "cv38" "cv62" "calt-logic" ];
-      };
-    };
-  in [
-    pkgs.lato
+  fonts.fonts = with pkgs; [
+    lato
     iosevka
     iosevkaTerm
   ];
@@ -73,7 +61,7 @@
 
   # Auto upgrade nix package and the daemon service.
   services.nix-daemon = {
-    enable = false;
+    enable = true;
     enableSocketListener = true;
   };
 
@@ -82,6 +70,12 @@
     addresses = {
       localhost = "127.0.0.1";
     };
+  };
+
+  launchd.user.agents.watchman = {
+    serviceConfig.ProgramArguments = ["${pkgs.watchman}/bin/watchman" "--foreground"];
+    serviceConfig.KeepAlive = true;
+    serviceConfig.RunAtLoad = true;
   };
 
   programs.gnupg = {
@@ -103,6 +97,13 @@
     "/private/var/tmp"
     "/usr/bin/env"
   ];
+  nix.extraOptions = ''
+    gc-keep-derivations = true
+    gc-keep-outputs = true
+
+    keep-outputs = true
+    keep-derivations = true
+    '';
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog

@@ -3,6 +3,7 @@ scriptencoding utf-8
 setlocal nolist
 
 nnoremap <buffer><silent> q :cclose<CR>
+nnoremap <buffer><silent> qq :cclose<CR>
 nnoremap <buffer><silent> o <CR>
 nnoremap <buffer><silent> O <CR>:cclose<CR>
 
