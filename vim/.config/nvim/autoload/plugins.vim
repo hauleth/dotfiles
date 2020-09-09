@@ -35,6 +35,7 @@ func! plugins#spec() abort
     " Git {{{
     call minpac#add('tpope/vim-fugitive')
     call minpac#add('rbong/vim-flog')
+    call minpac#add('jreybert/vimagit')
     " }}}
     " Launch screen {{{
     call minpac#add('mhinz/vim-startify') " Required during startup
