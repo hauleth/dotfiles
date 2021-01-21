@@ -1,3 +1,1 @@
-#!/bin/sh
-
-git riff hook "pre-commit" "$@"
+hook.sh

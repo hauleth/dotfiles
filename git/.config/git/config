@@ -3,6 +3,9 @@
 	pager = "diff-so-fancy | less --tabs=4 -RFX"
 	commentChar = ";"
 
+[init]
+	defaultBranch = master
+
 [user]
 	useConfigOnly = true
 
@@ -40,8 +43,9 @@
 [push]
 	default = simple
 	followTags = true
+	gpgSign = if-asked
 [pull]
-	ff = only
+	rebase = true
 [merge]
 	ff = false
 [rebase]
@@ -88,13 +92,13 @@
 
 [color.diff]
 	old = magenta
-	new = yellow
+	new = blue
 
 [color.diff-highlight]
 	oldNormal = "magenta"
 	oldHighlight = "magenta ul"
-	newNormal = "yellow"
-	newHighlight = "yellow ul"
+	newNormal = "blue"
+	newHighlight = "blue ul"
 
 [pack]
 	useSparse = true

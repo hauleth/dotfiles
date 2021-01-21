@@ -1,20 +1,33 @@
 self: super:
 
+# @real fox.quick(h){ *is_brown && it_jumps_over(dogs.lazy) }
+# 0123456789 ABC.DEF.GHI.JKL.MNO.PQRS.TUV.WXYZ ß <=`¶^$#%'
+
 let
-    iosevka = super.iosevka.override {
-      set = "ss10";
-      privateBuildPlan = {
-        family = "Iosevka";
-        design = [ "ss10" "cv10" "cv38" "cv62" "calt-logic" ];
-      };
+  design = [
+    "ss09"
+    "calt-logic"
+    "v-dollar-open"
+    "v-g-singlestorey"
+    "v-l-zshaped"
+    "v-percent-dots"
+    "v-y-straight"
+    "v-zero-slashed"
+  ];
+  iosevka-ss09 = super.iosevka.override {
+    set = "ss09";
+    privateBuildPlan = {
+      family = "Iosevka";
+      inherit design;
     };
-    iosevkaTerm = super.iosevka.override {
-      set = "term";
-      privateBuildPlan = {
-        family = "Iosevka Term";
-        design = [ "ss10" "cv10" "cv38" "cv62" "term" ];
-      };
+  };
+  iosevka-ss09-term = super.iosevka.override {
+    set = "ss09-term";
+    privateBuildPlan = {
+      family = "Iosevka Term";
+      design = design ++ [ "term" ];
     };
+  };
 in {
-  inherit iosevka iosevkaTerm;
+  inherit iosevka-ss09 iosevka-ss09-term;
 }

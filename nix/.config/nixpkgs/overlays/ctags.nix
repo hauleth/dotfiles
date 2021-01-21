@@ -4,11 +4,13 @@ let
   universal-ctags = (super.universal-ctags.overrideAttrs(oldAttrs: {
     version = "unstable-2020-08-07";
 
+    doCheck = false;
+
     src = super.fetchFromGitHub {
       owner = "universal-ctags";
       repo = "ctags";
-      rev = "3f0ea94c60552fc4983472f6e40e375357093364";
-      sha256 = "1i7r531zinvdicyhvxl0xknlxylh0m9c232x4plw4syy07rq3aac";
+      rev = "f2245092348e38f02cbfa5ede44bcbc37a336501";
+      sha256 = "05ypqvx5xizygba93gv8ab9crv3kklghy7bq5g8ck23p6l985ch3";
     };
   })).override {
     pythonPackages = super.python3.pkgs;

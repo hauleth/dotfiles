@@ -34,8 +34,6 @@ func! plugins#spec() abort
     " }}}
     " Git {{{
     call minpac#add('tpope/vim-fugitive')
-    call minpac#add('rbong/vim-flog')
-    call minpac#add('jreybert/vimagit')
     " }}}
     " Launch screen {{{
     call minpac#add('mhinz/vim-startify') " Required during startup
@@ -50,12 +48,15 @@ func! plugins#spec() abort
     call minpac#add('tpope/vim-cucumber') " ftplugin
     call minpac#add('tpope/vim-scriptease', {'type': 'opt'}) " ftplugin
     call minpac#add('LnL7/vim-nix')
+    call minpac#add('bakpakin/fennel.vim')
+    call minpac#add('nvim-treesitter/nvim-treesitter')
     " }}}
     " Completion {{{
-    call minpac#add('prabirshrestha/async.vim') " autoload-only
-    call minpac#add('prabirshrestha/vim-lsp')
+    " call minpac#add('prabirshrestha/async.vim') " autoload-only
+    " call minpac#add('prabirshrestha/vim-lsp')
     call minpac#add('Shougo/echodoc.vim')
     call minpac#add('fcpg/vim-complimentary') " autoload-only
+    call minpac#add('neovim/nvim-lspconfig')
     " }}}
     " Code manipulation {{{
     call minpac#add('AndrewRadev/splitjoin.vim')
