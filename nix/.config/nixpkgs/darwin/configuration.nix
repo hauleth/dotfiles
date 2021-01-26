@@ -8,6 +8,7 @@
     (import ../overlays/encpipe.nix)
     (import ../overlays/fonts.nix)
     (import ../overlays/git-riff.nix)
+    (import ../overlays/comby.nix)
   ];
 
   system.defaults.dock.autohide = true;
@@ -26,6 +27,7 @@
   environment.systemPackages = with pkgs; [
     _1password
     bat
+    comby
     coreutils
     direnv
     nix-direnv
@@ -40,7 +42,7 @@
     gitAndTools.hub
     gitAndTools.tig
     git
-    git-riff
+    # git-riff
     gnupg
     httpie
     imagemagick
@@ -91,7 +93,8 @@
 
   programs.fish = {
     enable = true;
-    translateEnvironment = true;
+    useBabelfish = true;
+    babelfishPackage = pkgs.babelfish;
     shellAliases = {
       git = "LC_CTYPE=UTF-8 LANG=C hub";
     };
@@ -100,7 +103,7 @@
     enable = true;
   };
 
-  nix.package = pkgs.nixFlakes;
+  nix.package = pkgs.nixStable;
   # nix.useSandbox = true;
   nix.sandboxPaths = [
     "/System/Library/Frameworks"
@@ -117,7 +120,7 @@
     keep-outputs = true
     keep-derivations = true
 
-    experimental-features = nix-command flakes
+    # experimental-features = nix-command flakes
     '';
 
   # Used for backwards compatibility, please read the changelog before changing.

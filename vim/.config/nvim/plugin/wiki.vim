@@ -1,4 +1,4 @@
-let g:vimwiki_list = [{'path': '~/Documents/Wiki/', 'syntax': 'markdown'}]
+let g:vimwiki_list = [{'path': '~/Documents/Wiki/'}]
 let g:vimwiki_key_mappings =
       \ {
       \ 'headers': 0,

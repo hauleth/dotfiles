@@ -1,6 +1,6 @@
 -- Fennel loader, default one do not work well with NeoVim so there is custom
 -- one
-local fennel = require('fennel')
+_G.fennel = require('fennel')
 local function fennel_loader(name)
   local basename = name:gsub('%.', '/')
   local paths = {"fnl/"..basename..".fnl", "fnl/"..basename.."/init.fnl"}
@@ -15,6 +15,13 @@ local function fennel_loader(name)
   return nil
 end
 table.insert(package.loaders, 1, fennel_loader)
+
+local fennel_paths = ""
+for _, v in pairs(vim.api.nvim_get_runtime_file("fnl/", false)) do
+  fennel_paths = fennel_paths .. ";" .. v .. "?.fnl"
+  fennel_paths = fennel_paths .. ";" .. v .. "?/init.fnl"
+end
+fennel.path = fennel.path .. fennel_paths
 
 local u = require('utils')
 

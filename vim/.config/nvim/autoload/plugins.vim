@@ -30,7 +30,10 @@ func! plugins#spec() abort
     call minpac#add('tpope/vim-projectionist') " Requires access to VimEnter
     call minpac#add('justinmk/vim-dirvish') " Required for opening directories
     call minpac#add('tpope/vim-eunuch')
-    call minpac#add('liuchengxu/vim-clap')
+    call minpac#add('nvim-lua/popup.nvim')
+    call minpac#add('nvim-lua/plenary.nvim')
+    call minpac#add('nvim-telescope/telescope.nvim')
+    call minpac#add('nvim-telescope/telescope-fzy-native.nvim')
     " }}}
     " Git {{{
     call minpac#add('tpope/vim-fugitive')

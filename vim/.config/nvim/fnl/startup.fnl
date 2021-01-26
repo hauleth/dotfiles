@@ -1,30 +1,16 @@
-(local {:map map} (require :utils))
-(local ts (require :nvim-treesitter.configs))
-
-(macro g [name value] `(tset vim.g ,name ,value))
-(macro opt [name value]
-  (assert (sym? name))
-  `(tset vim.o ,(view name) ,(if (= nil value) true value)))
-(macro wopt [name value]
-  (assert (sym? name))
-  `(tset vim.wo ,(view name) ,(if (= nil value) true value)))
-
-(macro on [event pattern cmd]
-  `(vim.api.nvim_command (.. "au " ,(view event) " " ,pattern " " ,cmd)))
-
-(macro augroup [name ...]
-  (let [f (sym "on")]
-  `(do
-    (vim.api.nvim_command (.. "augroup " ,(view name)))
-    (vim.api.nvim_command "au!")
-    ,...
-    (vim.api.nvim_command "augroup END"))))
-
-(fn executable? [name]
-  (vim.api.nvim_call_function "executable" [name]))
-
-(fn colorscheme [name]
-  (vim.api.nvim_command (.. "colorscheme " name)))
+(local {: map
+        : call
+        : command
+        : executable?
+        : colorscheme &as nvim} (require :nvim))
+(local picker (require :picker))
+(import-macros {: augroup
+                : defcommand
+                : on
+                : env
+                : g
+                : opt
+                : wopt} :nvim.macros)
 
 ; Colors
 (colorscheme :blame)
@@ -52,9 +38,9 @@
 (opt title)
 
 ; Display tabs and trailing spaces visually
-; (opt fillchars "vert:┃,fold:·")
+(opt fillchars "vert:┃,fold:·")
 (opt list)
-; (opt listchars "tab:→\ ,trail:·,nbsp:␣,extends:↦,precedes:↤")
+(opt listchars "tab:→ ,trail:·,nbsp:␣,extends:↦,precedes:↤")
 (opt conceallevel 2)
 
 ; Ignore case. If your code uses different casing to differentiate files, then
@@ -62,6 +48,11 @@
 (opt wildignorecase)
 (opt wildmode :full)
 (opt fileignorecase)
+(opt wildignore "*.o,*~,**/.git/**,**/tmp/**,**/node_modules/**,**/_build/**,**/deps/**,**/target/**,**/uploads/**")
+
+(opt diffopt+ "indent-heuristic,algorithm:patience")
+(opt tags^ "./**/tags")
+(opt iskeyword+ "-")
 
 (opt showmode false)
 
@@ -70,12 +61,11 @@
 (opt autowriteall)
 
 ; Keep cursor in the middle
-(let [value 9999
-      scrolloff (fn [v] (.. "silent setl scrolloff=" v))]
+(let [value 9999]
   (opt scrolloff value)
-  (augroup terminal_scrolloff
-           (on BufEnter "term://*" (scrolloff 0))
-           (on BufLeave "term://*" (scrolloff value))))
+  (augroup terminal-scrolloff
+           (on BufEnter "term://*" (wopt scrolloff 0))
+           (on BufLeave "term://*" (wopt scrolloff value))))
 
 ; XXI century - we have cursors now
 (opt mouse :a)
@@ -104,11 +94,12 @@
 (opt complete ".,w,b,t,k,kspell")
 (opt completeopt "menuone,noselect,noinsert")
 
-(g "echodoc#enable_at_startup" true)
-(g "echodoc#type" :virtual)
+(g :echodoc#enable_at_startup true)
+(g :echodoc#type :virtual)
 
 ; Clap
-(map :n :<Space><Space> ":Clap files")
+(map :n :<Space><Space>
+     #(picker.find_files))
 
 ; Frequently used unimpaired mappings
 (let [unimpaired (fn [char left right]
@@ -147,7 +138,7 @@
 (map :n :0 "virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'" {:expr true})
 
 (map :n :gK ":Dash")
-(map :n :gq ":call open#open()")
+(map :n :gq #(call :open#open))
 
 ; Text object for whole file
 (map :o :aG ":normal! ggVG")
@@ -165,13 +156,16 @@
 (map :t "<C-q>" "<C-\\><C-n>")
 (map :n "<C-q>" "<ESC>")
 
+(when (executable? "nvr")
+  (env EDITOR "nvr -cc split -c 'set bufhidden=delete' --remote-wait"))
+
 ; Git mappings
 (let [leader "U"
       git-map (fn [lhs cmd] (map :n (.. leader lhs) (.. ":Git " cmd)))]
   (map :n leader "<nop>")
   (map :n (.. leader leader) (.. leader :u) {:noremap false})
   (git-map :p "push")
-  (git-map :s "status")
+  (git-map :s "")
   (git-map :d "diff")
   (git-map :B "blame")
   (git-map :c "commit")
@@ -180,9 +174,9 @@
 
 ; Split management
 (augroup align-windows
-         (on VimEnter "*" "wincmd ="))
-(map :n "<C-w>q" "<plug>(choosewin)")
-(map :n "<C-_>" "<plug>(choosewin)")
+         (on VimEnter "*" (command "wincmd =")))
+(map :n "<C-w><C-w>" "<plug>(choosewin)" {:noremap false})
+(map :n "<C-_>" "<plug>(choosewin)" {:noremap false})
 
 ; Search
 (when (executable? "rg")
@@ -194,20 +188,80 @@
 
 (augroup matchparen
          (let [term "term://*"]
-           (on BufEnter term "NoMatchParen")
-           (on BufLeave term "DoMatchParen")))
+           (on BufEnter term (command "NoMatchParen"))
+           (on BufLeave term (command "DoMatchParen"))))
 
 ; Autoreload Direnv after writing the .envrc
 (when (executable? "direnv")
   (augroup autoreload-envrc
-           (on BufWritePost ".envrc" "silent !direnv allow %")))
+           (on BufWritePost ".envrc" (command "silent !direnv allow %"))))
 
 ; Clean non-existing buffers on leave
 (augroup autoclean
-         (on BufLeave "*" "call utils#cleanup()"))
+         (on BufLeave "*" (call :utils#cleanup)))
 
-(ts.setup {:ensure_installed :maintained
-           :highlight {:enable true}
-           :indent {:enable true}})
+; Setup Lua extensions
+(let [setup (fn [package object] ((. (require package) :setup) object))]
+  (setup :nvim-treesitter.configs
+         {:ensure_installed :maintained
+          :highlight {:enable true}
+          :indent {:enable true}})
+  (setup :startify
+         {:lists [{:type "sessions" :header ["   Sessions"]}
+                  {:type "commands" :header ["   Wiki"]}]
+          :session-dir "~/.local/share/nvim/site/sessions/"
+          :session-autoload true
+          :session-persistence true
+          :commands [{:w ["Wiki" "VimwikiIndex"]}
+                     {:d ["Diary" "VimwikiDiaryIndex"]}
+                     {:t ["Today" "VimwikiMakeDiaryNote"]}
+                     {:y ["Yesterday" "VimwikiMakeYesterdayDiaryNote"]}
+                     {:a ["Tomorrow" "VimwikiMakeTomorrowDiaryNote"]}]
+          :change-to-dir false
+          :change-to-vcs-root true
+          :fortune-use-unicode true}))
 
+; Minpac actions
+(defcommand PackUpdate {:bar true}
+  (call :plugins#reload)
+  (call :minpac#update))
+(defcommand PackClean  {:bar true}
+  (call :plugins#reload)
+  (call :minpac#clean))
+(defcommand PackStatus {:bar true}
+  (call :plugins#reload)
+  (call :minpac#status))
+
+(defcommand Term "<mods> split +term | startinsert")
+(defcommand Bd "b#|bd#")
+(defcommand Clean "keeppatterns %s/\\s\\+$//e | set nohlsearch")
+
+; Async Make and Grep
+(let [run (fn [args f-args]
+            (nvim.call_function :asyncdo#run (vim.list_extend args f-args)))]
+  (defcommand Make {:bang true :nargs :* :complete :file}
+    (run [bang vim.o.makeprg] f-args))
+  (defcommand Grep {:bang true :nargs :+ :complete :dir}
+    (run [bang {:job vim.o.grepprg :errorformat vim.o.grepformat}] f-args)))
+
+; Async LMake and LGrep
+(let [run (fn [args f-args]
+            (nvim.call_function :asyncdo#lrun (vim.list_extend args f-args)))]
+  (defcommand LMake {:bang true :nargs :* :complete :file}
+    (run [bang vim.o.makeprg] f-args))
+  (defcommand LGrep {:bang true :nargs :+ :complete :dir}
+    (run [bang {:job vim.o.grepprg :errorformat vim.o.grepformat}] f-args)))
+
+(defcommand Ctags (command :AsyncDo "ctags -R ."))
+(defcommand Start {:nargs :*}
+  (command (.. mods " split new"))
+  (call :termopen q-args)
+  (command :startinsert))
+(defcommand Dash  {:nargs :?} (call :dash#open q-args))
+
+(do
+  (command "packadd! vim-sandwich")
+  (command "runtime macros/sandwich/keymap/surround.vim"))
+
+(require :startify)
 (require :langclient)
