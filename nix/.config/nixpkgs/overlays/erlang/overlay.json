@@ -1,7 +1,0 @@
-{
-    "owner": "hauleth",
-    "repo": "nix-elixir",
-    "rev": "9cbd7d740dc54f67a9a423d9a49689829183ddf9",
-    "sha256": "ELtYgbce+tZCnNjr/BddHfKu+PCAFfuFG3qyJ9eTgS4=",
-    "fetchSubmodules": true
-}

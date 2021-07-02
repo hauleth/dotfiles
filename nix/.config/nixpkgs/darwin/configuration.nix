@@ -3,8 +3,7 @@
 {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.overlays = [
-    (import ../overlays/neovim-nightly.nix)
-    (import ../overlays/ctags.nix)
+    (import <neovim-nightly>)
     (import ../overlays/encpipe.nix)
     (import ../overlays/fonts.nix)
     (import ../overlays/git-riff.nix)
@@ -26,9 +25,11 @@
   # $ nix-env -qaP | grep wget
   environment.systemPackages = with pkgs; [
     _1password
+    age
     bat
     comby
     coreutils
+    curlie
     direnv
     nix-direnv
     entr
@@ -42,9 +43,9 @@
     gitAndTools.hub
     gitAndTools.tig
     git
+    gh
     # git-riff
     gnupg
-    httpie
     imagemagick
     jq
     lnav
@@ -103,7 +104,7 @@
     enable = true;
   };
 
-  nix.package = pkgs.nixStable;
+  nix.package = pkgs.nixFlakes;
   # nix.useSandbox = true;
   nix.sandboxPaths = [
     "/System/Library/Frameworks"
@@ -120,7 +121,7 @@
     keep-outputs = true
     keep-derivations = true
 
-    # experimental-features = nix-command flakes
+    experimental-features = nix-command flakes
     '';
 
   # Used for backwards compatibility, please read the changelog before changing.

@@ -25,9 +25,8 @@ with prev;
       mv comby-$version-x86_64-macos $out/bin/comby
       '';
 
-    postFixup = 
-    let libpath = lib.makeLibraryPath [ pcre ];
-    in ''
+    postFixup = let libpath = lib.makeLibraryPath [ pcre ];
+      in ''
       install_name_tool -change /usr/local/opt/pcre/lib/libpcre.1.dylib ${libpath}/libpcre.1.dylib $out/bin/comby
       '';
   };
