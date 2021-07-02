@@ -3,6 +3,7 @@
 --exclude=.hg
 --exclude=log
 --exclude=tmp
+--exclude=.direnv
 
 --fields=+l
 --fields=+n

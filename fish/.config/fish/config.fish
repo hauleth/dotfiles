@@ -7,6 +7,8 @@ fundle plugin 'hauleth/agnoster'
 fundle plugin 'oh-my-fish/plugin-foreign-env'
 fundle init
 
+set -gx MIX_XDG 1
+
 ulimit -n 10480
 
 # if type nix-locate 2>/dev/null >/dev/null
