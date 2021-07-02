@@ -1,19 +1,23 @@
 (local {: map
-        : call
         : command
         : executable?
-        : colorscheme &as nvim} (require :nvim))
+        : call
+        : api
+        : get-opt
+        : ex} (require :nvim))
 (local picker (require :picker))
+(import-macros logger :nvim.logger)
 (import-macros {: augroup
                 : defcommand
                 : on
                 : env
                 : g
                 : opt
+                : bopt
                 : wopt} :nvim.macros)
 
 ; Colors
-(colorscheme :blame)
+(ex.colorscheme :blame)
 
 (opt shell "fish")
 
@@ -27,6 +31,7 @@
 ; Indentation
 (opt shiftwidth 2)
 (opt expandtab)
+(bopt expandtab)
 (opt textwidth 80)
 (wopt wrap false)
 (wopt linebreak)
@@ -48,7 +53,7 @@
 (opt wildignorecase)
 (opt wildmode :full)
 (opt fileignorecase)
-(opt wildignore "*.o,*~,**/.git/**,**/tmp/**,**/node_modules/**,**/_build/**,**/deps/**,**/target/**,**/uploads/**")
+(opt wildignore "*.o,*~,**/.git/**,**/tmp/**,**/node_modules/**,**/_build/**,**/deps/**,**/target/**,**/uploads/**,*.lock")
 
 (opt diffopt+ "indent-heuristic,algorithm:patience")
 (opt tags^ "./**/tags")
@@ -138,7 +143,10 @@
 (map :n :0 "virtcol('.') - 1 <= indent('.') && col('.') > 1 ? '0' : '_'" {:expr true})
 
 (map :n :gK ":Dash")
-(map :n :gq #(call :open#open))
+(map :n :gq (fn []
+              (let [name (call :expand "<cfile>")]
+                (call :jobstart ["open" name] {:detach true})
+                (print "Open" name))))
 
 ; Text object for whole file
 (map :o :aG ":normal! ggVG")
@@ -154,6 +162,7 @@
 (map :n "<C-q>t" ":tabnew +term")
 
 (map :t "<C-q>" "<C-\\><C-n>")
+(map :i "<C-q>" "<ESC>")
 (map :n "<C-q>" "<ESC>")
 
 (when (executable? "nvr")
@@ -173,8 +182,6 @@
   (git-map :g "log"))
 
 ; Split management
-(augroup align-windows
-         (on VimEnter "*" (command "wincmd =")))
 (map :n "<C-w><C-w>" "<plug>(choosewin)" {:noremap false})
 (map :n "<C-_>" "<plug>(choosewin)" {:noremap false})
 
@@ -188,23 +195,33 @@
 
 (augroup matchparen
          (let [term "term://*"]
-           (on BufEnter term (command "NoMatchParen"))
-           (on BufLeave term (command "DoMatchParen"))))
+           (on BufEnter term (ex.NoMatchParen))
+           (on BufLeave term (ex.DoMatchParen))))
 
 ; Autoreload Direnv after writing the .envrc
 (when (executable? "direnv")
   (augroup autoreload-envrc
-           (on BufWritePost ".envrc" (command "silent !direnv allow %"))))
-
-; Clean non-existing buffers on leave
-(augroup autoclean
-         (on BufLeave "*" (call :utils#cleanup)))
+           (on BufWritePost ".envrc" (ex.silent "!direnv allow %"))))
 
 ; Setup Lua extensions
 (let [setup (fn [package object] ((. (require package) :setup) object))]
   (setup :nvim-treesitter.configs
-         {:ensure_installed :maintained
-          :highlight {:enable true}
+         {:ensure_installed [:erlang
+                             :elixir
+                             :nix
+                             :typescript
+                             :javascript
+                             :c
+                             :json
+                             :fennel
+                             :html
+                             :css
+                             :yaml
+                             :rust
+                             :toml]
+          :highlight {:enable true
+                      ; :disable [:elixir]
+                      }
           :indent {:enable true}})
   (setup :startify
          {:lists [{:type "sessions" :header ["   Sessions"]}
@@ -232,36 +249,35 @@
   (call :plugins#reload)
   (call :minpac#status))
 
-(defcommand Term "<mods> split +term | startinsert")
 (defcommand Bd "b#|bd#")
+(defcommand BClean
+  (->> (call :getbufinfo {:buflisted true})
+       (vim.tbl_filter #(= (next $1.windows) nil))
+       (#(each [_ v (ipairs $1)]
+           (command (.. "bd " v.bufnr))))))
 (defcommand Clean "keeppatterns %s/\\s\\+$//e | set nohlsearch")
 
 ; Async Make and Grep
 (let [run (fn [args f-args]
-            (nvim.call_function :asyncdo#run (vim.list_extend args f-args)))]
+            (api.call_function :asyncdo#run (vim.list_extend args f-args)))]
   (defcommand Make {:bang true :nargs :* :complete :file}
-    (run [bang vim.o.makeprg] f-args))
+    (run [bang (get-opt :makeprg)] f-args))
   (defcommand Grep {:bang true :nargs :+ :complete :dir}
-    (run [bang {:job vim.o.grepprg :errorformat vim.o.grepformat}] f-args)))
+    (run [bang {:job (get-opt :grepprg) :errorformat (get-opt :grepformat)}] f-args)))
 
-; Async LMake and LGrep
-(let [run (fn [args f-args]
-            (nvim.call_function :asyncdo#lrun (vim.list_extend args f-args)))]
-  (defcommand LMake {:bang true :nargs :* :complete :file}
-    (run [bang vim.o.makeprg] f-args))
-  (defcommand LGrep {:bang true :nargs :+ :complete :dir}
-    (run [bang {:job vim.o.grepprg :errorformat vim.o.grepformat}] f-args)))
-
-(defcommand Ctags (command :AsyncDo "ctags -R ."))
+(defcommand Ctags
+  (command :AsyncDo "ctags -R ."))
 (defcommand Start {:nargs :*}
-  (command (.. mods " split new"))
-  (call :termopen q-args)
-  (command :startinsert))
-(defcommand Dash  {:nargs :?} (call :dash#open q-args))
+  (let [cmd (call :expand q-args)]
+    (command (.. mods " new"))
+    (call :termopen cmd)
+    (ex.startinsert)))
+(defcommand Dash  {:nargs :?}
+  (call :dash#open q-args))
 
 (do
-  (command "packadd! vim-sandwich")
-  (command "runtime macros/sandwich/keymap/surround.vim"))
+  (ex.packadd! :vim-sandwich)
+  (ex.runtime "macros/sandwich/keymap/surround.vim"))
 
 (require :startify)
 (require :langclient)

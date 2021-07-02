@@ -1,0 +1,13 @@
+(local configs (require :lspconfig.configs))
+(local util (require :lspconfig.util))
+
+(fn root-dir [name]
+  (let [root-pattern (util.root_pattern "rebar.config" ".git")]
+    (or (root-pattern name) (vim.loop.os_homedir))))
+
+(tset configs :erlangls {
+                      :default_config {
+                                       :filetypes [:erlang]
+                                       :root_dir root-dir
+                                       }
+                      })

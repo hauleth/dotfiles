@@ -37,16 +37,19 @@ func! plugins#spec() abort
     " }}}
     " Git {{{
     call minpac#add('tpope/vim-fugitive')
+    " call minpac#add('TimUntersberger/neogit')
+    " call minpac#add('nvim-lua/popup.nvim')
+    " call minpac#add('nvim-lua/plenary.nvim')
+    " call minpac#add('pwntester/octo.nvim')
     " }}}
     " Launch screen {{{
     call minpac#add('mhinz/vim-startify') " Required during startup
     " }}}
     " Languages {{{
     call minpac#add('aklt/plantuml-syntax') " ftplugin
-    call minpac#add('b4b4r07/vim-hcl') " ftplugin
     call minpac#add('cespare/vim-toml') " ftplugin
     call minpac#add('dag/vim-fish') " ftplugin
-    call minpac#add('elixir-lang/vim-elixir') " ftplugin
+    call minpac#add('hauleth/vim-elixir', {'branch': 'fix/encode-all-db-options'}) " ftplugin
     call minpac#add('pangloss/vim-javascript') " ftplugin
     call minpac#add('tpope/vim-cucumber') " ftplugin
     call minpac#add('tpope/vim-scriptease', {'type': 'opt'}) " ftplugin
@@ -62,7 +65,7 @@ func! plugins#spec() abort
     call minpac#add('neovim/nvim-lspconfig')
     " }}}
     " Code manipulation {{{
-    call minpac#add('AndrewRadev/splitjoin.vim')
+    call minpac#add('AndrewRadev/splitjoin.vim', {'rev': 'main'})
     call minpac#add('hauleth/sad.vim')
     call minpac#add('tommcdo/vim-exchange')
     call minpac#add('tommcdo/vim-lion')
@@ -93,7 +96,7 @@ func! plugins#spec() abort
     call minpac#add('https://gitlab.com/hauleth/smart.vim.git')
     call minpac#add('reedes/vim-pencil')
     call minpac#add('sgur/vim-editorconfig') " Required during startup
-    call minpac#add('simnalamburt/vim-mundo')
+    call minpac#add('mbbill/undotree')
     call minpac#add('tpope/vim-characterize')
     call minpac#add('tpope/vim-dadbod')
     call minpac#add('tpope/vim-repeat') " autoload-only plugin

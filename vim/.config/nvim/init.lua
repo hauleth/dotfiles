@@ -23,9 +23,4 @@ for _, v in pairs(vim.api.nvim_get_runtime_file("fnl/", false)) do
 end
 fennel.path = fennel.path .. fennel_paths
 
-local u = require('utils')
-
 require('startup')
-
--- Load legacy configuration file
-vim.api.nvim_command('runtime! legacy.vim')

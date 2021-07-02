@@ -14,7 +14,8 @@
   (. (require :telescope.builtin) name))
 
 (fn find_files [opts]
-  (let [defaults {:find_command ["rg" "--hidden" "--ignore" "--files" "--glob=!.git"]}
+  (let [defaults {:find_command ["rg" "--hidden" "--ignore" "--files" "--glob=!.git" "--glob=!*.lock"]
+                  :previewer false}
         options (vim.tbl_extend :force defaults (or opts {}))]
     ((finder :find_files) options)))
 

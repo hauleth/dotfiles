@@ -41,23 +41,37 @@
       (each [mode (modes:gmatch ".")]
         (cb mode lhs normalised-rhs map-opts)))))
 
+
 (local api (setmetatable {}
                          {:__index (fn [_ key]
                                      (let [func (.. "nvim_" key)]
                                        (. vim.api func)))}))
 
-(fn executable? [name]
-  (api.call_function "executable" [name]))
+(local ex (setmetatable {}
+                        {:__index (fn [_ key]
+                                    (fn [...]
+                                      (api.command (.. key " " (table.concat [...] " ")))))}))
 
-(fn colorscheme [name]
-  (api.command (.. "colorscheme " name)))
+(fn ?> [f ...] (let [(ok? val) (f)] (if ok? val (?> ...))))
+
+(fn get-opt [key]
+  (let [bo #(pcall api.buf_get_option 0 key)
+        wo #(pcall api.win_get_option 0 key)
+        go #(values true (api.get_option key))]
+    (?> bo wo go)))
 
 (fn call [name ...]
-  (api.call_function name (or ... [])))
+  (api.call_function name [...]))
 
+(fn executable? [name]
+  (call :executable name))
+
+;; Exports
 (setmetatable {:map (make-map api.set_keymap)
                :buf-map (make-map #(api.buf_set_keymap 0 $...))
+               : api
+               : ex
                : call
-               : colorscheme
                : make-func
+               : get-opt
                : executable?} {:__index api})

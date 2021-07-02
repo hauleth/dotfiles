@@ -1,0 +1,8 @@
+call vimwiki#u#map_key('n', 'g=', '<Plug>VimwikiAddHeaderLevel')
+call vimwiki#u#map_key('n', 'g-', '<Plug>VimwikiRemoveHeaderLevel')
+call vimwiki#u#map_key('n', ']u', '<Plug>VimwikiGoToParentHeader')
+call vimwiki#u#map_key('n', '[u', '<Plug>VimwikiGoToParentHeader', 1)
+call vimwiki#u#map_key('n', ']]', '<Plug>VimwikiGoToNextHeader')
+call vimwiki#u#map_key('n', '[[', '<Plug>VimwikiGoToPrevHeader')
+call vimwiki#u#map_key('n', ']=', '<Plug>VimwikiGoToNextSiblingHeader')
+call vimwiki#u#map_key('n', '[=', '<Plug>VimwikiGoToPrevSiblingHeader')

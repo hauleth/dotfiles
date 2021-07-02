@@ -20,7 +20,7 @@
             (tset ,scope ,opt (if (= (. ,scope ,opt) "") v# (.. v# "," (. ,scope ,opt)))))
       :+ `(let [v# ,value]
             (tset ,scope ,opt (if (= (. ,scope ,opt) "") v# (.. (. ,scope ,opt) "," v#))))
-      _ `(tset ,scope ,opt ,(or value true)))))
+      _ `(tset ,scope ,opt ,(if (= value nil) true value)))))
 
 (fn opt [name value]
   "Set Vim option"
@@ -83,6 +83,7 @@
         flags (translate-opts opts1)]
     `(vim.api.nvim_command (.. "command! " ,flags " " ,(view name) " " ,command))))
 
+;; Exports
 {: augroup
  : defcommand
  : env
