@@ -1,4 +1,3 @@
-
 # Elixir
 *.ex diff=elixir
 *.exs diff=elixir
