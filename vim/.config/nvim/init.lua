@@ -1,3 +1,5 @@
+require('impatient').enable_profile()
+
 -- Fennel loader, default one do not work well with NeoVim so there is custom
 -- one
 _G.fennel = require('fennel')

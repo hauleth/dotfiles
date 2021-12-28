@@ -3,15 +3,25 @@
 (local utils (require :lspconfig.util))
 (local picker (require :picker))
 (import-macros logger :nvim.logger)
-(import-macros {: bopt} :nvim.macros)
-
-(require :lspconfig.erlangls)
+(import-macros {: bopt
+                : augroup
+                : on} :nvim.macros)
 
 (fn capable? [client capability]
   (. client.resolved_capabilities capability))
 
-(fn on-attach [client]
+; Disable virtual text for diagnostics
+(tset vim.lsp.handlers :textDocument/publishDiagnostics
+ (vim.lsp.with
+  vim.lsp.diagnostic.on_publish_diagnostics
+  {:virtual_text false
+   :underline true
+   :signs true}))
+
+(fn on_attach [client]
   (logger.inspect client)
+  (augroup lsp-diagnostics
+           (on CursorHold  :* (vim.lsp.diagnostic.show_line_diagnostics)))
   (when (capable? client :hover)
     (bmap :n :K #(vim.lsp.buf.hover)))
   (when (capable? client :goto_definition)
@@ -27,17 +37,25 @@
 
 (fn nix-cmd [name cmd]
   ["nix-shell"
-   "-E" (.. "with import <nixpkgs> {}; with (if (builtins.pathExists ./shell.nix) then (import ./shell.nix {}).passthru else (import <nixpkgs> {})); mkShell { buildInputs = [" name "]; }")
+   "-E" "{ name }: let pkgs = import <nixpkgs> {}; projPkgs = (if (builtins.pathExists ./shell.nix) then (import ./shell.nix { inherit pkgs; }).passthru else {}); in pkgs.mkShell { buildInputs = [(if projPkgs ? ${name} then projPkgs.${name} else pkgs.${name})]; }"
+   "--argstr" "name" name
    "--run" (or cmd name)])
 
-(lsp.rust_analyzer.setup {:cmd (nix-cmd "rust-analyzer")
-                          :on_attach on-attach})
+(local capabilities
+  (->> (vim.lsp.protocol.make_client_capabilities)
+      ((. (require :cmp_nvim_lsp) :update_capabilities))))
 
-(lsp.elixirls.setup {:cmd (nix-cmd "elixir_ls" "elixir-ls")
-                     :on_attach on-attach
+(lsp.rust_analyzer.setup {:cmd (nix-cmd "rust-analyzer")
+                          : capabilities
+                          : on_attach})
+
+(lsp.elixirls.setup {:cmd ["elixir-ls"]
+                     : capabilities
+                     : on_attach
                      :settings {:elixirLS {:dialyzerEnabled false}}})
 
-(lsp.erlangls.setup {:cmd (nix-cmd "erlang-ls" "erlang_ls")
-                     :on_attach on-attach})
+(lsp.erlangls.setup {:cmd ["erlang_ls"]
+                     : capabilities
+                     : on_attach})
 
-(lsp.solargraph.setup {:on_attach on-attach})
+(lsp.solargraph.setup {: on_attach})

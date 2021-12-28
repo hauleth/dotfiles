@@ -16,6 +16,8 @@
                 : bopt
                 : wopt} :nvim.macros)
 
+(require :plugins)
+
 ; Colors
 (ex.colorscheme :blame)
 
@@ -23,6 +25,9 @@
 
 ; MatchIt must be unloaded for MatchPair to work correctly
 (g :loaded_matchit true)
+(g :matchup_surround_enabled true)
+
+(g :choosewin_label "QWERTYUIOP")
 
 ; Colors
 (opt termguicolors)
@@ -91,7 +96,8 @@
 (opt sessionoptions "blank,buffers,curdir,folds,tabpages,winsize")
 
 ; Folding
-(opt foldmethod :syntax)
+(opt foldmethod :expr)
+(opt foldexpr "nvim_treesitter#foldexpr()")
 (opt foldlevel 999)
 (map :n :<CR> "foldlevel(\".\") ? \"za\" : \"\\<CR>\"" {:expr true})
 
@@ -205,49 +211,44 @@
 
 ; Setup Lua extensions
 (let [setup (fn [package object] ((. (require package) :setup) object))]
-  (setup :nvim-treesitter.configs
-         {:ensure_installed [:erlang
-                             :elixir
-                             :nix
-                             :typescript
-                             :javascript
-                             :c
-                             :json
-                             :fennel
-                             :html
-                             :css
-                             :yaml
-                             :rust
-                             :toml]
-          :highlight {:enable true
-                      ; :disable [:elixir]
-                      }
-          :indent {:enable true}})
+  (let [parser-configs (. (require :nvim-treesitter.parsers) :get_parser_configs)]
+    (tset (parser-configs) :org {
+      :install_info {
+        :url "https://github.com/milisims/tree-sitter-org"
+        :revision "main"
+        :files [ "src/parser.c" "src/scanner.cc" ]}
+      :filetype "org"}))
   (setup :startify
          {:lists [{:type "sessions" :header ["   Sessions"]}
                   {:type "commands" :header ["   Wiki"]}]
           :session-dir "~/.local/share/nvim/site/sessions/"
           :session-autoload true
           :session-persistence true
-          :commands [{:w ["Wiki" "VimwikiIndex"]}
-                     {:d ["Diary" "VimwikiDiaryIndex"]}
-                     {:t ["Today" "VimwikiMakeDiaryNote"]}
-                     {:y ["Yesterday" "VimwikiMakeYesterdayDiaryNote"]}
-                     {:a ["Tomorrow" "VimwikiMakeTomorrowDiaryNote"]}]
           :change-to-dir false
           :change-to-vcs-root true
-          :fortune-use-unicode true}))
+          :fortune-use-unicode true})
+  (setup :orgmode {})
+  (setup :nvim-treesitter.configs
+         {:ensure_installed :maintained
+          :highlight {
+            :enable true
+            :disable [:elixir]
+            ; :additional_vim_regex_highlighting [:elixir :erlang :rust]
+          }
+          :matchup {:enable true}
+          :indent {:enable true}}))
 
-; Minpac actions
-(defcommand PackUpdate {:bar true}
-  (call :plugins#reload)
-  (call :minpac#update))
-(defcommand PackClean  {:bar true}
-  (call :plugins#reload)
-  (call :minpac#clean))
-(defcommand PackStatus {:bar true}
-  (call :plugins#reload)
-  (call :minpac#status))
+(let [cmp (require :cmp)]
+  (cmp.setup
+     {:sources [{:name "nvim_lsp"}
+                {:name "buffer"}
+                {:name "orgmode"}]
+      :completion {:autocomplete false}
+      :snippet {:expand (fn [args]
+                          ((. (require :luasnip) :lsp_expand) args.body))}
+      :mapping {"<C-x><C-x>" (cmp.mapping.complete)
+                "<C-y>" (cmp.mapping.confirm {:select true})
+                "<CR>" (cmp.mapping.confirm)}}))
 
 (defcommand Bd "b#|bd#")
 (defcommand BClean

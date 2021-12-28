@@ -1,10 +1,12 @@
 # Elixir
 *.ex diff=elixir
 *.exs diff=elixir
+mix.lock merge=binary
 
 # Erlang
 *.erl diff=erlang
 *.hrl diff=erlang
+rebar.lock merge=binary
 
 # TeX
 *.tex diff=tex

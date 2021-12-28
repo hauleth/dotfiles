@@ -1,7 +1,6 @@
 [core]
 	commitGraph = true
 	pager = "diff-so-fancy | less --tabs=4 -RFX"
-	commentChar = ";"
 
 [init]
 	defaultBranch = master
@@ -69,6 +68,7 @@
 [commit]
 	gpgsign = true
 	verbose = true
+	cleanup = scissors
 
 [filter "lfs"]
 	clean = git-lfs clean -- %f
@@ -95,10 +95,10 @@
 	new = blue
 
 [color.diff-highlight]
-	oldNormal = "magenta"
-	oldHighlight = "magenta ul"
-	newNormal = "blue"
-	newHighlight = "blue ul"
+	oldNormal = "blue"
+	oldHighlight = "blue reverse"
+	newNormal = "yellow"
+	newHighlight = "yellow reverse"
 
 [pack]
 	useSparse = true

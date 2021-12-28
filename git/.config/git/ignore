@@ -70,3 +70,4 @@ oprofile_data
 .elixir_ls
 /.direnv
 .vagrant/
+erl_crash.dump
