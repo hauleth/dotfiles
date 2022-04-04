@@ -109,4 +109,10 @@
 	thread = true
 	supersscc = self
 
+[gpg]
+	; format = ssh
+
+[gpg.ssh]
+	defaultKeyCommand = "ssh-add -L"
+
 # vim: ft=gitconfig noexpandtab sw=8

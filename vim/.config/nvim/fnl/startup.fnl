@@ -232,8 +232,8 @@
          {:ensure_installed :maintained
           :highlight {
             :enable true
-            :disable [:elixir]
-            ; :additional_vim_regex_highlighting [:elixir :erlang :rust]
+            ;:disable [:elixir]
+            :additional_vim_regex_highlighting [:jinja :elixir :erlang :rust]
           }
           :matchup {:enable true}
           :indent {:enable true}}))

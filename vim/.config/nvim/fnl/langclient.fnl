@@ -21,7 +21,7 @@
 (fn on_attach [client]
   (logger.inspect client)
   (augroup lsp-diagnostics
-           (on CursorHold  :* (vim.lsp.diagnostic.show_line_diagnostics)))
+           (on CursorHold  :* (vim.diagnostic.open_float nil)))
   (when (capable? client :hover)
     (bmap :n :K #(vim.lsp.buf.hover)))
   (when (capable? client :goto_definition)

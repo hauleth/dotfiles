@@ -2,11 +2,11 @@ TARGETS ?= fish vim kitty git ctags wm misc
 
 all: nix $(TARGETS)
 
-nix: check
+nix:
 	@printf "%s\t" $@
-	@stow -t "${HOME}" -R "$@" 2> /dev/null && printf "\033[32m✓" || printf "\033[31m✗"
+	@printf "\033[32m✓" || printf "\033[31m✗"
 	@printf "\033[m\n"
-	@darwin-rebuild switch -I "${HOME}/.config/nixpkgs/darwin/configuration.nix"
+	@darwin-rebuild switch --flake dotfiles
 
 $(TARGETS): check
 	@printf "%s\t" $@
