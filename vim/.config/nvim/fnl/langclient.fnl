@@ -35,19 +35,15 @@
   (when (capable? client :completion)
     (bopt omnifunc "v:lua.vim.lsp.omnifunc")))
 
-(fn nix-cmd [name cmd]
-  ["nix-shell"
-   "-E" "{ name }: let pkgs = import <nixpkgs> {}; projPkgs = (if (builtins.pathExists ./shell.nix) then (import ./shell.nix { inherit pkgs; }).passthru else {}); in pkgs.mkShell { buildInputs = [(if projPkgs ? ${name} then projPkgs.${name} else pkgs.${name})]; }"
-   "--argstr" "name" name
-   "--run" (or cmd name)])
-
 (local capabilities
   (->> (vim.lsp.protocol.make_client_capabilities)
       ((. (require :cmp_nvim_lsp) :update_capabilities))))
 
-(lsp.rust_analyzer.setup {:cmd (nix-cmd "rust-analyzer")
-                          : capabilities
-                          : on_attach})
+(lsp.rust_analyzer.setup {: capabilities
+                          : on_attach
+                          :settings {
+                            :trace {:server :verbose}
+                          }})
 
 (lsp.elixirls.setup {:cmd ["elixir-ls"]
                      : capabilities

@@ -8,36 +8,48 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     darwin = {
-      url = "github:lnl7/nix-darwin/master";
+      url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs =
-    { self, darwin, nixpkgs, agnoster }:
-    let
-      overlays = { pkgs, ... }: {
-        nixpkgs.overlays = [
-          agnoster.overlay
-        ];
-      };
-      version = { ... }: { system.stateVersion = 4; };
-    in {
-      darwinConfigurations."NiunioBook" = darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [
-          overlays
-          ./nix/nix.nix
-          ./nix/system.nix
-          ./nix/services.nix
-          ./nix/fonts.nix
-          ./nix/environment.nix
-          version
-        ];
-        inputs = { inherit self; };
-      };
-
-      # for convenience
-      darwinPackages = self.darwinConfigurations."NiunioBook".pkgs;
+  outputs = {
+    self,
+    darwin,
+    nixpkgs,
+    agnoster,
+  }: {
+    darwinConfigurations."NiunioBook" = darwin.lib.darwinSystem {
+      system = "x86_64-darwin";
+      modules = [
+        ./nix/nix.nix
+        ./nix/system.nix
+        ./nix/services.nix
+        ./nix/fonts.nix
+        ./nix/environment.nix
+        {system.stateVersion = 4;}
+      ];
+      inputs = {inherit self agnoster;};
     };
-  }
+
+    # for convenience
+    darwinPackages = self.darwinConfigurations."NiunioBook".pkgs;
+
+    devShells."x86_64-darwin".default = let
+      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
+    in pkgs.mkShell {
+      nativeBuildInputs = [
+        pkgs.alejandra
+        # TODO: Remove it and manage all configuration from Nix
+        pkgs.stow
+      ];
+    };
+
+    templates = {
+      elixir = {
+        path = ./templates/elixir;
+        description = "Basic requirements for Elixir applications";
+      };
+    };
+  };
+}

@@ -209,15 +209,10 @@
   (augroup autoreload-envrc
            (on BufWritePost ".envrc" (ex.silent "!direnv allow %"))))
 
+(. (require :orgmode) :setup_ts_grammar)
+
 ; Setup Lua extensions
 (let [setup (fn [package object] ((. (require package) :setup) object))]
-  (let [parser-configs (. (require :nvim-treesitter.parsers) :get_parser_configs)]
-    (tset (parser-configs) :org {
-      :install_info {
-        :url "https://github.com/milisims/tree-sitter-org"
-        :revision "main"
-        :files [ "src/parser.c" "src/scanner.cc" ]}
-      :filetype "org"}))
   (setup :startify
          {:lists [{:type "sessions" :header ["   Sessions"]}
                   {:type "commands" :header ["   Wiki"]}]
@@ -229,12 +224,8 @@
           :fortune-use-unicode true})
   (setup :orgmode {})
   (setup :nvim-treesitter.configs
-         {:ensure_installed :maintained
-          :highlight {
-            :enable true
-            ;:disable [:elixir]
-            :additional_vim_regex_highlighting [:jinja :elixir :erlang :rust]
-          }
+         {:ensure_installed :all
+          :highlight {:enable true}
           :matchup {:enable true}
           :indent {:enable true}}))
 

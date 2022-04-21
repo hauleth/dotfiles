@@ -40,11 +40,12 @@
 [branch]
 	autoSetupRebase = always
 [push]
-	default = simple
+	default = current
 	followTags = true
 	gpgSign = if-asked
 [pull]
 	rebase = true
+	twohead = ort
 [merge]
 	ff = false
 [rebase]
@@ -83,9 +84,16 @@
 	indentHeuristic = true
 	algorithm = histogram
 	mnemonicPrefix = true
+	tool = difftastic
 
 [diff "markdown"]
 	xfuncname = "^(#+\\s+.*)$"
+
+[difftool]
+	prompt = true
+
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
 
 [color]
 	ui = true

@@ -1,5 +1,3 @@
-{ pkgs, ... }:
-
 {
   # Auto upgrade nix package and the daemon service.
   # services.nix-daemon = {
@@ -24,7 +22,8 @@
     ProgramArguments = [
       "/usr/bin/curl"
       "--netrc-optional"
-      "-F" "plan=&lt;/Users/hauleth/.plan"
+      "-F"
+      "plan=&lt;/Users/hauleth/.plan"
       "https://plan.cat/stdin"
     ];
 

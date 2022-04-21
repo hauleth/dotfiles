@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
   # You should generally set this to the total number of logical cores in your system.
@@ -10,14 +8,13 @@
 
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
-    gc-keep-derivations = true
-    gc-keep-outputs = true
+    auto-optimise-store = true
 
     keep-outputs = true
-    keep-derivations = true
+    # keep-derivations = true
 
     experimental-features = nix-command flakes
-    '';
+  '';
 
   # nix.useSandbox = true;
   nix.sandboxPaths = [
