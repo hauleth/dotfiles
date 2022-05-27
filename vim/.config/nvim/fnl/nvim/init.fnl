@@ -52,7 +52,7 @@
                                     (fn [...]
                                       (api.command (.. key " " (table.concat [...] " ")))))}))
 
-(fn ?> [f ...] (let [(ok? val) (f)] (if ok? val (?> ...))))
+(fn ?> [f ...] (let [(ok? val) (f)] (if (and ok? (not= val "")) val (?> ...))))
 
 (fn get-opt [key]
   (let [bo #(pcall api.buf_get_option 0 key)

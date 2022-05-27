@@ -45,6 +45,37 @@
       ];
     };
 
+    devShells."x86_64-darwin".erlang = let
+      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
+      erlang = pkgs.beam.packages.erlangR24;
+    in pkgs.mkShell {
+      nativeBuildInputs = [
+        erlang.erlang
+        erlang.erlang-ls
+        erlang.rebar3
+      ];
+    };
+
+    devShells."x86_64-darwin".elixir = let
+      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
+      erlang = pkgs.beam.packages.erlangR24;
+    in pkgs.mkShell {
+      nativeBuildInputs = [
+        erlang.elixir
+        erlang.elixir_ls
+      ];
+    };
+
+    devShells."x86_64-darwin".rust = let
+      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
+    in pkgs.mkShell {
+      nativeBuildInputs = [
+        pkgs.cargo
+        pkgs.rustc
+        pkgs.rust-analyzer
+      ];
+    };
+
     templates = {
       elixir = {
         path = ./templates/elixir;

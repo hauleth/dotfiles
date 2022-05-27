@@ -209,7 +209,7 @@
   (augroup autoreload-envrc
            (on BufWritePost ".envrc" (ex.silent "!direnv allow %"))))
 
-(. (require :orgmode) :setup_ts_grammar)
+; (. (require :orgmode) :setup_ts_grammar)
 
 ; Setup Lua extensions
 (let [setup (fn [package object] ((. (require package) :setup) object))]
@@ -222,18 +222,17 @@
           :change-to-dir false
           :change-to-vcs-root true
           :fortune-use-unicode true})
-  (setup :orgmode {})
   (setup :nvim-treesitter.configs
          {:ensure_installed :all
           :highlight {:enable true}
           :matchup {:enable true}
           :indent {:enable true}}))
+  ; (setup :orgmode {}))
 
 (let [cmp (require :cmp)]
   (cmp.setup
      {:sources [{:name "nvim_lsp"}
-                {:name "buffer"}
-                {:name "orgmode"}]
+                {:name "buffer"}]
       :completion {:autocomplete false}
       :snippet {:expand (fn [args]
                           ((. (require :luasnip) :lsp_expand) args.body))}

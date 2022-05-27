@@ -37,7 +37,7 @@
           (use :elixir-editors/vim-elixir)
           (use :nvim-treesitter/nvim-treesitter)
           (use :lepture/vim-jinja)
-          (use :nvim-orgmode/orgmode)
+          ;(use :nvim-orgmode/orgmode)
 
           ; Tree Sitter
           (use :neovim/nvim-lspconfig)
@@ -53,8 +53,8 @@
           (use :hrsh7th/cmp-nvim-lsp)
           (use :hrsh7th/cmp-buffer)
           (use :hrsh7th/nvim-cmp)
-          (use :L3MON4D3/LuaSnip)
-          (use :saadparwaiz1/cmp_luasnip)
+          ; (use :L3MON4D3/LuaSnip)
+          ; (use :saadparwaiz1/cmp_luasnip)
 
           ; Movements
           (use :wellle/targets.vim {:opt true})
