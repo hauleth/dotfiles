@@ -1,5 +1,7 @@
-(local telescope (require :telescope))
-(local themes (require :telescope.themes))
+(import-macros {: use} :relude)
+
+(use telescope)
+(use telescope.themes)
 
 (let [opts {:vimgrep_arguments ["rg"
                                 "--vimgrep"

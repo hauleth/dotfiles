@@ -1,57 +1,46 @@
-(local {:buf-map bmap} (require :nvim))
-(local lsp (require :lspconfig))
-(local utils (require :lspconfig.util))
-(local picker (require :picker))
+(import-macros {: use} :relude)
+
+(use nvim {: command : opts :buf-map bmap})
+(use picker)
+(use lspconfig)
 (import-macros logger :nvim.logger)
-(import-macros {: bopt
-                : augroup
-                : on} :nvim.macros)
-
-(fn capable? [client capability]
-  (. client.resolved_capabilities capability))
-
-; Disable virtual text for diagnostics
-(tset vim.lsp.handlers :textDocument/publishDiagnostics
- (vim.lsp.with
-  vim.lsp.diagnostic.on_publish_diagnostics
-  {:virtual_text false
-   :underline true
-   :signs true}))
+(import-macros {: augroup} :nvim)
 
 (fn on_attach [client]
   (logger.inspect client)
+  (local capable? (fn [capability]
+                    (. client.server_capabilities capability)))
   (augroup lsp-diagnostics
-           (on CursorHold  :* (vim.diagnostic.open_float nil)))
-  (when (capable? client :hover)
+           (on CursorHold :* (vim.diagnostic.open_float nil)))
+  (when (capable? :hoverProvider)
     (bmap :n :K #(vim.lsp.buf.hover)))
-  (when (capable? client :goto_definition)
+  (when (capable? :declarationProvider)
+    (bmap :n :gD #(vim.lsp.buf.declaration)))
+  (when (capable? :definitionProvider)
     (bmap :n :gd #(vim.lsp.buf.definition)))
-  (when (capable? client :find_references)
+  (when (capable? :referencesProvider)
     (bmap :n :gr #(picker.lsp_references)))
-  (when (capable? client :document_formatting)
+  (when (capable? :documentFormattingProvider)
     (bmap :n :Q #(vim.lsp.buf.formatting_sync)))
-  (when (capable? client :document_symbol)
+  (when (capable? :documentSymbolProvider)
     (bmap :n :gO #(picker.lsp_document_symbols)))
-  (when (capable? client :completion)
-    (bopt omnifunc "v:lua.vim.lsp.omnifunc")))
+  (when (capable? :completionProvider)
+    (set opts.buffer.omnifunc "v:lua.vim.lsp.omnifunc")))
 
-(local capabilities
-  (->> (vim.lsp.protocol.make_client_capabilities)
-      ((. (require :cmp_nvim_lsp) :update_capabilities))))
+(set lspconfig.util.default_config
+  (vim.tbl_extend :force lspconfig.util.default_config
+    {:autostart false
+     : on_attach}))
 
-(lsp.rust_analyzer.setup {: capabilities
-                          : on_attach
-                          :settings {
-                            :trace {:server :verbose}
-                          }})
+(vim.diagnostic.config
+ {:virtual_text false})
 
-(lsp.elixirls.setup {:cmd ["elixir-ls"]
-                     : capabilities
-                     : on_attach
+(lspconfig.rust_analyzer.setup {:settings {:trace {:server :verbose}}})
+
+(lspconfig.elixirls.setup {:cmd ["elixir-ls"]
                      :settings {:elixirLS {:dialyzerEnabled false}}})
 
-(lsp.erlangls.setup {:cmd ["erlang_ls"]
-                     : capabilities
-                     : on_attach})
+(lspconfig.erlangls.setup {:cmd ["erlang_ls"]})
 
-(lsp.solargraph.setup {: on_attach})
+(augroup lsp-direnv
+  (on User :DirenvLoaded (command "LspStart")))

@@ -1,6 +1,6 @@
-(import-macros logger :nvim.logger)
+; (import-macros logger :nvim.logger)
 
-(global __nvim_functions__ {})
+(local {: make-func : maybe-join} (require :nvim.utils))
 
 (fn filter [t cb]
   (collect [k v (pairs t)]
@@ -8,11 +8,6 @@
 
 (fn try [value test cb]
   (if (test value) (cb value) value))
-
-(fn make-func [func]
-  (let [idx (+ (length __nvim_functions__) 1)]
-    (tset __nvim_functions__ idx func)
-    (.. "__nvim_functions__[" idx "]")))
 
 (fn normalise-map [rhs opts]
   (if (= (type rhs) :string)
@@ -52,26 +47,48 @@
                                     (fn [...]
                                       (api.command (.. key " " (table.concat [...] " ")))))}))
 
+(local func (setmetatable {}
+                          {:__index (fn [_ key]
+                                      (fn [...] (api.call_function key [...])))}))
+
+(local opts (setmetatable {}
+                          {:__newindex (fn [_ key val]
+                                      (print (fennel.view {: key : val})))}))
+
 (fn ?> [f ...] (let [(ok? val) (f)] (if (and ok? (not= val "")) val (?> ...))))
 
-(fn get-opt [key]
-  (let [bo #(pcall api.buf_get_option 0 key)
-        wo #(pcall api.win_get_option 0 key)
-        go #(values true (api.get_option key))]
-    (?> bo wo go)))
+(fn set-opt [scope key value]
+  (let [len (length key)
+        opt (if (key:match "[-+^!]$") (key:sub 1 (- len 1)) key)
+        l (lambda [] (vim.split (. scope opt) ","))
+        val (match (key:sub len)
+              :- (assert false "not-implemented")
+              :^ (vim.list_extend value (l))
+              :+ (vim.list_extend (l) value)
+              _ value)]
+    (tset scope opt (maybe-join val))))
 
-(fn call [name ...]
-  (api.call_function name [...]))
+(fn build-opts [table scope]
+  (setmetatable table
+                {:__index scope
+                :__newindex (fn [_ key val] (set-opt scope key val))
+                :__call (fn [table opts]
+                          (each [key value (pairs opts)]
+                            (set-opt scope key value)))}))
+
+; TODO: Allow setting buffer and window local options
+(local opts (build-opts {:global (build-opts {} vim.go)
+                         :window (build-opts {} vim.wo)
+                         :buffer (build-opts {} vim.bo)} vim.o))
 
 (fn executable? [name]
-  (call :executable name))
+  (func.executable name))
 
 ;; Exports
 (setmetatable {:map (make-map api.set_keymap)
                :buf-map (make-map #(api.buf_set_keymap 0 $...))
                : api
                : ex
-               : call
-               : make-func
-               : get-opt
+               : func
+               : opts
                : executable?} {:__index api})

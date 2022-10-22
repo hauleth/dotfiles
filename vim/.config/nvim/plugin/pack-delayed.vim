@@ -3,7 +3,7 @@ if exists('g:loaded_pack_delayed')
 endif
 let g:loaded_pack_delayed = 1
 
-func! DelayedLoad(...) abort " No abort as we want to continue if any plugin fails
+func! DelayedLoad(...) " No abort as we want to continue if any plugin fails
     " Git
     packadd targets.vim
 
