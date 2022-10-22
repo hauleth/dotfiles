@@ -3,16 +3,20 @@
 (use packer)
 
 (fn config [cb]
- (packer.startup
-  (fn [-pkg -pkg-rocks]
-   (let [super (fn [f] (fn [name ?opts] (f (vim.tbl_extend :keep {1 name} (or ?opts {})))))
-         pkg (super -pkg)
-         pkg-rocks (super -pkg-rocks)]
-    (cb pkg pkg-rocks)))))
+  (packer.startup (fn [-pkg -pkg-rocks]
+                    (let [super (fn [f]
+                                  (fn [name ?opts]
+                                    (f (vim.tbl_extend :keep {1 name}
+                                                       (or ?opts {})))))
+                          pkg (super -pkg)
+                          pkg-rocks (super -pkg-rocks)]
+                      (cb pkg pkg-rocks)))))
 
+;; fnlfmt: skip
 (config (fn [pkg pkg-rocks]
           ; Color scheme
           ; (pkg :hauleth/blame.vim)
+
           ; Project navigation
           (pkg :tpope/vim-projectionist)
           (pkg :justinmk/vim-dirvish)
@@ -35,9 +39,10 @@
           (pkg :elixir-editors/vim-elixir)
           ;(pkg :nvim-orgmode/orgmode)
 
-          ; Tree Sitter
+          ; Language Protocol
           (pkg :neovim/nvim-lspconfig)
           (pkg :nvim-treesitter/playground)
+          (pkg :j-hui/fidget.nvim)
 
           ; Code manipulation
           (pkg :AndrewRadev/splitjoin.vim)
@@ -65,14 +70,12 @@
           (pkg :andymass/vim-matchup)
           (pkg :direnv/direnv.vim)
           (pkg :hauleth/vim-backscratch)
-          (pkg :https://gitlab.com/hauleth/qfx.vim.git)
-          (pkg :https://gitlab.com/hauleth/smart.vim.git)
+          (pkg "https://gitlab.com/hauleth/qfx.vim.git")
+          (pkg "https://gitlab.com/hauleth/smart.vim.git")
           (pkg :sgur/vim-editorconfig)
           (pkg :mbbill/undotree)
           (pkg :tpope/vim-characterize)
           (pkg :tpope/vim-dadbod)
           (pkg :tpope/vim-repeat)
           (pkg :tpope/vim-rsi)
-          (pkg :andweeb/presence.nvim)
-          (pkg :j-hui/fidget.nvim)
-          ))
+          (pkg :andweeb/presence.nvim)))

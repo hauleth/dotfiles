@@ -10,5 +10,4 @@
     (tset __nvim_functions__ idx func)
     (.. "__nvim_functions__[" idx "]")))
 
-{: maybe-join
- : make-func}
+{: maybe-join : make-func}

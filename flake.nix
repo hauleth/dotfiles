@@ -29,6 +29,7 @@
 
       devShells.default = pkgs.mkShell {
         nativeBuildInputs = [
+          pkgs.fnlfmt
           pkgs.alejandra
           # TODO: Remove it and manage all configuration from Nix
           pkgs.stow
