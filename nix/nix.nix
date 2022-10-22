@@ -1,10 +1,13 @@
 {pkgs, ...}: {
   nixpkgs.config.allowUnfree = true;
 
+  nix.useDaemon = true;
+  services.nix-daemon.enable = true;
+
   # You should generally set this to the total number of logical cores in your system.
   # $ sysctl -n hw.ncpu
-  nix.maxJobs = 8;
-  nix.buildCores = 8;
+  nix.settings.max-jobs = 8;
+  nix.settings.cores = 8;
 
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
@@ -17,7 +20,7 @@
   '';
 
   # nix.useSandbox = true;
-  nix.sandboxPaths = [
+  nix.settings.extra-sandbox-paths = [
     "/System/Library/Frameworks"
     "/System/Library/PrivateFrameworks"
     "/usr/lib"
