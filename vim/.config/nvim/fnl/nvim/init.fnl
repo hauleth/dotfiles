@@ -39,7 +39,7 @@
 
 (local api (setmetatable {}
                          {:__index (fn [_ key]
-                                     (let [func (.. "nvim_" key)]
+                                     (let [func (.. "nvim_" (key:gsub "-" "_"))]
                                        (. vim.api func)))}))
 
 (local ex (setmetatable {}
