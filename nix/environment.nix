@@ -13,6 +13,8 @@
     flaked-nix-direnv
   ];
 
+  documentation.enable = false;
+
   # List packages installed in system profile. To search by name, run:
   # $ nix search nixpkgs wget
   environment.systemPackages = with pkgs; let
@@ -25,6 +27,21 @@
         rg -l -t "$1" "" | entr -p echo /_
       '';
     };
+    nvim = neovim.override {
+      configure = {
+        customRC = ''
+          lua require('basic')
+        '';
+        packages.vimPackages = with pkgs.vimPlugins; {
+          start = [
+            packer-nvim
+            (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+          ];
+
+          opt = [];
+        };
+      };
+    };
   in [
     _1password
     age
@@ -32,7 +49,7 @@
     bat
     comby
     coreutils
-    curlie
+    # curlie
     difftastic
     direnv
     entr
@@ -40,7 +57,6 @@
     fishPlugins.agnoster
     fswatch
     fzy
-    git-branchless
     git-gone
     git-lfs
     git-revise
@@ -59,11 +75,11 @@
     jq
     lnav
     lima
-    neovim
+    nvim
     neovim-remote
     noti
     pinentry_mac
-    qmk
+    # qmk
     ripgrep
     universal-ctags
     # w3m
@@ -71,7 +87,7 @@
     weechat
   ];
 
-  environment.shells = [pkgs.fish];
+  environment.shells = [pkgs.fish pkgs.zsh];
 
   environment.variables = {
     EDITOR = "nvim";
@@ -79,6 +95,7 @@
     ERL_FLAGS = "-kernel shell_history enabled";
   };
 
+  programs.zsh.enable = true;
   programs.fish = {
     enable = true;
 
