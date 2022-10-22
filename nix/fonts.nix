@@ -1,47 +1,71 @@
-{pkgs, ...}: let
-  # Temporarily disable building as it fails on macOS due to being unable to build
-  # ttfautohint
-  # design = [
-  #   "ss09"
-  #   "calt-logic"
-  #   "v-dollar-open"
-  #   "v-g-singlestorey"
-  #   "v-l-zshaped"
-  #   "v-percent-dots"
-  #   "v-y-straight"
-  #   "v-zero-slashed"
-  # ];
-  # iosevka-ss09 = pkgs.iosevka.override {
-  #   set = "ss09";
-  #   privateBuildPlan = {
-  #     family = "Iosevka";
-  #     inherit design;
-  #   };
-  # };
-  # iosevka-ss09-term = pkgs.iosevka.override {
-  #   set = "ss09-term";
-  #   privateBuildPlan = {
-  #     family = "Iosevka Term";
-  #     design = design ++ [ "term" ];
-  #   };
-  # };
-  buildIosevka = {set}:
-    pkgs.stdenv.mkDerivation {
-      name = "iosevka-${set}";
-      src = ./fonts/iosevka-${set};
-
-      buildPhase = ''
-        true
-      '';
-
-      installPhase = ''
-        fontdir="$out/share/fonts/truetype"
-        install -d "$fontdir"
-        install ./*.ttf "$fontdir"
-      '';
+{
+  pkgs,
+  inputs,
+  ...
+}: let
+  variants = {
+    design = {
+      i = "hooky";
+      l = "zshaped";
+      g = "single-storey-serifless";
+      y = "straight";
+      zero = "slashed";
+      dollar = "open";
+      percent = "dots";
+      four = "semi-open-non-crossing";
+      lig-ltgteq = "slanted";
     };
-  iosevka-ss09 = buildIosevka {set = "ss09";};
-  iosevka-ss09-term = buildIosevka {set = "ss09-term";};
+  };
+  weights = {
+    extralight = {
+      shape = 200;
+      menu = 200;
+      css = 200;
+    };
+    regular = {
+      shape = 400;
+      menu = 400;
+      css = 400;
+    };
+    bold = {
+      shape = 700;
+      menu = 700;
+      css = 700;
+    };
+  };
+  slopes = {
+    upright = {
+      angle = 0;
+      shape = "upright";
+      menu = "upright";
+      css = "normal";
+    };
+
+    italic = {
+      angle = 9.4;
+      shape = "italic";
+      menu = "italic";
+      css = "italic";
+    };
+  };
+  buildIosevka = pkgs.iosevka.override;
+  iosevka-ss09 = buildIosevka {
+    set = "ss09";
+    privateBuildPlan = {
+      family = "Iosevka";
+
+      inherit variants weights slopes;
+    };
+  };
+  iosevka-ss09-term = buildIosevka {
+    set = "ss09-term";
+    privateBuildPlan = {
+      family = "Iosevka Term";
+      spacing = "term";
+
+      inherit variants weights slopes;
+    };
+  };
 in {
   fonts = {
     fontDir.enable = true;
