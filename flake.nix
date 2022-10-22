@@ -3,9 +3,11 @@
 
   inputs = {
     nixpkgs.url = "flake:nixpkgs";
+    flake-utils.url = "flake:flake-utils";
     agnoster = {
       url = "github:hauleth/agnoster";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
     };
     darwin = {
       url = "github:lnl7/nix-darwin";
@@ -18,69 +20,75 @@
     darwin,
     nixpkgs,
     agnoster,
-  }: {
-    darwinConfigurations."NiunioBook" = darwin.lib.darwinSystem {
-      system = "x86_64-darwin";
-      modules = [
-        ./nix/nix.nix
-        ./nix/system.nix
-        ./nix/services.nix
-        ./nix/fonts.nix
-        ./nix/environment.nix
-        {system.stateVersion = 4;}
-      ];
-      inputs = {inherit self agnoster;};
-    };
+    flake-utils,
+  }:
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      formatter = pkgs.alejandra;
 
-    # for convenience
-    darwinPackages = self.darwinConfigurations."NiunioBook".pkgs;
+      devShells.default = pkgs.mkShell {
+        nativeBuildInputs = [
+          pkgs.alejandra
+          # TODO: Remove it and manage all configuration from Nix
+          pkgs.stow
+        ];
+      };
 
-    devShells."x86_64-darwin".default = let
-      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
-    in pkgs.mkShell {
-      nativeBuildInputs = [
-        pkgs.alejandra
-        # TODO: Remove it and manage all configuration from Nix
-        pkgs.stow
-      ];
-    };
+      devShells.erlang = let
+        erlang = pkgs.beam.packages.erlangR25;
+      in
+        pkgs.mkShell {
+          nativeBuildInputs = [
+            erlang.erlang
+            erlang.rebar3
+            erlang.erlang-ls
+          ];
+        };
 
-    devShells."x86_64-darwin".erlang = let
-      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
-      erlang = pkgs.beam.packages.erlangR24;
-    in pkgs.mkShell {
-      nativeBuildInputs = [
-        erlang.erlang
-        erlang.erlang-ls
-        erlang.rebar3
-      ];
-    };
+      devShells.elixir = let
+        erlang = pkgs.beam.packages.erlangR25;
+      in
+        pkgs.mkShell {
+          nativeBuildInputs = [
+            erlang.elixir
+            erlang.elixir_ls
+          ];
+        };
 
-    devShells."x86_64-darwin".elixir = let
-      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
-      erlang = pkgs.beam.packages.erlangR24;
-    in pkgs.mkShell {
-      nativeBuildInputs = [
-        erlang.elixir
-        erlang.elixir_ls
-      ];
-    };
+      devShells.rust = pkgs.mkShell {
+        nativeBuildInputs = [
+          pkgs.cargo
+          pkgs.rustc
+          pkgs.rust-analyzer
+        ];
+      };
+    })
+    // {
+      darwinConfigurations."NiunioBook" = darwin.lib.darwinSystem {
+        system = "x86_64-darwin";
+        modules = [
+          ./nix/nix.nix
+          ./nix/system.nix
+          ./nix/services.nix
+          ./nix/fonts.nix
+          ./nix/environment.nix
+          {system.stateVersion = 4;}
+          {documentation.enable = false;}
+        ];
+        inputs = {
+          flake = self;
+          inherit agnoster;
+        };
+      };
 
-    devShells."x86_64-darwin".rust = let
-      pkgs = nixpkgs.legacyPackages."x86_64-darwin";
-    in pkgs.mkShell {
-      nativeBuildInputs = [
-        pkgs.cargo
-        pkgs.rustc
-        pkgs.rust-analyzer
-      ];
-    };
-
-    templates = {
-      elixir = {
-        path = ./templates/elixir;
-        description = "Basic requirements for Elixir applications";
+      # for convenience
+      darwinPackages = self.darwinConfigurations."NiunioBook".pkgs;
+      templates = {
+        elixir = {
+          path = ./templates/elixir;
+          description = "Basic requirements for Elixir applications";
+        };
       };
     };
-  };
 }
