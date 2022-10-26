@@ -1,13 +1,13 @@
 (import-macros {: use} :relude)
 
-(use nvim {: map : command : executable? : func : api : opts : ex})
+(use nvim {: map : fun : api : opt : cmd})
 
 (use picker)
 (import-macros {: augroup : defcommand} :nvim)
 
 (require :plugins)
 
-(set opts.shell :fish)
+(set opt.shell :fish)
 
 (do ; MatchIt must be unloaded for MatchPair to work correctly
   (set vim.g.loaded_matchit true)
@@ -16,14 +16,14 @@
 (set vim.g.choosewin_label :QWERTYUIOP)
 
 (do ; Colors
-  (ex.colorscheme :blame)
-  (opts {:termguicolors true
+  (cmd.colorscheme :blame)
+  (opt {:termguicolors true
          :guicursor ["n-v-c-sm:block-Cursor"
                      "i-ci-ve:ver25-Cursor"
                      "r-cr-o:hor20-Cursor"]}))
 
 (do ; Indentation
-  (opts {:shiftwidth 2
+  (opt {:shiftwidth 2
          :expandtab true
          :textwidth 80
          :wrap false
@@ -31,22 +31,23 @@
          :formatoptions :tcqjl}))
 
 (do ; UI
-  (opts {:lazyredraw true :updatetime 500 :title true :showmode true}))
+  (opt {:lazyredraw true :updatetime 500 :title true :showmode true}))
 
 (do ; Display tabs and trailing spaces visually
-  (opts {:fillchars ["vert:┃" "fold:·"]
+  (opt {:fillchars ["vert:┃" "fold:·"]
          :list true
          :listchars ["tab:→ "
                      "trail:·"
                      "nbsp:␣"
                      "extends:↦"
                      "precedes:↤"]
-         :conceallevel 2}))
+         :conceallevel 2
+         :concealcursor :nc}))
 
 (do ; Ignore case.
   ; If your code uses different casing to differentiate files, then you need
   ; mental help
-  (opts {:wildignorecase true
+  (opt {:wildignorecase true
          :wildmode :full
          :fileignorecase true
          :wildignore [:*.o
@@ -60,35 +61,35 @@
                       :**/uploads/**
                       :*.lock]}))
 
-(opts {:diffopt+ [:indent-heuristic "algorithm:patience"]
+(opt {:diffopt+ [:indent-heuristic "algorithm:patience"]
        :tags^ [:./**/tags]
        :iskeyword+ ["-"]})
 
 (do ; Autowrite file whenever possible
-  (opts {:hidden false :autowriteall true}))
+  (opt {:hidden false :autowriteall true}))
 
 (do
   ; Keep cursor in the middle
   (let [value 9999]
-    (set opts.scrolloff value)
+    (set opt.scrolloff value)
     (augroup terminal-scrolloff
-             (on BufEnter "term://*" (set opts.window.scrolloff 0))
-             (on BufLeave "term://*" (set opts.window.scrolloff value)))))
+             (on BufEnter "term://*" (set opt.window.scrolloff 0))
+             (on BufLeave "term://*" (set opt.window.scrolloff value)))))
 
 (do ; XXI century - we have cursors now
-  (set opts.mouse :a))
+  (set opt.mouse :a))
 
 (do ; Split in CORRECT places
-  (opts {:splitright true :splitbelow true}))
+  (opt {:splitright true :splitbelow true}))
 
 (do ; Searching
-  (opts {:ignorecase true :smartcase true :inccommand :nosplit}))
+  (opt {:ignorecase true :smartcase true :inccommand :nosplit}))
 
 (do ; Permanent undo
-  (set opts.undofile true))
+  (set opt.undofile true))
 
 (do ; Save only meaningfull data to sessions
-  (set opts.sessionoptions [:blank
+  (set opt.sessionoptions [:blank
                             :buffers
                             :curdir
                             :folds
@@ -97,13 +98,13 @@
                             :terminal]))
 
 (do ; Folding
-  (opts {:foldmethod :expr
+  (opt {:foldmethod :expr
          :foldexpr "nvim_treesitter#foldexpr()"
          :foldlevel 999})
   (map :n :<CR> "foldlevel(\".\") ? \"za\" : \"\\<CR>\"" {:expr true}))
 
 (do ; Completion
-  (opts {:complete ["." :w :b :t :k :kspell]
+  (opt {:complete ["." :w :b :t :k :kspell]
          :completeopt [:menuone :noselect :noinsert]}))
 
 (do ; Clap
@@ -151,8 +152,8 @@
 (do ; Help viewing and opening URLs
   (map :n :gK ":Dash")
   (map :n :gq (fn []
-                (let [name (func.expand :<cfile>)]
-                  (func.jobstart [:open name] {:detach true})
+                (let [name (fun.expand :<cfile>)]
+                  (fun.jobstart [:open name] {:detach true})
                   (print :Open name)))))
 
 (do ; Text object for whole file
@@ -170,7 +171,7 @@
   (map :t :<C-q> "<C-\\><C-n>")
   (map :i :<C-q> :<ESC>)
   (map :n :<C-q> :<ESC>)
-  (when (executable? :nvr)
+  (when (fun.executable :nvr)
     (set vim.env.EDITOR "nvr -cc split -c 'set bufhidden=delete' --remote-wait")))
 
 (do ; Git mappings
@@ -192,33 +193,48 @@
   (map :n :<C-_> "<plug>(choosewin)" {:noremap false}))
 
 (do ; Search
-  (when (executable? :rg)
-    (opts {:grepprg "rg --vimgrep --no-heading --smart-case"
+  (when (fun.executable :rg)
+    (opt {:grepprg "rg --vimgrep --no-heading --smart-case"
            :grepformat "%f:%l:%c:%m,%f:%l%m,%f  %l%m"})))
 
 (do ; Matchparen
   (set vim.g.matchup_matchparen_offscreen {:method :popup})
   (augroup matchparen
            (let [term "term://*"]
-             (on BufEnter term (ex.NoMatchParen))
-             (on BufLeave term (ex.DoMatchParen)))))
+             (on BufEnter term (cmd.NoMatchParen))
+             (on BufLeave term (cmd.DoMatchParen)))))
 
 (do ; Autoreload Direnv after writing the .envrc
-  (when (executable? :direnv)
+  (when (fun.executable :direnv)
     (augroup autoreload-envrc
-             (on BufWritePost :.envrc (ex.silent "!direnv allow %")))))
+             (on BufWritePost :.envrc (fun.system ["direnv" "allow" (fun.expand "%")])))))
 
 (do ; Setup Lua extensions
-  (let [setup (fn [package object]
-                ((. (require package) :setup) object))]
-    (setup :startify {:lists [{:type :sessions :header ["   Sessions"]}
-                              {:type :commands :header ["   Wiki"]}]
-                      :session-dir "~/.local/share/nvim/site/sessions/"
-                      :session-autoload true
-                      :session-persistence true
-                      :change-to-dir false
-                      :change-to-vcs-root true
-                      :fortune-use-unicode true})
+  (let [setup (fn [package config]
+                (let [lib (require package)
+                      f (. lib :setup)
+                      opts (match (type config)
+                             :nil {}
+                             :function (config lib)
+                             :table config)]
+                  (f opts)))]
+    (setup :mini.starter (fn [starter]
+                           {:items [(starter.sections.sessions 10 true)
+                                    (starter.sections.builtin_actions)]}))
+    (setup :mini.sessions {:directory "~/.local/share/nvim/site/sessions/"})
+    (setup :mini.align {:mappings {:start :gl
+                                   :start_with_preview :gL}})
+    (setup :mini.comment)
+    (setup :mini.ai)
+    (setup :mini.jump {:mappings {:repeat_jump ":"}})
+    (setup :mini.surround
+           {:mappings {:add :ys
+                       :delete :ds
+                       :find ""
+                       :find_left ""
+                       :highlight ""
+                       :replace :cs
+                       :update_n_lines ""}})
     (setup :nvim-treesitter.configs
            {:highlight {:enable true}
             :matchup {:enable true}
@@ -228,7 +244,7 @@
      {:auto_update true :buttons false :blacklist [:Workspace/forte]}))
 
 (defcommand Bd "b#|bd#")
-(defcommand BClean (->> (func.getbufinfo {:buflisted true})
+(defcommand BClean (->> (fun.getbufinfo {:buflisted true})
                         (vim.tbl_filter #(= (next $1.windows) nil))
                         (#(each [_ v (ipairs $1)]
                             (api.buf-delete v.bufnr {})))))
@@ -239,24 +255,20 @@
   (let [run (fn [args f-args]
               (api.call-function "asyncdo#run" (vim.list_extend args f-args)))]
     (defcommand Make {:bang true :nargs "*" :complete :file}
-                (run [bang opts.makeprg] f-args))
+                (run [bang opt.makeprg] f-args))
     (defcommand Grep {:bang true :nargs "+" :complete :dir}
-                (run [bang {:job opts.grepprg :errorformat opts.grepformat}]
+                (run [bang {:job opt.grepprg :errorformat opt.grepformat}]
                      f-args))))
 
-(defcommand Ctags (ex.AsyncDo "ctags -R ."))
+(defcommand Ctags (cmd.AsyncDo "ctags -R ."))
 
 (defcommand Start {:nargs "*"}
-            (let [cmd (func.expand q-args)]
-              (command (.. mods " new"))
-              (func.termopen cmd)
-              (ex.startinsert)))
+            (let [command (fun.expand q-args)]
+              (cmd.new {:mods smods})
+              (fun.termopen command)
+              (cmd.startinsert)))
 
-(defcommand Dash {:nargs "?"} (func.dash#open q-args))
-
-(do ; Setup vim-sandwitch
-  (ex.packadd! :vim-sandwich)
-  (ex.runtime :macros/sandwich/keymap/surround.vim))
+(defcommand Dash {:nargs "?"} (fun.dash#open q-args))
 
 (require :startify)
 (require :langclient)

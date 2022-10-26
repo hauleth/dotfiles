@@ -35,8 +35,15 @@ fennel["macro-path"] = fennel["macro-path"] .. fennel_paths({"", "/macro-init", 
 debug.traceback = fennel.traceback
 
 -- Command-mode Fennel execution
-vim.api.nvim_create_user_command('Fennel', function(arg) fennel.eval(arg.args) end, {nargs = '*'})
+vim.api.nvim_create_user_command('Fnl', function(arg) fennel.eval(arg.args) end, {nargs = '*'})
+vim.api.nvim_create_user_command('FnlFile', function(arg) print(fennel.view(arg.args)) end, {nargs = 1})
 
-for _, init in pairs(vim.api.nvim_get_runtime_file("init.fnl", false)) do
-  fennel.dofile(init, {compilerEnv = _G})
+local function reload_init()
+  for _, init in pairs(vim.api.nvim_get_runtime_file("init.fnl", false)) do
+    fennel.dofile(init, {compilerEnv = _G})
+  end
 end
+
+vim.api.nvim_create_user_command('ReloadInit', reload_init, {})
+
+reload_init()

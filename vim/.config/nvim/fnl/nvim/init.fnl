@@ -42,24 +42,6 @@
                                      (let [func (.. :nvim_ (key:gsub "-" "_"))]
                                        (. vim.api func)))}))
 
-(local ex
-       (setmetatable {}
-                     {:__index (fn [_ key]
-                                 (fn [...]
-                                   (api.command (.. key " "
-                                                    (table.concat [...] " ")))))}))
-
-(local func
-       (setmetatable {}
-                     {:__index (fn [_ key]
-                                 (fn [...]
-                                   (api.call_function key [...])))}))
-
-(local opts
-       (setmetatable {}
-                     {:__newindex (fn [_ key val]
-                                    (print (fennel.view {: key : val})))}))
-
 (fn ?> [f ...]
   (let [(ok? val) (f)]
     (if (and ok? (not= val "")) val (?> ...))))
@@ -85,22 +67,14 @@
                            (each [key value (pairs opts)]
                              (set-opt scope key value)))}))
 
-; TODO: Allow setting buffer and window local options
-
-(local opts (build-opts {:global (build-opts {} vim.go)
+(local opt (build-opts {:global (build-opts {} vim.go)
                          :window (build-opts {} vim.wo)
                          :buffer (build-opts {} vim.bo)}
                         vim.o))
 
-(fn executable? [name]
-  (func.executable name))
-
 ;; Exports
-
 (setmetatable {:map (make-map api.set_keymap)
                :buf-map (make-map #(api.buf_set_keymap 0 $...))
                : api
-               : ex
-               : func
-               : opts
-               : executable?} {:__index api})
+               :fun vim.fn
+               : opt} {:__index vim})

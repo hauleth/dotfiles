@@ -1,6 +1,6 @@
 (import-macros {: use} :relude)
 
-(use nvim {: command : opts :buf-map bmap})
+(use nvim {: cmd : opt :buf-map bmap})
 (use picker)
 (use lspconfig)
 (import-macros logger :nvim.logger)
@@ -16,16 +16,12 @@
     (bmap :n :K #(vim.lsp.buf.hover)))
   (when (capable? :declarationProvider)
     (bmap :n :gD #(vim.lsp.buf.declaration)))
-  (when (capable? :definitionProvider)
-    (bmap :n :gd #(vim.lsp.buf.definition)))
   (when (capable? :referencesProvider)
     (bmap :n :gr #(picker.lsp_references)))
   (when (capable? :documentFormattingProvider)
-    (bmap :n :Q #(vim.lsp.buf.formatting_sync)))
+    (bmap :n :Q #(vim.lsp.buf.format)))
   (when (capable? :documentSymbolProvider)
-    (bmap :n :gO #(picker.lsp_document_symbols)))
-  (when (capable? :completionProvider)
-    (set opts.buffer.omnifunc "v:lua.vim.lsp.omnifunc")))
+    (bmap :n :gO #(picker.lsp_document_symbols))))
 
 (set lspconfig.util.default_config
      (vim.tbl_extend :force lspconfig.util.default_config
@@ -40,4 +36,6 @@
 
 (lspconfig.erlangls.setup {:cmd [:erlang_ls]})
 
-(augroup lsp-direnv (on User :DirenvLoaded (command :LspStart)))
+(lspconfig.rnix.setup {:autostart true})
+
+(augroup lsp-direnv (on User :DirenvLoaded (cmd.LspStart)))

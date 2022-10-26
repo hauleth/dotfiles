@@ -1,17 +1,18 @@
-{
-  config,
-  pkgs,
-  inputs,
-  ...
+{ config
+, pkgs
+, inputs
+, ...
 }: {
-  nixpkgs.overlays = let
-    flaked-nix-direnv = final: prev: {
-      nix-direnv = prev.nix-direnv.override {enableFlakes = true;};
-    };
-  in [
-    inputs.agnoster.overlay
-    flaked-nix-direnv
-  ];
+  nixpkgs.overlays =
+    let
+      flaked-nix-direnv = final: prev: {
+        nix-direnv = prev.nix-direnv.override { enableFlakes = true; };
+      };
+    in
+    [
+      inputs.agnoster.overlay
+      flaked-nix-direnv
+    ];
 
   documentation.enable = false;
 
@@ -21,7 +22,7 @@
     fswatch = pkgs.writeShellApplication {
       name = "fswatch";
 
-      runtimeInputs = [pkgs.entr pkgs.ripgrep];
+      runtimeInputs = [ pkgs.entr pkgs.ripgrep ];
 
       text = ''
         rg -l -t "$1" "" | entr -p echo /_
@@ -38,18 +39,20 @@
             (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
           ];
 
-          opt = [];
+          opt = [ ];
         };
       };
     };
-  in [
+  in
+  [
     _1password
     age
     alejandra
+    asciinema
     bat
     comby
     coreutils
-    # curlie
+    curlie
     difftastic
     direnv
     entr
@@ -81,13 +84,15 @@
     pinentry_mac
     # qmk
     ripgrep
+    rnix-lsp
     universal-ctags
     # w3m
     # watchman
     weechat
+
   ];
 
-  environment.shells = [pkgs.fish pkgs.zsh];
+  environment.shells = [ pkgs.fish pkgs.zsh ];
 
   environment.variables = {
     EDITOR = "nvim";

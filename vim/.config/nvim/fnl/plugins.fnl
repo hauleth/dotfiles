@@ -10,12 +10,15 @@
                                                        (or ?opts {})))))
                           pkg (super -pkg)
                           pkg-rocks (super -pkg-rocks)]
-                      (cb pkg pkg-rocks)))))
+                      (cb pkg pkg-rocks)))
+                  {:options {}}))
 
 ;; fnlfmt: skip
 (config (fn [pkg pkg-rocks]
           ; Color scheme
           ; (pkg :hauleth/blame.vim)
+
+          (pkg :echasnovski/mini.nvim)
 
           ; Project navigation
           (pkg :tpope/vim-projectionist)
@@ -23,7 +26,6 @@
           (pkg :tpope/vim-eunuch)
 
           ; File picker
-          (pkg :nvim-lua/popup.nvim)
           (pkg :nvim-lua/plenary.nvim)
           (pkg :nvim-telescope/telescope.nvim)
           (pkg :nvim-telescope/telescope-fzy-native.nvim)
@@ -31,9 +33,6 @@
           ; Git
           (pkg :tpope/vim-fugitive)
           (pkg :pwntester/octo.nvim)
-
-          ; Launch screen
-          (pkg :mhinz/vim-startify)
 
           ; Languages
           (pkg :elixir-editors/vim-elixir)
@@ -48,13 +47,6 @@
           (pkg :AndrewRadev/splitjoin.vim)
           (pkg :hauleth/sad.vim)
           (pkg :tommcdo/vim-exchange)
-          (pkg :tommcdo/vim-lion)
-          (pkg :tpope/vim-commentary)
-          (pkg :machakann/vim-sandwich {:opt true})
-
-          ; Movements
-          (pkg :wellle/targets.vim {:opt true})
-          (pkg :rhysd/clever-f.vim)
 
           ; Task running
           (pkg :hauleth/asyncdo.vim)
