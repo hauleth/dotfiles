@@ -14,7 +14,7 @@
     auto-optimise-store = true
 
     keep-outputs = true
-    # keep-derivations = true
+    keep-derivations = true
 
     experimental-features = nix-command flakes
   '';
@@ -28,4 +28,6 @@
     "/private/var/tmp"
     "/usr/bin/env"
   ];
+
+  nix.settings.allowed-users = [ "@admin" "@builder" "hauleth" ];
 }

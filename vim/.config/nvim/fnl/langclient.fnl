@@ -7,11 +7,14 @@
 (import-macros {: augroup} :nvim)
 
 (fn on_attach [client]
+  (cmd.packadd! :fidget.nvim)
   (logger.inspect client)
   (local capable?
          (fn [capability]
            (. client.server_capabilities capability)))
-  (augroup lsp-diagnostics (on CursorHold "*" (vim.diagnostic.open_float nil)))
+  (augroup lsp-diagnostics
+           (on CursorHold "*" (vim.diagnostic.open_float {:focus false}))
+           (on BufEnter,CursorHold,InsertLeave "*" (vim.lsp.codelens.refresh)))
   (when (capable? :hoverProvider)
     (bmap :n :K #(vim.lsp.buf.hover)))
   (when (capable? :declarationProvider)
@@ -29,7 +32,7 @@
 
 (vim.diagnostic.config {:virtual_text false})
 
-(lspconfig.rust_analyzer.setup {:settings {:trace {:server :verbose}}})
+(lspconfig.rust_analyzer.setup {:settings {:rust-analyzer {:files {:excludeDirs [".direnv"]}}}})
 
 (lspconfig.elixirls.setup {:cmd [:elixir-ls]
                            :settings {:elixirLS {:dialyzerEnabled false}}})

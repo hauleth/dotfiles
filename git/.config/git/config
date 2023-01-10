@@ -36,6 +36,7 @@
 
 [pretty]
 	simple-oneline = "%C(yellow)%h%C(auto)%d %s [%C(green)%aN <%aE>%C(reset)] (%C(blue)%ar%C(reset))"
+	simple-oneline-sign = "%C(yellow)%h%C(auto)%d %s [%C(green)%aN <%aE>%C(reset)] (%C(blue)%ar%C(reset)) %G?"
 
 [merge]
 	conflictstyle = diff3
@@ -55,6 +56,7 @@
 [rebase]
 	autostash = true
 	autosquash = true
+	updateRefs = true
 [fetch]
 	prune = true
 [help]

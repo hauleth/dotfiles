@@ -1,7 +1,7 @@
 (fn inspect [data]
   `(let [v# ,data]
      (when vim.g.debug
-       (print (vim.inspect v#)))
+       (print (fennel.view v#)))
      v#))
 
 {: inspect}

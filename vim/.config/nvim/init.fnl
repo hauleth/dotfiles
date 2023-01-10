@@ -2,10 +2,10 @@
 
 (use nvim {: map : fun : api : opt : cmd})
 
+(require :plugins)
+
 (use picker)
 (import-macros {: augroup : defcommand} :nvim)
-
-(require :plugins)
 
 (set opt.shell :fish)
 
@@ -108,7 +108,7 @@
          :completeopt [:menuone :noselect :noinsert]}))
 
 (do ; Clap
-  (map :n :<Space><Space> #(picker.find_files)))
+  (map :n :<Space><Space> #(picker.find-files)))
 
 (do ; Frequently used unimpaired mappings
   (let [unimpaired (fn [char left right]
@@ -236,12 +236,12 @@
                        :replace :cs
                        :update_n_lines ""}})
     (setup :nvim-treesitter.configs
-           {:highlight {:enable true}
+           {:highlight {:enable true
+                        ; Currently disable as it do not work as expected
+                        :disable [:erlang :make]}
             :matchup {:enable true}
-            :indent {:enable true}})
-    (setup :fidget {})) ; Presence requires to call `:setup` instead of `.setup
-  (: (require :presence) :setup
-     {:auto_update true :buttons false :blacklist [:Workspace/forte]}))
+            :indent {:enable true}})))
+    ; (setup :fidget {})))
 
 (defcommand Bd "b#|bd#")
 (defcommand BClean (->> (fun.getbufinfo {:buflisted true})
@@ -270,5 +270,4 @@
 
 (defcommand Dash {:nargs "?"} (fun.dash#open q-args))
 
-(require :startify)
 (require :langclient)

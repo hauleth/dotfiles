@@ -2,8 +2,6 @@
 , pkgs
 , ...
 }: {
-  documentation.enable = false;
-
   # List packages installed in system profile. To search by name, run:
   # $ nix search nixpkgs wget
   environment.systemPackages = with pkgs; let
@@ -15,21 +13,6 @@
       text = ''
         rg -l -t "$1" "" | entr -p echo /_
       '';
-    };
-    nvim = neovim.override {
-      configure = {
-        customRC = ''
-          lua require('basic')
-        '';
-        packages.vimPackages = with pkgs.vimPlugins; {
-          start = [
-            packer-nvim
-            nvim-treesitter.withAllGrammars
-          ];
-
-          opt = [ ];
-        };
-      };
     };
   in
   [
@@ -68,7 +51,6 @@
     neovim-remote
     nix-direnv-flakes
     noti
-    nvim
     pinentry_mac
     # qmk
     ripgrep
@@ -87,6 +69,7 @@
     ERL_FLAGS = "-kernel shell_history enabled";
   };
 
+  programs.nix-index.enable = true;
   programs.zsh.enable = true;
   programs.fish = {
     enable = true;

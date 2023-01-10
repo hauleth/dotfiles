@@ -13,4 +13,6 @@ final: prev: {
       livebook = eprev.livebook.override { elixir = efinal.elixir_1_14; };
     });
   };
+
+  livebook = final.beam.packages.livebook;
 }

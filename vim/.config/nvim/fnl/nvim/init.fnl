@@ -1,6 +1,9 @@
 ; (import-macros logger :nvim.logger)
 
-(local {: make-func : maybe-join} (require :nvim.utils))
+(fn maybe-join [value]
+  (if (= (type value) :table)
+      (table.concat value ",")
+      value))
 
 (fn filter [t cb]
   (collect [k v (pairs t)]
@@ -18,24 +21,25 @@
               (try #(and (not (vim.endswith (: $1 :lower) :<cr>)) (. opts :cr))
                    #(.. $1 :<cr>)))
           rhs)
-      (.. "<cmd>lua " (make-func rhs) "()<CR>")))
+      rhs))
 
 (fn plug-map? [rhs]
   (and (= (type rhs) :string) (vim.startswith (rhs:lower) :<plug>)))
 
-(fn make-map [cb]
+(fn make-map [buffer]
   (lambda [modes lhs rhs ?opts]
-    (let [options (vim.tbl_extend :force
-                                  {:noremap (not (plug-map? rhs))
-                                   :selection false
-                                   :cr true}
-                                  (or ?opts {}))
-          map-opts (filter options #(not (or (= $1 :selection) (= $1 :cr))))
-          normalised-rhs (normalise-map rhs options)]
       (when (= modes "")
         (error "At least one mode must be specified"))
-      (each [mode (modes:gmatch ".")]
-        (cb mode lhs normalised-rhs map-opts)))))
+      (let [options (vim.tbl_extend :force
+                                    {:noremap (not (plug-map? rhs))
+                                    :selection false
+                                    :cr true
+                                    :buffer buffer}
+                                    (or ?opts {}))
+            map-opts (filter options #(not (or (= $1 :selection) (= $1 :cr))))
+            normalised-rhs (normalise-map rhs options)
+            modes (icollect [m (modes:gmatch ".")] m)]
+        (vim.keymap.set modes lhs normalised-rhs map-opts))))
 
 (local api (setmetatable {}
                          {:__index (fn [_ key]
@@ -73,8 +77,8 @@
                         vim.o))
 
 ;; Exports
-(setmetatable {:map (make-map api.set_keymap)
-               :buf-map (make-map #(api.buf_set_keymap 0 $...))
+(setmetatable {:map (make-map false)
+               :buf-map (make-map true)
                : api
                :fun vim.fn
                : opt} {:__index vim})

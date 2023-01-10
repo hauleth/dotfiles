@@ -3,14 +3,13 @@
 (use packer)
 
 (fn config [cb]
-  (packer.startup (fn [-pkg -pkg-rocks]
+  (packer.startup (fn [-pkg]
                     (let [super (fn [f]
                                   (fn [name ?opts]
                                     (f (vim.tbl_extend :keep {1 name}
                                                        (or ?opts {})))))
-                          pkg (super -pkg)
-                          pkg-rocks (super -pkg-rocks)]
-                      (cb pkg pkg-rocks)))
+                          pkg (super -pkg)]
+                      (cb pkg)))
                   {:options {}}))
 
 ;; fnlfmt: skip
@@ -26,25 +25,30 @@
           (pkg :tpope/vim-eunuch)
 
           ; File picker
-          (pkg :nvim-lua/plenary.nvim)
-          (pkg :nvim-telescope/telescope.nvim)
-          (pkg :nvim-telescope/telescope-fzy-native.nvim)
+          (pkg :nvim-telescope/telescope.nvim {
+               :opt true
+               :requires [(pkg :nvim-telescope/telescope-fzy-native.nvim)
+                          (pkg :nvim-lua/plenary.nvim)]})
 
           ; Git
           (pkg :tpope/vim-fugitive)
-          (pkg :pwntester/octo.nvim)
+          (pkg :pwntester/octo.nvim
+               {:cmd [:Octo]})
 
           ; Languages
-          (pkg :elixir-editors/vim-elixir)
+          (pkg :elixir-editors/vim-elixir
+               {:ft [:elixir :eex :heex]})
           ;(pkg :nvim-orgmode/orgmode)
 
           ; Language Protocol
           (pkg :neovim/nvim-lspconfig)
-          (pkg :nvim-treesitter/playground)
-          (pkg :j-hui/fidget.nvim)
+          (pkg :nvim-treesitter/playground
+               {:cmd [:TSPlaygroundToggle]})
+          (pkg :j-hui/fidget.nvim {:opt true})
 
           ; Code manipulation
-          (pkg :AndrewRadev/splitjoin.vim)
+          (pkg :AndrewRadev/splitjoin.vim
+               {:keys [:gS :gJ]})
           (pkg :hauleth/sad.vim)
           (pkg :tommcdo/vim-exchange)
 
@@ -56,18 +60,19 @@
           (pkg :igemnace/vim-makery)
 
           ; Windows
-          (pkg :t9md/vim-choosewin)
+          (pkg :t9md/vim-choosewin
+               {:keys ["<plug>(choosewin)"]})
 
           ; Utils
           (pkg :andymass/vim-matchup)
           (pkg :direnv/direnv.vim)
-          (pkg :hauleth/vim-backscratch)
+          (pkg :hauleth/vim-backscratch {:cmd [:Scratch]})
           (pkg "https://gitlab.com/hauleth/qfx.vim.git")
           (pkg "https://gitlab.com/hauleth/smart.vim.git")
           (pkg :sgur/vim-editorconfig)
-          (pkg :mbbill/undotree)
-          (pkg :tpope/vim-characterize)
-          (pkg :tpope/vim-dadbod)
+          (pkg :mbbill/undotree
+               {:cmd [:UndotreeShow :UndotreeToggle]})
+          (pkg :tpope/vim-characterize {:keys [:ga]})
+          (pkg :tpope/vim-dadbod {:cmd [:DB]})
           (pkg :tpope/vim-repeat)
-          (pkg :tpope/vim-rsi)
-          (pkg :andweeb/presence.nvim)))
+          (pkg :tpope/vim-rsi)))
