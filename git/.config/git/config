@@ -43,7 +43,8 @@
 [branch]
 	autoSetupRebase = always
 [push]
-	default = current
+	default = simple
+	autoSetupRemote = true
 	followTags = true
 	gpgSign = if-asked
 [pull]

@@ -12,10 +12,10 @@
     };
   };
 
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
 
   # Automatically watch `~/.plan` and update https://plan.cat/~hauleth on change
   launchd.user.agents.plan-sync.serviceConfig = {

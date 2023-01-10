@@ -1,19 +1,7 @@
 { config
 , pkgs
-, inputs
 , ...
 }: {
-  nixpkgs.overlays =
-    let
-      flaked-nix-direnv = final: prev: {
-        nix-direnv = prev.nix-direnv.override { enableFlakes = true; };
-      };
-    in
-    [
-      inputs.agnoster.overlay
-      flaked-nix-direnv
-    ];
-
   documentation.enable = false;
 
   # List packages installed in system profile. To search by name, run:
@@ -36,7 +24,7 @@
         packages.vimPackages = with pkgs.vimPlugins; {
           start = [
             packer-nvim
-            (nvim-treesitter.withPlugins (plugins: pkgs.tree-sitter.allGrammars))
+            nvim-treesitter.withAllGrammars
           ];
 
           opt = [ ];
@@ -45,7 +33,7 @@
     };
   in
   [
-    _1password
+    # _1password
     age
     alejandra
     asciinema
@@ -60,27 +48,27 @@
     fishPlugins.agnoster
     fswatch
     fzy
+    gh
+    git
     git-gone
     git-lfs
     git-revise
     gitAndTools.diff-so-fancy
+    gitAndTools.git-chglog
     gitAndTools.git-imerge
     gitAndTools.git-test
-    nix-direnv
-    gitAndTools.git-chglog
     gitAndTools.tig
-    git
-    gh
     glab
     # git-riff
     gnupg
     imagemagick
     jq
-    lnav
     lima
-    nvim
+    lnav
     neovim-remote
+    nix-direnv-flakes
     noti
+    nvim
     pinentry_mac
     # qmk
     ripgrep
@@ -89,7 +77,6 @@
     # w3m
     # watchman
     weechat
-
   ];
 
   environment.shells = [ pkgs.fish pkgs.zsh ];
@@ -109,7 +96,9 @@
       g = "git";
     };
 
-    loginShellInit = "fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin";
+    loginShellInit = ''
+      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /run/wrappers/bin /etc/profiles/per-user/$USER/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin
+    '';
 
     shellInit = ''
       set -gx XDG_RUNTIME_DIR (getconf DARWIN_USER_TEMP_DIR)
@@ -126,8 +115,12 @@
       # use fish in nix run and nix-shell
       ${pkgs.any-nix-shell}/bin/any-nix-shell fish --info-right | source
 
+      set -gx SSH_AUTH_SOCK ~/.local/share/1password/auth.sock
+
       source (${pkgs.direnv}/bin/direnv hook fish | psub)
       source (${pkgs.lima}/bin/limactl completion fish | psub)
+
+      if which op > /dev/null; source (op completion fish | psub); end
 
       test -e $HOME/.iterm2_shell_integration.fish ; and source $HOME/.iterm2_shell_integration.fish
     '';
