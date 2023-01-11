@@ -16,27 +16,25 @@
      ,...
      au-id))
 
+; TODO: Make argument passing more explicit and find another way to pass
+; options. Example idea may be to parse argument list and translate them to the
+; options passed to the `nvim_create_user_command`. For example `arg` will be
+; for single argument `?arg` for optional argument, etc. The main problem would
+; be how to pass extra options to the command.
 (fn command-func [body]
-  (let [q-args (sym :q-args)
-        f-args (sym :f-args)
+  (let [args (sym :args)
         bang (sym :bang)
         lines (sym :lines)
         count (sym :count)
         reg (sym :reg)
-        mods (sym :mods)
-        smods (sym :smods)]
+        mods (sym :mods)]
     `(lambda [arg#]
-       (let [{:args ,q-args
-              :fargs ,f-args
-              :bang ,bang
-              :line1 line1#
-              :line2 line2#
-              :range range#
+       (let [{:bang ,bang
               :count ,count
-              :reg ,reg
-              :mods ,mods
-              :smods ,smods} arg#
-             ,lines {:from line1# :to line2# :range range#}]
+              :reg ,reg} arg#
+             ,lines {:from arg#.line1 :to arg#.line2 :range arg#.range}
+             ,args (setmetatable arg#.fargs {:__tostring (fn [] arg#.args)})
+             ,mods (setmetatable arg#.smods {:__tostring (fn [] arg#.mods)})]
          ,body))))
 
 (fn defcommand [name opts ...]

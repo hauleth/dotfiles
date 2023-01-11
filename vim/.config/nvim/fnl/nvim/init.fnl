@@ -72,8 +72,8 @@
                              (set-opt scope key value)))}))
 
 (local opt (build-opts {:global (build-opts {} vim.go)
-                         :window (build-opts {} vim.wo)
-                         :buffer (build-opts {} vim.bo)}
+                        :window (build-opts {} vim.wo)
+                        :buffer (build-opts {} vim.bo)}
                         vim.o))
 
 ;; Exports

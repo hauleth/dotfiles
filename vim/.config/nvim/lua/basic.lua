@@ -38,7 +38,13 @@ debug.traceback = fennel.traceback
 vim.api.nvim_create_user_command('Fnl', function(arg) fennel.eval(arg.args) end, {nargs = '*'})
 vim.api.nvim_create_user_command('FnlFile', function(arg) print(fennel.view(arg.args)) end, {nargs = 1})
 
+_G.reloadable = {}
+
 local function reload_init()
+  for _, name in pairs(_G.reloadable) do
+    package.loaded[name] = nil
+  end
+
   for _, init in pairs(vim.api.nvim_get_runtime_file("init.fnl", false)) do
     fennel.dofile(init, {compilerEnv = _G})
   end

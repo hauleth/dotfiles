@@ -8,6 +8,7 @@
 
 (fn on_attach [client]
   (cmd.packadd! :fidget.nvim)
+  ((. (require :fidget) :setup) {})
   (logger.inspect client)
   (local capable?
          (fn [capability]
@@ -32,13 +33,20 @@
 
 (vim.diagnostic.config {:virtual_text false})
 
-(lspconfig.rust_analyzer.setup {:settings {:rust-analyzer {:files {:excludeDirs [".direnv"]}}}})
+(fn setup [name opts]
+  ((. (. lspconfig name) :setup) opts))
 
-(lspconfig.elixirls.setup {:cmd [:elixir-ls]
-                           :settings {:elixirLS {:dialyzerEnabled false}}})
+(setup :rust_analyzer
+       {:settings {:rust-analyzer {:files {:excludeDirs [".direnv"]}}}})
 
-(lspconfig.erlangls.setup {:cmd [:erlang_ls]})
+(setup :elixirls
+       {:cmd [:elixir-ls]
+        :settings {:elixirLS {:dialyzerEnabled false}}})
 
-(lspconfig.rnix.setup {:autostart true})
+(setup :erlangls
+       {:cmd [:erlang_ls]})
+
+(setup :rnix
+       {:autostart true})
 
 (augroup lsp-direnv (on User :DirenvLoaded (cmd.LspStart)))

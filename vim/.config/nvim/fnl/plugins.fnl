@@ -32,8 +32,6 @@
 
           ; Git
           (pkg :tpope/vim-fugitive)
-          (pkg :pwntester/octo.nvim
-               {:cmd [:Octo]})
 
           ; Languages
           (pkg :elixir-editors/vim-elixir
@@ -43,7 +41,8 @@
           ; Language Protocol
           (pkg :neovim/nvim-lspconfig)
           (pkg :nvim-treesitter/playground
-               {:cmd [:TSPlaygroundToggle]})
+               {:cmd [:TSPlaygroundToggle
+                      :TSHighlightCaputresUnderCursor]})
           (pkg :j-hui/fidget.nvim {:opt true})
 
           ; Code manipulation
@@ -54,9 +53,15 @@
 
           ; Task running
           (pkg :hauleth/asyncdo.vim)
-          (pkg :romainl/vim-qf)
-          (pkg :romainl/vim-qlist)
-          (pkg :Olical/vim-enmasse)
+          (pkg :romainl/vim-qf
+               {:ft [:qf]
+                :event [:QuickFixCmdPre]})
+          (pkg :romainl/vim-qlist
+               {:ft [:qf]
+                :event [:QuickFixCmdPre]})
+          (pkg :Olical/vim-enmasse
+               {:cmd [:EnMasse]
+                :ft [:qf]})
           (pkg :igemnace/vim-makery)
 
           ; Windows
