@@ -219,28 +219,44 @@
                              :table config)]
                   (f opts)
                   lib))]
-    (setup :mini.starter (fn [starter]
-                           {:items [(starter.sections.sessions 10 true)
-                                    (starter.sections.builtin_actions)]}))
-    (setup :mini.sessions {:directory (.. (fun.stdpath :data) "/site/sessions/")})
-    (setup :mini.align {:mappings {:start :gl
-                                   :start_with_preview :gL}})
-    (setup :mini.bufremove (fn [bufremove]
-                             (defcommand Bd (bufremove.delete))
-                             (defcommand BClean
-                                         (->> (fun.getbufinfo {:buflisted true})
-                                              (vim.tbl_filter #(= (next $1.windows) nil))
-                                              (#(each [_ v (ipairs $1)]
-                                                  (bufremove.delete v.bufnr)))))
-                             {:set_vim_settings false}))
+    (setup :mini.starter
+           (fn [starter]
+             {:items [(starter.sections.sessions 10 true)
+                      (starter.sections.builtin_actions)]}))
+    (setup :mini.sessions
+           (fn [sessions]
+             (let [complete (fn [with-current?]
+                              #(icollect [_ spec (pairs sessions.detected)]
+                                 (when (not (and with-current?
+                                                 (= spec.path vim.v.this_session)))
+                                   spec.name)))]
+               (defcommand SSave {:nargs "?" :bang true}
+                           (print (sessions.write args {:force bang})))
+               (defcommand SDelete {:nargs "?" :bang true :complete (complete true)}
+                           (print (sessions.delete args {:force bang})))
+               (defcommand SRead {:nargs 1 :bang true :complete (complete false)}
+                           (print (sessions.read args {:force bang}))))
+             {:directory (.. (fun.stdpath :data) "/site/sessions/")}))
+    (setup :mini.align
+           {:mappings {:start :gl
+                       :start_with_preview :gL}})
+    (setup :mini.bufremove
+           (fn [bufremove]
+             (defcommand Bd (bufremove.delete))
+             (defcommand BClean
+                         (->> (fun.getbufinfo {:buflisted true})
+                              (vim.tbl_filter #(= (next $1.windows) nil))
+                              (#(each [_ v (ipairs $1)]
+                                  (bufremove.delete v.bufnr)))))
+             {:set_vim_settings false}))
     (setup :mini.comment)
     (setup :mini.ai)
     (setup :mini.jump {:mappings {:repeat_jump ":"}})
     (setup :mini.surround
            {:mappings {:add :gsa
-                       :delete :gsdw
+                       :delete :gsd
                        :find :gsf
-                       :find_left ""
+                       :find_left :gsF
                        :highlight ""
                        :replace :gss
                        :update_n_lines ""}})

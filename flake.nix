@@ -2,7 +2,7 @@
   description = "Hauleth's configuration";
 
   inputs = {
-    nixpkgs.url = "flake:nixpkgs";
+    nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "flake:flake-utils";
     agnoster = {
       url = "github:hauleth/agnoster";
@@ -42,8 +42,8 @@
 
         legacyPackages = pkgs;
 
-        devShells = (pkgs.callPackage ./devShells.nix { }) // {
-          default = pkgs.mkShell {
+        devShells = (pkgs.callPackage ./dev_shells.nix { }) // {
+          _sefault = pkgs.mkShell {
             nativeBuildInputs = [
               pkgs.fnlfmt
               pkgs.alejandra
@@ -67,9 +67,15 @@
           ./modules/nvim.nix
           {
             system.stateVersion = 4;
-            documentation.enable = false;
+            documentation.enable = true;
           }
         ];
+
+        specialArgs = {
+          inherit darwin nixpkgs;
+
+          dotfiles = self;
+        };
       };
 
       # for convenience

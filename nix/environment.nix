@@ -17,7 +17,6 @@
   in
   [
     # _1password
-    age
     alejandra
     asciinema
     bat
@@ -53,8 +52,10 @@
     noti
     pinentry_mac
     # qmk
+    rage
     ripgrep
     rnix-lsp
+    senpai
     universal-ctags
     # w3m
     # watchman
@@ -102,6 +103,7 @@
 
       source (${pkgs.direnv}/bin/direnv hook fish | psub)
       source (${pkgs.lima}/bin/limactl completion fish | psub)
+      source $HOME/.op/plugins.sh
 
       if which op > /dev/null; source (op completion fish | psub); end
 

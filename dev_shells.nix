@@ -1,4 +1,4 @@
-{ mkShell, beam } @ pkgs: {
+{ mkShell, beam, pkgs }: {
   livebook = pkgs.mkShell {
     packages = with beam.packages.erlang; [
       livebook
@@ -17,7 +17,7 @@
     };
 
   elixir = with beam.packages.erlang;
-    pkgs.mkShell {
+    mkShell {
       packages = [
         elixir
         elixir_ls

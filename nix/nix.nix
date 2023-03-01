@@ -1,8 +1,18 @@
-{pkgs, ...}: {
+{ pkgs, ... }@args: {
   nixpkgs.config.allowUnfree = true;
 
   nix.useDaemon = true;
   services.nix-daemon.enable = true;
+
+  environment.systemPackages = [
+    pkgs.cachix
+  ];
+
+  nix.registry = {
+    nixpkgs.flake = args.nixpkgs;
+    darwin.flake = args.darwin;
+    # dotfiles.flake = args.dotfiles;
+  };
 
   # You should generally set this to the total number of logical cores in your system.
   # $ sysctl -n hw.ncpu
@@ -11,8 +21,6 @@
 
   nix.package = pkgs.nixFlakes;
   nix.extraOptions = ''
-    auto-optimise-store = true
-
     keep-outputs = true
     keep-derivations = true
 

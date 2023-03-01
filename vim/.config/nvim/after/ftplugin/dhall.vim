@@ -4,4 +4,4 @@ setlocal commentstring=--\ %s
 inoreabbrev <buffer> \( λ(
 inoreabbrev <buffer> -> →
 
-let b:undo_ftplugin = 'setl sw&'
+let b:undo_ftplugin = 'setl sw& cms&'
