@@ -12,7 +12,8 @@ rebar.lock merge=binary
 *.tex diff=tex
 
 # Rust
-*.rust diff=rust
+*.rs diff=rust
+Cargo.lock merge=binary
 
 # CSS
 *.css diff=css

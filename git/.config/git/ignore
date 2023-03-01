@@ -37,6 +37,7 @@ config.codekit
 # Configs {{{
 .envrc
 .direnv
+.devenv
 # }}}
 # Editors {{{
 # VIM

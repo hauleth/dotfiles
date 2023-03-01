@@ -25,6 +25,7 @@
 	lg = log --color --graph --abbrev-commit --pretty=simple-oneline
 	rci = commit --amend --reuse-message HEAD
 	squash = rebase --interactive --autosquash @{upstream}
+	rbase = "!git rebase --interactive --autosquash $(git merge-base $(git default-branch))"
 	st = status -sb
 	todo = grep -Ee '\\bTODO:?\\b'
 	fixme = grep -Ee '\\bFIX(ME)?:?\\b'
