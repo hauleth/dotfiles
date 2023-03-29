@@ -27,7 +27,7 @@
           ; File picker
           (pkg :nvim-telescope/telescope.nvim {
                :opt true
-               :requires [(pkg :nvim-telescope/telescope-fzy-native.nvim)
+               :requires [(pkg :natecraddock/telescope-zf-native.nvim)
                           (pkg :nvim-lua/plenary.nvim)]})
 
           ; Git

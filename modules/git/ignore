@@ -1,0 +1,82 @@
+# Compiled sources {{{
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+# }}}
+# Packages {{{
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.xz
+*.zip
+# }}}
+# Logs and databases {{{
+*.log
+*.sqlite
+# }}}
+# OS generated files {{{
+.DS_Store
+.DS_Store?
+._*
+.Trashes
+ehthumbs.db
+Thumbs.db
+# }}}
+# Codekits {{{
+.sass-cache/
+.codekit-config.json
+config.codekit
+# }}}
+# Configs {{{
+.envrc
+.direnv
+.devenv
+# }}}
+# Editors {{{
+# VIM
+Session.vim
+.*.swo
+.*.swp
+*~
+
+# Idea
+.idea/
+
+# Sublime
+*.sublime-project
+
+# Atom
+.tern-project
+# }}}
+# Temporary files {{{
+tmp/
+*.tmp
+# }}}
+# Other {{{
+.rake_tasks
+.meteor/
+tags
+tags.*
+.gdb_history
+perf.data*
+oprofile_data
+.tool-versions-e
+# }}}
+
+# Tooling {{{
+.elixir_ls
+.vagrant/
+# }}}
+
+# Stack {{{
+.stack-work
+# }}}
+
+erl_crash.dump

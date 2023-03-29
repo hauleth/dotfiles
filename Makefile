@@ -1,4 +1,4 @@
-TARGETS ?= fish vim kitty git ctags wm misc
+TARGETS ?= vim wm misc
 
 all: nix $(TARGETS)
 
@@ -6,7 +6,8 @@ nix:
 	@printf "%s\t" $@
 	@printf "\033[32m✓" || printf "\033[31m✗"
 	@printf "\033[m\n"
-	@darwin-rebuild switch --flake dotfiles
+	@nix run '.#system' -- switch
+	@nix run '.#home' -- switch
 
 $(TARGETS): check
 	@printf "%s\t" $@

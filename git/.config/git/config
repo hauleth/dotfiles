@@ -33,7 +33,8 @@
 	skip = update-index --skip-worktree
 	unskip = update-index --no-skip-worktree
 	default-branch = "!git symbolic-ref --short refs/remotes/origin/HEAD | sed 's|^origin/||'"
-	cleanup = "!git branch --format=\"%(if:notequals=*)%(HEAD)%(then)%(if:notequals=${1:-$(git default-branch)})%(refname:lstrip=2)%(then)%(refname:lstrip=2)%(end)%(end)\" --merged $(git default-branch) | xargs -rpxL1 git branch -d"
+	update = "!git rebase -i \"$(git merge-base HEAD \"$(git default-branch)\")\""
+	cleanup = "!git branch --format=\"%(if:notequals=*)%(HEAD)%(then)%(if:notequals=${1:-$(git default-branch)})%(refname:lstrip=2)%(then)%(refname:lstrip=2)%(end)%(end)\" --merged "$(git default-branch)" | xargs -rpxL1 git branch -d"
 
 [pretty]
 	simple-oneline = "%C(yellow)%h%C(auto)%d %s [%C(green)%aN <%aE>%C(reset)] (%C(blue)%ar%C(reset))"

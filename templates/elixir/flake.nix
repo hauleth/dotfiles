@@ -20,7 +20,7 @@
           nativeBuildInputs =
             [
               erl.elixir
-              erl.elixir_ls
+              erl.elixir-ls
             ]
             ++ pkgs.lib.optionals pkgs.stdenv.isDarwin [
               pkgs.darwin.apple_sdk.frameworks.CoreFoundation

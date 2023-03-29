@@ -4,6 +4,10 @@
   inputs = {
     nixpkgs.url = "nixpkgs/nixpkgs-unstable";
     flake-utils.url = "flake:flake-utils";
+    home-manager = {
+      url = "flake:home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+      };
     agnoster = {
       url = "github:hauleth/agnoster";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -17,69 +21,102 @@
     };
   };
 
-  outputs =
-    { self
-    , darwin
-    , nixpkgs
-    , agnoster
-    , flake-utils
-    , nix-elixir
-    }:
-    let
-      overlays = [
-        agnoster.overlay
-        nix-elixir.overlay
-        (import ./pkgs)
-      ];
-    in
+  outputs = {
+    self,
+    darwin,
+    nixpkgs,
+    home-manager,
+    agnoster,
+    flake-utils,
+    nix-elixir,
+    ...
+  } @ inputs: let
+    overlays = [
+      agnoster.overlay
+      nix-elixir.overlay
+      (import ./pkgs)
+    ];
+  in
     flake-utils.lib.eachDefaultSystem
-      (system:
-      let
-        pkgs = import nixpkgs { inherit system overlays; };
-      in
-      {
-        formatter = pkgs.alejandra;
+    (system: let
+      pkgs = import nixpkgs {inherit system overlays;};
+    in {
+      formatter = pkgs.alejandra;
 
-        legacyPackages = pkgs;
+      packages = {
+        home = pkgs.writeScriptBin "activate-home" ''
+          ${home-manager.packages.${system}.default}/bin/home-manager --flake "${self}" "$@"
+          '';
 
-        devShells = (pkgs.callPackage ./dev_shells.nix { }) // {
-          _sefault = pkgs.mkShell {
-            nativeBuildInputs = [
+        system = let
+          emptyConfiguration = darwin.lib.darwinSystem {
+            inherit system;
+
+            modules = [];
+          };
+          builder =
+            if pkgs.stdenv.isDarwin
+            then "${emptyConfiguration.system}/sw/bin/darwin-rebuild"
+            else pkgs.lib.getExe pkgs.nixos-rebuid;
+        in pkgs.writeScriptBin "activate-system" ''
+            ${builder} --flake "${self}#''$(hostname -s)" "$@"
+          '';
+      };
+
+      devShells =
+        (pkgs.callPackage ./dev_shells.nix {})
+        // {
+          default = pkgs.mkShell {
+            packages = [
               pkgs.fnlfmt
-              pkgs.alejandra
               # TODO: Remove it and manage all configuration from Nix
               pkgs.stow
             ];
           };
         };
-      })
+    })
     // {
-      darwinConfigurations."NiunioBook" = darwin.lib.darwinSystem {
-        system = "x86_64-darwin";
-        modules = [
-          { nixpkgs = { inherit overlays; }; }
-          ./nix/nix.nix
-          ./nix/system.nix
-          ./nix/services.nix
-          ./nix/fonts.nix
-          ./nix/environment.nix
-          ./nix/security.nix
-          ./modules/nvim.nix
-          {
-            system.stateVersion = 4;
-            documentation.enable = true;
-          }
-        ];
-
-        specialArgs = {
-          inherit darwin nixpkgs;
-
-          dotfiles = self;
-        };
+      lib = {
+        readFileWithComments = path: let
+          lib = nixpkgs.lib;
+          content = lib.strings.fileContents path;
+          notComment = line: !lib.strings.hasPrefix "#" line;
+        in
+          builtins.filter notComment (lib.strings.splitString "\n" content);
       };
 
-      # for convenience
-      darwinPackages = self.darwinConfigurations."NiunioBook".pkgs;
+      # TODO: Automatically discover and build that
+      darwinConfigurations."NiunioBook" =
+        (import ./hosts/niuniobook.nix {
+          inherit inputs overlays;
+        })
+        .system;
+
+      homeConfigurations."hauleth" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs {
+        system = "x86_64-darwin";
+          inherit overlays;
+        };
+
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+
+        modules = [
+          {
+            home.username = "hauleth";
+            home.homeDirectory = "/Users/hauleth/";
+          }
+          ./modules/fish.nix
+          ./modules/direnv.nix
+          ./modules/git.nix
+          ./modules/plan.nix
+          ./modules/ctags.nix
+          ./modules/curl.nix
+          { home.stateVersion = "22.11"; }
+        ];
+      };
+
 
       templates = {
         elixir = {

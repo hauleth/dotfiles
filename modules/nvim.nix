@@ -1,8 +1,8 @@
-{ config
-, pkgs
-, ...
-}:
-let
+{
+  config,
+  pkgs,
+  ...
+}: let
   nvim = pkgs.neovim.override {
     configure = {
       # Add Fennel to Lua path and require basic implementation
@@ -18,12 +18,11 @@ let
           nvim-treesitter.withAllGrammars
         ];
 
-        opt = [ ];
+        opt = [];
       };
     };
   };
-in
-{
+in {
   environment.variables.EDITOR = "nvim";
-  environment.systemPackages = [ nvim ];
+  environment.systemPackages = [nvim];
 }

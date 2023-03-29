@@ -14,7 +14,7 @@
                                    :--glob=!.git]}]
     (telescope.setup {:defaults (themes.get_dropdown opts)}))
 
-  (telescope.load_extension :fzy_native)
+  (telescope.load_extension :zf-native)
   (. (require :telescope.builtin) name))
 
 (fn find-files [opts]

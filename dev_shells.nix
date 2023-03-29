@@ -1,4 +1,11 @@
-{ mkShell, beam, pkgs }: {
+{
+  mkShell,
+  beam,
+  pkgs,
+  lib,
+  stdenv,
+  darwin,
+}: {
   livebook = pkgs.mkShell {
     packages = with beam.packages.erlang; [
       livebook
@@ -18,10 +25,15 @@
 
   elixir = with beam.packages.erlang;
     mkShell {
-      packages = [
-        elixir
-        elixir_ls
-      ];
+      packages =
+        [
+          elixir
+          elixir-ls
+        ]
+        ++ lib.optionals stdenv.isDarwin [
+          darwin.apple_sdk.frameworks.CoreFoundation
+          darwin.apple_sdk.frameworks.CoreServices
+        ];
     };
 
   rust = mkShell {
