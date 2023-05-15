@@ -11,15 +11,22 @@
     settings.aliases.co = "pr checkout";
   };
 
-  home.packages = with pkgs; [
-    git-absorb
-    git-branchless
-    git-gone
-    git-revise
-    gitAndTools.git-imerge
-    gitAndTools.git-test
-    gitAndTools.tig
-  ];
+  home.packages =
+    let
+      git-branchless-man = pkgs.runCommand "git-branchless-man" { } ''
+        mkdir -p $out/share/man
+        ${pkgs.git-branchless}/bin/git-branchless install-man-pages $out/share/man
+      '';
+    in
+    [
+      pkgs.git-absorb
+      pkgs.git-branchless
+      git-branchless-man
+      pkgs.git-gone
+      pkgs.git-revise
+      pkgs.gitAndTools.git-imerge
+      pkgs.gitAndTools.tig
+    ];
 
   programs.git = {
     enable = true;
