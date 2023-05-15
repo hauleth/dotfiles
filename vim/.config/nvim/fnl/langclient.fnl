@@ -6,6 +6,14 @@
 (import-macros logger :nvim.logger)
 (import-macros {: augroup} :nvim)
 
+(let [lsp vim.lsp
+      border :rounded]
+  (tset (require :lspconfig.ui.windows) :default_options {:border border})
+  (set lsp.handlers.textDocument/hover (lsp.with lsp.handlers.hover {:border border}))
+  (set lsp.handlers.textDocument/signatureHelp (lsp.with lsp.handlers.signature_help {:border border}))
+  (vim.diagnostic.config {:float {:border border} :virtual_text false})
+  )
+
 (fn on_attach [client]
   (cmd.packadd! :fidget.nvim)
   ((. (require :fidget) :setup) {})
