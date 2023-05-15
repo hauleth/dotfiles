@@ -3,7 +3,6 @@
 (use nvim {: cmd})
 
 (fn finder [name]
-  (cmd.packadd! :telescope.nvim)
   (use telescope)
   (use telescope.themes)
 

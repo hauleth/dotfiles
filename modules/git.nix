@@ -2,10 +2,18 @@
   programs.gh = {
     enable = true;
 
+    extensions = with pkgs; [
+      gh-dash
+      gh-eco
+      gh-actions-cache
+    ];
+
     settings.aliases.co = "pr checkout";
   };
 
   home.packages = with pkgs; [
+    git-absorb
+    git-branchless
     git-gone
     git-revise
     gitAndTools.git-imerge
@@ -46,12 +54,12 @@
       b = "branch";
       ca = "commit --amend";
       ci = "commit";
+      co = "checkout";
       rci = "commit --amend --reuse-message HEAD";
 
       lg = "log --color --graph --abbrev-commit --pretty=simple-oneline";
 
-      squash = "rebase --interactive --autosquash @{upstream}";
-      update = "!git rebase -i \"$(git merge-base HEAD \"$(git default-branch)\")\"";
+      squash = "!git rebase -i \"$(git merge-base HEAD \"$(git default-branch)\")\"";
 
       st = "status -sb";
       todo = "grep -Ee '\\\\bTODO:?\\\\b'";

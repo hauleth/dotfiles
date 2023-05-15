@@ -20,14 +20,11 @@
     };
 
     functions = {
-      e = "$EDITOR $argv";
       p = ''
-        function p
-            if test (count $argv) -gt 0 && test -f $argv[1] || not isatty
-                bat $argv
-            else
-                ls -Alh $argv
-            end
+        if test (count $argv) -gt 0 && test -f $argv[1] || not isatty
+          bat $argv
+        else
+          ls -Alh $argv
         end
       '';
       ix = "curl --netrc-optional -F 'f:1=@-' ix.io | pbcopy";
@@ -58,7 +55,6 @@
 
       set -gx SSH_AUTH_SOCK ~/.local/share/1password/auth.sock
 
-      source (${pkgs.direnv}/bin/direnv hook fish | psub)
       source (${pkgs.lima}/bin/limactl completion fish | psub)
       source $HOME/.op/plugins.sh
 

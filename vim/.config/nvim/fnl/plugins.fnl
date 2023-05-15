@@ -26,9 +26,12 @@
 
           ; File picker
           (pkg :nvim-telescope/telescope.nvim {
-               :opt true
                :requires [(pkg :natecraddock/telescope-zf-native.nvim)
                           (pkg :nvim-lua/plenary.nvim)]})
+          (pkg :pwntester/octo.nvim
+               {:cmd [:Octo]
+                :requires [:nvim-telescope/telescope.nvim]
+                :config (fn [] ((. (require :octo) :setup)) {})})
 
           ; Git
           (pkg :tpope/vim-fugitive)

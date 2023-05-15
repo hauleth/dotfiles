@@ -235,7 +235,7 @@
                (defcommand SDelete {:nargs "?" :bang true :complete (complete true)}
                            (print (sessions.delete args {:force bang})))
                (defcommand SRead {:nargs 1 :bang true :complete (complete false)}
-                           (print (sessions.read args {:force bang}))))
+                           (print (sessions.read (tostring args) {:force bang}))))
              {:directory (.. (fun.stdpath :data) "/site/sessions/")}))
     (setup :mini.align
            {:mappings {:start :gl

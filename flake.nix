@@ -7,7 +7,7 @@
     home-manager = {
       url = "flake:home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
-      };
+    };
     agnoster = {
       url = "github:hauleth/agnoster";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -94,7 +94,7 @@
 
       homeConfigurations."hauleth" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-        system = "x86_64-darwin";
+          system = "x86_64-darwin";
           inherit overlays;
         };
 

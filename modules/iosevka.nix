@@ -1,4 +1,5 @@
-{pkgs, ...}: let
+{ pkgs, ... }:
+let
   variants = {
     design = {
       i = "hooky";
@@ -62,13 +63,27 @@
       inherit variants weights slopes;
     };
   };
-in {
+  nf-patch = font: pkgs.stdenvNoCC.mkDerivation {
+    pname = "${font.pname}-nerd-font-patched";
+    version = font.version;
+
+    src = font;
+
+    nativeBuildInputs = [ pkgs.nerd-font-patcher ];
+
+    buildPhase = ''
+      mkdir -p $out
+      find -name \*.ttf -exec nerd-font-patcher -o $out/share/fonts/truetype/ -c {} \;
+    '';
+    installPhase = "";
+  };
+in
+{
   fonts = {
     fontDir.enable = true;
     fonts = [
       pkgs.lato
-      iosevka-ss09
-      iosevka-ss09-term
+      (nf-patch iosevka-ss09-term)
     ];
   };
 }
