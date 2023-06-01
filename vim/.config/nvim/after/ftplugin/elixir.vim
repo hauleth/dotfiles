@@ -15,4 +15,7 @@ inoreabbrev <buffer> pkey add :id, :binary_id, primary_key: true
 
 setlocal path=lib,apps/*/lib,apps/*/mix.exs,mix.exs,tests,apps/*/tests
 
-let b:undo_ftplugin = b:undo_ftplugin . ' | setl path& mp& isk&'
+setlocal indentkeys-=0{
+setlocal cinkeys-=0{
+
+let b:undo_ftplugin = b:undo_ftplugin . ' | setl path& mp& isk& indk& cink&'
