@@ -2,9 +2,8 @@
 
 (fn on [event pattern ...]
   "Run command on `event`"
-  (let [body (if (list? ...)
-                 `(fn [] ,...)
-                 ...)]
+  (let [args (sym :args)
+        body `(fn [,args] ,...)]
     `(vim.api.nvim_create_autocmd ,(view event)
                                   {:pattern ,pattern
                                    :callback ,body
