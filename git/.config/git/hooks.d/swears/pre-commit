@@ -1,5 +1,0 @@
-#!/bin/bash
-
-SWEAR_DIR="$(dirname "${BASH_SOURCE[0]}")/swears"
-
-! find "${SWEAR_DIR}" -type f -print0 2> /dev/null | xargs -0 -n1 sh -c 'git diff --diff-filter=AR --cached | grep -wFf "$1"' --
